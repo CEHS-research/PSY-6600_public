@@ -19,7 +19,7 @@ Students will also learn how to:
 * interpret and communicate the results of analyses (including creating reproducible research reports with R Markdown).
 
 
-** Course Matterials**
+**Course Matterials**
 ---------------------------------------
 * **Online eBook** - Explaining Psychological Statistics: A Companion in R
 * **Textbook** Cohen, B. H. (2008). Explaining Psychological Statistics (4th Ed.). New York: Wiley
