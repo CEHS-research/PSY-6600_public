@@ -23,7 +23,7 @@ Students will also learn how to:
 * **Online eBook** - https://cehs-research.github.io/eBooks/index.html
 * **Textbook** Cohen, B. H. (2008). Explaining Psychological Statistics (4th Ed.). New York: Wiley
 * **GitHub** Files are stored in this repository
-* **Canvas** my.usu.edu Please check Canvas frequently for course updates, assignments, & grades
+* **Canvas** Please check Canvas frequently for course updates, assignments, & grades [rest](https://login.usu.edu/cas/login?service=https%3a%2f%2fmy.usu.edu%2f)
 * **Software**
     + R, R Studio, & TeX software (all free to download online, instructions in the eBook )
     +  G*Power software (free for PC or Mac at www.gpower.hhu.de )
