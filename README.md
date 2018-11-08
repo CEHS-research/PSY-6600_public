@@ -5,7 +5,7 @@ This semester should be fun. My goal is to have you be ready for further statist
 Canvas will be used for:
 
 * Announcements (this is how the instructor will generally contact the class)
-* Turning in Hassignments
+* Turning in assignments
 
 This means you'll want to check Canvas regularly to make sure you are up-to-date on any changes or reminders. 
 
