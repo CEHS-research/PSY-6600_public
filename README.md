@@ -29,4 +29,4 @@ Students will also learn how to:
     +  G*Power software (free for PC or Mac at www.gpower.hhu.de )
 * Scientific or statistical **calculator** (may be a graphic calculator, but NOT a cell phone, iPod, ect.)
 
-> Note: it is advantageous to bring a laptop* to class, but not required.
+> Note: it is advantageous to bring a laptop to class, but not required.
