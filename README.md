@@ -2,8 +2,7 @@
 ---------------------------------------
 * USU, CEHS graduate student’s 1st course in quantitative methods
 * Cross listed as Psy 6600 and Educ 6600
-* Students may attend at the Logan campus or at a USU distance site
-
+* Students may attend at the Logan campus or at a USU distance site, depending on section
 
 Prerequisites
 * Completion of EDUC/PSY 6570 ‘Introduction to Educational & Psychological Research’
@@ -23,6 +22,7 @@ Students will also learn how to:
 ---------------------------------------
 * **Online eBook** - Explaining Psychological Statistics: A Companion in R
 * **Textbook** Cohen, B. H. (2008). Explaining Psychological Statistics (4th Ed.). New York: Wiley
+* **GitHub** Files are stored in this repository
 * **Canvas** my.usu.edu Please check Canvas frequently for course updates, assignments, & grades
 * **Software**
     + R, R Studio, & TeX software (all free to download online, instructions in the eBook )
