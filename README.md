@@ -20,7 +20,7 @@ Students will also learn how to:
 
 **Course Matterials**
 ---------------------------------------
-* **Online eBook** - Explaining Psychological Statistics: A Companion in R
+* **Online eBook** - https://cehs-research.github.io/eBooks/index.html
 * **Textbook** Cohen, B. H. (2008). Explaining Psychological Statistics (4th Ed.). New York: Wiley
 * **GitHub** Files are stored in this repository
 * **Canvas** my.usu.edu Please check Canvas frequently for course updates, assignments, & grades
