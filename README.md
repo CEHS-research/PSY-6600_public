@@ -20,10 +20,10 @@ Students will also learn how to:
 
 **Course Matterials**
 ---------------------------------------
-* **Online eBook** - https://cehs-research.github.io/eBooks/index.html
-* **Textbook** Cohen, B. H. (2008). Explaining Psychological Statistics (4th Ed.). New York: Wiley
+* **Online eBook** - [Enclyclopedia: Quantitative Methods in R](https://cehs-research.github.io/eBooks/index.html)
+* **[Textbook]()** Cohen, B. H. (2008). [Explaining Psychological Statistics (4th Ed.)](http://site.ebrary.com/lib/usulibraries/reader.action?docID=10809658)
 * **GitHub** Files are stored in this repository
-* **[Canvas ](https://login.usu.edu/cas/login?service=https%3a%2f%2fmy.usu.edu%2f)** Please check Canvas frequently for course updates, assignments, & grades
+* **[Canvas](https://login.usu.edu/cas/login?service=https%3a%2f%2fmy.usu.edu%2f)** Please check Canvas frequently for course updates, assignments, & grades
 * **Software**
     + R, R Studio, & TeX software (all free to download online, instructions in the eBook )
     +  G*Power software (free for PC or Mac at www.gpower.hhu.de )
