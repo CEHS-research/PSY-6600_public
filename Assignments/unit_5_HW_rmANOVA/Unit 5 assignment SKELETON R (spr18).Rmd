@@ -1,0 +1,1491 @@
+---
+title: "Psy/Educ 6600: Unit 5 Homework"
+subtitle: "ANOVA - With Repeated Measures"
+author: "Your Name"
+date: "Spring 2018"
+output: 
+  pdf_document:
+    keep_tex: yes
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    number_sections: false
+---
+
+
+
+# PREPARATION
+
+
+```{r oppts, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 5,        # set default figure width to 5 inches
+                      fig.height  = 3)        # set default figure height to 3 inches
+
+```
+
+## Load Packages
+
+Make sure the packages are **installed** *(Package tab)*
+
+```{r libraries}
+library(magrittr)
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(readxl)       # Read in Excel datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+library(afex)         # Analysis of Factorial Experiments
+library(emmeans)      # Estimated marginal means (Least-squares means)
+library(lsmeans)      # Least-Squares Means
+library(multcomp)     # Simultaneous Inference in General Parametric Models 
+library(pander)       # Formats tables 
+```
+
+\clearpage
+
+## Other Datasets for Section B's
+
+```{r data}
+audience_wide <- data.frame(id     = 1:12,
+                            one    = c(131, 109, 115, 110, 107, 111, 
+                                       100, 115, 130, 118, 125, 135),
+                            twenty = c(130, 124, 110, 108, 115, 117, 
+                                       102, 120, 119, 122, 118, 130),
+                            large  = c(135, 126, 108, 122, 111, 121, 
+                                       107, 132, 128, 130, 133, 135))
+
+textbook_wide <- data.frame(block = 1:9,
+                            A = c(17,  8,  6, 12, 19, 14, 10,  7, 12),
+                            B = c(15,  6,  5, 10, 20, 13,  7,  7, 11),
+                            C = c(20, 11, 10, 14, 20, 15, 14, 11, 15),
+                            D = c(18,  7,  6, 13, 18, 15, 10,  6, 13))
+
+memory_wide <- data.frame(id = 1:6,
+                          digit  = c(6, 8, 7, 8, 6, 7),
+                          letter = c(5, 7, 7, 5, 4, 6),
+                          mixed  = c(6, 5, 4, 8, 7, 5))
+
+tasks_wide <- data.frame(clerical_background   = c(10,  7, 13, 18,  6),
+                         clerical_popular      = c(12,  9, 15, 12,  8),
+                         clerical_metal        = c( 8,  4,  9,  6,  3),
+                         mechanical_background = c(15, 19,  8, 10, 16),
+                         mechanical_popular    = c(18, 22, 12, 10, 19),
+                         mechanical_metal      = c(20, 23, 15, 14, 19))
+
+anograms_wide <- data.frame(none_5    = c( 9, 10, 12),
+                            none_6    = c( 6,  7,  9),
+                            none_7    = c( 4,  4,  7),
+                            none_8    = c( 2,  3,  5),
+                            alone_5   = c(19, 19, 22),
+                            alone_6   = c(16, 15, 20),
+                            alone_7   = c(15, 11, 17),
+                            alone_8   = c(12, 11, 14),
+                            withEgo_5 = c(30, 31, 34),
+                            withEgo_6 = c(25, 30, 32),
+                            withEgo_7 = c(22, 27, 28),
+                            withEgo_8 = c(21, 23, 24))
+
+brain_wide <- data.frame(left_digit   = c( 6,  8,  7,  8,  6,  7),
+                         left_letter  = c( 5,  7,  7,  5,  4,  6),
+                         left_mixed   = c( 6,  5,  4,  8,  7,  5),
+                         right_digit  = c( 9,  8,  9,  7,  7,  9),
+                         right_letter = c( 8,  8,  7,  8,  6,  8),
+                         right_mixed  = c( 6,  7,  8,  8,  7,  9),
+                         none_digit   = c( 8, 10,  9,  9,  8, 10),
+                         none_letter  = c( 8,  9, 10,  7,  8, 10),
+                         none_mixed   = c( 7,  9,  8,  9,  8,  9))
+```
+
+
+
+\clearpage
+
+## Ihno's Dataset for Section C's
+
+Import Data, Define Factors, and Compute New Variables
+
+* Make sure the **dataset** is saved in the same *folder* as this file
+* Make sure the that *folder* is the **working directory**
+
+> NOTE: I added the second line to convert all the variables names to lower case.  I still kept the `F` as a capital letter at the end of the five factor variables.
+
+```{r ihno}
+ihno_clean <- read_excel("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(genderF = factor(gender, 
+                                 levels = c(1, 2),
+                                 labels = c("Female", 
+                                            "Male"))) %>% 
+  dplyr::mutate(majorF = factor(major, 
+                                levels = c(1, 2, 3, 4,5),
+                                labels = c("Psychology",
+                                           "Premed",
+                                           "Biology",
+                                           "Sociology",
+                                           "Economics"))) %>% 
+  dplyr::mutate(reasonF = factor(reason,
+                                 levels = c(1, 2, 3),
+                                 labels = c("Program requirement",
+                                            "Personal interest",
+                                            "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_condF = factor(exp_cond,
+                                   levels = c(1, 2, 3, 4),
+                                   labels = c("Easy",
+                                              "Moderate",
+                                              "Difficult",
+                                              "Impossible"))) %>% 
+  dplyr::mutate(coffeeF = factor(coffee,
+                                 levels = c(0, 1),
+                                 labels = c("Not a regular coffee drinker",
+                                            "Regularly drinks coffee")))  %>% 
+  dplyr::mutate(hr_base_bps = hr_base / 60) 
+```
+ 
+
+
+\clearpage
+
+# Chapter 15: Repeated Measures ANOVA
+
+## Tutorial - Fitting RM ANOVA Models with `afex::aov_4()`
+
+The `aov_4()` function from the `afex` package fits ANOVA models (oneway, two-way, repeated measures, and mixed design). It needs at least two arguments:
+
+1. formula:  `continuous_var ~ 1 + (RM_var|id_var)`  *one observation per subject for each level of the `RMvar`, so each `id_var` has multiple lines for each subject*
+
+2. dataset: `data = .` *we use the period to signify that the datset is being piped from above*
+
+
+Here is an outline of what your syntax should look like when you **fit and save a RM ANOVA**.  Of course you will replace the dataset name and the variable names, as well as the name you are saving it as.
+
+> **NOTE:** The `aov_4()` function works on data in LONG format only.  Each observation needs to be on its one line or row with seperate variables for the group membership (categorical factor or `fct`) and the continuous measurement (numberic or `dbl`).
+
+```{r EX_RMaov_4, eval=FALSE}
+# RM ANOVA: fit and save
+aov_name <- data_name %>% 
+  afex::aov_4(continuous_var ~ 1 + (RM_var|id_var),
+              data = .)
+```
+
+
+------------------------------
+
+By running the name you saved you model under, you will get a brief set of output, including a measure of **Effect Size**.
+
+> **NOTE:** The `ges` is the *generalized eta squared*.  In a one-way ANOVA, the eta-squared effect size is the same value, ie. generalized $\eta_g$ and partial $\eta_p$ are the same.
+
+```{r EX_RMaov_4_brief, eval=FALSE}
+# Display basic ANOVA results (includes effect size)
+aov_name 
+```
+
+\clearpage
+
+
+To fully fill out a standard ANOVA table and compute other effect sizes, you will need a more complete set of output, including the **Sum of Squares** components, you will need to add `summary()` piped at the end of the model name before running it or after the model with a pipe.
+
+> **NOTE:** IGNORE the first line that starts with `(Intercept)`!  Also, the 'mean sum of squares' are not included in this table, nor is the **Total** line at the bottom of the standard ANOVA table.  You will need to manually compute these values and add them on the homework page.  Remember that `Sum of Squares (SS)` and `degrees of freedom (df)` add up, but `Mean Sum of Squreas (MS)` do not add up.  Also: `MS = SS/df` for each term.
+
+This also runs and displays the results of Mauchly Tests for Sphericity, as well as the Greenhouse-Geisser (GG) and Huynh-Feldt (HF) Corrections to the p-value.  
+
+> **NOTE:** If the Mauchly's p-value is bigger than .05, do not use the corrections. If Mauchly's p-value is less than .05, then apply the epsilon (`eps` or $\epsilon$) to multiply the degree's of freedom.  Yes, the df will be decimal numbers. 
+
+
+```{r EX_RMaov_4_fuller, eval=FALSE}
+# Display fuller ANOVA results (sphericity tests)
+summary(aov_name)
+```
+
+------------------------------
+
+
+To see all the Sumes-of-Squared residuals for ALL of the model comoponents, you add `$aov` at the end of the model name.  
+
+
+```{r EX_RMaov_4_ss, eval=FALSE}
+# Display all the sum of squares
+aov_name$aov
+```
+
+
+
+---------------------------------
+
+Repeated Measures MANOVA Tests (Pillai test statistic) is computed is you add `$Anova` at the end of the model name.  This is a so called 'Multivariate Test'.  **This is NOT what you want to do!**
+
+
+```{r EX_RMaov_4_mult, eval=FALSE}
+# Display fuller ANOVA results (includes sum of squares)
+aov_name$Anova
+```
+
+
+\clearpage
+
+If you only need to obtain the omnibus (overall) F-test without a correction for violation of sphericity, you can add an option for `correction = "none"`.  You can also request both the generalized and partial $\eta^2$ effect sizes with `es = c("ges", "pes")`.
+
+```{r EX_RMaov_5, eval=FALSE}
+# RM ANOVA: no correction, both effect sizes
+data_name %>% 
+  afex::aov_4(continuous_var ~ 1 + (RM_var|id_var),
+              data = .,
+              anova_table = list(correction = "none",
+                                 es = c("ges", "pes")))
+```
+
+
+
+----------------------------
+
+Post Hoc tests may be ran the same way as the 1 and 2-way ANOVAs from the last unit.
+
+> **NOTE:** Use Fisher's LSD (`adjust = "none"`) if the omnibus F-test is significant AND there are THREE measurements per subject or block.  Tukey's HSD (`adjust = "tukey"`) may be used even if the F-test is not significant or if there are four or more repeated measures. 
+
+```{r EX_RMaov_6lsd, eval=FALSE}
+# RM ANOVA: post hoc all pairwise tests with Fisher's LSD correction
+aov_name %>% 
+  emmeans::emmeans(~ RM_var) %>% 
+  pairs(adjust = "none")
+```
+
+
+```{r EX_RMaov_6hsd, eval=FALSE}
+# RM ANOVA: post hoc all pairwise tests with Tukey's HSD correction
+aov_name %>% 
+  emmeans::emmeans(~ RM_var) %>% 
+  pairs(adjust = "tukey")
+```
+
+
+
+-----------------------
+
+A means plot (model based), can help you write up your results.  
+
+> **NOTE:** This zooms in on just the means and will make all differences seem significant, so make sure to interpret it in conjunction with the ANOVA and post hoc tests.
+
+
+```{r EX_RMaov_7, eval=FALSE}
+# RM ANOVA: means plot
+aov_name %>% 
+  emmeans::emmip(~ RM_var)
+```
+
+
+
+\clearpage
+
+
+## `audience_wide` - Repeated Measures Design: Effect of Audience Size on Blood Pressure
+
+**TEXTBOOK QUESTION:** *A psychophysiologist wishes to explore the effects of public speaking on the systolic blood pressure of young adults. Three conditions are tested. The subject must vividly imagine delivering a speech to one person, to a small class of 20 persons, or to a large audience consisting of hundreds of fellow students. Each subject has his or her systolic blood pressure measured (mmHg) under all three conditions. Two subjects are randomly assigned to each of the six possible treatment orders. The data appear in the following table:*
+
+
+```{r, echo=FALSE}
+audience_wide
+```
+
+
+----------------------------------
+
+Restructure from wide to long format:
+
+```{r, echo=FALSE}
+# Restructure: wide-to-long
+audience_long <- audience_wide %>% 
+  tidyr::gather(key = audience,
+                value = blood_pressure,
+                one, twenty, large) %>% 
+  dplyr::mutate(id = factor(id)) %>% 
+  dplyr::mutate(audience = factor(audience,
+                                  levels = c("one", "twenty", "large"))) %>% 
+  dplyr::arrange(id, audience)
+
+head(audience_long, n = 20)
+```
+
+\clearpage
+
+**Summary Statistics**
+
+
+```{r, echo=FALSE, results="asis"}
+# Raw data: summary table
+audience_long %>% 
+  dplyr::group_by(audience) %>%             # divide into groups
+  furniture::table1(blood_pressure,         # gives M(SD)
+                    output = "markdown")    # add chunk option: results="asis"
+```
+
+
+
+**Profile Plots (raw data)**
+
+
+```{r, echo=FALSE}
+audience_long %>% 
+  ggplot(aes(x = audience,
+             y = blood_pressure,
+             group = id,
+             color = id,
+             shape = id)) +
+  geom_point() +
+  geom_line()
+```
+
+
+**Means Plot (raw data)**
+
+```{r, echo=FALSE}
+audience_long %>% 
+  ggplot(aes(x = audience,
+             y = blood_pressure)) +
+  stat_summary()
+```
+
+\clearpage
+
+### 15B-3a/b/c RM ANOVA: no sphericity correction, but both effect sizes
+
+**TEXTBOOK QUESTION:** *(a) Perform an RM ANOVA on the blood pressure data and write the results in words, as they would appear in a journal article. Does the size of the audience have a significant effect on blood pressure at the .05 level? ~~(Hint : Subtract 100 from every entry in the preceding table before computing any of the SS's. This will make your work easier without changing any of the SS components or F ratios.)~~  (b) What might you do to minimize the possibility of carryover effects?*
+
+
+**DIRECTIONS:** Perform a Repeated Measures ANOVA for blood pressure under the three condiditons to determine if the size of the imagine audience has an effect.  Request no correction for violations of sphericity (`correction = "none"`) and both effect sizes (`es = c("ges", "pes"`).  Save this model as a name `fit_audience` and run the name (without `$Anova`) to see the brief output.
+
+```{r}
+# RM ANOVA: no correction for lack of sphericity  <-- NAME AND SAVE
+
+```
+
+
+
+
+\clearpage
+
+### 15B-3c RM ANOVA: display all Sums-of-Squares components
+
+**TEXTBOOK QUESTION:** *(c) Calculate $\eta_{RM}^2$ from the F ratio you calculated in part a. Does this look like a large effect? How could this effect size be misleading in planning future experiments?*
+
+
+**DIRECTIONS:** Request all the Sums-of-Squares (SS's) by adding `$aov` at the end of the model name `fit_audience`.
+
+```{r}
+# RM ANOVA: display all Sums-of-Squares components
+
+```
+
+
+
+\clearpage
+
+
+### 15B-3d RM ANOVA: post hoc with Fisher's LSD correction
+
+**TEXTBOOK QUESTION:** *(d) Test all the pairs of means with protected t tests using the error term from the RM ANOVA. Which pairs differ significantly at the .01 level?*
+
+**DIRECTIONS:** Conduct all possible post hoc pairwise tests on `fit_audience` using Fisher's LSD.
+
+```{r}
+# RM ANOVA: post hoc all pairwise tests with Fisher's LSD correction
+
+```
+
+
+-----------------------
+
+**Means Plot (model based)**
+
+**DIRECTIONS:** Construct a means plot of `fit_audience` using `emmeans::emmip(~ RM_var)` to help interpret the direction of any significant differences.
+
+```{r}
+# RM ANOVA: means plot
+
+```
+
+\clearpage
+
+
+## `textbook_wide` - Matched Design: Effect of Textbook on Student Quiz Scores
+
+**TEXTBOOK QUESTION:** *A statistics professor wants to know if it really matters which textbook she uses to teach her course. She selects four textbooks that differ in approach and then matches her 36 students into blocks of four based on their similarity in math background and aptitude. Each student in each block is randomly assigned to a different text. At some point in the course, the professor gives a surprise 20-question quiz. The number of questions each student answers correctly appears in the following table:*
+
+```{r, echo=FALSE}
+textbook_wide
+```
+
+
+----------------------------------
+
+Restructure from wide to long format:
+
+
+```{r, echo=FALSE}
+# Restructure: wide-to-long
+textbook_long <- textbook_wide %>% 
+  tidyr::gather(key = book,
+                value = quiz,
+                A, B, C, D) %>% 
+  dplyr::mutate(id = factor(row_number())) %>% 
+  dplyr::mutate(block = factor(block)) %>% 
+  dplyr::mutate(book = factor(book,
+                              levels = c("A", "B", "C", "D"))) %>% 
+  dplyr::select(id, block, book, quiz)
+
+head(textbook_long, n = 20)
+```
+
+
+\clearpage
+
+**Summary Statistics**
+
+
+```{r, echo=FALSE, results="asis"}
+# Raw data: summary table
+textbook_long %>% 
+  dplyr::group_by(book) %>%                 # divide into groups
+  furniture::table1(quiz,                   # gives M(SD)
+                    output = "markdown")    # add chunk option: results="asis"
+```
+
+
+
+**Profile Plots (raw data)**
+
+```{r, echo=FALSE}
+textbook_long %>% 
+  ggplot(aes(x = book,
+             y = quiz,
+             group = block,
+             shape = block,
+             color = block)) +
+  geom_point() +
+  geom_line()
+```
+
+
+**Means Plots (raw data)**
+
+```{r, echo=FALSE}
+textbook_long %>% 
+  ggplot(aes(x = book,
+             y = quiz)) +
+  stat_summary()
+```
+
+
+\clearpage
+
+### 15B-4a RM ANOVA: display all Sums-of-Squares components
+
+**TEXTBOOK QUESTION:** *(a) Perform an RM ANOVA on the data, and present the results of your ANOVA in a summary table. Does it make a difference which textbook the professor uses?  (b) Considering your answer to part a, what type of error could you be making (Type I or Type II)?*
+
+**DIRECTIONS:** Perform a Repeated Measures ANOVA for quiz scores under the four books to determine if the text has an effect.  Make sure to save your model (`fit_textbook`), so that you can add `$aov` at the end of the name to extract all the Sums-of-Squares.
+
+```{r}
+# RM ANOVA: display all Sums-of-Squares components
+
+```
+
+
+
+
+\clearpage
+
+### 15B-4c RM ANOVA: GG correction for lack of sericity
+
+**TEXTBOOK QUESTION:** *(c) Would your F ratio from part a be significant at the .01 level if you were to assume a maximum violation of the sphericity assumption? Explain. *
+
+**DIRECTIONS:** Run the name of the model `fit_textbook` alone to extract the adjusted degrees of freedom and F-test.  The sums-of-squares for the corrected test are the same as for the uncorrected you just did.
+
+```{r}
+# RM ANOVA: GG correction for lack of sphericity
+
+```
+
+
+\clearpage
+
+
+### 15B-4d RM ANOVA: post-hoc with Tukey's HSD correction
+
+**TEXTBOOK QUESTION:** *(d) Test all the pairs of means with Tukey's HSD, using the error term from the RM ANOVA. Which pairs differ significantly at the .05 level?*
+
+**DIRECTIONS:** Conduct all possible post hoc pairwise tests on `fit_audience` using Tukey's HSD.
+
+```{r}
+# RM ANOVA: post hoc all pairwise tests with Tukey's HSD correction
+
+```
+
+
+------------------
+
+**Means Plot (model based)**
+
+**DIRECTIONS:** Construct a means plot of `fit_audience` using `emmeans::emmip(~ RM_var)` to help interpret the direction of any significant differences.
+
+```{r}
+
+```
+
+\clearpage
+
+### 15B-5a 1-Way ANOVA (treat studnets as independent)
+
+**TEXTBOOK QUESTION:** *(a) Perform a one-way independent-groups ANOVA on the data from Exercise 4.*
+
+**DIRECTIONS:** Perform the ANOVA with the `book` as an between-subjects factor, instead of a within-subjects factor (ignoring matching) for quiz scores to determine if the text has an effect.  Make sure to save your model (`fit_book1way`), so that you can add `$aov` at the end of the name to extract all the Sums-of-Squares.
+
+```{r}
+# 1-way ANOVA: 1 between-subject factor
+
+```
+
+
+-------------------------------
+
+**TEXTBOOK QUESTION:** *(b) Does choice of text make a significant difference when the groups of subjects are considered to be independent (i.e., the matching is ignored)? (c) Comparing your solution to this exercise with your solution to Exercise 4, which part of the F ratio remains unchanged? What can you say about the advantages of matching in this case?*
+
+\clearpage
+
+
+## `memory_wide` - Repeated Measures Design: Stimuli's Effect on Memory Recall
+
+**TEXTBOOK QUESTION:** *A neuropsychologist is exploring short-term memory deficits in people who have suffered damage to the left cerebral hemisphere. He suspects that memory for some types of material will be more affected than memory for other types. To test this hypothesis he presented six brain-damaged subjects with stimuli consisting of strings of digits, strings of letters, and strings of digits and letters mixed. The longest string that each subject in each stimulus condition could repeat correctly is presented in the following table. (One subject was run in each of the six possible orders.)* 
+
+```{r, echo=FALSE}
+memory_wide
+```
+
+---------------------------
+Restructure from wide to long format:
+
+
+```{r, echo=FALSE}
+# Restructure: wide-to-long
+memory_long <- memory_wide %>% 
+  tidyr::gather(key = stimuli,
+                value = recall,
+                digit, letter, mixed) %>% 
+  dplyr::mutate(id = factor(id)) %>% 
+  dplyr::mutate(stimuli = factor(stimuli)) %>% 
+  dplyr::select(id, stimuli, recall) %>% 
+  dplyr::arrange(id, stimuli)
+
+head(memory_long, n = 20)
+```
+
+
+\clearpage
+
+**Summary Statistics**
+
+
+```{r, echo=FALSE, results="asis"}
+# Raw data: summary table
+memory_long %>% 
+  dplyr::group_by(stimuli) %>%                 # divide into groups
+  furniture::table1(recall,                   # gives M(SD)
+                    output = "markdown")    # add chunk option: results="asis"
+```
+
+
+
+**Profile Plots (raw data)**
+
+```{r, echo=FALSE}
+memory_long %>% 
+  ggplot(aes(x = stimuli,
+             y = recall,
+             group = id,
+             shape = id,
+             color = id)) +
+  geom_point() +
+  geom_line()
+```
+
+
+**Means Plots (raw data)**
+
+```{r, echo=FALSE}
+memory_long %>% 
+  ggplot(aes(x = stimuli,
+             y = recall)) +
+  stat_summary()
+```
+
+\clearpage
+
+### 15B-6a RM ANOVA: with sphericity test and corrections
+
+**TEXTBOOK QUESTION:** *(a) Perform an RM ANOVA. Is your calculated F value significant at the .05 level?*
+
+**DIRECTIONS:** Perform a Repeated Measures ANOVA for recall under the three stimuli to determine if the type of stimuli has an effect. Save it as the name `fit_memory` and then use the `summary()` function display additional output.
+
+```{r}
+# RM ANOVA: Mauchle Tests for Sphericity and Corrections applied
+
+```
+
+
+
+
+\clearpage
+
+### 15B-6b RM ANOVA: GG corretion for lack of sphericity
+
+**TEXTBOOK QUESTION:** *(b) Would your conclusion in part a change if you could not assume that sphericity exists in the population underlying this experiment? Explain. (c) Based on the graph you drew of these data for Exercise 15A2, would you say that the RM ANOVA is appropriate for these data? Explain.*
+
+**DIRECTIONS:** Run the name of the model `fit_memory` alone to extract the adjusted degrees of freedom and F-test.  The sums-of-squares for the corrected test are the same as for the uncorrected you just did.
+
+
+```{r}
+# RM ANOVA: GG correction for lack of sphericity
+
+```
+
+
+\clearpage
+
+### 15B-6d RM ANOVA: post-hoc with Fisher's LDS correction
+
+**TEXTBOOK QUESTION:** *(d) Test all the possible pairs of means with separate matched t tests (or two-group RM ANOVAs) at the .01 level.*
+
+**DIRECTIONS:** Conduct all possible post hoc pairwise tests on `fit_audience` using Fisher's LSD.
+
+```{r}
+# RM ANOVA: post hoc all pairwise tests with Fisher's LSD correction
+
+```
+
+--------------
+
+**Means Plot (model based)**
+
+**DIRECTIONS:** Construct a means plot of `fit_audience` using `emmeans::emmip(~ RM_var)` to help interpret the direction of any significant differences.
+
+```{r}
+# RM ANOVA: means plot
+
+```
+
+
+
+\clearpage
+
+
+## `ihno_clean` - Repeated Measures Design: Effect of Time (expereiment) on Anxiety levels (performed INDEPENDENTLY by GENDER)
+
+### 15C-1a RM ANOVA (twice): with sphericity test and corrections 
+
+**TEXTBOOK QUESTION:** *(a) Use Split File to perform separate RM ANOVAs for men and women to test for a significant change in anxiety level over time (baseline, prequiz, and postquiz). Use Options to request pairwise tests. Write up the results in APA style.*
+
+```{r}
+ihno_clean %>% 
+  dplyr::select(sub_num, anx_base, anx_pre, anx_post) %>% 
+  head(n = 4)
+```
+
+
+Restructure from wide to long format:
+
+```{r}
+#Restructure: wide-to-long
+ihno_anx_long <- ihno_clean %>% 
+  tidyr::gather(key = variable,
+                value = anxiety,
+                anx_base, anx_pre, anx_post) %>% 
+  dplyr::mutate(time = case_when(variable == "anx_base" ~ "baseline",
+                                 variable == "anx_pre"  ~ "pre-quiz",
+                                 variable == "anx_post" ~ "post-quiz") %>% 
+                  factor(levels = c("baseline", "pre-quiz", "post-quiz"))) %>% 
+  dplyr::arrange(sub_num, time)
+```    
+
+
+```{r}
+ihno_anx_long %>% 
+  dplyr::select(sub_num, time, anxiety) %>% 
+  head(n = 12)
+```
+
+
+\clearpage
+
+**RESTRICT to just FEMALES** 
+
+**DIRECTIONS:** Perform a Repeated Measures ANOVA for anxiety at all three time points to determine if the experiment had an effect. Make sure to preceed the ANOVA with a `dplyr::filter()` step to restrict to just `genderF == "Female`.  Save it as the name `fit_anx_female` and then use the `summary()` function display additional output.
+
+```{r}
+# RM ANOVA: Mauchle Tests for Sphericity with and without corrections applied
+
+```
+
+
+\clearpage
+
+**DIRECTIONS:** If, and only if, the omnibus F test yielded evidence of at least one time point having a different average anxiety FOR WOMEN, follow up with post hoc pairs tests based on the ANOVA model.
+
+```{r} 
+# RM ANOVA: post hoc all pairwise tests with Fisher's LSD correction
+
+```
+
+----------------------
+
+**Means Plot (model based)**
+
+**DIRECTIONS:** If, and only if, the omnibus F test yielded evidence of at least one time point having a different average anxiety FOR WOMEN construct a means plot of `fit_audience` using `emmeans::emmip(~ RM_var)` to help interpret the direction of any significant differences.
+
+```{r}
+# Means Plot: model based
+
+```
+
+
+
+\clearpage
+
+
+**RESTRICT to just MALES** 
+
+**DIRECTIONS:** Perform a Repeated Measures ANOVA for anxiety at all three time points to determine if the experiment had an effect. Make sure to preceed the ANOVA with a `dplyr::filter()` step to restrict to just `genderF == "Male`.  Save it as the name `fit_anx_male` and then use the `summary()` function display additional output.
+
+```{r} 
+# RM ANOVA: Mauchle Tests for Sphericity with and without corrections applied
+
+```
+
+
+\clearpage
+
+**DIRECTIONS:** If, and only if, the omnibus F test yielded evidence of at least one time point having a different average anxiety FOR MEN, follow up with post hoc pairs tests based on the ANOVA model.
+
+```{r} 
+# RM ANOVA: post hoc all pairwise tests with Fisher's LSD correction
+
+```
+
+----------------------
+
+**Means Plot (model based)**
+
+**DIRECTIONS:** If, and only if, the omnibus F test yielded evidence of at least one time point having a different average anxiety FOR MEN, construct a means plot of `fit_audience` using `emmeans::emmip(~ RM_var)` to help interpret the direction of any significant differences.
+
+```{r}
+# Means Plot: model based
+
+```
+
+\clearpage
+
+### 15C-1b Paired t-Tests: choose 2 at a time
+
+**TEXTBOOK QUESTION:** *(b) Using ANALYZE/Compare Means , perform matched t tests for each pair of RM levels, and then compare these p values to those produced in the Pairwise Comparisons results box of the RM ANOVA.*
+
+**DIRECTIONS:** If, and only if, the omnibus F test yielded evidence of at least one time point having a different average anxiety FOR WOMEN, follow up with post hoc pairs tests NOT based on the ANOVA model.  Instead, increase your `dplyr::filter()` to include requiring only 2 of the 3 time points (eg. `time %in% c("baseline", "pre-quiz")`).  You will have to do this 3 times, as there are three ways to choose a pair from three options.
+
+
+```{r}
+# Paired T-test: filter - women & baseline/pre-quiz
+
+```
+
+
+```{r}
+# Paired T-test: filter - women & baseline or post-quiz
+
+```
+
+
+```{r}
+# Paired T-test: filter - women & pre-quiz/post-quiz
+
+```
+
+\clearpage
+
+**DIRECTIONS:** If, and only if, the omnibus F test yielded evidence of at least one time point having a different average anxiety FOR MEN, follow up with post hoc pairs tests NOT based on the ANOVA model.  Instead, increase your `dplyr::filter()` to include requiring only 2 of the 3 time points (eg. `time %in% c("baseline", "pre-quiz")`).  You will have to do this 3 times, as there are three ways to choose a pair from three options.
+
+```{r}
+# Paired T-test: filter - men & baseline/pre-quiz
+
+```
+
+
+```{r}
+# Paired T-test: filter - men & baseline or post-quiz
+
+```
+
+
+```{r}
+# Paired T-test: filter - men & pre-quiz/post-quiz
+
+```
+
+
+\clearpage
+
+
+## `ihno_clean` - Repeated Measures Design: Effect of experiemnt (with vs without the experimental item) on Stat Quiz
+
+### 15C-3 RM ANOVA vs. Paired t-test: only 2 groups
+
+**TEXTBOOK QUESTION:** *Perform an RM ANOVA to determine whether there is a significant difference in mean scores between the experimental stats quiz and the regular stats quiz. Compare this F ratio with the matched t value you obtained from computer exercise #3 in Chapter 11.*
+
+Restructure: wide-to-long
+
+```{r}
+ihno_clean %>% 
+  dplyr::select(sub_num, statquiz, exp_sqz) %>% 
+  head(n = 5)
+```
+
+
+```{r}
+ihno_statquiz_long <- ihno_clean %>% 
+  tidyr::gather(key = variable,
+                value = s_quiz,
+                statquiz, exp_sqz) %>% 
+  dplyr::mutate(time = case_when(variable == "statquiz" ~ "background",
+                                 variable == "exp_sqz"  ~ "experimental") %>% 
+                  factor()) %>% 
+  dplyr::arrange(sub_num, time)
+```
+
+```{r}
+ihno_statquiz_long %>% 
+  dplyr::select(sub_num, time, s_quiz) %>% 
+  head(n = 10)
+```
+
+
+\clearpage
+
+**DIRECTIONS:** Perform a Repeated Measures ANOVA for recall under the three stimuli to determine if the type of stimuli has an effect. Do not save this model as a name; just run it without nameing/saving it.
+
+> NOTE: When the measure is only repeated twice, sphericity can not be violated, so no such test are performed.
+
+```{r}
+# RM ANOVA: no correction for lack of sphericity 
+
+```
+
+
+-----------------------------
+
+**DIRECTIONS:** Alternatively, since there are only two measures, you can run this same analysis as a paired t.test, using `t.test()`.  Make sure you include `paired = TRUE`.
+
+```{r}
+# Matched t-test: paired = TRUE
+
+```
+
+
+
+\clearpage
+
+
+# Chapter 16: Mixed Design ANOVA
+
+## Tutorial - Fitting Mixed Design ANOVA Models with `afex::aov_4()`
+
+The `aov_4()` function from the `afex` package fits ANOVA models (oneway, two-way, repeated measures, and mixed design). It needs at least two arguments:
+
+1. formula:  `continuous_var ~ group_var + (RM_var|id_var)`  *one observation per subject for each level of the `RMvar`, so each `id_var` has multiple lines for each subject, each subject can only belong to exactly one group./*
+
+2. dataset: `data = .` *we use the period to signify that the datset is being piped from above*
+
+
+Here is an outline of what your syntax should look like when you **fit and save a Mixed ANOVA**.  Of course you will replace the dataset name and the variable names, as well as the name you are saving it as.
+
+> **NOTE:** The `aov_4()` function works on data in LONG format only.  Each observation needs to be on its one line or row with seperate variables for the group membership (categorical factor or `fct`) and the continuous measurement (numberic or `dbl`).
+
+```{r EX_Mixaov_4, eval=FALSE}
+# RM ANOVA: fit and save
+aov_name <- data_name %>% 
+  afex::aov_4(continuous_var ~ group_var + (RM_var|id_var),
+              data = .)
+```
+
+
+
+
+
+
+
+
+\clearpage
+
+## `tasks_wide` - Repeated Measures and Assigned Group Design: Differential Effect of Music on Production, by Task Type
+
+**TEXTBOOK QUESTION:** *In Exercise 15B1, subjects performed a clerical task under three noise conditions. Now suppose a new group of subjects is added to study the effects of the same three conditions on the performance of a simpler, more mechanical task. The data from Exercise 15B1 follow, along with the data for the mechanical task.*
+
+
+```{r, echo=FALSE}
+tasks_wide
+```
+
+----------------------------------
+
+
+
+
+```{r, echo=FALSE}
+# Restructure from wide to long format:
+tasks_long <- tasks_wide %>% 
+  tidyr::gather(key = type,
+                value = completed) %>% 
+  tidyr::separate(type,
+                  into = c("type_task", "noise")) %>% 
+  dplyr::mutate(id = c(rep(1:5, times = 3), rep(6:10, times = 3))) %>% 
+  dplyr::mutate_at(vars(id, type_task, noise), factor) %>% 
+  dplyr::select(id, type_task, noise, completed)
+
+head(tasks_long, n= 20)
+```
+
+\clearpage
+
+
+
+**Summary Statistics**
+
+
+```{r, echo=FALSE}
+# Raw data: summary table
+tasks_long %>% 
+  dplyr::group_by(type_task, noise) %>%     # divide into groups
+  dplyr::summarise(mean = mean(completed),
+                   sd   = sd(completed)) %>% 
+  dplyr::mutate(msd = paste0(round(mean, 2), " (", round(sd, 2), ")")) %>% 
+  dplyr::select(-mean, -sd) %>% 
+  tidyr::spread(key = noise,
+                value = msd) %>% 
+  pander::pander()
+```
+
+
+
+**Profile Plots (raw data)**
+
+```{r, echo=FALSE}
+tasks_long %>% 
+  ggplot(aes(x = noise,
+             y = completed,
+             group = id,
+             shape = type_task,
+             color = type_task)) +
+  geom_point(size = 3) +
+  geom_line()
+```
+
+
+**Means Plots (raw data)**
+
+```{r, echo=FALSE}
+tasks_long %>% 
+  ggplot(aes(x = noise,
+             y = completed,
+             shape = type_task,
+             color = type_task)) +
+  stat_summary()
+```
+
+
+\clearpage
+
+### 16B-4a Mixed Design ANOVA: display all Sums-of-Squares components
+
+**TEXTBOOK QUESTION:** *(a) Perform a mixed-design ANOVA, and display the results in a summary table.*
+
+**DIRECTIONS:** Perform a Repeated Measures ANOVA for number of tasks completed under the four noise conditions to see if there is an effect and if the effect is different dependtion on the type of task.  Request no correction for violations of sphericity (`correction = "none"`) and both effect sizes (`es = c("ges", "pes"`).  Make sure to save your model (`fit_tasks`), so that you can add `$aov` at the end of the name to extract all the Sums-of-Squares.
+
+```{r}
+# Mixed ANOVA: display all Sums-of-Squares components
+
+```
+
+\clearpage
+
+### 16B-4b Mixed Design ANOVA: effect sizes
+
+**TEXTBOOK QUESTION:** *(b) Calculate generalized eta squared for the main effect of the type-of-task factor. Does this look like a large effect size? Explain.*
+
+**DIRECTIONS:** Run the name of the model `fit_tasks` alone to extract the adjusted degrees of freedom and F-test.  The sums-of-squares for the corrected test are the same as for the uncorrected you just did.
+
+```{r}
+# Mixed ANOVA: name the model was saved as
+
+```
+
+
+
+------------------
+
+**Means Plot (model based)**
+
+**DIRECTIONS:** Construct a means plot of `fit_audience` using `emmeans::emmip(~ RM_var)` to help interpret the direction of any significant differences.
+
+```{r}
+# RM ANOVA: means plot
+
+```
+
+
+
+\clearpage
+
+## `anograms_wide` -Repeated Measures and Assigned Group Design: Effect of Music and Task Type on Production
+
+**TEXTBOOK QUESTION:** *Dr. Jones is investigating various conditions that affect mental effort- which, in this experiment, involves solving anagrams. Subjects were randomly assigned to one of three experimental conditions. Subjects in the first group were told that they would not be getting feedback on their performance. Subjects in the second and third groups were told they would get feedback, but only subjects in the third group were told (erroneously) that anagram solving was highly correlated with intelligence and creativity (Dr. Jones hoped this information would produce ego involvement). The list of anagrams given to each subject contained a random mix of problems at four levels of difficulty determined by the number of letters presented (five, six, seven, or eight). The number of anagrams correctly solved by each subject in each condition and at each level of difficulty is given in the following table:*
+
+
+```{r}
+anograms_wide
+```
+
+----------------------------------
+
+Restructure from wide to long format:
+
+
+```{r, echo=FALSE}
+anograms_long <- anograms_wide %>% 
+  tidyr::gather(key = feedback_difficulty,
+                value = correct) %>% 
+  tidyr::separate(feedback_difficulty,
+                  into = c("feedback", "difficulty")) %>% 
+  dplyr::mutate(id = c(rep(1:3, times = 4), 
+                       rep(4:6, times = 4), 
+                       rep(7:9, times = 4))) %>% 
+  dplyr::mutate_at(vars(id, feedback, difficulty), factor) %>% 
+  dplyr::select(id, feedback, difficulty, correct)
+
+head(anograms_long, n= 20)
+```
+
+
+\clearpage
+
+**Summary Statistics**
+
+
+```{r, echo=FALSE}
+# Raw data: summary table
+anograms_long %>% 
+  dplyr::group_by(feedback, difficulty) %>%     # divide into groups
+  dplyr::summarise(mean = mean(correct),
+                   sd   = sd(correct)) %>% 
+  dplyr::mutate(msd = paste0(round(mean, 2), " (", round(sd, 2), ")")) %>% 
+  dplyr::select(-mean, -sd) %>% 
+  tidyr::spread(key = difficulty,
+                value = msd) %>% 
+  pander::pander()
+```
+
+
+
+
+**Profile Plots (raw data)**
+
+```{r, echo=FALSE}
+anograms_long %>% 
+  ggplot(aes(x = difficulty,
+             y = correct,
+             group = id,
+             shape = feedback,
+             color = feedback)) +
+  geom_point(size = 3) +
+  geom_line()
+```
+
+
+**Means Plots (raw data)**
+
+```{r, echo=FALSE}
+anograms_long %>% 
+  ggplot(aes(x = difficulty,
+             y = correct,
+             shape = feedback,
+             color = feedback)) +
+  stat_summary()
+```
+
+
+
+\clearpage
+
+### 16B-5b Mixed Design ANOVA: display all Sums-of-Squares components
+
+**TEXTBOOK QUESTION:** *(b) Perform a mixed analysis of variance, and display the results in a summary table. Would any of your conclusions change if you do not assume sphericity? Explain.*
+
+**DIRECTIONS:** Perform a Repeated Measures ANOVA for number of tasks completed under the four noise conditions to see if there is an effect and if the effect is different dependtion on the type of task.  Make sure to save your model (`fit_ano`), so that you can add `$aov` at the end of the name to extract all the Sums-of-Squares.
+
+```{r}
+# Mixed ANOVA: display all Sums-of-Squares components
+
+```
+
+\clearpage
+
+**DIRECTIONS:** Use the `summary()` function on the model name `fit_ano` to display the sphericity test and corrections to answer the last portion of this question.
+
+```{r}
+# Mixed ANOVA: sphericity tests and corrections
+
+```
+
+
+\clearpage
+
+### 16B-5c Mixed Design ANOVA: Main Effect's post-hoc with appropriate correction
+
+**TEXTBOOK QUESTION:** *(c) Perform post hoc pairwise comparisons for both main effects, using the appropriate error term from part b in each case. Explain why these follow-up tests are appropriate given your results in part b.*
+
+
+**DIRECTIONS:** Use the prior model `fit_ano` to run post hoc test for the levels of each main effect, separately SINCE THE INTERACTION IS NOT SIGNIFICANT (including a means plot).  Choose an appropriate method to control type I errors when making multiple comparisons.
+
+```{r}
+# Mixed ANOVA: post hoc pairwise tests <-- feedback
+
+```
+
+--------------------------------
+
+```{r}
+# RM ANOVA: means plot <--feedback
+
+```
+
+
+
+
+\clearpage
+
+```{r}
+# Mixed ANOVA: post hoc pairwise tests <-- difficulty
+
+```
+
+
+------------------------
+
+
+
+```{r}
+# RM ANOVA: means plot <-- difficulty
+
+```
+\clearpage
+
+
+## `brain_wide` - Repeated Measures and Observed Groups Design: Differential Effect of Stimuli on Recall, by Brain Damage
+
+**TEXTBOOK QUESTION:** *Exercise 15B6 described a neuropsychologist studying subjects with brain damage to the left cerebral hemisphere. Such a study would probably include a group of subjects with damage to the right hemisphere and a group of control subjects without brain damage. The data from Exercise 15B6 (the number of digit or letter strings each subject recalled) follow, along with data for the two comparison groups just mentioned.*
+
+
+```{r}
+brain_wide
+```
+
+
+----------------------------------
+
+Restructure from wide to long format:
+
+
+```{r, echo=FALSE}
+brain_long <-  brain_wide %>% 
+  tidyr::gather(key = damage_stimuli,
+                value = longest_correct) %>% 
+  tidyr::separate(damage_stimuli,
+                  into = c("damage", "stimuli")) %>% 
+  dplyr::mutate(id = c(rep( 1:6,  times = 3), 
+                       rep( 7:12, times = 3), 
+                       rep(13:18, times = 3))) %>% 
+  dplyr::mutate_at(vars(id, damage, stimuli), factor) %>% 
+  dplyr::select(id, damage, stimuli, longest_correct)
+
+head(brain_long, n= 20)
+```
+
+
+
+\clearpage
+
+**Summary Statistics**
+
+
+```{r, echo=FALSE}
+# Raw data: summary table
+brain_long %>% 
+  dplyr::group_by(damage, stimuli) %>%     # divide into groups
+  dplyr::summarise(mean = mean(longest_correct),
+                   sd   = sd(longest_correct)) %>% 
+  dplyr::mutate(msd = paste0(round(mean, 2), " (", round(sd, 2), ")")) %>% 
+  dplyr::select(-mean, -sd) %>% 
+  tidyr::spread(key = stimuli,
+                value = msd) %>% 
+  pander::pander()
+```
+
+
+
+
+**Profile Plots (raw data)**
+
+```{r, echo=FALSE}
+brain_long %>% 
+  ggplot(aes(x = stimuli,
+             y = jitter(longest_correct),
+             group = id,
+             shape = damage,
+             color = damage)) +
+  geom_point(size = 3) +
+  geom_line()
+```
+
+
+**Means Plots (raw data)**
+
+```{r, echo=FALSE}
+brain_long %>% 
+  ggplot(aes(x = stimuli,
+             y = longest_correct,
+             shape = damage,
+             color = damage)) +
+  stat_summary()
+```
+
+
+
+\clearpage
+
+
+### 16B-8a-b Mixed Design ANOVA: with sphericity test and corrections
+
+**TEXTBOOK QUESTION:** *(a) Perform a mixed-design ANOVA and test the three F ratios at the .05 level. What can you conclude about the effects of brain damage on short-term recall for these types of stimuli? (b) Draw a graph of these data, subject by subject. Do the assumptions of the mixed-design ANOVA seem reasonable in this case? Explain. *
+
+**DIRECTIONS:** Perform a Repeated Measures ANOVA for longest correct recall under the  various stimuli to see if there is an effect and if the effect is different dependtion on brain damage.  Make sure to save your model (`fit_brain`), so that you can use the  `summary()` function on the name to test for sphericity and make appropriate corrections.
+
+```{r}
+# Mixe ANOVA:  with sphericity tests and corrections
+
+```
+
+
+
+\clearpage
+
+### 16B-8c Mixed Design ANOVA: Main Effect's post-hoc with appropriate correction
+
+**TEXTBOOK QUESTION:** *(c) Perform post hoc pairwise comparisons for both main effects. Do not assume sphericity for the RM factor.*
+
+**DIRECTIONS:** Use the prior model `fit_brain` to run post hoc test for the levels of each main effect, separately SINCE THE INTERACTION IS NOT SIGNIFICANT (including a means plot).  Choose an appropriate method to control type I errors when making multiple comparisons. (you do not need to worry about sphericity)
+
+
+```{r}
+# Mixed ANOVA: post hoc pairwise tests <-- damage
+
+```
+
+--------------------------------
+
+
+```{r}
+# RM ANOVA: means plot <-- damage
+
+```
+
+
+
+
+
+\clearpage
+
+```{r}
+# Mixed ANOVA: post hoc pairwise tests <-- stimuli
+
+```
+
+
+--------------------------------
+
+
+```{r}
+# RM ANOVA: means plot <-- stimuli
+
+```
+
+
+
+\clearpage
+
+
+## `ihno_clean` - Repeated Measures and Observed Group Design: Differential Effect of Time on Anxiety, by Major
+
+
+### 16c-1a Mixed Design ANOVA: with main effect post hocs
+
+**TEXTBOOK QUESTION:** *(a) Perform a mixed-design ANOVA with the three anxiety measures as the RM levels, and major as the between-subjects factor. Request a plot of the cell means, ~~and post hoc tests for both the RM factor (LSD) and for major (Tukey)~~. Report the results of the ANOVA in APA style.*
+
+
+**DIRECTIONS:** Using the `ihno_anx_long` dataset from the chapter 15 questions, perform a Repeated Measures ANOVA for at the three time points to see if the experiment had an effect on anxiety and if the effect is different dependtion on major.  Make sure to save your model (`fit_anx_major`), so that you can use the `summary()` function on the name to test for sphericity and make appropriate corrections. Do specify that you would like to display BOTH effect size measures with `es = c("ges", "pes")`, but do NOT include `correction = "none"`.
+
+```{r}
+# Mixed ANOVA:  with sphericity tests and corrections
+
+```
+
+
+
+\clearpage
+
+**DIRECTIONS:** To display the effect size meausre, run the name (`fit_anx_major`) of the model alone.
+
+```{r}
+# Mixed ANOVA: effect sizes 
+
+```
+
+
+---------------------------
+
+**DIRECTIONS:** SINCE THE INTERACTIONIS SIGNIFICANT, instead of focusing on the main effects alone, plot the interaction with the `emmeans::emmip(group_var ~ RM_var)` function.
+
+```{r}
+# Mixed ANOVA: means plot <-- interaction
+
+```
+
+
+\clearpage
+
+## `ihno_clean` - Repeated Measures and Observed Group Design: Differential Effect of a Pop Quiz (Time = Baseline, pre-quiz, post-quiz) on Heart Rate, by Gender
+
+
+### 16c-2a Mixed Design ANOVA: with main effect post hocs
+
+**TEXTBOOK QUESTION:** *(a) Perform a mixed-design ANOVA with the three heart-rate measures as the RM levels and gender as the between-subjects factor. Request a plot of the cell means and post hoc tests for the RM factor (LSD). Report the results of the ANOVA in APA style.*
+
+
+```{r}
+ihno_clean %>% 
+  dplyr::select(sub_num, genderF, hr_base, hr_pre, hr_post) %>% 
+  head(n = 4)
+```
+
+
+Restructure from wide to long format:
+
+```{r}
+#Restructure: wide-to-long
+ihno_hr_long <- ihno_clean %>% 
+  tidyr::gather(key = variable,
+                value = hr,
+                hr_base, hr_pre, hr_post) %>% 
+  dplyr::mutate(time = case_when(variable == "hr_base" ~ "baseline",
+                                 variable == "hr_pre"  ~ "pre-quiz",
+                                 variable == "hr_post" ~ "post-quiz") %>% 
+                  factor(levels = c("baseline", "pre-quiz", "post-quiz"))) %>% 
+  dplyr::arrange(sub_num, time)
+```    
+
+
+```{r}
+ihno_hr_long %>% 
+  dplyr::select(sub_num, genderF, time, hr) %>% 
+  head(n = 12)
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Using the `ihno_hr_long` dataset just reformatted, perform a Repeated Measures ANOVA for at the three time points to see if the experiment had an effect on heart rateand if the effect is different dependtion on gender  Make sure to save your model (`fit_hr_major`), so that you can use the `summary()` function on the name to test for sphericity and make appropriate corrections. Do specify that you would like to display BOTH effect size measures with `es = c("ges", "pes")`, but do NOT include `correction = "none"`.
+
+```{r}
+# Mixe ANOVA:  with sphericity tests and corrections
+
+```
+
+\clearpage
+
+**DIRECTIONS:** Use the prior model `fit_brain` to run post hoc test for the levels of each main effect, separately SINCE THE INTERACTION IS NOT SIGNIFICANT (including a means plot).  Choose an appropriate method to control type I errors when making multiple comparisons. (you do not need to worry about sphericity)
+
+
+```{r}
+# Mixed ANOVA: post hoc pairwise tests <-- damage
+
+```
+
+--------------------------------
+
+
+```{r}
+# RM ANOVA: means plot <-- damage
+
+```
+
+
+
+
+
+\clearpage
+
+```{r}
+# Mixed ANOVA: post hoc pairwise tests <-- genderF
+
+```
+
+
+--------------------------------
+
+
+```{r}
+# RM ANOVA: means plot <-- stimuli
+
+```
+
+
+
+
+
+
+\clearpage
+
+## `ihno_clean` - Repeated Measures and Assigned Group Design: Differential Effect of the Experiemnt (Time = Pop Quiz vs. Standard Quiz) on Quiz Score, by Difficulty Level
+
+
+### 16c-3a Mixed Design ANOVA: is there an interaction?
+
+**TEXTBOOK QUESTION:** *(a) Perform a mixed-design ANOVA with the two 10-point quizzes (statquiz and exp_sqz) as the RM levels, and exp_cond as the between-subjects factor. Request a plot of the cell means. Report the results of the ANOVA in APA style. If the interaction is significant, explain the pattern you see in the plot of the cell means.*
+
+**DIRECTIONS:** Using the `ihno_statquiz_long` dataset from the chapter 15 questions, perform a Repeated Measures ANOVA for at the two quizes to see if the experiment had an effect on score and if the effect is different dependtion on difficulty level.  Make sure to save your model (`fit_anx_major`), so that you can use the `summary()` function on the name to view the output.  Do specify that you would like to display BOTH effect size measures with `es = c("ges", "pes")`, but do NOT include `correction = "none"`.
+
+> NOTE: When the measure is only repeated twice, sphericity can not be violated, so no such test are performed.
+
+```{r}
+# Mixed ANOVA:  with summary
+
+```
+
+
+\clearpage
+
+**DIRECTIONS:** SINCE THE INTERACTIONIS SIGNIFICANT, instead of focusing on the main effects alone, plot the interaction with the `emmeans::emmip(group_var ~ RM_var)` function.
+
+```{r}
+# RM ANOVA: means plot <-- interaction
+
+```
+

@@ -1,0 +1,187 @@
+---
+title:    "Research Design and Analysis I"
+subtitle: "PSY-Educ 6600 Class Notes and Reading Summaries"
+author:   "Your Name"
+date:     "`r format(Sys.time(), '%B %d %Y')`"
+output:  
+  pdf_document:
+    highlight: tango
+    toc: true
+    toc_depth: 2 
+    number_sections: true
+---
+
+
+
+```{r, echo=FALSE, out.width = "40%", fig.align='center', fig.cap="Taught by Sarah Schwartz and Tyson Barrett"}
+knitr::include_graphics('cehs_logo.png')
+```
+
+
+
+\clearpage
+
+# Prepatory Topics {-}
+
+## APA Style
+
+
+Optional to write about APA style.
+
+
+
+
+
+\clearpage
+
+## Chap 1. Intro to Stats
+
+Optional to type in some notes
+
+
+
+\clearpage
+
+# Exploratory Analysis
+
+## Chap 2. Exploration of Data with Plots
+
+
+
+
+
+\clearpage
+
+## Chap 3. Summarizing Data with Descriptive Statistics
+
+
+
+
+
+\clearpage
+
+## Chap 4. Standardized Scores & The Normal Distribution
+
+
+
+
+
+\clearpage
+
+# Groundwork for Inference
+
+## Chap 5. Intro to Hypothesis Testing: 1 Sample z-test
+
+
+
+
+\clearpage
+
+## Chap 6. Confidence Interval Estimation: The t Distribution
+
+
+
+
+\clearpage
+
+## Chap 7. Independent Samples t-Test for Means
+
+
+
+
+\clearpage
+
+## Chap 8. Statistical Power & Effect Size
+
+
+
+
+
+
+\clearpage
+
+# Hypothesis Tests for 2 Measures Per Subject
+
+## Chap 9. Linear Correlation
+
+
+
+
+\clearpage
+
+## Chap 10. Linear Regression
+
+
+
+
+\clearpage
+
+## Chap 11. Matched t-Test
+
+
+
+
+
+\clearpage
+
+# ANOVA without Repeated Measures
+
+## Chap 12. 1-way Independent Groups ANOVA
+
+
+
+
+
+\clearpage
+
+## Chap 13. Multiple Comparisons
+
+
+
+
+
+\clearpage
+
+## Chap 14. 2-way ANOVA
+
+
+
+
+
+\clearpage
+
+# ANOVA with Repeated Measures
+
+## Chap 15. Repeated Measures ANOVA
+
+
+
+
+
+
+\clearpage
+
+## Chap 16. 2-way Mixed Design ANOVA
+
+
+
+
+
+\clearpage
+
+# Categorical Data
+
+## Chap 19. The Binomial Distribution
+
+
+
+
+
+\clearpage
+
+## Chap 20. Chi-Squated Tests
+
+
+
+
+
