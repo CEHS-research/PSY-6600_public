@@ -28,7 +28,6 @@ knitr::opts_chunk$set(comment     = NA,
                       fig.align   = "center", # center all figures
                       fig.width   = 4,        # set default figure width to 4 inches
                       fig.height  = 3)        # set default figure height to 3 inches
-
 ```
 
 ## Load Packages
@@ -343,9 +342,9 @@ Create Boxplots for both baseline and prequiz **anxiety**, so that they appear s
 
 ## 3C-6. Descriptive Statistics -by- a Factor
  
-Use `furniture::table1()` to find the *mean* and *standard deviation* for each of the *quantitative variables* separately for the `male` and `female` econ majors.
+Use `furniture::table1()` to find the *mean* and *standard deviation* for each of the *quantitative variables* separately for the `male` and `female` ecomonics majors.  **Make sure to include the `na.rm = FALSE` option in the `table1()` function to include all ten ecomonics majors.**
 
-> Make sure to use the `dplyr::group_by(grouping_var)` step before the `furniture::table1()` step.  
+> Make sure to (1) use the `dplyr::filter(grouping_var == "Value")` to reduce to just Economics majors and (2) use the `dplyr::group_by(grouping_var)` step to seperate the Males and Females,  before the `furniture::table1()` step.  
 
 ```{r}
 # Descriptive Stats: all quant vars, by genderF

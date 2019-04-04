@@ -2,7 +2,7 @@
 title: "Psy/Educ 6600: Unit 2 Homework"
 subtitle: "Groundwork for Inference"
 author: "Your Name"
-date: "Spring 2018"
+date: "Spring 2019"
 output: 
   pdf_document:
     latex_engine: xelatex
@@ -92,21 +92,37 @@ data_clean <- read_excel("Ihno_dataset.xls") %>%
 
 ## 5C-3. 1 Sample `z`-Test compared to historic controls for `mathquiz` and `statquiz`
 
-**TEXTBOOK QUESTION:** *(A) In the past 10 years, previous stats classes who took the same math quiz that Inho's students took **averaged 28** with a **standard deviation of 8.5**. What is the two-tailed p value for Inho's students with respect to that past population? (Don't forget that the N for mathquiz is not 100.)  Would you say that Inho's class performed significantly better than previous classes? Explain. (B) Redo part a assuming that the same previous classes had also taken the same statquiz and **averaged 6.1** with a **standard deviation of 2.5**.*
+**TEXTBOOK QUESTION:** *(A) In the past 10 years, previous stats classes who took the same math quiz that Ihno’s students took **averaged 28** with a **standard deviation of 8.5**. What is the two-tailed p value for Ihno’s students with respect to that past population? (Don’t forget that the N for mathquiz is not 100.)  Would you say that Ihno’s class performed significantly better than previous classes? Explain. (B) Redo part a assuming that the same previous classes had also taken the same statquiz and **averaged 6.1** with a **standard deviation of 2.5**.*
 
-**DIRECTIONS:** Find the mean (`M`) and sample size (`n`) for `mathquiz` and `statquiz` and then work the rest of the statistical test by hand in the printed homework packet.  
+**DIRECTIONS:** Find the mean (`M`) and sample size (`n`) for `mathquiz` and `statquiz` and then work the rest of the statistical test by hand in the printed homework packet.  Recall that the not all participants have scores recorded for the math quiz.  When you have such missing values, care must be taken on how to handle the partial-data cases.
 
-> **NOTE:** You may use the `furniture::table1()` funciton gives the mean, but it only gives the total `n` for all variables.  Since some students were missing the math quiz, but not the stat quiz the sample sizes are different.  So use the `psych::describe()` function to get the means and the sample size for each variable.
+First, use the `furniture::table1()` function to compute the mean of each othe two variables using the default settings.  Notice that the only sample size given is thenumber of cases with complete data.  Participants with incomplete data are ignored when computing the mean and standard deviations.
+
+> **NOTE:** When using the `furniture::table1()` funciton the default is only include participants that are complete on all the selected variables (option: `na.rm = TRUE`).
+
+```{r}
+# Find the mean and n for: mathquiz, statquiz  <-- default settings: na.rm = TRUE
+
+```
+
+
+Second, use the `furniture::table1()` function to compute the mean of each othe two variables changing settings with the option to include incomplete cases.  Notice that the only sample size given is the total of all cases with complete and incomplete data, although the means and standard deviations are based on different sub-samples.
+
+> **NOTE:** When using the `furniture::table1()` funciton you may override the default and include all participants, even those with partial data (option: `na.rm = FALSE`).
 
 ```{r}
 # Find the mean and n for: mathquiz, statquiz
 
 ```
 
+Third, use the `psych::describe()` function to compute the mean of each othe two variables.  Notice that two different samples sizes are given.  Compare the means to the two tables above.
 
+>  **NOTE:** Since some students were missing the math quiz, but not the stat quiz the sample sizes are different.  So use the `psych::describe()` function to get the means and the sample size for each variable.
 
+```{r}
+# Find the mean and n for: mathquiz, statquiz
 
-
+```
 
 
 
@@ -190,11 +206,10 @@ data_clean <- read_excel("Ihno_dataset.xls") %>%
 
 ## 6C-1. 1-sample `t`-tests for `anx_base`, `anx_pre`, and `anx_post`
 
+**TEXTBOOK QUESTION:** *Perform one-sample t tests to determine whether the baseline, pre-, or postquiz anxiety scores of Ihno’s students differ significantly ( $\alpha = .05$, two-tailed) from the mean ($\mu = 18$) found by a very large study of college students across the country. Find the 95% Cconfidence interval for the population mean for each of the **three** anxiety measures.*
 
-**TEXTBOOK QUESTION:** *Perform one-sample t tests to determine whether the baseline, pre-, or postquiz anxiety scores of Inho's students differ significantly ( $\alpha = .05$, two-tailed) from the mean ($\mu = 18$) found by a very large study of college students across the country. Find the 95% Cconfidence interval for the population mean for each of the **three** anxiety measures.*
 
-
-**DIRECTIONS:**  Use the `t.test(mu = #)` function to perform a 1 sample `t`-test.  Make sure to sepify the Null hypothesis value for $\mu$.
+**DIRECTIONS:**  Use the `t.test(mu = #)` function to perform a 1 sample `t`-test.  Make sure to specify the Null hypothesis value for $\mu$.
 
 > **NOTE:** You must use a `dplyr::pull()` step to pull out one variable from the dataset before you can use the `t.test()` function.
 
@@ -241,9 +256,9 @@ data_clean <- read_excel("Ihno_dataset.xls") %>%
 
 ## 6C-3. 1-sample `t`-tests for `hr_post` among FEMALE
 
-**TEXTBOOK QUESTION:** *Perform a one-sample t test to determine whether the average postquiz heart rate of Inho's **female** students differs significantly ($\alpha = .05$, two-tailed) from the **mean** resting heart rate ($\mu = 72$) for college-aged women. Find the 95% confidence interval for the population mean represented by Inho's **female** students.*
+**TEXTBOOK QUESTION:** *Perform a one-sample t test to determine whether the average postquiz heart rate of Ihno’s **female** students differs significantly ($\alpha = .05$, two-tailed) from the **mean** resting heart rate ($\mu = 72$) for college-aged women. Find the 95% confidence interval for the population mean represented by Ihno’s **female** students.*
 
-**DIRECTIONS:** This time, subset out WOMEN and choose the post-quiz heart rate.  Also, use a different population null value.
+**DIRECTIONS:** This time, subset out WOMEN (`genderF == "Female"`) and choose the post-quiz heart rate.  Also, use a different population null value ($\mu$).
 
 ```{r}
 # 1-sample t-test for MALES: hr_base
@@ -258,17 +273,18 @@ data_clean <- read_excel("Ihno_dataset.xls") %>%
 
 \clearpage
 
+
 # Chapter 7. Independent Samples `t`-Test for Means
 
 ## 7C-1. Independent Samples `t`-Test for Mean `hr_base` by `genderF`
 
-**TEXTBOOK QUESTION:**  *Perform a two-sample t test to determine whether there is a statistically significant difference in **baseline heart rate** between the **men and the women** of Inho's class. Do you have **homogeneity of variance**? Report your results as they might appear in a journal article. Include the 95% CI for this gender difference.*
+**TEXTBOOK QUESTION:**  *Perform a two-sample t test to determine whether there is a statistically significant difference in **baseline heart rate** between the **men and the women** of Ihno’s class. Do you have **homogeneity of variance**? Report your results as they might appear in a journal article. Include the 95% CI for this gender difference.*
 
 ### Assumtion Check: Homogeneity of Variance
 
 **DIRECTIONS:** Before performing the test, check to see if the assumption of homogeneity of variance is met using **Levene's Test**.  For a independent samples `t`-test for means, the men and women need to have the same amount of spread (SD) in their baseline hear rates.
 
- > **NOTE:** Use the `car:leveneTest()` function to do this.  Inside the funtion you need to specify at least three things (sepearated by commas):
+ > **NOTE:** Use the `car::leveneTest()` function to do this.  Inside the funtion you need to specify at least three things (sepearated by commas):
 
 > * the formula:  `continuous_var ~ grouping_var` (replace with your variable names)
 
@@ -277,6 +293,7 @@ data_clean <- read_excel("Ihno_dataset.xls") %>%
 > * the center:  `center = "mean"` since we are comparing means
 
 ```{r}
+# Levene's F-test for HOV: hr_base by genderF
 
 ```
 
@@ -287,15 +304,17 @@ data_clean <- read_excel("Ihno_dataset.xls") %>%
 
 **DIRECTIONS:** Test if men and women have different baseline heart rates using the `t.test()` function.
 
->Use the same `t.test()` funtion we have used in the prior chapters.  This time you need to speficy a few more options:
+> Use the same `t.test()` funtion we have used in the prior chapters.  This time you need to specify a two mandatory options:
 
 > * the formula:  `continuous_var ~ grouping_var` (replace with your variable names)
 
 > * the dataset:  `data = .` to pipe it from above
 
-> * independent vs. paired:  `paired = FALSE` (this is the default)
+>There are also more optional options, the first of which is most commonly used:
 
 > * is homogeneity satified: `var.equal = TRUE` (NOT the default)
+
+> * independent vs. paired:  `paired = FALSE` (this is the default)
 
 > * confidence level: `conf.level = #` (defults to .95)
 
@@ -307,8 +326,110 @@ data_clean <- read_excel("Ihno_dataset.xls") %>%
 
 
 
+\clearpage
 
 
+## 7C-2. Independent Samples `t`-Test for Mean `phobia` by `genderF`
+
+**TEXTBOOK QUESTION:**  *Repeat Exercise 1 for the phobia variable.*
+
+
+### Assumtion Check: Homogeneity of Variance
+
+
+**DIRECTIONS:** Before performing the test, check to see if the assumption of homogeneity of variance is met using **Levene's Test**.  For a independent samples `t`-test for means, the men and women need to have the same amount of spread (SD) in their phobia self-ratings.
+
+
+```{r}
+# Levene's F-test for HOV: phobia by genderF
+
+```
+
+
+
+\clearpage
+
+### Perform the `t`-Test for Means in 2 Indep Groups 
+
+**DIRECTIONS:** Test if men and women have different phobia self-ratings using the `t.test()` function.
+
+
+```{r}
+# indep groups t-test for means: phobia by genderF
+
+```
+
+
+
+\clearpage
+
+## 7C-3. Independent Samples `t`-Test for Mean `phobia` by `exp_condF` (Restricted to just the Easy vs.Imposible groups)
+
+**TEXTBOOK QUESTION:**  *Perform a two-sample `t` test to determine whether the students in the “impossible to solve” condition exhibited signiﬁcantly higher postquiz heart rates than the students in the “easy to solve” condition at the .05 level. Is this t test signiﬁcant at the .01 level? Find the 99% CI for the difference of the two population means.*
+
+
+
+### Assumtion Check: Homogeneity of Variance
+
+
+**DIRECTIONS:** Before performing the test, check to see if the assumption of homogeneity of variance is met using **Levene's Test**.  For a independent samples `t`-test for means, the **"Easy"** and **"Imposible"** groups have the same amount of spread (SD) in their phobia self-ratings.
+
+
+> Prior to running Levene's test, make sure to reduce your dataset by throwing out the students who were assigned the middle two difficulty levels of experimental quiz.  You can do this by prefacing levene's test with ` dplyr::filter(exp_condF %in% c("Easy", "Impossible"))`.
+
+```{r}
+# Levene's F-test for HOV: phobia by exp_condF
+
+```
+
+
+### Perform the `t`-Test for Means in 2 Indep Groups 
+
+
+**DIRECTIONS:** Test if **"Easy"** and **"Imposible"** groups have different phobia self-ratings using the `t.test()` function.
+
+> Prior to running the t-test, make sure to reduce your dataset by throwing out the students who were assigned the middle two difficulty levels of experimental quiz.  You can do this by prefacing levene's test with ` dplyr::filter(exp_condF %in% c("Easy", "Impossible"))`.
+
+```{r}
+# indep groups t-test for means: phobia by exp_condF
+
+```
+
+
+\clearpage
+
+## 7C-4. Independent Samples `t`-Test for Mean `anx_post` by `exp_condF` (Restricted to just the Easy vs.Imposible groups)
+
+**TEXTBOOK QUESTIONS:** *Repeat Exercise 3 for the postquiz anxiety variable.*
+
+
+### Assumtion Check: Homogeneity of Variance
+
+
+**DIRECTIONS:** Before performing the test, check to see if the assumption of homogeneity of variance is met using **Levene's Test**.  For a independent samples `t`-test for means, the **"Easy"** and **"Imposible"** groups have the same amount of spread (SD) in their post quiz anxiety levels.
+
+
+> Prior to running Levene's test, make sure to reduce your dataset by throwing out the students who were assigned the middle two difficulty levels of experimental quiz.  You can do this by prefacing levene's test with ` dplyr::filter(exp_condF %in% c("Easy", "Impossible"))`.
+
+
+
+```{r}
+# Levene's F-test for HOV: anx_post by exp_condF
+
+```
+
+
+### Perform the `t`-Test for Means in 2 Indep Groups 
+
+
+**DIRECTIONS:** Test if **"Easy"** and **"Imposible"** groups have different post quiz anxiety levels using the `t.test()` function.
+
+> Prior to running the t-test, make sure to reduce your dataset by throwing out the students who were assigned the middle two difficulty levels of experimental quiz.  You can do this by prefacing levene's test with ` dplyr::filter(exp_condF %in% c("Easy", "Impossible"))`.
+
+```{r}
+# indep groups t-test for means: anx_post by exp_condF
+
+```
 
 \clearpage
 
@@ -322,6 +443,7 @@ data_clean <- read_excel("Ihno_dataset.xls") %>%
 **DIRECTIONS:** Just like the last question, run **Levene's test** first.
 
 ```{r}
+# Levene's F-test for HOV: hr_post by coffeeF
 
 ```
 

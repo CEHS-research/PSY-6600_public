@@ -2,7 +2,7 @@
 title: "Psy/Educ 6600: Unit 3 Homework"
 subtitle: "Hypothesis Tests for TWO Measures Per Subject"
 author: "Your Name"
-date: "Spring 2018"
+date: "Spring 2019"
 output: 
   pdf_document:
     latex_engine: xelatex
@@ -93,26 +93,26 @@ data_clean <- read_excel("Ihno_dataset.xls") %>%
 ## Other Datasets for Section B's
 
 ```{r data}
-schizo <- data.frame(id = c(1:10),
-                     yr_hos = c(5, 7, 12, 5, 11, 3, 7, 2, 9, 6),
+schizo <- data.frame(id       = c(1:10),
+                     yr_hos   = c( 5,  7, 12,  5, 11,  3,  7,  2,  9,  6),
                      ori_test = c(22, 26, 16, 20, 18, 30, 14, 24, 15, 19))
 
-GRE <- data.frame(id = c(1:5),
+GRE <- data.frame(id          = c(1:5),
                   verbalGRE_1 = c(540, 510, 580, 550, 520),
                   verbalGRE_2 = c(570, 520, 600, 530, 520))
 
-test_scores <-  data.frame(id = c(1:12),
+test_scores <-  data.frame(id      = c(1:12),
                            spatial = c(13, 32, 41, 26, 28, 12, 19, 33, 24, 46, 22, 17),
-                           math = c(19, 25, 31, 18, 37, 16, 14, 28, 20, 39, 21, 15))
+                           math    = c(19, 25, 31, 18, 37, 16, 14, 28, 20, 39, 21, 15))
 
 child_vars  <-  data.frame(child = c(1:8),
-                           shoe = c(5.2, 4.7, 7.0, 5.8, 7.2, 6.9, 7.7, 8.0),
-                           read = c(1.7, 1.5, 2.7, 3.1, 3.9, 4.5, 5.1, 7.4),
-                           age = c(5, 6, 7, 8, 9, 10, 11, 12))
+                           shoe  = c(5.2, 4.7, 7.0, 5.8, 7.2, 6.9, 7.7, 8.0),
+                           read  = c(1.7, 1.5, 2.7, 3.1, 3.9, 4.5, 5.1, 7.4),
+                           age   = c(  5,   6,   7,   8,   9,  10,  11,  12))
 
-memory <- data.frame(id = c(1:9),
+memory <- data.frame(id    = c(1:9),
                      sound = c(8, 5, 6, 10, 3, 4, 7, 11, 9),
-                     look = c(4, 5, 3, 11, 2, 6, 4, 6, 7))
+                     look  = c(4, 5, 3, 11, 2, 6, 4,  6, 7))
 ```
 
 
@@ -120,11 +120,9 @@ memory <- data.frame(id = c(1:9),
 
 \clearpage
 
-# SECTION B ITEMS
+# Chapter 9. Linear Correlation
 
-
-## Chapter 9. Linear Correlation
-
+## Section B - Other Datasets
 
 ### 9B-5 Calculating Pearson's $r$
 
@@ -135,6 +133,7 @@ memory <- data.frame(id = c(1:9),
 schizo
 ```
 
+-------------------------------
 
 **DIRECTIONS:** Calculate Pearson's $r$ between `yr_hos` and `ori_test` in the `schizo` dataset.  Also, test against the two-sided alternative.
 
@@ -146,10 +145,8 @@ The `cor.test()` function needs at least two arguments:
 > **NOTE:** The `cor.test()` function computes the Pearson correlation coefficient by default (`method = "pearson"`), but you may also specify the Kendall (`method = "kendall"`)or Spearman (`method = "spearman"`)methods.  It also defauls to testing for the two-sided alternative and computing a 95\% confidence interval (`conf.level = 0.95`).  You will not need to change these options in this assignment.
 
 
-
 ```{r Q9b5a}
 # Pearson's r: yr_hos & ori_test
-
 
 ```
 
@@ -168,6 +165,7 @@ The `cor.test()` function needs at least two arguments:
 GRE
 ```
 
+-------------------------------
 
 **DIRECTIONS:** Calculate Pearson's $r$ between `verbalGRE_1`and `verbalGRE_2` in the `GRE` dataset TWICE.  The first time test for the **one-sided** alternative and the second time for the **two-sided** alternative.
 
@@ -177,14 +175,140 @@ The `cor.test()` function defaults to the `alternative = "two.sided"`.  If you w
 ```{r Q9b6a}
 # Pearson's r: verbalGRE_1 & verbalGRE_2 --> ONE tail
 
+```
+
+\clearpage
+
+```{r Q9b6b}
+# Pearson's r: verbalGRE_1 & verbalGRE_2 --> TWO tails
 
 ```
 
 
 
-```{r Q9b6b}
-# Pearson's r: verbalGRE_1 & verbalGRE_2 --> TWO tails
 
+\clearpage
+
+## Section C - Ihno's Dataset
+
+### 9C-1. Scatterplots - Eyeball method for estimating correlation
+
+**TEXTBOOK QUESTION:** *(A) Create a scatter plot of phobia versus statquiz. From looking at the plot, do you think the Pearson’s r will be positive or negative? Large, medium, or small? (B) Create a scatter plot of baseline anxiety versus postquiz anxiety. From looking at the plot, do you think the Pearson’s r will be positive or negative? Large, medium, or small?*
+
+-------------------------------
+
+**DIRECTIONS:** Create two scatter plots: the first with `phobia` on the horizontal axis (`x`) and `statquiz` on the vertical axis (`y`) and the second with `anx_base` on the x-axis and `anx_post` on the y-axis.  Then answer the rest of the question in the printed homework packet.  
+
+> **NOTE:** You may use the `geom_count()` funciton instead of the `geom_point()` function due to the high number of points that are 'over plotted' or on top of each other, since the two measures are quite coursely captured.
+
+```{r Q9c1a}
+# Scatterplot: phobia vs. statquiz
+
+```
+
+
+\clearpage
+
+```{r Q9c1b}
+# Scatterplot: anx_base vs. anx_post
+
+```
+
+
+\clearpage
+
+### 9C-2a. Calculating Pearson's $r$
+
+**TEXTBOOK QUESTION:** *Compute the Pearson’s $r$ between `phobia` and `statquiz` for all students; also, find the Pearson’s $r$ between baseline and postquiz anxiety.*
+
+-------------------------------
+
+**DIRECTIONS:** Compute Pearson's $r$: first for `phobia` and `statquiz`, followed by `anx_base` and `anx_post` using the `cor.test()` function.
+
+
+
+```{r Q9c2a1}
+# Pearson's r: phobia & statquiz
+
+```
+
+-------------------------------
+
+```{r Q9c2a2}
+# Pearson's r: anx_base & anx_post
+
+```
+
+
+\clearpage
+
+### 9C-2b. Effect of Excluding Extreme Values
+
+
+**TEXTBOOK QUESTION:** *Use Select Cases to delete any student whose baseline anxiety is over 29, and repeat part (B) of the first exercise. Also, rerun the correlation of baseline and postquiz anxiety. What happened to the Pearson’s r ? Use the change in the scatter plot to explain the change in the correlation coefficient.*
+
+-------------------------------
+
+**DIRECTIONS:** Create a scatterplot for `anx_base` and `anx_post`, AFTER first using a `dplyr::filter()` funtion in a prepatroy step to restrict to the subsample of students with baseline anxiety of 29 and below.
+
+
+```{r Q9c2b1}
+# Scatterplot: anx_base vs. anx_post <-- restricting to baseline anxiety of 29 and lower
+
+```
+
+
+\clearpage
+
+
+**DIRECTIONS:** Compute Pearson's $r$: for `anx_base` and `anx_post`, AFTER first using a `dplyr::filter()` funtion in a prepatroy step to restrict to the subsample of students with baseline anxiety of 29 and below.
+
+```{r Q9c2b2}
+# Pearson's r: anx_base & anx_post <-- restricting to baseline anxiety of 29 and lower
+
+```
+
+
+
+\clearpage
+
+### 9C-3. Reporting APA Style 
+
+**TEXTBOOK QUESTION:** *(a) Compute Pearson’s $r$'s among the three measures of anxiety. Write up the results in APA style. (b) Compute the average of the three measures of anxiety, and then compute the correlation between each measure of anxiety and the average, ~~so that the output contains a single column of correlations (do this by creating and appropriately modifying a syntax file~~).*
+
+-------------------------------
+
+
+**DIRECTIONS:** First, compute a new variable called `anx_mean` that is the average of all three of the anxiety measures using the `furniture::rowmeans()` function. Then use the `furniture::tableC()`function to create a correlation matrix for all FOUR anxiety meausres.
+
+```{r Q9c3}
+# Pearson's r: anx_mean, anx_base, anx_pre, & anx_post
+```
+
+
+
+\clearpage
+
+### 9C-4. Missing Values
+
+**TEXTBOOK QUESTION:** *(a) Compute Pearson’s $r$ for the following list of variables: mathquiz , statquiz , and phobia . (b) Repeat part a after selecting exclude cases listwise. Which correlation was changed? Explain why.*
+
+-------------------------------
+
+**Directions:** Compute the correlation matrix between `mathquiz`, `statquiz`, and `phobia` using the `furniture::tableC()` function two times; first with all defaults and again with listwise deletion.
+
+
+> **Note:** The `furniture::tableC()` funtion defaults to `na.rm = FALSE` which displays `NA` for any correlation between a pair of variables where even one subject is missing one value.  To use listwise deletion, specify the option `na.rm = TRUE`.
+
+```{r Q9c4a}
+# Pearson's r: (default: na.rm = FALSE)
+
+```
+
+-------------------------------
+
+```{r Q9c4b}
+# Pearson's r: "complete.obs" (list-wise deletion)
 
 ```
 
@@ -194,7 +318,10 @@ The `cor.test()` function defaults to the `alternative = "two.sided"`.  If you w
 \clearpage
 
 
-## Chapter 10. Linear Regression
+
+# Chapter 10. Linear Regression
+
+## Section B - Other Datasets
 
 ### 10B-6 Swapping x and y
 
@@ -204,6 +331,7 @@ The `cor.test()` function defaults to the `alternative = "two.sided"`.  If you w
 test_scores
 ```
 
+-------------------------------
 
 **DIRECTIONS:** Use the `lm()` function to fit a linear model or linear regression model TWICE for `math` and `spacial` in the `test_scores` dataset, specifing which is x and which is y.
 
@@ -219,13 +347,12 @@ The `lm()` function needs at least two arguments:
 ```{r Q10b6a}
 # Linear model: y = math & x = spatial
 
-
 ```
 
+-------------------------------
 
 ```{r Q10b6b}
 # Linear model: y = spatial & x = math
-
 
 ```
 
@@ -242,14 +369,13 @@ The `lm()` function needs at least two arguments:
 child_vars
 ```
 
-
+-------------------------------
 
 **DIRECTIONS:** Use the `lm()` function to fit a linear model or linear regression model TWICE for `shoe` and `read` each perdicited in turn by `age` in the `child_vars` dataset, specifing which is x and which is y.
 
 
 ```{r Q10b9a}
 # Linear model: y = shoe & x = age
-
 
 ```
 
@@ -259,7 +385,6 @@ child_vars
 ```{r Q10b9b}
 # Linear model: y = read & x = age
 
-
 ```
 
 ------------------------------
@@ -267,13 +392,12 @@ child_vars
 **DIRECTIONS:** Starting with the `child_vars` dataset, create four new variables, each with a seperate `dplyr::mutate()` function step.  Pipe it all together ans save it as new dataset with the `child_new <-` assignment operator to use in the next step.
 
 1. `shoe_pred` Use the appropriate regression equation
-2. `shoe_resid` Subtract:  `shoe` (the original) minus `shoe_resid` (the residual)
+2. `shoe_resid` Subtract:  `shoe` (the original) minus `shoe_pred` (the predicted)
 3. `read_pred` Use the appropriate regression equation
-4. `read_resid` Subtract:  `read` (the original) minus `read_resid` (the residual)
+4. `read_resid` Subtract:  `read` (the original) minus `read_pred` (the predicted)
 
 ```{r Q10b9c}
 # create new variables --> save as: child_new 
-
 
 ```
 
@@ -317,271 +441,8 @@ child_vars
 
 \clearpage
 
+## Section C - Ihno's Dataset
 
-## Chapter 11. Matched pairs t-test
-
-
-### 11B-3 Matched Pairs vs. Direct Difference Methods
-
-
-**TEXTBOOK QUESTION:** *Using the data from Exercise 9B6, which follows.  (a) Determine whether there is a significant tendency for verbal GRE scores to improve on the second testing. Calculate the matched t in terms of the Pearson correlation coefficient already calculated for that exercise. (b) Recalculate the matched t test according to the direct-difference method and compare the result to your answer for part a.*
-
-```{r Q11b3}
-GRE
-```
-
-
-
-**DIRECTIONS:** Calculate the matched pairs t test between `verbalGRE_1`and `verbalGRE_2` in the `GRE` dataset. 
-
-In order to use this function, you MUST first restructure your dataset so that the TWO continous variables are stacked or **gathered** together.  Use the `tidyr::gather()` function with the following FOUR options:
-
-  * A new variable name that will store the original variable names:  `key = new_group_var`
-  * A new variable name that will store the original variable values: `value = new_continuous_var`
-  * List the original variable names:  `continous_var1, continuous_var2`
-  * Do not get ride of blank values:  `na.rm = FALSE`
-
-After the dataset is fathered, ad the `t.test()` function, which needs at least THREE arguments:
-
-  * the formula:  `continuous_var ~ group_var`
-  * the dataset: `data = .` *we use the period to signify that the datset is being piped from above*
-  * specify the data is paired: `paired = TRUE` *the default is independent groups*
-  
-> **Note:** I suggest using `key = time` and `value = verbalGRE`.
-
-
-```{r Q11b3a}
-# Paired t-test: verbalGRE1 & verbalGRE2
-
-```
-
-\clearpage
-
------------------------
-
-**DIRECTIONS:** Calculate a NEW variable called `verbalGRE_diff` with the `dplyr::mutate()` function by subtracting the `verbalGRE_1`and `verbalGRE_2` variables in the `GRE` dataset. Pipe it all together ans save it as new dataset with the `GRE_new <-` assignment operator to use in the next step.
-
-
-```{r Q11b3b}
-# Compute a new variable --> save as: child_new
-
-```
-
-> **Note:** Remove the hashtag symbol at the first of the code line below to show your new variables.
-
-```{r Q11b3c}
-# GRE_new
-```
-
-
-> **Note:** Remember that before you do a one-sample t test for the mean, you have to use the `dplyr::pull()` function (see chapter 6)
-
-```{r Q11b3d}
-# 1-sample t test: pop mean of verbalGRE_diff = 0 (no difference)
-
-```
-
-
-
-\clearpage
-
-### 11B-8 Confidence Intervale for the Mean Difference
-
-
-**TEXTBOOK QUESTION:** *A cognitive psychologist is testing the theory that short-term memory is mediated by subvocal rehearsal. This theory can be tested by reading aloud a string of letters to a participant, who must repeat the string correctly after a brief delay. If the theory is correct, there will be more errors when the list contains letters that sound alike (e.g., G and T) than when the list contains letters that look alike (e.g., P and R). Each participant gets both types of letter strings, which are randomly mixed in the same experimental session. The number of errors for each type of letter string for each participant are shown in the following table. (a) Perform a matched t test ( $\alpha = .05$, one tailed) on the data above and state your conclusions.  (b) Find the 95% confidence interval for the population difference for the two types of letters.*
-
-```{r Q11b8}
-memory
-```
-
-**DIRECTIONS:** Calculate the matched pairs t test between `sound`and `look` in the `memory` dataset twice: first as a **one-tail** test and then again as a **two-tailed*** test.
-
-> **Note:** I suggest using `key = type` and `value = errors`.
-
-```{r Q11b8a}
-# Paired t-test: sound and look --> ONE tail
- 
-```
-
-\clearpage
-
-
-
-```{r Q11b8b}
-# Paired t-test: sound and look --> TWO tails
- 
-```
-
-
-
-
-\clearpage
-
-### 11B-9 t-Test for Mean Difference vs. Correlation
-
-**TEXTBOOK QUESTION:** *For the data in Exercise 10B6: (a) Calculate the matched t value to test whether there is a significant difference ($\alpha = .05$, two tailed) between the spatial ability and math scores. Use the correlation coefficient you calculated to find the regression slope in Exercise 10B6. (b) Explain how the Pearson r for paired data can be very high and statistically significant, while the matched t test for the same data fails to attain significance.*
-
-
-```{r Q11b9}
-test_scores
-```
-
-**DIRECTIONS:** Calculate Pearson's $r$ between `spatial` and `math` in the `schizo` test_scores 
-
-
-```{r Q11b9a}
-# Pearson's r: spatial & math
-
-```
-
-
-\clearpage
-
-> **Note:** I suggest using `key = type` and `value = score`.
-
-```{r Q11b9b}
-# Paired t-test: spatial & math 
-
-```
-
-
-
-
-
-\clearpage
-
-# SECTION C ITEMS
-
-## Chapter 9. Linear Correlation
-
-### 9C-1. Scatterplots - Eyeball method for estimating correlation
-
-**TEXTBOOK QUESTION:** *(A) Create a scatter plot of phobia versus statquiz. From looking at the plot, do you think the Pearson’s r will be positive or negative? Large, medium, or small? (B) Create a scatter plot of baseline anxiety versus postquiz anxiety. From looking at the plot, do you think the Pearson’s r will be positive or negative? Large, medium, or small?*
-
--------------------------------
-
-**DIRECTIONS:** Create two scatter plots: the first with `phobia` on the horizontal axis (`x`) and `statquiz` on the vertical axis (`y`) and the second with `anx_base` on the x-axis and `anx_post` on the y-axis.  Then answer the rest of the question in the printed homework packet.  
-
-> **NOTE:** You may use the `geom_count()` funciton instead of the `geom_point()` function due to the high number of points that are 'over plotted' or on top of each other, since the two measures are quite coursely captured.
-
-```{r Q9c1a}
-# Scatterplot: phobia vs. statquiz
-
-```
-
-
-\clearpage
-
-```{r Q9c1b}
-# Scatterplot: anx_base vs. anx_post
-
-```
-
-
-\clearpage
-
-### 9C-2a. Calculating Pearson's $r$
-
-**TEXTBOOK QUESTION:** *Compute the Pearson’s $r$ between `phobia` and `statquiz` for all students; also, find the Pearson’s $r$ between baseline and postquiz anxiety.*
-
--------------------------------
-
-**DIRECTIONS:** Compute Pearson's $r$: first for `phobia` and `statquiz`, followed by `anx_base` and `anx_post` using the `cor.test()` function.
-
-
-
-```{r Q9c2a1}
-# Pearson's r: phobia & statquiz
-
-```
-
-```{r Q9c2a2}
-# Pearson's r: anx_base & anx_post
-
-```
-
-
-\clearpage
-
-### 9C-2b. Effect of Excluding Extreme Values
-
-
-**TEXTBOOK QUESTION:** *Use Select Cases to delete any student whose baseline anxiety is over 29, and repeat part (B) of the first exercise. Also, rerun the correlation of baseline and postquiz anxiety. What happened to the Pearson’s r ? Use the change in the scatter plot to explain the change in the correlation coefficient.*
-
--------------------------------
-
-**DIRECTIONS:** Create a scatterplot for `anx_base` and `anx_post`, AFTER first using a `dplyr::filter()` funtion in a prepatroy step to restrict to the subsample of students with baseline anxiety of 29 and below.
-
-
-```{r Q9c2b1}
-# Scatterplot: anx_base vs. anx_post <-- restricting to baseline anxiety of 29 and lower
-
-```
-
-
-\clearpage
-
--------------------------------
-
-**DIRECTIONS:** Compute Pearson's $r$: for `anx_base` and `anx_post`, AFTER first using a `dplyr::filter()` funtion in a prepatroy step to restrict to the subsample of students with baseline anxiety of 29 and below.
-
-```{r Q9c2b2}
-# Pearson's r: anx_base & anx_post <-- restricting to baseline anxiety of 29 and lower
-
-```
-
-
-
-
-
-### 9C-3. Reporting APA Style 
-
-**TEXTBOOK QUESTION:** *(a) Compute Pearson’s $r$'s among the three measures of anxiety. Write up the results in APA style. (b) Compute the average of the three measures of anxiety, and then compute the correlation between each measure of anxiety and the average, ~~so that the output contains a single column of correlations (do this by creating and appropriately modifying a syntax file~~).*
-
--------------------------------
-
-
-**DIRECTIONS:** First, compute a new variable called `anx_mean` that is the average of all three of the anxiety measures using the `furniture::rowmeans()` function. Then use the `furniture::tableC()`function to create a correlation matrix for all FOUR anxiety meausres.
-
-```{r Q9c3}
-# Pearson's r: anx_mean, anx_base, anx_pre, & anx_post
-
-```
-
-
-
-\clearpage
-
-### 9C-4. Missing Values
-
-**TEXTBOOK QUESTION:** *(a) Compute Pearson’s $r$ for the following list of variables: mathquiz , statquiz , and phobia . (b) Repeat part a after selecting exclude cases listwise. Which correlation was changed? Explain why.*
-
--------------------------------
-
-**Directions:** Compute the correlation matrix between `mathquiz`, `statquiz`, and `phobia` using the `furniture::tableC()` function two times; first with all defaults and again with listwise deletion.
-
-
-> **Note:** The `furniture::tableC()` funtion defaults to `na.rm = FALSE` which displays `NA` for any correlation between a pair of variables where even one subject is missing one value.  To use listwise deletion, specify the option `na.rm = TRUE`.
-
-```{r Q9c4a}
-# Pearson's r: (default: na.rm = FALSE)
-
-```
-
-
-
-```{r Q9c4b}
-# Pearson's r: "complete.obs" (list-wise deletion)
-
-```
-
-
-
-
-\clearpage
-
-
-## Chapter 10. Linear Regression
 
 
 ### 10C-1. Linear Regression
@@ -620,8 +481,8 @@ test_scores
 
 ```
 
-
 \clearpage
+
 
 
 ```{r Q10c2b}
@@ -629,6 +490,7 @@ test_scores
 
 ```
 
+-------------------------------
 
 ```{r Q10c2c}
 # Linear model: y = anx_pre & x = phobia  <-- subset of women
@@ -637,12 +499,141 @@ test_scores
 
 
 
+\clearpage
+
+# Chapter 11. Matched pairs t-test
+
+## Section B - Other Datasets
+
+
+
+### 11B-3 Matched Pairs vs. Direct Difference Methods
+
+
+**TEXTBOOK QUESTION:** *Using the data from Exercise 9B6, which follows.  (a) Determine whether there is a significant tendency for verbal GRE scores to improve on the second testing. Calculate the matched t in terms of the Pearson correlation coefficient already calculated for that exercise. (b) Recalculate the matched t test according to the direct-difference method and compare the result to your answer for part a.*
+
+```{r Q11b3}
+GRE
+```
+
+-------------------------------
+
+**DIRECTIONS:** Calculate the matched pairs t test between `verbalGRE_1`and `verbalGRE_2` in the `GRE` dataset. 
+
+In order to use this function, you MUST first restructure your dataset so that the TWO continous variables are stacked or **gathered** together.  Use the `tidyr::gather()` function with the following FOUR options:
+
+  * A new variable name that will store the original variable names:  `key = new_group_var`
+  * A new variable name that will store the original variable values: `value = new_continuous_var`
+  * List the original variable names:  `continous_var1, continuous_var2`
+  * Do not get ride of blank values:  `na.rm = FALSE`
+
+After the dataset is fathered, ad the `t.test()` function, which needs at least THREE arguments:
+
+  * the formula:  `continuous_var ~ group_var`
+  * the dataset: `data = .` *we use the period to signify that the datset is being piped from above*
+  * specify the data is paired: `paired = TRUE` *the default is independent groups*
+  
+> **Note:** I suggest using `key = time` and `value = verbalGRE`.
+
+
+```{r Q11b3a}
+# Paired t-test: verbalGRE1 & verbalGRE2
+
+```
+
+\clearpage
+
+**DIRECTIONS:** Calculate a NEW variable called `verbalGRE_diff` with the `dplyr::mutate()` function by subtracting the `verbalGRE_1`and `verbalGRE_2` variables in the `GRE` dataset. Pipe it all together ans save it as new dataset with the `GRE_new <-` assignment operator to use in the next step.
+
+
+```{r Q11b3b}
+# Compute a new variable --> save as: child_new
+
+```
+
+-------------------------------
+
+> **Note:** Remember that before you do a one-sample t test for the mean, you have to use the `dplyr::pull()` function (see chapter 6)
+
+```{r Q11b3c}
+# 1-sample t test: pop mean of verbalGRE_diff = 0 (no difference)
+
+```
+
 
 
 \clearpage
 
+### 11B-8 Confidence Intervale for the Mean Difference
 
-## Chapter 11. Matched pairs t-test
+
+**TEXTBOOK QUESTION:** *A cognitive psychologist is testing the theory that short-term memory is mediated by subvocal rehearsal. This theory can be tested by reading aloud a string of letters to a participant, who must repeat the string correctly after a brief delay. If the theory is correct, there will be more errors when the list contains letters that sound alike (e.g., G and T) than when the list contains letters that look alike (e.g., P and R). Each participant gets both types of letter strings, which are randomly mixed in the same experimental session. The number of errors for each type of letter string for each participant are shown in the following table. (a) Perform a matched t test ( $\alpha = .05$, one tailed) on the data above and state your conclusions.  (b) Find the 95% confidence interval for the population difference for the two types of letters.*
+
+```{r Q11b8}
+memory
+```
+
+-------------------------------
+
+**DIRECTIONS:** Calculate the matched pairs t test between `sound`and `look` in the `memory` dataset twice: first as a **one-tail** test and then again as a **two-tailed*** test.
+
+> **Note:** I suggest using `key = type` and `value = errors`.
+
+```{r Q11b8a}
+# Paired t-test: sound and look --> ONE tail
+
+```
+
+\clearpage
+
+
+
+```{r Q11b8b}
+# Paired t-test: sound and look --> TWO tails
+
+```
+
+
+
+
+\clearpage
+
+### 11B-9 t-Test for Mean Difference vs. Correlation
+
+**TEXTBOOK QUESTION:** *For the data in Exercise 10B6: (a) Calculate the matched t value to test whether there is a significant difference ($\alpha = .05$, two tailed) between the spatial ability and math scores. Use the correlation coefficient you calculated to find the regression slope in Exercise 10B6. (b) Explain how the Pearson r for paired data can be very high and statistically significant, while the matched t test for the same data fails to attain significance.*
+
+
+```{r Q11b9}
+test_scores
+```
+
+
+-------------------------------
+
+**DIRECTIONS:** Calculate Pearson's $r$ between `spatial` and `math` in the `schizo` test_scores 
+
+```{r Q11b9a}
+# Pearson's r: spatial & math
+
+```
+
+
+\clearpage
+
+> **Note:** I suggest using `key = type` and `value = score`.
+
+```{r Q11b9b}
+# Paired t-test: spatial & math 
+
+```
+
+
+
+
+
+\clearpage
+
+## Section C - Ihno's Dataset
 
 
 ### 11C-1a. Matched pairs t-test
@@ -661,7 +652,6 @@ test_scores
 
 ```{r Q11c1a}
 # Paired t-test: hr_base & hr_pre  <-- full sample
-
 ```
 
 
@@ -671,13 +661,12 @@ test_scores
 
 ```{r Q11c1b}
 # Paired t-test: hr_base & hr_pre  <-- subset of men
-
 ```
 
+-------------------------------
 
 ```{r Q11c1c}
 # Paired t-test: hr_base & hr_pre  <-- subset of women
-
 ```
 
 
@@ -702,7 +691,7 @@ test_scores
 
 ```
 
-
+\clearpage
 
 ```{r Q11c2b}
 # Paired t-test: anx_pre & anx_post
