@@ -116,8 +116,21 @@ Repeat Exercise 1 for the variables `prevmath` and `phobia`.
 
 > IN THE WRITEUP: Would it make sense to request a histogram instead of a bar chart for phobia ? Discuss.
 
+
+```{r}
+# Frequency distrubution: prevmath
+
+
+```
+
 ```{r}
 # Bar Plot: prevmath
+
+
+```
+
+```{r}
+# Frequency distrubution: phobia
 
 
 ```

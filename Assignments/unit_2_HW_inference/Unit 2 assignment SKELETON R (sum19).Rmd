@@ -1,7 +1,7 @@
 ---
 title: "Psy/Educ 6600: Unit 2 Homework"
 subtitle: "Groundwork for Inference"
-author: "Your Name"
+author: "Dr. Sarah Schwartz - Answer Key"
 date: "Spring 2019"
 output: 
   pdf_document:
@@ -94,26 +94,28 @@ data_clean <- read_excel("Ihno_dataset.xls") %>%
 
 **TEXTBOOK QUESTION:** *(A) In the past 10 years, previous stats classes who took the same math quiz that Ihno’s students took **averaged 28** with a **standard deviation of 8.5**. What is the two-tailed p value for Ihno’s students with respect to that past population? (Don’t forget that the N for mathquiz is not 100.)  Would you say that Ihno’s class performed significantly better than previous classes? Explain. (B) Redo part a assuming that the same previous classes had also taken the same statquiz and **averaged 6.1** with a **standard deviation of 2.5**.*
 
+---------------------------------
+
 **DIRECTIONS:** Find the mean (`M`) and sample size (`n`) for `mathquiz` and `statquiz` and then work the rest of the statistical test by hand in the printed homework packet.  Recall that the not all participants have scores recorded for the math quiz.  When you have such missing values, care must be taken on how to handle the partial-data cases.
 
 First, use the `furniture::table1()` function to compute the mean of each othe two variables using the default settings.  Notice that the only sample size given is thenumber of cases with complete data.  Participants with incomplete data are ignored when computing the mean and standard deviations.
 
-> **NOTE:** When using the `furniture::table1()` funciton the default is only include participants that are complete on all the selected variables (option: `na.rm = TRUE`).
 
 ```{r}
 # Find the mean and n for: mathquiz, statquiz  <-- default settings: na.rm = TRUE
 
 ```
 
+--------------------------
 
-Second, use the `furniture::table1()` function to compute the mean of each othe two variables changing settings with the option to include incomplete cases.  Notice that the only sample size given is the total of all cases with complete and incomplete data, although the means and standard deviations are based on different sub-samples.
-
-> **NOTE:** When using the `furniture::table1()` funciton you may override the default and include all participants, even those with partial data (option: `na.rm = FALSE`).
+**DIRECTIONS:** Second, use the `furniture::table1()` function to compute the mean of each othe two variables changing settings with the option to include incomplete cases.  Notice that the only sample size given is the total of all cases with complete and incomplete data, although the means and standard deviations are based on different sub-samples (option: `na.rm = FALSE`).
 
 ```{r}
-# Find the mean and n for: mathquiz, statquiz
+# Find the mean and n for: mathquiz, statquiz  <-- override the default settings: na.rm = FALSE
 
 ```
+
+\clearpage
 
 Third, use the `psych::describe()` function to compute the mean of each othe two variables.  Notice that two different samples sizes are given.  Compare the means to the two tables above.
 
@@ -126,11 +128,18 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 
 
+
+
+
+
+
 \clearpage
 
 ## 5C-4. Test for Normaity for `mathquiz` and `statquiz`
 
 **TEXTBOOK QUESTION:** *Test both the math quiz and stat quiz variables for their resemblance to normal distributions. Based on skewness, kurtosis, and the Shapiro-Wilk statistic, which variable has a sample distribution that is not very consistent with the assumption of normality in the population?*
+
+---------------------------
 
 ### Skewness and Kurtosis
 
@@ -143,6 +152,9 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 ```
 
+See results above.
+
+\clearpage
 
 ### Shapiro-Wilk's Test
 
@@ -155,6 +167,8 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 ```
 
+---------------------------
+
 ```{r}
 # Shapiro-Wilk's Normality Test for: statquiz
 
@@ -162,16 +176,16 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 \clearpage
 
-### Create Histograms
+### Histogram
 
 **DIRECTIONS:**  Use `geom_histogram()` after setting the `ggplot(aes())`.  Make sure to try different `bins = #` or `binwidth = #` to get a 'good looking' plot.
-
-> **NOTE:** For histograms, you do need to specify the variable name as `x`in the `aes(x = variable)` option.  
 
 ```{r}
 # Histogram for: mathquiz
 
 ```
+
+-----------------------------
 
 ```{r}
 # Histogram for: statquiz
@@ -180,7 +194,7 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 \clearpage
 
-### Create QQ Plots
+### QQ Plot
 
 **DIRECTIONS:**  Use `geom_qq()` after setting the `ggplot(aes())`.  
 
@@ -190,6 +204,8 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 # Histogram for: mathquiz
 
 ```
+
+----------------------------------
 
 ```{r}
 # Histogram for: statquiz
@@ -206,8 +222,10 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 ## 6C-1. 1-sample `t`-tests for `anx_base`, `anx_pre`, and `anx_post`
 
+
 **TEXTBOOK QUESTION:** *Perform one-sample t tests to determine whether the baseline, pre-, or postquiz anxiety scores of Ihno’s students differ significantly ( $\alpha = .05$, two-tailed) from the mean ($\mu = 18$) found by a very large study of college students across the country. Find the 95% Cconfidence interval for the population mean for each of the **three** anxiety measures.*
 
+----------------------------
 
 **DIRECTIONS:**  Use the `t.test(mu = #)` function to perform a 1 sample `t`-test.  Make sure to specify the Null hypothesis value for $\mu$.
 
@@ -218,13 +236,17 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 ```
 
+---------------------------
+
 ```{r}
-# 1-sample t-test for: anx_base
+# 1-sample t-test for: anx_pre
 
 ```
 
+\clearpage
+
 ```{r}
-# 1-sample t-test for: anx_base
+# 1-sample t-test for: anx_post
 
 ```
 
@@ -237,11 +259,13 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 ## 6C-2. 1-sample `t`-tests for `hr_base` among MEN
 
-**TEXTBOOK QUESTION:** *Perform a one-sample t test to determine whether the average baseline heart rate of Inho's **male** students differs significantly from the **mean** heart rate ($\mu = 70$) for college-aged men at the **.01 level**, two-tailed. Find the **99%** confidence intervals for the population mean represented by Inho's **male** students.*
+**TEXTBOOK QUESTION:** *Perform a one-sample t test to determine whether the average baseline heart rate of Ihno’s **male** students differs significantly from the **mean** heart rate ($\mu = 70$) for college-aged men at the **.01 level**, two-tailed. Find the **99%** confidence intervals for the population mean represented by Ihno’s **male** students.*
 
-**DIRECTIONS:** Similar to the last problem, use the `t.test(mu = #)` function to perform a 1 sample `t`-test.  This time, make sure the subset out the males only with a `dplyr::filter()` step prior to the `dplyr::pull()` step.
+------------------------
 
-> **note:** To change from the default 95% confidence intervals, make sure to specify `conf.level = 0.99` inside the `t.test()` function.
+**DIRECTIONS:** Similar to the last problem, use the `t.test(mu = #)` function to perform a 1 sample `t`-test.  This time, make sure the subset out the MEN only (`genderF == "Male"`) with a `dplyr::filter()` step prior to the `dplyr::pull()` step.
+
+> **Note:** To change from the default 95% confidence intervals, make sure to specify `conf.level = 0.99` inside the `t.test()` function.
 
 ```{r}
 # 1-sample t-test for MALES: hr_base
@@ -258,10 +282,12 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 **TEXTBOOK QUESTION:** *Perform a one-sample t test to determine whether the average postquiz heart rate of Ihno’s **female** students differs significantly ($\alpha = .05$, two-tailed) from the **mean** resting heart rate ($\mu = 72$) for college-aged women. Find the 95% confidence interval for the population mean represented by Ihno’s **female** students.*
 
+----------------------------------
+
 **DIRECTIONS:** This time, subset out WOMEN (`genderF == "Female"`) and choose the post-quiz heart rate.  Also, use a different population null value ($\mu$).
 
 ```{r}
-# 1-sample t-test for MALES: hr_base
+# 1-sample t-test for FEMALES: hr_post
 
 ```
 
@@ -273,12 +299,13 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 \clearpage
 
-
 # Chapter 7. Independent Samples `t`-Test for Means
 
 ## 7C-1. Independent Samples `t`-Test for Mean `hr_base` by `genderF`
 
 **TEXTBOOK QUESTION:**  *Perform a two-sample t test to determine whether there is a statistically significant difference in **baseline heart rate** between the **men and the women** of Ihno’s class. Do you have **homogeneity of variance**? Report your results as they might appear in a journal article. Include the 95% CI for this gender difference.*
+
+---------------------------
 
 ### Assumtion Check: Homogeneity of Variance
 
@@ -333,6 +360,7 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 **TEXTBOOK QUESTION:**  *Repeat Exercise 1 for the phobia variable.*
 
+---------------------------
 
 ### Assumtion Check: Homogeneity of Variance
 
@@ -363,25 +391,26 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 \clearpage
 
-## 7C-3. Independent Samples `t`-Test for Mean `phobia` by `exp_condF` (Restricted to just the Easy vs.Imposible groups)
+## 7C-3. Independent Samples `t`-Test for Mean `hr_post` by `exp_condF` (Restricted to just the Easy vs.Imposible groups)
 
-**TEXTBOOK QUESTION:**  *Perform a two-sample `t` test to determine whether the students in the “impossible to solve” condition exhibited signiﬁcantly higher postquiz heart rates than the students in the “easy to solve” condition at the .05 level. Is this t test signiﬁcant at the .01 level? Find the 99% CI for the difference of the two population means.*
+**TEXTBOOK QUESTION:**  *Perform a two-sample `t` test to determine whether the students in the `impossible to solve` condition exhibited significantly higher postquiz heart rates than the students in the `easy to solve` condition at the .05 level. Is this t test significantly at the .01 level? Find the 99% CI for the difference of the two population means.*
 
-
+---------------------------
 
 ### Assumtion Check: Homogeneity of Variance
 
 
-**DIRECTIONS:** Before performing the test, check to see if the assumption of homogeneity of variance is met using **Levene's Test**.  For a independent samples `t`-test for means, the **"Easy"** and **"Imposible"** groups have the same amount of spread (SD) in their phobia self-ratings.
+**DIRECTIONS:** Before performing the test, check to see if the assumption of homogeneity of variance is met using **Levene's Test**.  For a independent samples `t`-test for means, the **"Easy"** and **"Imposible"** groups have the same amount of spread (SD) in their post quiz.
 
 
 > Prior to running Levene's test, make sure to reduce your dataset by throwing out the students who were assigned the middle two difficulty levels of experimental quiz.  You can do this by prefacing levene's test with ` dplyr::filter(exp_condF %in% c("Easy", "Impossible"))`.
 
 ```{r}
-# Levene's F-test for HOV: phobia by exp_condF
+# Levene's F-test for HOV: hr_post by exp_condF
 
 ```
 
+\clearpage
 
 ### Perform the `t`-Test for Means in 2 Indep Groups 
 
@@ -391,7 +420,7 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 > Prior to running the t-test, make sure to reduce your dataset by throwing out the students who were assigned the middle two difficulty levels of experimental quiz.  You can do this by prefacing levene's test with ` dplyr::filter(exp_condF %in% c("Easy", "Impossible"))`.
 
 ```{r}
-# indep groups t-test for means: phobia by exp_condF
+# indep groups t-test for means: hr_post by exp_condF
 
 ```
 
@@ -402,6 +431,7 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 **TEXTBOOK QUESTIONS:** *Repeat Exercise 3 for the postquiz anxiety variable.*
 
+---------------------------
 
 ### Assumtion Check: Homogeneity of Variance
 
@@ -418,6 +448,7 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 ```
 
+\clearpage
 
 ### Perform the `t`-Test for Means in 2 Indep Groups 
 
@@ -437,6 +468,7 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 
 **TEXTBOOK QUESTIONS:** *Perform a two-sample t test to determine whether **coffee drinkers** exhibited significantly higher **postquiz heart rates** than nondrinkers at the .05 level. Is this t test significant at the .01 level? Find the **99%** confidence interval for the difference of the two population means and explain its connection to your decision regarding the null hypothesis at the **.01 level**.*
 
+---------------------------
 
 ### Assumtion Check: Homogeneity of Variance
 
@@ -446,6 +478,8 @@ Third, use the `psych::describe()` function to compute the mean of each othe two
 # Levene's F-test for HOV: hr_post by coffeeF
 
 ```
+
+\clearpage
 
 ### Perform the `t`-Test for Means in 2 Indep Groups 
 
