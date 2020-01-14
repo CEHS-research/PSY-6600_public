@@ -1,0 +1,622 @@
+---
+title: "Hypothesis Testing"
+subtitle: "Cohen Chapter 5 <br><br> .small[EDUC/PSY 6600]"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: pres2.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center",   # center all figures
+                      fig.width   = 6.5,        # set default figure width to 4 inches
+                      fig.height  = 4.5)        # set default figure height to 3 inches
+```
+
+class: center, middle
+
+## "I'm afraid that I rather <br> give myself away  when I explain,"  <br> said he. <br> "Results without causes <br> are much more impressive."
+
+
+### -- Sherlock Holmes 
+*The Stock-Broker's Cat*
+
+
+
+
+
+---
+# Two Types of Research Questions
+
+
+.pull-left[
+.center[
+### Do .dcoral[groups] <br>*significantly* .dcoral[differ] <br> on 1 or more characteristics?
+]
+
+Comparing group means, counts, or proportions
+
+.dcoral[
+- $t$-tests
+- ANOVA
+- $\chi^2$ tests]
+]
+
+--
+
+.pull-right[
+.center[
+### Is there a <br> *significant* .nicegreen[relationship] <br> among a set of .nicegreen[variables]?
+]
+
+
+Testing the association or dependence
+
+.nicegreen[
+- Correlation
+- Regression]
+]
+
+
+
+
+---
+# Inferential Statistics
+
+.pull-left[
+## Descriptive statistics are limited
+
+- Rely only on **raw** data distribution
+- Generally describe **one** variable only
+- Do not address **accuracy** of estimators or hypothesis testing
+- How **precise** is sample mean or does it differ from a given value?
+- Are there between or within **group differences** or **associations**?
+]
+
+--
+
+.pull-right[
+### Goals of inferential statistics
+
+- .dcoral[Hypothesis testing]
+  - $p$-values
+- .dcoral[Parameter estimation]
+  - confidence intervals
+
+
+### Repeated sampling
+- Estimators will vary from sample to sample
+- Sampling or random error is variability due to chance
+]
+
+
+
+
+---
+background-image: url(figures/fig_old_cig.png)
+
+# Causality and Statistics
+
+
+## .dcoral[Causality] depends <br> on .nicegreen[**evidence**] <br> from outside statistics:
+
+
+- Phenomenological (educational, behavioral, biological) credibility
+- Strength of association, ruling out occurrence by chance alone
+- Consistency with past research findings
+- Temporality
+- Dose-response relationship
+- Specificity
+- Prevention
+
+--
+
+.large[.dcoral[**Causality** is often a **judgmental** evaluation <br> of **combined** results from **several studies**]] 
+
+
+
+---
+# z-Scores and Statistical Inference
+
+
+Probabilities of $z$-scores used to determine how **unlikely** or **unusual** a single case is relative to other cases in a sample 
+
+## .center[**Small** probabilities <br> .dcoral[*(p-values)*] <br> reflect **unlikely** or **unusual scores**]
+
+Not frequently interested in whether **individual scores** are unusual relative to others, but whether scores from **groups of cases** are unusual.
+
+.nicegreen[**Sample mean**], $\bar{x}$ or $M$, summarizes .nicegreen[**central tendency**] of a group or sample of subjects
+
+
+
+
+---
+background-image: url(figures/fig_yellow_box_1.png)
+
+# Steps of a Hypothesis test 
+
+.pull-left[
+1. State the .nicegreen[Hypotheses] 
+  - Null & Alternative
+  <br><br>
+2. Select the .nicegreen[Statistical Test] & .nicegreen[Significance Level] 
+  - $\alpha$ level
+  - One vs. Two tails
+  <br><br>
+3. Select random sample and collect data
+  <br><br>
+4. Find the .nicegreen[Region of Rejection]
+  - Based on $\alpha$ & # of tails
+  <br><br>
+4. Calculate the .nicegreen[Test Statistic]
+  - Examples include: $z, t, F, \chi^2$
+  <br><br>
+5. Write the .nicegreen[Conclusion]
+  - Statistical decision must by in context!
+]
+
+--
+
+.pull-right[
+## Definition of a p-value:
+
+.center[.large[ .large[
+The probability of observing <br> a test statistic <br> .dcoral[**as extreme or more extreme**] <br> .nicegreen[**IF**] <br> the NULL hypothesis is true.
+]]]]
+
+
+
+
+---
+background-image: url(figures/fig_null_hyp.png)
+
+# Stating Hypotheses
+
+Hypotheses are always specified in terms of .dcoral[**population**]
+- Use $\mu$ for the population mean, not $\bar{x}$ which is for a sample
+
+.pull-left[ 
+**If you are comparing TWO population MEANS:**
+
+.large[
+.center[
+.dcoral[**Null** Hypothesis]
+]
+]
+$$H_0: \mu_1 = \mu_2$$
+.large[
+.center[
+.nicegreen[**Research** or Alternative Hypothesis] <br> options...
+]
+]
+$$H_1: \mu_1 \ne \mu_2$$
+$$H_1: \mu_1 \lt \mu_2$$
+$$H_1: \mu_1 \gt \mu_2$$
+]
+
+
+
+
+---
+background-image: url(figures/fig_scale_null.png)
+
+# Innocent Until Proven Guilty
+
+**IF** there is Not enough statistical evidence to reject
+
+Judgment suspended until further evidence evaluated:
+
+- "Inconclusive"
+- Larger sample?
+- Insufficient data?
+
+
+
+
+
+
+
+---
+# Rejecting the Null Hypothesis
+
+.pull-left[
+
+.large[**Assumption:**] 
+
+The .dcoral[NULL] hypothesis is .dcoral[TRUE] in the .dcoral[POPULATION]
+
+
+
+.nicegreen[.large[IF:] 
+
+The p-value is very **SMALL**]
+
+- How small?
+$p-value \lt \alpha$
+
+
+
+.nicegreen[.large[THEN:] 
+
+We have evidence AGAINST the NULL hypothesis]
+
+- It is **UNLIKELY** we would have observed a sample that extreme **JUST DUE TO RANDOM CHANCE**...
+
+]
+
+--
+
+.pull-right[
+.large[**Criteria:**] 
+
+May judge by either...
+- the p-value $\lt \alpha$   
+-OR-   
+- test statistic $\lt$ Critical Value
+
+
+
+.large[**Conclusion:**]
+
+We either **REJECT** or **FAIL TO REJECT** the .nicegreen[Null] hypothesis 
+
+.center[ .large[ .dcoral[
+We NEVER **ACCEPT** <br> the **ALTERNATIVE** hypothesis!!!
+]]]
+
+]
+
+
+
+
+---
+background-image: url(figures/fig_1or2_tails.png)
+
+# ONE tail or TWO?
+
+.pull-left[
+.large[**2-tailed test**]
+
+$H_1: \mu_1 \ne \mu_2$
+
+.large[**1-tailed test**]
+
+.nicegreen[**Suggests a directionality in results!**] 
+
+$H_1: \mu_1 \lt \mu_2$ -OR- $H_1: \mu_1 \gt \mu_2$
+
+.large[**NO computational differences**]
+
+ONLY the $p-value$ differs:
+
+$2 \; tail \; p-value = \mathbf{2 \times} 1 \; tail \; p-value$
+
+- IF: 1-sided: $p = .03$
+- THEN: 2-sided: $p = .06$
+
+]
+
+---
+background-image: url(figures/fig_1tail_cv.png)
+
+# ONE tail or TWO?
+
+.large[ .large[ .center[ .dcoral[Some circumstances may warrant a 1-tailed test, BUT... <br>We generally **prefer** and default to a 2-tailed test!!!]]]]
+
+
+.pull-right[
+.large[**More conservative = 2 tails**]<br>
+
+Rejection region is distributed in both tails
+
+- e.g.: $\alpha = .05$ distributed across both tails 
+  - (2.5% in each tail)
+
+- If we know outcome, why do study?
+  - Looks suspicious to reviewer's?
+  - "significant results at all costs!"
+]
+
+
+
+---
+background-image: url(figures/fig_err_types.png)
+
+# Choosing Alpha
+
+.pull-left[
+
+.dcoral[**Alpha**  = probability of making a **type I error**]
+
+.large[.dcoral[**type I error**]]
+- We reject the NULL when we should not
+- The risk of "false positive" results
+
+
+
+.large[.dcoral[**type II error**]]
+- We FAIL to reject the NULL when we should
+- The risk of "false negative" results
+
+]
+
+
+---
+background-image: url(figures/fig_conf_matrix.png)
+
+# Choosing Alpha
+
+.pull-right[
+
+We want $\alpha$ to be .nicegreen[SMALL], but we can't just make too tiny, since the trade off is increasing the type II error rate
+
+.nicegreen[DEFAULT] is $\alpha = .05$ (5% = 1 in 20 & seems *rare* to humans) **BUT** there is nothing magical about it
+
+Let it be .nicegreen[LARGER] value, $\alpha = .10$, **IF** we'd rather not miss any potential relationship and are okay with some false positives
+  - Ex) screening genes, early drug investigation, pilot study
+  
+Set it .nicegreen[SMALLER], $\alpha = .01$, **IF** false positives are costly and we want to be more stringent
+  - Ex) changing a national policy, mortgaging the farm
+
+]
+
+
+---
+# Assumptions of a 1-sample z-test
+
+.large[**Sample was drawn at .dcoral[random] (at least as representative as possible)**] <br>
+
+- Nothing can be done to fix NON-representative samples!
+- Can not statistically test
+
+--
+
+.large[**.dcoral[SD] of the sampled population = .dcoral[SD] of the comparison population**] <br>
+
+- Very hard to check
+- Can not statistically test
+
+--
+
+.large[**Variables have a .dcoral[normal] distribution**] <br>
+
+- Not as important if the sample is large (Central Limit Theorem)
+- IF the sample is far from normal &/or small n, might want to transform variables
+  - Look at plots: .dcoral[histogram, boxplot, & QQ plot] (straight 45 degree line)
+  - Skewness & Kurtosis: Divided value by its SE & $> \pm 2$ indicates issues
+  - .dcoral[Shapiro-Wilks] test (small N): p < .05 ??? not normal
+  - Kolmogorov-Smirnov test (large N)
+  
+  
+  
+  
+---
+# APA: results of a 1-sample z-test
+
+- State the alpha & number of tails prior to any results
+
+- Report exact p-values (usually 2 decimal places), except for `p < .001`
+
+
+--
+
+### Example Sentence:
+
+A one sample z test showed that the difference in the quiz scores between the current sample (N = 9, M = 7.00, SD = 1.23) and the hypothesized value (6.000) were statistically significant, z = 2.45, p = .040.
+
+
+
+
+
+---
+# EXAMPLE: 1-sample z-test
+
+After an earthquake hits their town, a random sample of townspeople yields the following anxiety score:  
+
+.center[.nicegreen[72, 59, 54, 56, 48, 52, 57, 51, 64, 67]]
+
+Assume the general population has an anxiety scale that is expressed as a T score, so that $\mu = 50$ and  $\sigma = 10$.  
+
+---
+background-image: url(figures/fig_ztest_a.png)
+
+# EXAMPLE: 1-sample z-test
+
+After an earthquake hits their town, a random sample of townspeople yields the following anxiety score:  
+
+.center[.nicegreen[72, 59, 54, 56, 48, 52, 57, 51, 64, 67]]
+
+Assume the general population has an anxiety scale that is expressed as a T score, so that $\mu = 50$ and  $\sigma = 10$.  
+
+
+---
+background-image: url(figures/fig_ztest_2.png)
+
+
+
+
+
+
+---
+# Cautions About Significance Tests
+
+.large[**Statistical significance**]
+
+- only says whether the effect observed is likely to be .nicegreen[due to chance] alone, because of random sampling
+
+- may not be .nicegreen[practically important]
+
+That's because *statistical* significance doesn't tell you about the .nicegreen[**magnitude of the effect**], only that there **is** one. 
+
+
+An *effect* could be too small to be .nicegreen[**relevant**].  <br><br>
+
+And with a large enough sample size, significance can be reached even for the tiniest effect.
+<br><br>
+- EX) A drug to lower temperature is found to reproducibly lower patient temperature by 0.4 degrees Celsius, $p \lt 0.01$. But clinical benefits of temperature reduction only appear for a 1 decrease or larger. 
+
+.large[ .center[ .dcoral[**STATISTICAL significance does NOT mean PRACTICAL significance!!!**]]]
+
+
+
+
+---
+# Cautions About Significance Tests
+
+### Don't ignore lack of significance
+
+.center[.large[.dcoral[**"Absence of evidence is not evidence of absence."**]]]
+
+.nicegreen[.center[Having no proof of who committed a murder <br> does not imply that the murder was not committed. ]]
+
+Indeed, failing to find statistical significance in results is *not* rejecting the null hypothesis. This is very different from actually accepting it. The sample size, for instance, could be too small to overcome large variability in the population.
+
+When comparing two populations, lack of significance does NOT imply that the two samples come from the same population. They could represent two very distinct populations with similar mathematical properties.
+
+
+
+---
+class: inverse, center, middle
+
+# Let's Apply This to the Cancer Dataset 
+
+
+---
+# Read in the Data
+
+```{r}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(rio)          # Read in SPSS datasets
+library(psych)        # Lots of nice tid-bits
+library(car)          # Companion to "Applied Regression"
+```
+
+```{r, eval=FALSE}
+cancer_raw <- rio::import("cancer.sav")
+```
+
+```{r, include=FALSE}
+cancer_raw <- rio::import("data/cancer.sav")
+```
+
+--
+### And Clean It
+
+```{r, message=FALSE, warning=FALSE}
+cancer_clean <- cancer_raw %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(id = factor(id)) %>% 
+  dplyr::mutate(trt = factor(trt,
+                             labels = c("Placebo", 
+                                        "Aloe Juice"))) %>% 
+  dplyr::mutate(stage = factor(stage))
+```
+
+---
+# Descriptive Statistics
+
+
+### Skewness & Kurtosis
+
+```{r}
+cancer_clean %>% 
+  dplyr::select(age, totalcw4) %>% 
+  psych::describe()
+```
+
+
+---
+#  Tests for Normaility - Shapiro-Wilks
+
+.pull-left[
+```{r}
+cancer_clean %>% 
+  dplyr::pull(age) %>% 
+  shapiro.test()
+```
+]
+
+.pull-right[
+```{r}
+cancer_clean %>% 
+  dplyr::pull(totalcw4) %>% 
+  shapiro.test()
+```
+]
+
+
+---
+# Plots to Check for Normaility - Age
+
+.pull-left[
+### Histogram
+```{r, fig.height=3.75}
+cancer_clean %>% 
+  ggplot(aes(age)) +
+  geom_histogram(binwidth = 5)
+```
+
+]
+
+--
+
+.pull-right[
+### Q-Q Plot
+```{r, fig.height=3.75}
+cancer_clean %>% 
+  ggplot(aes(sample = age)) +
+  geom_qq()
+```
+]
+
+
+
+---
+# Plots to Check for Normaility - Week 4
+
+.pull-left[
+### Histogram
+```{r, fig.height=3.75}
+cancer_clean %>% 
+  ggplot(aes(totalcw4)) +
+  geom_histogram(binwidth = 1)
+```
+
+]
+
+
+
+.pull-right[
+### Q-Q Plot
+```{r, fig.height=3.75}
+cancer_clean %>% 
+  ggplot(aes(sample = totalcw4)) +
+  geom_qq()
+```
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Confidence Interval Estimation & <br> The t-Distribution

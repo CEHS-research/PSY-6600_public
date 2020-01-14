@@ -1,0 +1,576 @@
+---
+title: "Standard and Normal"
+subtitle: "Cohen Chapter 4 <br><br> .small[EDUC/PSY 6600]"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: pres2.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center",   # center all figures
+                      fig.width   = 6.5,          # set default figure width to 4 inches
+                      fig.height  = 4.5)        # set default figure height to 3 inches
+```
+
+class: center, middle
+
+## How do all these unusuals strike you, Watson? <br> Their cumulative effect is certainly considerable, and yet each of them is quite possible in itself.
+
+### -- Sherlock Holmes and Dr. Watson, 
+*The Adventure of Abbey Grange*
+
+---
+# Exploring Quantitative Data
+
+### Building on what we've already discussed:
+
+.large[.large[
+1. Always plot your data: .dcoral[make a graph].
+2. Look for the overall pattern (.nicegreen[shape, center, and spread]) and for striking departures such as .nicegreen[outliers].
+3. Calculate a numerical summary to briefly .bluer[describe center and spread].
+4. Sometimes the overall pattern of a large number of observations is so regular that we can describe it by a smooth curve.
+]]
+
+---
+# Let's Start with Density Curves
+
+.huge[
+A .dcoral[density curve] is a curve that:
+]
+
+.large[.large[
+- is always on or above the horizontal axis
+- has an area of exactly 1 underneath it
+
+It describes the overall pattern of a distribution and highlights proportions of observations as the area.
+]]
+
+---
+background-image: url(figures/fig_density_normal1.png)
+background-position: 50% 70%
+background-size: 1200px
+
+# Density Curves and Normal Distributions
+
+---
+background-image: url(figures/fig_density_baseball.png)
+background-position: 50% 80%
+background-size: 950px
+
+---
+# Normal Distribution
+
+.pull-left[
+.large[.large[
+Many dependent variables are assumed to be normally distributed
+]
+
+- Many statistical procedures assume this
+    - Correlation, regression, t-tests, and ANOVA
+- Also called the Gaussian distribution
+    - for Karl Gauss
+]]
+
+.pull-right[
+```{r, echo=FALSE, fig.width = 5.5, fig.height=5}
+set.seed(2)
+library(tidyverse)
+tibble(x = rnorm(1000)) %>%
+  ggplot(aes(x, ..density..)) +
+  geom_histogram(alpha = .5, color = "black", fill = "lightgrey") +
+  geom_density(size = 2, color = "blue") +
+  theme_minimal(base_size = 18) 
+```
+
+]
+
+---
+background-image: url(figures/fig_6895rule.png)
+background-position: 50% 70%
+background-size: 1100px
+
+---
+background-image: url(figures/fig_normal.png)
+background-position: 50% 70%
+background-size: 1100px
+
+
+---
+# Do We Have a Normal Distribution?
+
+.huge[Check Plot!]
+
+.pull-left[Bell shaped curve?]
+
+.pull-right[Points on the line?]
+```{r, echo=FALSE, fig.width=10}
+set.seed(843)
+data <- data_frame(x = rnorm(100)) 
+
+p1 <- data %>%
+  ggplot(aes(x)) +
+    geom_histogram(bins = 10) +
+    theme_minimal(base_size = 18)
+
+p2 <- data %>%
+  ggplot(aes(sample = x)) +
+    geom_qq() +
+    geom_abline(slope = 1, intercept = 0) +
+    theme_minimal(base_size = 18)
+
+gridExtra::grid.arrange(p1, p2, nrow = 1)
+```
+
+
+---
+# Z-Scores, Computation
+
+
+.pull-left[
+.huge[.dcoral[Standardizing]]
+
+.large[.large[
+Convert a value to a standard score ("z-score")
+
+- First subtract the mean
+- Then divide by the standard deviation
+
+
+$$
+z = \frac{X - \mu}{\sigma} = \frac{X - \bar{X}}{s}
+$$
+
+]]
+]
+
+.pull-right[
+```{r, fig.width=6, fig.height=7, echo=FALSE}
+set.seed(843)
+df = data_frame(x  = rnorm(100, 110, 10.5)) %>%
+  mutate(xs = scale(x))
+p1 = ggplot(df,
+            aes(x = x)) +
+    geom_density(alpha = .5, fill = "chartreuse3", color = "chartreuse4") +
+    theme_minimal() +
+  labs(x = "Original",
+       title = "Original Units")
+p2 = ggplot(df,
+            aes(x = xs)) +
+    geom_density(alpha = .5, fill = "dodgerblue3", color = "dodgerblue4") +
+    theme_minimal() +
+  labs(x = "Standardized",
+       title = "Standardized Units")
+gridExtra::grid.arrange(p1, p2, ncol = 1)
+```
+
+]
+
+---
+# Z-Scores, Units
+
+.huge[
+- z-scores are in .nicegreen[SD units]
+- Represent SD distances away from the mean (M = 0) 
+    - if z-score = -0.50 then it is $\frac{1}{2}$ of SD below mean
+- Can compare z-scores from 2 or more variables originally measured in differing units
+
+.dcoral[Note: Standardizing does NOT "normalize" the data]
+]
+
+
+---
+class: inverse, center, middle
+
+# Let's Apply This to an Exmple Situation 
+
+---
+background-image: url(figures/fig_blank_normal_slide.png)
+background-position: 50% 80%
+background-size: 950px
+
+# Example: Draw a Picture
+
+.huge[95% of students at a school are between 1.1 and 1.7 meters tall
+]
+
+Assuming this data is .nicegreen[normally distributed], can you calculate the .dcoral[MEAN] and .dcoral[STANDARD DEVIATION]?
+
+---
+background-image: url(figures/fig_school_height_1.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+# Example: Draw a Picture
+
+.huge[95% of students at a school are between 1.1 and 1.7 meters tall
+]
+
+Assuming this data is .nicegreen[normally distributed], can you calculate the .dcoral[MEAN] and .dcoral[STANDARD DEVIATION]?
+
+
+
+---
+background-image: url(figures/fig_blank_normal_slide.png)
+background-position: 50% 80%
+background-size: 950px
+
+# Example: Calculate a z-Score
+
+.huge[You have a friend who is 1.85 meters tall.
+]
+
+.nicegreen[Class: M = 1.4 meters, SD = 0.15 meters]
+
+.dcoral[How far] is 1.85 from the mean?  How many .dcoral[standard deviations] is that?
+
+
+
+---
+background-image: url(figures/fig_school_height_2.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+# Example: Calculate a z-Score
+
+.huge[You have a friend who is 1.85 meters tall.
+]
+
+.nicegreen[Class: M = 1.4 meters, SD = 0.15 meters]
+
+.dcoral[How far] is 1.85 from the mean?  How many .dcoral[standard deviations] is that?
+---
+background-image: url(figures/fig_z_table_top.png)
+background-position: 50% 50%
+background-size: 15 7
+
+# Using the z-Table
+
+---
+
+## Examples: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = ______
+
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = ______
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = ______
+
+4. The .dcoral[90th percentile] for students heights = ______
+
+
+---
+background-image: url(figures/fig_school_height_3.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = ______
+
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = ______
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = ______
+
+4. The .dcoral[90th percentile] for students heights = ______
+
+
+---
+background-image: url(figures/fig_3_blank_normal_slide.png)
+background-position: 50% 50%
+
+## Examples: Find the Probability That...
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) .dcoral[More than] 1.63 m tall    
+  
+(2) .dcoral[Less than] 1.2 m tall  
+  
+(3) .dcoral[between] 1.2 and 1.63 tall
+
+---
+background-image: url(figures/fig_school_height_4.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Find the Probability That...
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) .dcoral[More than] 1.63 m tall    
+  
+(2) .dcoral[Less than] 1.2 m tall  
+  
+(3) .dcoral[between] 1.2 and 1.63 tall
+
+---
+background-image: url(figures/fig_2_blank_normal_slide.png)
+background-position: 50% 50%
+
+## Examples: Percentiles
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[perentile rank] of a 1.7 m tall Student = ______
+  
+(2) The .dcoral[height] of a studnet in the 15th percentile = ______
+
+---
+background-image: url(figures/fig_school_height_5.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Percentiles
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[perentile rank] of a 1.7 m tall Student = ______
+  
+(2) The .dcoral[height] of a studnet in the 15th percentile = ______
+
+
+---
+
+class: inverse, center, middle
+
+# Into Theory Mode Again
+
+---
+background-image: url(figures/fig_pop_sample_slide.png)
+background-position: 50% 50%
+
+# Parameters vs. Statistics
+
+---
+
+# Statistical Estimation
+
+.large[
+- The process of .nicegreen[statistical inference] involves using information .dcoral[from a sample] to draw conclusions about a wider population.
+
+- Different random samples yield different statistics. We need to be able to describe the .dcoral[sampling distribution] of possible statistic values in order to perform .nicegreen[statistical inference].
+
+
+- We can think of a statistic as a .nicegreen[random variable] because it takes numerical values that describe the outcomes of the .dcoral[random sampling process].
+]
+
+---
+background-image: url(figures/fig_samp_dist_slide.png)
+background-position: 50% 50%
+
+# Sampling Distribution
+
+.large[
+The .dcoral[LAW of LARGE NUMBERS] assures us that if we measure .nicegreen[enough] subjects, the statistic .nicegreen[x-bar] will eventually get .dcoral[very close to] the unknown parameter .nicegreen[mu]. 
+
+If we took every one of the possible samples of a certain size, calculated the sample mean for each, and graphed all of those values, we'd have a .dcoral[sampling distribution].
+]
+
+
+---
+background-image: url(figures/web_clt.png)
+background-position: 50% 50%
+background-size: 950px
+
+[http://shiny.stat.calpoly.edu/Sampling_Distribution/](http://shiny.stat.calpoly.edu/Sampling_Distribution/)
+
+
+
+
+---
+background-image: url(figures/fig_samp_dist_forMEAN_slide.png)
+background-position: 50% 50%
+
+# Sampling Distribution for the MEAN
+
+.large[
+The .dcoral[MEAN] of a sampling distribution .nicegreen[for a sample mean] is just as likely to be above or below the .dcoral[population mean], even if the distribution of the raw data is skewed. 
+
+
+The .dcoral[STANDARD DEVIATION] of a sampling distribution .nicegreen[for a sample mean] is is SMALLER than the standard deviation for the population by a factor of the .dcoral[square-root of n].
+]
+
+---
+background-image: url(figures/fig_all_samples_slide.png)
+background-position: 50% 50%
+
+# Normally Distributed Population
+
+.large[If the population is NORMALLY distributed:]
+
+
+
+---
+background-image: url(figures/fig_bank_calls_slide.png)
+background-position: 50% 50%
+
+## Skewed Population
+
+.pull-left[
+The distribution of lengths of .dcoral[all] customer service calls received by a bank in a month. 
+]
+
+.pull-right[
+The distribution of the .dcoral[sample means] (x-bar) for 500 random samples of size 80 from this population. The scales and histogram classes are exactly the same in both panels
+]
+
+
+---
+background-image: url(figures/fig_clt_slide.png)
+background-position: 50% 50%
+
+# The Central Limit Theorem
+
+---
+
+# The Central Limit Theorem
+
+.huge[
+When a sample size (n) is .nicegreen[large], the sampling distribution of the .dcoral[sample MEAN] is approximately normally distributed about the .nicegreen[mean of the population] with the stadard deviation less than than of the population by a factor of .nicegreen[the square root of n].
+]
+
+
+---
+class: inverse, center, middle
+
+# Back to the Example Situation
+
+
+
+---
+background-image: url(figures/fig_2_blank_normal_slide.png)
+background-position: 50% 50%
+
+## Examples: Probabilities
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[probability] a randomly selected .nicegreen[student] is more than 1.63 m tall = ______
+  
+(2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = ______
+
+
+---
+background-image: url(figures/fig_school_height_6.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Probabilities
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[probability] a randomly selected .nicegreen[student] is more than 1.63 m tall = ______
+  
+(2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = ______
+
+- Image needed here
+
+
+---
+class: inverse, center, middle
+
+# Let's Apply This to the Cancer Dataset 
+
+
+---
+# Read in the Data
+
+```{r}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(rio)          # Read in SPSS datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+library(psych)        # Lots of nice tid-bits
+```
+
+```{r, eval=FALSE}
+cancer_raw <- rio::import("cancer.sav")
+```
+
+```{r, include=FALSE}
+cancer_raw <- rio::import("data/cancer.sav")
+```
+
+--
+### And Clean It
+
+```{r, message=FALSE, warning=FALSE}
+cancer_clean <- cancer_raw %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(id = factor(id)) %>% 
+  dplyr::mutate(trt = factor(trt,
+                             labels = c("Placebo", 
+                                        "Aloe Juice"))) %>% 
+  dplyr::mutate(stage = factor(stage))
+```
+
+---
+## Standardize a variable with `scale()`
+
+.pull-left[
+```{r, message=FALSE, warning=FALSE}
+cancer_clean %>%
+  furniture::table1(age)
+```
+]
+
+.pull-right[
+```{r, message=FALSE, warning=FALSE}
+cancer_clean %>%
+  dplyr::mutate(agez = (age - 59.6) / 12.9) %>% 
+  dplyr::mutate(ageZ = scale(age))%>%
+  dplyr::select(id, trt, age, agez, ageZ) %>% 
+  head()
+```
+]
+
+---
+
+## Standardize a variable - not normal
+
+.pull-left[
+```{r, message=FALSE, warning=FALSE}
+cancer_clean %>%
+  dplyr::mutate(ageZ = scale(age)) %>%
+  furniture::table1(age, ageZ)
+```
+]
+
+.pull-right[
+```{r, message=FALSE, warning=FALSE}
+cancer_clean %>%
+  dplyr::mutate(ageZ = scale(age)) %>%
+  ggplot(aes(ageZ)) +
+  geom_histogram(bins = 14)
+```
+]
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Intro to Hypothesis Testing: 1 Sample z-test
+
+

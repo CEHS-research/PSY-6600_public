@@ -1,0 +1,485 @@
+---
+title: "Confidence Intervals and<br> the t Distribution"
+subtitle: "Cohen Chapter 6 <br><br> .small[EDUC/PSY 6600]"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: pres2.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center",   # center all figures
+                      fig.width   = 6.5,        # set default figure width to 4 inches
+                      fig.height  = 4.5)        # set default figure height to 3 inches
+```
+
+class: center, middle
+
+## “It is common sense to take a method and try it. <br> If it fails, admit it frankly and try another. <br> But above all, try something.”
+"
+
+
+### -- Franklin D. Roosevelt 
+
+
+---
+# Problems with z-tests
+
+
+
+Often don’t know $\sigma^2$, so we cannot compute $SE_M$, *Standard Error for the Mean* or $\sigma_{\bar{x}}$
+
+$$
+\sigma_{\bar{x}} = \frac{\sigma_x}{\sqrt{n}}
+$$
+
+
+
+Can you use $s$ in place of $\sigma$ in $SE_{\bar{x}}$ and do $z$ test?
+
+- Small samples – No, **inaccurate** results
+- Large samples – Yes (> 300 participants)
+
+$$
+z = \frac{\bar{x} - \mu_x}{\frac{s}{\sqrt{n}}}
+$$
+
+
+---
+## .dcoral[Small] samples
+
+As samples get smaller: $N \downarrow$
+
+- the skewness of the sampling distribution of $s^2 \uparrow$ 
+- $s^2$ **under**estimates $\sigma^2$
+- $z$ will $\uparrow$
+- an overestimate $\uparrow$ risk of **Type I error**
+
+--
+
+## Comparatively... in .dcoral[LARGE] samples
+
+- $s^2$ **un**biased estimate of $\sigma^2$
+- $\sigma$ is a constant, *unknown truth*
+- $s$ is NOT a constant, since it varies from sample to sample
+- As $N$ increases, $s \rightarrow \sigma$ 
+
+
+
+
+
+---
+background-image: url(figures/fig_will_gossett.png)
+
+# The t Distribution, “student’s t”
+
+.pull-right[
+1908, William Gosset
+
+  - Guinness Brewing Company, England
+  - Invented `t-test` for **small** samples for brewing quality control
+
+Wrote paper using moniker .nicegreen[“a student”] discussing nature of $SE_M$ when .dcoral[using] $s^2$ .dcoral[instead of] $\sigma^2$
+
+- Worked with Fisher, Neyman, Pearson, and Galton
+]
+
+---
+
+# Student’s t & Normal Distributions
+
+
+.pull-left[
+.large[.nicegreen[**Similarities**]]
+
+- Follows mathematical function 
+
+- Symmetrical, continuous, bell-shaped
+
+- Continues to $\pm$ infinity
+
+- Mean: $M = 0$
+
+- Area under curve = $p(event[s])$
+
+- When $N$ is **large** --- $\approx 300$ --- $t = z$
+]
+
+
+
+.pull-right[
+.large[.dcoral[**Differences**]]
+
+- Family of distributions
+
+- Different distribution for each $N$ (or $df$)
+
+- Larger area in **tails** (%) for any value of $t$ corresponding to $z$
+  - $t_{cv} \gt z_{cv}$, for a given $\alpha$
+
+- More difficult to reject $H_0$ w/ t-distribution
+  - $df = N - 1$
+  
+- As $df \uparrow$, the critical value of $t \rightarrow z$
+]
+
+
+
+---
+background-image: url(figures/fig_t_table.png)
+
+# The t Table
+
+
+
+
+
+
+---
+# Calculating the t-Statistic
+
+.bluer[
+$x$ is interval/ratio data (ordinal okay: $\ge 10-16$ levels or values)
+]
+
+Like $z$, $t$-statistic represents a **SD** score (the # of SE's that $\bar{x}$ deviates from $\mu$)
+
+
+.center[$$t =  \frac{\bar{x} - \mu_x}{\frac{s_x}{\sqrt{N}}}$$]
+
+.center[$$df = N - 1$$]
+
+When $\sigma$ is known, $t$-statistic is sometimes computed (rather than $z$-statistic) if $N$ is small
+
+.center[.large[.dcoral[
+Estimate the population $SE_M$ with sample data:
+]]]
+
+.center[
+Estimated $SE_M$ is the amount a sample's observed **mean** <br>may have deviated from <br> the true or population value <br>just due to random chance variation due to sampling.
+]
+
+
+
+
+---
+# Assumptions (same as z tests)
+
+.large[**Sample was drawn at .nicegreen[random] (at least as representative as possible)**] <br>
+
+- Nothing can be done to fix NON-representative samples!
+- .dcoral[Can not statistically test]
+
+--
+
+.large[**.nicegreen[SD] of the sampled population = .nicegreen[SD] of the comparison population**] <br>
+
+- Very hard to check
+- .dcoral[Can not statistically test]
+
+--
+
+.large[**Variables have a .nicegreen[normal] distribution**] <br>
+
+- Not as important if the sample is large (Central Limit Theorem)
+- IF the sample is far from normal &/or small n, might want to transform variables
+  - Look at plots: .dcoral[histogram, boxplot, & QQ plot] (straight $45\degree$ line)
+  - Skewness & Kurtosis: Divided value by its SE & $> \pm 2$ indicates issues
+  - .dcoral[Shapiro-Wilks] test (small N): p < .05 ??? not normal
+  - Kolmogorov-Smirnov test (large N)
+  
+
+
+
+
+---
+## EX) 1 sample t Test: mean vs. *historic control*
+
+A physician states that, in the past, the average number of times he saw each of his patients during the year was $5$. However, he believes that his patients have visited him significantly **more frequently** during the past year. In order to validate this statement, he randomly selects $10$ of his patients and determines the number of office visits during the past year. He obtains the values presented to the below.
+
+.center[.nicegreen[**9, 10, 8, 4, 8, 3, 0, 10, 15, 9**]]
+
+Do the data support his contention that the average number of times he has seen a patient in the last year is .dcoral[different that 5]?
+
+
+---
+## EX) 1 sample t Test: mean vs. *historic control*
+
+```{r}
+x = c(9, 10, 8, 4, 8, 3, 0, 10, 15, 9)
+
+length(x)
+sum(x)
+mean(x)
+sd(x)
+
+```
+
+
+---
+background-image: url(figures/fig_ex_t_test.png)
+
+## EX) 1 sample t Test: mean vs. *historic control*
+
+
+
+---
+# Confidence Intervals
+
+.large[Statistics are .dcoral[point estimates], or *population parameters*, .dcoral[**with error**]]
+
+How .nicegreen[**close**] is estimate to population parameter?
+
+- Confidence interval (CI) around point estimate .nicegreen[*(Range of values)*]
+    - Upper limit: UL or UCL
+    - Lower limit: LL or LCL
+
+CI expresses our .nicegreen[**confidence**] in a statistic & the .nicegreen[*width*] depends on $SE_M$ and $t_{cv}$
+
+- Both are function of $N$ 
+  - Larger $N \rightarrow$ Smaller CI 
+  <br><br>
+- More confident that sample point estimate (statistic) approximates population parameter
+  - .nicegreen[Narrow CI:] Less confidence, more precision *(less error)*
+  - .nicegreen[Wide CI:]  More confidence, less precision *(more error)*
+
+
+
+---
+# Steps to Construct a Confidence interval
+
+.pull-left[
+1. Select your random sample size <br><br>
+2. Select the **Level of Confidence** <br><br>
+    - Generally 95% *(can by 80, 90, or even 99%)* <br><br>
+3. Select random sample and collect data <br><br>
+4. Find the **Region of Rejection** <br><br>
+    - Based on $\alpha = 1 - Conf$ & # of tails = $2$ <br><br>
+5. Calculate the Interval **End Points**
+
+$$Est \pm CV_{Est} \times SE_{Est}$$
+]
+--
+
+.pull-right[
+
+.pull-left[.nicegreen[
+Narrow CI:
+- large smaple
+- Lower %
+]]
+
+.pull-right[ .nicegreen[
+Wider CI:
+- smaller sample
+- Higher %
+]]
+
+<br><br>
+
+.large[.dcoral[95% CI with z score]]
+
+$$\bar{x} \pm 1.96 \times \frac{\sigma}{\sqrt{N}}$$
+
+.large[.dcoral[99% CI with z score]]
+
+$$\bar{x} \pm 2.58 \times \frac{\sigma}{\sqrt{N}}$$
+
+]
+
+
+---
+## EX) Confidence Interval: for a Mean
+
+A physician states that, in the past, the average number of times he saw each of his patients during the year was $5$. However, he believes that his patients have visited him significantly **more frequently** during the past year. In order to validate this statement, he randomly selects $10$ of his patients and determines the number of office visits during the past year. He obtains the values presented to the below.
+
+.center[.nicegreen[**9, 10, 8, 4, 8, 3, 0, 10, 15, 9**]]
+
+Construct a .dcoral[95% confidence interval] for the mean number of visits per patient.
+
+---
+background-image: url(figures/fig_ex_t_ci.png)
+
+## EX) Confidence Interval: for a Mean
+
+A physician states that, in the past, the average number of times he saw each of his patients during the year was $5$. However, he believes that his patients have visited him significantly **more frequently** during the past year. In order to validate this statement, he randomly selects $10$ of his patients and determines the number of office visits during the past year. He obtains the values presented to the below.
+
+.center[.nicegreen[**9, 10, 8, 4, 8, 3, 0, 10, 15, 9**]]
+
+Construct a .dcoral[95% confidence interval] for the mean number of visits per patient.
+
+
+
+---
+# Estimating the Population Mean
+
+
+.pull-left[
+
+.nicegreen[Point estimate (M) is in the center of CI]
+
+Degree of confidence determined by $\alpha$ and corresponding critical value (CV)
+- Commonly use 95% CI, so $\alpha = .05$
+- Can also compute a .90, .99, or any size CI
+
+.dcoral[z-distribution:] <br>Known population variance or N is large (about 300)
+
+$$\bar{x} \pm z_{cv} \times \frac{\sigma}{\sqrt{N}}$$
+
+.dcoral[t -distribution:] <br>Do not know population variance or N is small 
+
+$$\bar{x} \pm t_{cv} \times \frac{s}{\sqrt{N}}$$
+]
+
+--
+
+.pull-right[
+
+.large[**NOT the meaning of a 95% CI**]<br>
+
+There is **NOT** a 95% chance that the population M lies between the 2 CLs from your sample’s CI !!!
+
+Each random sample will have a different CI with different CLs and a different M value
+
+<br>
+
+.large[**Meaning of a 95% CI**]<br>
+
+95% of the CIs that could be constructed over repeated sampling will contain Μ
+Yours **MAY** be one of them
+
+5% chance our sample’s 95% CI does not contain $\mu$
+Related to **Type I Error**
+
+
+]
+
+
+
+---
+# APA Style Writeup
+
+
+.large[.nicegreen[**Z-test**]] <br>
+*(happens to be a statistically significant difference)* <br>
+
+The hourly fee (M = $72) for our sample of current psychotherapists is significantly greater, .dcoral[z = 4.0, p < .001], than the 1960 hourly rate (M = $63, in current dollars).
+
+<br>
+
+--
+
+.large[.nicegreen[**T-test**]] <br>
+*(happens to not quite reach .05 significance level)* <br>
+
+Although the mean hourly fee for our sample of current psychotherapists was considerably higher (M = $72, SD = 22.5) than the 1960 population mean (M = $63, in current dollars), this difference only approached statistical significance, .dcoral[t(24) = 2.00, p = .06].
+
+
+
+
+---
+class: inverse, center, middle
+
+# Let's Apply This to the Cancer Dataset 
+
+
+---
+# Read in the Data
+
+```{r}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(rio)          # Read in SPSS datasets
+library(psych)        # Lots of nice tid-bits
+library(car)          # Companion to "Applied Regression"
+```
+
+```{r, eval=FALSE}
+cancer_raw <- rio::import("cancer.sav")
+```
+
+```{r, include=FALSE}
+cancer_raw <- rio::import("data/cancer.sav")
+```
+
+### And Clean It
+
+```{r, message=FALSE, warning=FALSE}
+cancer_clean <- cancer_raw %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(id = factor(id)) %>% 
+  dplyr::mutate(trt = factor(trt,
+                             labels = c("Placebo", 
+                                        "Aloe Juice"))) %>% 
+  dplyr::mutate(stage = factor(stage))
+```
+
+
+
+
+---
+# 1 sample t Test vs. Historic Control
+
+Do the patients weigh more than 165 pounds at intake, on average?
+
+```{r}
+cancer_clean %>% 
+  dplyr::pull(weighin) %>% 
+  t.test(mu = 165)
+```
+
+
+
+---
+## ...Change the Confidence Level
+
+Find a .dcoral[99%] confience level for the population mean weight.
+
+```{r}
+cancer_clean %>% 
+  dplyr::pull(weighin) %>% 
+  t.test(mu = 165,
+         conf.level = 0.99)
+```
+
+
+
+---
+## ...Restrict to a Subsample
+
+Do the patients with .dcoral[stage 3 & 4] cancer weigh more than 165 pounds at intake, on average?
+
+```{r}
+cancer_clean %>% 
+  dplyr::filter(stage %in% c("3", "4")) %>% 
+  dplyr::pull(weighin) %>% 
+  t.test(mu = 165)
+```
+
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Independent Samples t Tests for Means

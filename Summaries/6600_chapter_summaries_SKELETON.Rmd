@@ -56,9 +56,6 @@ Optional to type in some notes
 
 
 
-The formula for the *mean* is: $\overline{X} = \frac{\sum X}{n}$.  The mean is the basic average.  This formula is within a sentence in a paragraph since I used single dollar signs before and after the latex code, but the formula below is on its own line since I surrounded it in double dollar signs.
-
-$$\overline{X} = \frac{\sum X}{n}$$
 
 
 \clearpage

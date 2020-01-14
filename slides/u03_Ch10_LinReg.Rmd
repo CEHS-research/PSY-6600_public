@@ -1,0 +1,726 @@
+---
+title: "Linear Regression"
+subtitle: "Cohen Chapter 10 <br><br> .small[EDUC/PSY 6600]"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: pres3.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center",   # center all figures
+                      fig.width   = 6.5,        # set default figure width to 4 inches
+                      fig.height  = 4.5)        # set default figure height to 3 inches
+```
+
+class: center, middle
+
+## Fit the analysis to the data, *not* the data to the analysis.
+
+#### - Statistical Maxim
+
+---
+## Motivating Example
+
+.large[
+- Dr. Ramsey conducts a *non-experimental* study to evaluate what she refers to as the 'strength-injury hypothesis.' It states that overall body strength in elderly women determines the number and severity of accidents that cause bodily injury. If the results support her hypothesis, she plans to conduct an experimental study to assess whether weight training reduces injuries in elderly women. 
+- Data from 100 women who range in age from 60 to 70 years old are collected. The women initially undergo a series of measures that assess upper and lower body strength, and these measures are summarized into an overall index of body strength. 
+- Over the next 5 years, the women record each time they have an accident that results in a bodily injury and describe fully the extent of the injury. On the basis of these data, Dr. Ramsey calculates an overall injury index for each woman. 
+- A simple regression analysis is conducted with the overall index of body strength as the predictor (independent) variable and the overall injury index as the outcome (dependent) variable. 
+
+]
+
+---
+# Correlation vs. Regression
+
+.pull-left[
+## Correlation
+.large[
+- Relationship between two variables (no outcome or predictor)
+- Strength and direction of relationship
+]]
+
+--
+
+.pull-right[
+## Regression
+.large[
+- Outcome and predictor (directional)
+- Simple and Multiple Linear Regression
+]]
+
+---
+# Regression Basics
+
+.pull-left[.large[
+- Y usually predicted variable
+  - A.k.a: Dependent, criterion, outcome, response variable
+  - Predicting Y from X = 'Regressing Y on X'
+- X usually variable used to predict Y
+  - A.k.a: Independent, predictor, explanatory variable
+- Different results when X & Y switched
+]]
+
+.pull-right[.large[
+Regression analysis is procedure for obtaining *the* line that best fits data (Assuming relationship is best described as linear)
+]]
+
+---
+# Regression Basics
+
+$$ \LARGE \hat{Y_i} = b_0 + b_1 X_i $$
+
+.pull-left[.large[
+
+.dcoral[
+$\Large \hat{Y_i}$ = predicted (unobserved) value of Y for a given case i
+]
+
+.bluer[
+$\Large b_0$ = y-intercept:
+
+Constant, $\Large \hat{Y}$ when X = 0, only interpreted if X = 0 is meaningful
+
+Alternative notation: $\Large a$ or $\Large a_{XY}$ 
+
+]]]
+
+.pull-right[.large[
+.nicegreen[
+$\Large b_1$ = slope of regression line for 1st IV
+
+Constant, Rate of change in Y for every 1-unit change in X
+
+Alternative notation: $\Large b_{XY}$
+]
+
+.dcoral[
+$\Large X_i$ = value of predictor for a given case i
+]]]
+
+---
+# Accuracy of Prediction
+.huge[
+.dcoral[Correlation] $\Large \neq$ .dcoral[Causation]
+]
+
+.large[
+
+- All points do not fall on regression line
+  - Prediction works for most, but not all in sample
+
+- W/out knowledge of X, best prediction of Y is mean $\Large \bar{Y}$
+  - $\Large s_y$ : best measure of prediction error
+
+- With knowledge of X, best prediction of Y is from the equation $\Large \hat{Y}$
+  - Standard error of estimate (SEE or $s_{Y \cdot X}$ ): best measure of prediction error
+  - Estimated SD of residuals in population
+]
+
+
+---
+# Accuracy of Prediction
+
+.pull-left[
+### .nicegreen[Standard Error of Estimate]
+<br>
+
+$$\large s_{Y \cdot X} = \sqrt{\frac{\sum (Y_i - \hat{Y})^2}{N - 2}} = \sqrt{\frac{SS_{residual}}{df}}$$
+
+]
+
+.pull-right[
+### .dcoral[Residual or Error Variance <br> or Mean Square Error]
+
+$$\large s_{Y \cdot X}^2 = \frac{\sum (Y_i - \hat{Y})^2}{N - 2} = \frac{SS_{residual}}{df}$$
+
+]
+
+<br>
+.large[
+$df = N - 2$ (2 df lost in estimating regression coefficients)
+
+Seeking smallest $\LARGE s_{Y \cdot X}$ as it is a measure of variation of observations around regression line
+
+]
+
+
+---
+# .bluer[Line of Best Fit]
+
+.large[
+The relationship (prediction) is usually not perfect so regression coefficients ( $b_0$ , $b_1$ ) computed to minimize error as much as possible
+]
+
+.pull-left[.large[
+**Error of Residuals**: difference between observed $\large Y$ and $\large \hat{Y}$ --> $\large e_i = Y_i - \hat{Y}_i$
+
+**Technique**: Ordinary Least Squares (OLS) regression
+
+Goal: minimize $\large SS_{error}$ ( $\large SS_{residuals}$ )
+
+$\large SS_{residuals} = \sum_{i=1}^n (Y_i - \hat{Y}_i)$
+
+]
+]
+
+.pull-right[
+```{r, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, fig.width=5, dpi = 150, out.width = "80%"}
+set.seed(843)
+library(tidyverse)
+df <- tibble::data_frame(
+  x = rnorm(100),
+  y = x + rnorm(100)
+) %>%
+  mutate(pred = predict(lm(y ~ x, data = .)))
+
+df %>%
+  ggplot(aes(x, y)) +
+    geom_point() +
+    geom_smooth(method = "lm", 
+                color = "dodgerblue4",
+                se = FALSE) +
+    anteo::theme_anteo_wh()
+```
+
+]
+
+---
+count: false
+
+# .bluer[Line of Best Fit]
+
+.large[
+The relationship (prediction) is usually not perfect so regression coefficients ( $b_0$ , $b_1$ ) computed to minimize error as much as possible
+]
+
+.pull-left[.large[
+**Error of Residuals**: difference between observed $\large Y$ and $\large \hat{Y}$ --> $\large e_i = Y_i - \hat{Y}_i$
+
+**Technique**: Ordinary Least Squares (OLS) regression
+
+Goal: minimize $\large SS_{error}$ ( $\large SS_{residuals}$ )
+
+$\large SS_{residuals} = \sum_{i=1}^n (Y_i - \hat{Y}_i)$
+
+]
+]
+
+.pull-right[
+```{r, echo=FALSE, warning=FALSE, message=FALSE, fig.height=5, fig.width=5, dpi = 150, out.width = "80%"}
+df %>%
+  ggplot(aes(x, y)) +
+    geom_segment(aes(xend = x, yend = pred, color = y - pred, alpha = abs(y - pred))) +
+    geom_point() +
+    geom_smooth(method = "lm", 
+                color = "dodgerblue4",
+                se = FALSE,
+                size = 2,
+                alpha = .8) +
+    anteo::theme_anteo_wh() +
+    scale_color_gradient2(low = "chartreuse3", 
+                          mid = "grey90", 
+                          high = "dodgerblue3") +
+  labs(color = "Size and\nDirection of\nResidual",
+       alpha = "Size and\nDirection of\nResidual") +
+  theme(legend.position = "none")
+```
+
+]
+
+
+---
+```{r, echo=FALSE, dpi = 150, out.width = "50%"}
+set.seed(843)
+library(tidyverse)
+df <- tibble::data_frame(
+  x = rnorm(10) + 5,
+  y = x + rnorm(10) + 10
+) %>%
+  mutate(pred = predict(lm(y ~ x, data = .)))
+
+df %>%
+  ggplot(aes(x, y)) +
+    #geom_segment(aes(xend = x, yend = pred, color = y - pred, alpha = abs(y - pred))) +
+    geom_point() +
+    # geom_smooth(method = "lm", 
+    #             color = "dodgerblue4",
+    #             se = FALSE,
+    #             size = 2,
+    #             alpha = .8) +
+    anteo::theme_anteo_wh() +
+    scale_color_gradient2(low = "chartreuse3", 
+                          mid = "grey90", 
+                          high = "dodgerblue3") +
+    theme(legend.position = "none") +
+    coord_cartesian(ylim = c(11.9, 17.2),
+                    xlim = c(2.5, 7.1))
+```
+
+
+
+
+---
+count: false
+
+```{r, echo=FALSE, dpi = 150, out.width = "50%"}
+df %>%
+  ggplot(aes(x, y)) +
+    geom_vline(aes(xintercept = mean(x)),
+               color = "darkorchid4",
+               linetype = 2) +
+    geom_hline(aes(yintercept = mean(y)),
+               color = "darkorchid3",
+               linetype = 2) +
+    #geom_segment(aes(xend = x, yend = pred, color = y - pred, alpha = abs(y - pred))) +
+    geom_point() +
+    geom_smooth(method = "lm",
+                color = "coral2",
+                se = FALSE,
+                size = 1,
+                alpha = .8) +
+    anteo::theme_anteo_wh() +
+    scale_color_gradient2(low = "chartreuse3", 
+                          mid = "grey90", 
+                          high = "dodgerblue3") +
+    theme(legend.position = "none") +
+    coord_cartesian(ylim = c(11.9, 17.2),
+                    xlim = c(2.5, 7.1))
+```
+
+.pull-left[
+- Correlation = `r round(cor(df$x, df$y),3)`
+- Slope = $b_1 = r \frac{s_y}{s_x} = .764 \frac{1.66}{1.31} = .968$
+- Intercept = $b_0 = \bar{Y} - b_1 \bar{X} = 14.290 - (.968 * 4.093) = 10.328$
+]
+
+.pull-right[
+
+]
+
+
+---
+count: false
+
+```{r, echo=FALSE, fig.ext='png', dpi = 150, out.width = "50%"}
+df %>%
+  ggplot(aes(x, y)) +
+    geom_vline(aes(xintercept = mean(x)),
+               color = "darkorchid4",
+               linetype = 2) +
+    geom_hline(aes(yintercept = mean(y)),
+               color = "darkorchid3",
+               linetype = 2) +
+    geom_segment(aes(xend = x, yend = mean(y)),
+                 color = "chartreuse3") +
+    geom_point() +
+    geom_smooth(method = "lm",
+                color = "coral2",
+                se = FALSE,
+                size = 1,
+                alpha = .8) +
+    anteo::theme_anteo_wh() +
+    theme(legend.position = "none") +
+    coord_cartesian(ylim = c(11.9, 17.2),
+                    xlim = c(2.5, 7.1))
+```
+
+
+.pull-left[
+- Correlation = `r round(cor(df$x, df$y),3)`
+- Slope = $b_1 = r \frac{s_y}{s_x} = .764 \frac{1.66}{1.31} = .968$
+- Intercept = $b_0 = \bar{Y} - b_1 \bar{X} = 14.290 - (.968 * 4.093) = 10.328$
+]
+
+.pull-right[
+
+$\LARGE SS_{total}$
+
+]
+
+---
+count: false
+
+```{r, echo=FALSE, fig.ext='png', dpi = 150, out.width = "50%"}
+df %>%
+  ggplot(aes(x, y)) +
+    geom_vline(aes(xintercept = mean(x)),
+               color = "darkorchid4",
+               linetype = 2) +
+    geom_hline(aes(yintercept = mean(y)),
+               color = "darkorchid3",
+               linetype = 2) +
+    geom_segment(aes(xend = x, yend = pred, y = mean(y)),
+                 color = "dodgerblue3") +
+    geom_point() +
+    geom_smooth(method = "lm",
+                color = "coral2",
+                se = FALSE,
+                size = 1,
+                alpha = .8) +
+    anteo::theme_anteo_wh() +
+    theme(legend.position = "none") +
+    coord_cartesian(ylim = c(11.9, 17.2),
+                    xlim = c(2.5, 7.1))
+```
+
+
+.pull-left[
+- Correlation = `r round(cor(df$x, df$y),3)`
+- Slope = $b_1 = r \frac{s_y}{s_x} = .764 \frac{1.66}{1.31} = .968$
+- Intercept = $b_0 = \bar{Y} - b_1 \bar{X} = 14.290 - (.968 * 4.093) = 10.328$
+]
+
+.pull-right[
+
+$\LARGE SS_{total} = SS_{explained}$
+
+]
+
+---
+count: false
+
+```{r, echo=FALSE, fig.ext='png', dpi = 150, out.width = "50%"}
+df %>%
+  ggplot(aes(x, y)) +
+    geom_vline(aes(xintercept = mean(x)),
+               color = "darkorchid4",
+               linetype = 2) +
+    geom_hline(aes(yintercept = mean(y)),
+               color = "darkorchid3",
+               linetype = 2) +
+    geom_segment(aes(xend = x, yend = pred),
+                 color = "firebrick3") +
+    geom_point() +
+    geom_smooth(method = "lm",
+                color = "coral2",
+                se = FALSE,
+                size = 1,
+                alpha = .8) +
+    anteo::theme_anteo_wh() +
+    theme(legend.position = "none") +
+    coord_cartesian(ylim = c(11.9, 17.2),
+                    xlim = c(2.5, 7.1))
+```
+
+
+.pull-left[
+- Correlation = `r round(cor(df$x, df$y),3)`
+- Slope = $b_1 = r \frac{s_y}{s_x} = .764 \frac{1.66}{1.31} = .968$
+- Intercept = $b_0 = \bar{Y} - b_1 \bar{X} = 14.290 - (.968 * 4.093) = 10.328$
+]
+
+.pull-right[
+
+$\LARGE SS_{total} = SS_{explained} + SS_{unexplained}$
+
+]
+
+---
+# Explaining Variance
+
+$$\huge SS_{total} = SS_{explained} + SS_{unexplained}$$
+
+.large[
+- Synonyms: Explained = Regression, Unexplained = Residual or Error
+]
+
+--
+
+### Coefficient of Determination ( $\LARGE r^2$ )
+
+$$\LARGE r^2 = \frac{\text{Explained Variation}}{\text{Total Variation}} = \frac{SS_{regression}}{SS_{total}}$$
+
+- Computed to determine how well regression equation predicts `Y` from `X`
+- Range from 0 to 1
+- SS divided by corresponding df gives us the Mean Square (Regression or Error)
+- .nicegreen[The proportion of variance in the outcome "accounted for" or "attributable to" or "predictable from" or "explained by" the predictor]
+
+
+---
+# Standardized Coefficients (i.e. Beta weights)
+
+.large[
+- 1 SD-unit change in X represents a $\beta$ SD change in `Y`
+
+- Intercept = 0 and is not reported when using $\beta$
+
+- For simple regression only --> $r = \beta$ and $r^2 = \beta^2$
+  - When raw scores transformed into z-scores: $r = b = \beta$
+  
+- Useful for variables with abstract unit of measure
+]
+
+
+---
+# Again, Always **Visualize** Data First
+
+### Scatterplots
+
+```{r, echo=FALSE}
+set.seed(843)
+df <- tibble::data_frame(
+  x = rnorm(100),
+  y = x + rnorm(100)
+)
+```
+
+.pull-left[
+
+```{r, eval=FALSE, dpi = 150, out.width = "80%"}
+library(tidyverse)
+df %>%
+  ggplot(aes(x, y)) +
+    geom_point() +
+    geom_smooth(se = FALSE,
+                method = "lm")
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, dpi = 150, out.width = "80%"}
+library(tidyverse)
+df %>%
+  ggplot(aes(x, y)) +
+    geom_point() +
+    geom_smooth(se = FALSE,
+                method = "lm")
+```
+]
+
+---
+## R Code: Regression
+
+```{r}
+df %>%
+  lm(y ~ x,
+     data = .) %>%
+  summary()
+```
+
+
+---
+## R Code: Regression
+
+```{r}
+df %>%
+  lm(y ~ x,
+     data = .) %>%
+  confint()
+```
+
+---
+## R Code: Regression
+
+```{r}
+df %>%
+  lm(y ~ x,
+     data = .) %>%
+  coef()
+```
+
+---
+## R Code: Regression
+
+```{r}
+coef1 <- df %>%
+  lm(y ~ x,
+     data = .) %>%
+  coef()
+confint1 <- df %>%
+  lm(y ~ x,
+     data = .) %>%
+  confint()
+cbind(coef1, confint1)
+```
+
+---
+## R Code: Predicted Values
+
+```{r}
+df %>%
+  lm(y ~ x,
+     data = .) %>%
+  predict()
+```
+
+
+---
+# Assumptions
+
+.huge[
+- .nicegreen[Independence] of observations
+- .bluer[Y normally distributed]
+  - Does NOT apply to predictor variable(s) X --> Can be categorical or continuous
+- Sampling .dcoral[distribution of the slope] ( $\huge b_1$ ) assumed normally distributed
+- .nicegreen[Straight line] best fits data
+]
+
+---
+background-image: url(figures/fig_assumptions_reg.png)
+background-position: 50% 50%
+background-size: 1200px
+
+# Assumptions
+
+---
+# R Code: Assumptions
+
+```{r, dpi = 150, out.width = "50%"}
+df %>%
+  lm(y ~ x,
+     data = .) %>%
+  plot(which = 2)
+```
+
+---
+# R Code: Assumptions
+
+```{r, dpi = 150, out.width = "50%"}
+df %>%
+  lm(y ~ x,
+     data = .) %>%
+  resid %>%
+  hist
+```
+
+
+---
+class: inverse, center, middle
+
+# Let's Apply This to the Cancer Dataset 
+
+
+---
+# Read in the Data
+
+```{r}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(haven)        # Read in SPSS datasets
+library(furniture)    # for tableC()
+```
+
+```{r, eval=FALSE}
+cancer_raw <- haven::read_spss("cancer.sav")
+```
+
+```{r, include=FALSE}
+cancer_raw <- haven::read_spss("data/cancer.sav")
+```
+
+### And Clean It
+
+```{r, message=FALSE, warning=FALSE}
+cancer_clean <- cancer_raw %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(id = factor(id)) %>% 
+  dplyr::mutate(trt = factor(trt,
+                             labels = c("Placebo", 
+                                        "Aloe Juice"))) %>% 
+  dplyr::mutate(stage = factor(stage))
+```
+
+---
+## R Code: Regression
+
+.pull-left[
+```{r, eval=FALSE}
+cancer_clean %>%
+  lm(totalcin ~ age,
+     data = .) %>%
+  summary()
+```
+
+]
+
+.pull-right[
+```{r, echo=FALSE}
+cancer_clean %>%
+  lm(totalcin ~ age,
+     data = .) %>%
+  summary()
+```
+]
+
+---
+### R Code: Standardized
+
+```{r}
+cancer_clean %>%
+  mutate(totalcinZ = scale(totalcin),
+         ageZ = scale(age)) %>%
+  lm(totalcinZ ~ ageZ, 
+     data = .) %>%
+  summary()
+```
+
+
+---
+# R Code: Correlation vs. Standardized
+
+.pull-left[
+```{r, eval=FALSE}
+cancer_clean %>%
+  cor.test(~ totalcinZ + ageZ, 
+           data = .)
+```
+]
+
+
+.pull-right[
+```{r, eval=FALSE}
+cancer_clean %>%
+  mutate(totalcinZ = scale(totalcin),
+         ageZ = scale(age)) %>%
+  lm(totalcinZ ~ ageZ, 
+     data = .) %>%
+  summary()
+```
+]
+
+---
+# R Code: Correlation vs. Standardized
+
+.pull-left[
+```{r, echo=FALSE}
+cancer_clean %>%
+  cor.test(~ totalcin + age, 
+           data = .)
+```
+]
+
+
+.pull-right[
+```{r, echo=FALSE}
+cancer_clean %>%
+  mutate(totalcinZ = scale(totalcin),
+         ageZ = scale(age)) %>%
+  lm(totalcinZ ~ ageZ, 
+     data = .) %>%
+  summary()
+```
+]
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Matched T-Test

@@ -1,0 +1,103 @@
+---
+title: "Getting Started with R, R Studio, and R Markdown"
+subtitle: ".small[EDUC/PSY 6600]"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: pres2.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+class: inverse, middle, center
+
+# Background Information
+
+---
+
+![](https://www.rstudio.com/wp-content/uploads/2014/04/rmarkdown-200x232.png)
+
+### [rmarkdown.rstudio.com](http://rmarkdown.rstudio.com/)
+
+.large[**R Markdown** documents are fully **reproducible**. Use a productive *notebook* interface to *weave* together narrative **text** and **code** to produce *elegantly* formatted output. Use multiple languages including **R**, Python, and SQL.]
+
+
+---
+
+![](https://www.rstudio.com/wp-content/uploads/2014/04/knitr-200x232.png)
+
+### [yihui.name/knitr](https://yihui.name/knitr/)
+ 
+.large[**Knitr** is an engine for *dynamic report generation* with **R**. It is a package in the statistical programming language **R** that enables integration of **R code** *into* **LaTeX**, LyX, HTML, Markdown, AsciiDoc, and reStructuredText documents.]
+
+---
+# You will need to DOWNLOAD and INSTALL the following:
+
+.large[.large[
+1. [`R`][6]
+2. [`R Studio`][8]
+3. `LaTeX`
+    - Mac: [MacTeX][10]
+    - PC:  [MikTeX][11] 
+]]
+
+.footnote[Note: they are all **FREE**]
+
+.large[
+It is important to keep **R** and **RStudio** up-to-date.
+]
+
+[6]: https://www.r-project.org/
+[8]: https://www.rstudio.com/wp-content/uploads/2016/09/RStudio-Logo-Blue-Gray-125.png
+[9]: https://www.latex-project.org/img/latex-project-logo.svg
+[10]: http://tug.org/mactex/
+[11]: http://miktex.org/download
+---
+
+![R logo][5]
+
+.huge[Get the latest released version of FREE **Base R** from *CRAN*
+
++ the defaults are good...don't change them
+]
+
+[5]: https://www.r-project.org/Rlogo.png
+---
+
+background-image: url(https://www.rstudio.com/wp-content/uploads/2016/09/RStudio-Logo-Blue-Gray-125.png)
+background-position: 10% 10%
+background-size: 200px
+
+<br><br><br><br>
+ 
+.huge[Get the latest version of the FREE *Open Source* **Desktop Edition** of **R Studio**
+
++ the defaults are good...don't change them
+]
+
+---
+
+
+![LaTeX logo][9]
+
+### Mac: [MacTeX][10]
+- Download (5+ min) to a folder and them double click on the PKG file and follow the installation instructions. 
+- You don't need to open anything after MAcTeX is finished installing.
+
+### Windows: [MikTeX][11] 
+- Pick the latest version of the **Net Installer**, not the Basic!  You need the full version 
+     + 64-bit is better, if you have a 64-bit machine
+     + When your **download** is complete, run the downloaded **installer**. Windows may ask you if you want to *“allow this app from an unknown publisher to make changes to your PC”*. If it does, make sure to click **Yes**!
+
+.large[This is the slowest part...]
+
+
+
+

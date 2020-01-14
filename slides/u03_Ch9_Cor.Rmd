@@ -1,0 +1,860 @@
+---
+title: "Correlation"
+subtitle: "Cohen Chapter 9 <br><br> .small[EDUC/PSY 6600]"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: pres3.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center",   # center all figures
+                      fig.width   = 6.5,        # set default figure width to 4 inches
+                      fig.height  = 4.5)        # set default figure height to 3 inches
+```
+
+class: center, middle
+
+## "Statistics is not a discipline like physics, chemistry, or biology where we study a subject to solve problems in the same subject. <br> We study statistics with the main aim of solving problems in other disciplines."
+
+### -- C.R. Rao, Ph.D. 
+
+---
+# Motivating Example
+
+.large[
+- Dr. Mortimer is interested in knowing whether people who have a positive view of themselves in one aspect of their lives also tend to have a positive view of themselves in other aspects of their lives. 
+- He has 80 men complete a self-concept inventory that contains 5 scales. Four scales involve questions about how competent respondents feel in the areas of intimate relationships, relationships with friends, common sense reasoning and everyday knowledge, and academic reasoning and scholarly knowledge. 
+- The 5th scale includes items about how competent a person feels in general. 
+- 10 correlations are computed between all possible pairs of variables.
+]
+
+---
+# Correlation
+
+.pull-left[
+.large[
+- .dcoral[Interested in **degree** of covariation or co-relation among >1 variables measured on SAME objects/participants]
+    - Not interested in group differences, per se
+- Variable measurements have:
+    - Order: Correlation
+    - No order: Association or dependence
+]]
+
+--
+
+.pull-right[.large[
+- Level of measurement for each variable determines type of correlation coefficient
+- Data can be in raw or standardized format
+- Correlation coefficient is .nicegreen[scale-invariant]
+- .bluer[Statistical significance] of correlation
+    - $\Large H_0$: population correlation coefficient = 0
+]]
+
+---
+background-image: url(figures/fig_spurious.jpeg)
+background-position: 50% 50%
+background-size: 1200px
+
+
+.footnote[http://www.tylervigen.com/spurious-correlations]
+
+---
+# Always **Visualize** Data First
+
+### Scatterplots
+
+```{r, echo=FALSE}
+set.seed(843)
+df <- tibble::data_frame(
+  x = rnorm(100),
+  y = x + rnorm(100)
+)
+```
+
+.pull-left[
+
+*Aka: scatterdiagrams, scattergrams*
+
+Notes:
+1. Can stratify scatterplots by subgroups
+2. Each subject is represented by 1 dot (x and y coordinate)
+3. Fit line can indicate nature and degree of relationship (Regression or prediction lines)
+
+
+```{r, eval=FALSE}
+library(tidyverse)
+df %>%
+  ggplot(aes(x, y)) +
+    geom_point() +
+    geom_smooth(se = FALSE,
+                method = "lm")
+```
+]
+
+.pull-right[
+```{r, echo=FALSE}
+library(tidyverse)
+df %>%
+  ggplot(aes(x, y)) +
+    geom_point() +
+    geom_smooth(se = FALSE,
+                method = "lm")
+```
+]
+
+---
+# Correlation: Direction
+
+.pull-left[.center[
+#### .nicegreen[Positive Association]
+.large[
+**High values** of one variable tend to occur with **High values** of the other
+```{r, echo=FALSE}
+df %>%
+  ggplot(aes(x, y)) +
+    geom_point() +
+    geom_smooth(se = FALSE,
+                method = "lm",
+                color = "chartreuse3") +
+    labs(subtitle = "Positive")
+```
+]]]
+
+.pull-right[.center[
+#### .bluer[Negative Association]
+.large[
+**High values** of one variable tend to occur with **Low values** of the other
+```{r, echo=FALSE}
+df %>%
+  ggplot(aes(x, -y)) +
+    geom_point() +
+    geom_smooth(se = FALSE,
+                method = "lm",
+                color = "dodgerblue3") +
+    labs(x = "x",
+         y = "y",
+         subtitle = "Negative")
+```
+]]]
+
+
+---
+# Correlation: Strength
+
+The strength of the relationship between the two variables can be seen by how much variation, or scatter, there is around the main form.
+
+- With a strong relationship, you can get a pretty good estimate of y if you know x.
+- With a weak relationship, for any x you might get a wide range of  y values.
+
+--
+
+```{r, echo=FALSE}
+set.seed(843)
+df <- tibble::data_frame(
+  x = rnorm(100),
+  y = x,
+  y2 = x + rnorm(100)
+)
+```
+
+.pull-left[
+```{r, echo=FALSE}
+ggplot(df, aes(x, y)) +
+  geom_point()
+```
+]
+
+.pull-right[
+```{r, echo=FALSE}
+ggplot(df, aes(x, y2)) +
+  geom_point()
+```
+]
+
+---
+# Scatterplot Patterns
+
+```{r, echo=FALSE}
+set.seed(843)
+df <- tibble::data_frame(
+  x = rnorm(100),
+  y = x + rnorm(100),
+  y2 = x^2 + rnorm(100),
+  y3 = rnorm(100),
+  y4 = 5,
+  y5 = x
+)
+```
+
+.pull-left[
+```{r, echo=FALSE, fig.height=3}
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  labs(title = "Linear")
+```
+```{r, echo=FALSE, fig.height=3}
+ggplot(df, aes(x, y2)) +
+  geom_point() +
+  labs(title = "Non-Linear")
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, fig.height=3}
+ggplot(df, aes(x, y3)) +
+  geom_point() +
+  labs(title = "No Relation")
+```
+```{r, echo=FALSE, fig.height=3}
+ggplot(df, aes(x, y4)) +
+  geom_point() +
+  labs(title = "No Relation")
+```
+]
+
+
+---
+# Predictability
+
+The ability to predict `y` based on `x` is another indication of correlation strength:
+
+.pull-left[
+```{r, echo=FALSE}
+ggplot(df, aes(x, y5)) +
+  geom_point() +
+  labs(title = "Can predict y perfectly")
+```
+]
+
+.pull-right[
+```{r, echo=FALSE}
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  labs(title = "Hard to predict y using x")
+```
+]
+
+---
+# Scatterplot: Scale
+
+.pull-left[
+```{r, echo=FALSE, fig.height=3}
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  labs(title = "Bad") +
+  coord_cartesian(ylim = c(-10, 10),
+                  xlim = c(-10, 10))
+```
+```{r, echo=FALSE, fig.height=3}
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  labs(title = "Good")
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, fig.height=3}
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  labs(title = "Bad") +
+  coord_cartesian(xlim = c(-10, 10))
+```
+```{r, echo=FALSE, fig.height=3}
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  labs(title = "Bad") +
+  coord_cartesian(ylim = c(-10, 10))
+```
+]
+
+Note: all have the same data! Also, `ggplot2`'s defaults are usually pretty good
+
+???
+- Using an inappropriate scale for a scatterplot can give an incorrect impression. 
+- Both variables should be given a similar amount of space:
+  - Plot roughly square
+  - Points should occupy all the plot space (no blank space)
+
+---
+# Outliers
+
+
+.pull-left[.large[
+- An .dcoral[outlier] is a data value that has a very low probability of occurrence (i.e., it is unusual or unexpected). 
+
+- In a scatterplot, BIVARIATE outliers are points that fall outside of the overall pattern of the relationship.
+
+- *Not all extreme values are outliers.*
+]]
+
+.pull-right[
+```{r, echo=FALSE}
+set.seed(843)
+library(tidyverse)
+df <- tibble::data_frame(
+  x = c(rnorm(99), 5),
+  y = x + c(rnorm(99), 5)
+)
+df2 <- tibble::data_frame(
+  x = c(rnorm(100)),
+  y = x + c(rnorm(99), 10)
+)
+```
+```{r, echo=FALSE, fig.height=6.5, fig.width=8}
+p1 = ggplot(df, aes(x, y)) +
+  geom_point() +
+  labs(title = "Extreme Value\n(Possibly not an Outlier)")
+p2 = ggplot(df2, aes(x, y)) +
+  geom_point() +
+  labs(title = "Extreme Value\n(Likely an Outlier)")
+gridExtra::grid.arrange(p1, p2, ncol = 2)
+```
+
+]
+
+
+
+
+---
+## Pearson "Product Moment" Correlation Coefficient (r)
+
+### 
+.large[
+- Used as a measure of: 
+    - Magnitude (strength) and direction of relationship between two continuous variables
+    - Degree to which coordinates cluster around STRAIGHT regression line
+
+- Test-retest, alternative forms, and split half reliability
+
+- Building block for many other statistical methods
+]
+
+.pull-left[.huge[.center[
+Population: $\Huge \rho$
+]]]
+
+.pull-right[.huge[.center[
+Sample: `r`
+]]]
+
+
+
+---
+# Pearson "Product Moment" Correlation Coefficient (r)
+
+.large[
+- The correlation coefficient is a measure of the .dcoral[direction] and .nicegreen[strength] of a *linear* relationship. 
+- It is calculated using the mean and the standard deviation of both the x and y variables. 
+- Correlation can only be used to describe quantitative variables. Why?
+]
+
+.pull-left[.large[
+`r` does not distinguish between x and y
+
+`r` has no units of measurement
+]]
+
+.pull-right[.large[
+`r` ranges from -1 to +1
+
+Influential points…can change `r` a great deal!
+]]
+
+
+
+---
+# Correlation: Calculating
+
+$$ 
+\LARGE r = \frac{1}{n - 1} \sum^n_{i = 1} \LARGE(\normalsize\frac{x_i - \bar{x}}{s_x}\LARGE)(\normalsize \frac{y_i - \bar{y}}{s_y}\LARGE)
+$$
+
+### Anyone want to do this by hand??
+
+.large[
+Let's use R to do this for us 
+]
+
+
+---
+## Correlation: Calculating
+
+```{r, echo=FALSE}
+df <- tibble::data_frame(
+  x = c(rnorm(100, 20, 5)),
+  y = 5*x + c(rnorm(100, 100, 20))
+) %>%
+  mutate(  
+    x_s = scale(x),
+    y_s = scale(y))
+```
+
+
+.pull-left[
+```{r, echo=FALSE}
+df %>%
+  ggplot(aes(x, y)) +
+  geom_point()
+```
+
+]
+
+.pull-right[
+```{r, echo=FALSE}
+df %>%
+  ggplot(aes(x_s, y_s)) +
+  geom_point()
+```
+]
+
+### Same Plots -- Left is unstandardized, Right is standardized
+
+**Standardization** allows us to compare correlations between data sets where variables are measured in different units or when variables are different. For instance, we might want to compare the correlation between [swim time and pulse], with the correlation between [swim time and breathing rate].
+
+
+---
+# Correlations in R Code
+
+```{r, echo=FALSE}
+library(tidyverse)
+df <- tibble::data_frame(
+  x = rnorm(100),
+  y = x + rnorm(100, 10, 10)
+)
+```
+
+.pull-left[
+```{r, eval=FALSE}
+df %>%
+  cor.test(~x + y,
+           data = .,
+           method = "pearson")
+```
+<br>
+```{r, eval=FALSE}
+df %>%
+  furniture::tableC(x, y)
+```
+]
+
+.pull-right[
+```{r, echo=FALSE}
+df %>%
+  cor.test(~x + y,
+           data = .,
+           method = "pearson")
+```
+]
+
+```{r, echo=FALSE}
+df %>%
+  furniture::tableC(x, y)
+```
+
+---
+# Relationship Form
+
+.huge[Correlations only describe **linear** relationships]
+
+
+```{r, echo=FALSE}
+df <- tibble::data_frame(
+  x = rnorm(100),
+  y = x + rnorm(100),
+  y2 = x^2 + rnorm(100)
+)
+```
+
+.pull-left[
+```{r, echo=FALSE}
+df %>%
+  ggplot(aes(x, y)) +
+  geom_point() +
+  labs(title = "Linear")
+```
+]
+
+.pull-right[
+```{r, echo=FALSE}
+df %>%
+  ggplot(aes(x, y2)) +
+  geom_point() +
+  labs(title = "Non-Linear")
+```
+]
+
+.large[
+Note: You can sometimes *transform* a non-linear association to a linear form, for instance by taking the logarithm.
+]
+
+---
+# Let's see it in action
+
+## [Correlation App](http://digitalfirst.bfwpub.com/stats_applet/stats_applet_5_correg.html)
+
+.pull-left[
+.large[
+- Influential Points
+
+- Eye-ball the correlation
+
+- Draw the line of the best fit
+]]
+
+.pull-right[
+.large[
+Why are correlations not resistant to outliers?
+
+When do outliers have more *leverage*?
+]]
+
+
+---
+background-image: url(figures/fig_bivariate_normal.png)
+background-position: 80% 50%
+background-size: 400px
+
+# Assumptions
+
+.pull-left[
+.large[
+1. Random Sample
+
+2. Relationship is linear (check scatterplot, use transformations)
+
+3. Bivariate normal distribution
+    - Each variable should be normally distributed in population
+    - Joint distribution should be bivariate normal
+    - Curvilinear relationships = violation
+    - Less important as N increases
+]]
+
+
+
+---
+# Sampling Distribution of `rho`
+
+
+.large[
+- Normal distribution about 0
+- Becomes non-normal as $\Large \rho$ gets larger and deviates from $\Large H_0$ value of 0 in the population
+    - Negatively skewed with large, positive null hypothesized $\rho$
+    - Positively skewed with large, negative null hypothesized $\rho$
+- Leads to 
+    - Inaccurate p-values
+    - No longer testing $\Large H_0$ that $\Large \rho = 0$
+- Fisher's solution: transform sample `r` coefficients to yield normal sampling distribution, regardless of $\LARGE\rho$
+
+*We will let the computer worry about the details...*
+]
+
+
+---
+background-image: url(figures/fig_t_table2.png)
+background-position: 80% 50%
+background-size: 400px
+
+
+# Hypothesis testing for 1-sample `r`
+
+.pull-left[
+.large[
+$$ \LARGE H_0: \rho = 0$$
+$$\LARGE H_A: \rho \neq 0$$
+
+.center[`r` is converted to a t-statistic]
+
+$$ 
+\LARGE t = \frac{r\sqrt{N - 2}}{\sqrt{1 - r^2}}
+$$
+- Compare to t-distribution with $\Large df = N - 2$
+  - Rejection = statistical evidence of relationship
+  - Or look up critical values of `r`
+]
+
+]
+
+
+
+
+---
+# Example
+
+.large[
+Researcher wishes to correlate scores from 2 tests: current mood state and verbal recal memory
+]
+
+.pull-left[
+```{r, echo=FALSE, comment = "             "}
+df <- tibble::tribble(~Mood, ~Recall,
+                 45,     48,
+                 34,     39,
+                 41,     48,
+                 25,     27,
+                 38,     42,
+                 20,     29,
+                 45,     30)
+df
+```
+
+]
+
+.pull-right[
+```{r}
+df %>%
+  cor.test(~Mood + Recall,
+           data = .)
+```
+]
+
+???
+Talk about each piece of the output
+
+---
+# Power
+
+.pull-left[.large[
+Want to know N necessary to reject $\Large H_0$ given an effect $\Large \rho$ (we transform it into a $\Large d$)
+
+- Determine effect size needed to detect
+- Determine delta ( $\Large \delta$ ; the value from appendix A.4 that would result in given level of power at $\Large \alpha = .05$)
+- Solve: 
+$$
+\Huge(\LARGE \frac{\delta}{d}\Huge)\LARGE^2 + 1 = N
+$$
+]]
+
+.pull-right[.large[
+
+### Example
+
+.nicegreen[Based on a pilot study, if we had a pearson correlation of .6, how many observations should I plan to study to ensure I have at least 80% power for an $\Large \alpha = .05$, two-tailed test?
+]]]
+
+
+---
+# Factors Affecting Validity of `r`
+
+.large[
+- Range restriction (variance of X and/or Y)
+  - r can be inflated or deflated
+  - May be related to small N
+
+- Outliers
+  - `r` can be heavily influenced
+
+- Use of heterogeneous subsamples
+  - Combining data from heterogeneous groups can inflate correlation coefficient or yield spurious results by stretching out data
+]
+
+
+---
+# Interpretation and Communcation
+
+.huge[
+Correlation $\Large \neq$ Causation
+
+But, correlation can be causation
+]
+
+.large[
+- Can infer strength and direction; not form or prediction from r
+- Can say that prediction will be better with large r, but cannot predict actual values
+
+- Statistical significance
+  - p-value heavily influenced by N
+  - Need to interpret size of r-statistic, more than p-value
+
+- APA format: r(df) = -.74, p = .006
+]
+
+
+---
+background-image: url(figures/fig_APA_correlations.png)
+background-position: 50% 98%
+background-size: 1050px
+
+# APA Style of Reporting
+
+
+
+
+---
+class: inverse, center, middle
+
+# Let's Apply This to the Cancer Dataset 
+
+
+---
+# Read in the Data
+
+```{r}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(haven)        # Read in SPSS datasets
+library(furniture)    # for tableC()
+```
+
+```{r, eval=FALSE}
+cancer_raw <- haven::read_spss("cancer.sav")
+```
+
+```{r, include=FALSE}
+cancer_raw <- haven::read_spss("data/cancer.sav")
+```
+
+### And Clean It
+
+```{r, message=FALSE, warning=FALSE}
+cancer_clean <- cancer_raw %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(id = factor(id)) %>% 
+  dplyr::mutate(trt = factor(trt,
+                             labels = c("Placebo", 
+                                        "Aloe Juice"))) %>% 
+  dplyr::mutate(stage = factor(stage))
+```
+
+---
+# R Code: Basic Correlations
+
+.pull-left[
+```{r, eval=FALSE}
+cancer_clean %>%
+  cor.test(~ totalcin + totalcw2,
+           data = .,
+           alternative = "two.sided",
+           method = "pearson")
+```
+
+]
+
+.pull-right[
+```{r, echo=FALSE}
+cancer_clean %>%
+  cor.test(~ totalcin + totalcw2,
+           data = .,
+           alternative = "two.sided",
+           method = "pearson")
+```
+]
+---
+count: false
+
+# R Code: Basic Correlations
+
+.pull-left[
+```{r, eval=FALSE}
+cancer_clean %>%
+  cor.test(~ totalcin + totalcw2,
+           data = .,
+           alternative = "two.sided",
+           method = "pearson")
+```
+
+```{r, eval=FALSE}
+cancer_clean %>%
+  cor.test(~ totalcin + totalcw2,
+           data = .,
+           alternative = "less",
+           method = "pearson")
+```
+
+```{r, eval=FALSE}
+cancer_clean %>%
+  cor.test(~ totalcin + totalcw2,
+           data = .,
+           alternative = "greater",
+           method = "pearson")
+```
+]
+
+.pull-right[
+```{r, echo=FALSE}
+cancer_clean %>%
+  cor.test(~ totalcin + totalcw2,
+           data = .,
+           alternative = "two.sided",
+           method = "pearson")
+```
+]
+
+---
+## R Code: Correlation Matrix
+
+.pull-left[
+```{r, eval=FALSE}
+cancer_clean %>%
+  furniture::tableC(totalcin, totalcw2, 
+                    totalcw4, totalcw6)
+```
+]
+
+.pull-right[
+```{r, eval=FALSE}
+cancer_clean %>%
+  furniture::tableC(totalcin, totalcw2, 
+                    totalcw4, totalcw6,
+                    na.rm=TRUE)
+```
+]
+```{r, echo=FALSE}
+cancer_clean %>%
+  furniture::tableC(totalcin, totalcw2, 
+                    totalcw4, totalcw6)
+```
+```{r, echo=FALSE}
+cancer_clean %>%
+  furniture::tableC(totalcin, totalcw2, 
+                    totalcw4, totalcw6,
+                    na.rm=TRUE)
+```
+
+
+---
+# R Code: Scatterplot with Regression Line
+
+```{r}
+cancer_clean %>%
+  ggplot(aes(totalcin, totalcw2)) +
+    geom_point() +
+    geom_smooth(method = "lm")
+```
+
+
+
+---
+# R Code: Scatterplot with Count
+
+```{r}
+cancer_clean %>%
+  ggplot(aes(totalcin, totalcw2)) +
+    geom_count() +
+    geom_smooth(method = "lm")
+```
+
+
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Linear Regression

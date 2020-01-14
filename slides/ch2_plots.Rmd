@@ -1,0 +1,436 @@
+---
+title: "Data Visualization"
+subtitle: "Cohen Chapter 2 <br><br> .small[EDUC/PSY 6600]"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: pres2.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+
+# Always plot your data first!
+
+<br>
+.center[.Huge["Always." - Severus Snape]]
+<br>
+
+--
+### Why?
+
+.large[
+- .dcoral[Outliers] and impossible values
+
+- Determine correct .nicegreen[statistical approach]
+
+- .bluer[Assumptions] and diagnostics
+
+- Discover new .nicegreen[relationships]
+]
+
+
+---
+background-image: url(figures/fig_misleading_graph1.png)
+background-position: 90% 60%
+background-size: 500px
+
+# The Visualization Paradox
+
+<br>
+.pull-left[.large[
+- Often the .dcoral[most informative] aspect of analysis
+- .nicegreen[Communicates] the "data story" the best
+- Most abused area of quantitative science
+- Figures can be *very* .bluer[misleading]
+]]
+
+.footnote[[Misleading Graphs](https://venngage.com/blog/misleading-graphs/)]
+
+---
+background-image: url(figures/fig_misleading_graph1_fixed.png)
+background-position: 50% 80%
+background-size: 700px
+
+# Much better
+
+---
+# Keys to Good Viz's
+
+.pull-left[.huge[
+- .dcoral[Graphical method] should match .dcoral[level of measurement]
+- Label all axes and include figure caption
+- .nicegreen[Simplicity and clarity]
+- .bluer[Avoid of ‘chartjunk’]
+]]
+
+--
+
+.pull-right[.huge[
+- Unless there are 3 or more variables, avoid 3D figures (and even then, avoid it)
+- Black & white, grayscale/pattern fine for most simple figures
+]]
+
+
+---
+# Data Visualizations
+
+.huge[Takes practice -- try a bunch of stuff]
+
+--
+
+### Resources
+
+.large[.large[
+- [Edward Tufte's books](https://www.edwardtufte.com/tufte/books_vdqi)
+- ["R for Data Science"](http://r4ds.had.co.nz/) by Grolemund and Wickham
+- ["Data Visualization for Social Science"](http://socviz.co/) by Healy
+]]
+
+
+---
+# Frequency Distributions
+
+
+.pull-left[
+.huge[.bluer[Counting] the number of occurrences of unique events]
+
+- Categorical or continuous
+- just like with `tableF()` and `table1()`
+]
+
+.pull-right[
+.large[
+Can see .dcoral[central tendency] (continuous data) or .dcoral[most common value] (categorical data)
+]
+
+.large[Can see .nicegreen[range and extremes]]
+]
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, comment="                   "}
+library(tidyverse)
+
+tibble(x = sample(c(rep(1:4, 10), NA), 1000, replace=TRUE)) %>%
+  furniture::tableF(x)
+
+```
+
+---
+# Frequencies and Viz's Together ❤️
+
+.pull-left[
+### Bar Graph
+
+```{r, echo=FALSE, fig.height=5, fig.width=5, warning=FALSE}
+tibble(x = sample(c(rep(1:3, 10), rep(4, 5)), 1000, replace=TRUE)) %>%
+  mutate(x = factor(x, labels = c("Level 1", "Level 2", "Level 3", "Level 4"))) %>%
+  ggplot(aes(x, color = x, fill = x)) +
+    geom_bar(alpha = .5) +
+    theme_minimal() +
+    scale_fill_manual(values = c("coral2", "dodgerblue4", "chartreuse4", "darkorchid4"), 
+                      guide = FALSE) +
+    scale_color_manual(values = c("coral2", "dodgerblue4", "chartreuse4", "darkorchid4"),
+                       guide = FALSE)
+```
+]
+
+--
+
+.pull-right[
+### Histogram
+
+```{r, echo=FALSE, fig.height=5, fig.width=5, warning=FALSE, message=FALSE}
+tibble(y = rnorm(1000)) %>%
+  ggplot(aes(y)) +
+    geom_histogram(alpha = .5, fill = "dodgerblue4") +
+    theme_minimal() +
+    scale_fill_manual(values = c("coral2", "dodgerblue4", "chartreuse4", "darkorchid4"), 
+                      guide = FALSE) +
+    scale_color_manual(values = c("coral2", "dodgerblue4", "chartreuse4", "darkorchid4"),
+                       guide = FALSE)
+```
+]
+
+???
+What differences do you notice between them?
+
+##### Bar
+- Do NOT touch each other
+- Begin and terminate at real limits
+- Centered on the value
+- Height = frequency
+
+##### Histogram
+- Touch each other
+- Begin and terminate at real limits
+- Centered on interval midpoint
+- Height = frequency
+- Interval size or ‘bin’ determines shape
+    - Too narrow or too wide problematic
+- Useful for checking distributional assumptions
+
+
+---
+# What does DISTRIBUTION mean?
+
+### The way that the data points are scattered
+
+--
+
+.pull-left[.large[.large[
+**For .dcoral[Continuous]**
+
+- General shape
+- Exceptions (outliers)
+- Modes (peaks)
+- Center & spread (chap 3)
+- Histogram
+]]]
+
+.pull-right[.large[.large[
+**For .nicegreen[Categorical]**
+
+- Counts of each
+- Percent or Rate (adjusts for an ‘out of’ to compare)
+- Bar chart
+- Pie chart - avoid!
+]]]
+
+---
+class: inverse, center, middle
+
+# Let's Apply This To the Inho Dataset
+
+
+---
+background-image: url(figures/fig_inho_data_desc.png)
+background-position: 50% 80%
+background-size: 800px
+
+# Reminder
+
+
+---
+# Read in the Data
+
+```{r, message=FALSE, comment=FALSE, eval=FALSE}
+library(tidyverse)   # the easy button
+library(rio)      # read in Excel files
+library(furniture)   # nice tables
+
+data_raw <- rio::import("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower)                   # converts all variable names to lower case
+```
+
+```{r, message=FALSE, comment=FALSE, echo=FALSE}
+library(tidyverse)   # the easy button
+library(rio)      # read in Excel files
+library(furniture)   # nice tables
+
+data_raw <- rio::import("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower)                   # converts all variable names to lower case
+```
+
+--
+### And Clean It
+
+```{r, message=FALSE, warning=FALSE}
+data_clean <- data_raw %>%                     
+  dplyr::mutate(majorF = factor(major,
+                                levels= c(1, 2, 3, 4, 5),
+                                labels = c("Psychology", "Premed",
+                                           "Biology", "Sociology",
+                                           "Economics"))) %>%
+  dplyr::mutate(coffeeF = factor(coffee,
+                                 levels = c(0, 1),
+                                 labels = c("Not a regular coffee drinker",
+                                            "Regularly drinks coffee")))
+```
+
+---
+# Frequency Distrubutions
+
+.pull-left[
+```{r, message=FALSE, warning=FALSE}
+data_clean %>%                 
+  furniture::tableF(major)
+```
+]
+
+.pull-right[
+```{r, message=FALSE, warning=FALSE}
+data_clean %>% 
+  furniture::tableF(phobia)
+```
+]
+
+---
+# Frequency Viz's
+
+.Huge[For viz's, we will use `ggplot2`]
+
+<br>
+
+.huge[This provides the most powerful, beautiful framework for data visualizations]
+
+--
+
+.large[.large[
+- It is built on making .dcoral[layers]
+- Each plot has a .nicegreen["geom"] function
+    - e.g. `geom_bar()` for bar charts, `geom_histogram()` for histograms, etc.
+]]
+
+
+---
+# Bar Charts
+
+```{r, fig.width=8, fig.height=5.5}
+data_clean %>% 
+  ggplot(aes(major)) +
+  geom_bar()
+```
+
+---
+# Bar Charts
+
+```{r, fig.width=8, fig.height=5.5}
+data_clean %>% 
+  ggplot(aes(coffee)) +
+  geom_bar()
+```
+
+---
+# Histograms
+
+```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5.5}
+data_clean %>% 
+  ggplot(aes(phobia)) +
+  geom_histogram()
+```
+
+---
+# Histograms (change number of bins)
+
+```{r, message=FALSE, comment=FALSE, warning=FALSE, fig.width=8, fig.height=5.5}
+data_clean %>% 
+  ggplot(aes(phobia)) +
+  geom_histogram(bins = 8)
+```
+
+---
+# Histograms (change bins to size 5)
+
+```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5.5}
+data_clean %>% 
+  ggplot(aes(phobia)) +
+  geom_histogram(binwidth = 5)
+```
+
+---
+# Histograms
+
+```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5.5}
+data_clean %>% 
+  ggplot(aes(mathquiz)) +
+  geom_histogram(binwidth = 4)
+```
+
+---
+# Histograms -by- a Factor (columns)
+
+```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+data_clean %>% 
+  ggplot(aes(mathquiz)) +
+  geom_histogram(binwidth = 4) +
+  facet_grid(. ~ coffeeF)
+```
+
+
+---
+# Histograms -by- a Factor (rows)
+
+```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
+data_clean %>% 
+  ggplot(aes(mathquiz)) +
+  geom_histogram(binwidth = 4) +
+  facet_grid(coffeeF ~ .)
+```
+
+---
+
+# Deciles (break into 10% chunks)
+
+```{r}
+data_clean %>% 
+  dplyr::pull(statquiz) %>% 
+  quantile(probs = c(.10, .20, .30, .40, .50, .60, .70, .80, .90))
+```
+
+---
+
+# Deciles - with missing values
+
+```{r, eval = FALSE}
+data_clean %>% 
+  dplyr::pull(mathquiz) %>% 
+  quantile(probs = c(.10, .20, .30, .40, .50, .60, .70, .80, .90))
+```
+
+`Error in quantile.default(., probs = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, : missing values and NaN's not allowed if 'na.rm' is FALSE`
+
+
+---
+# Deciles - `na.rm = TRUE`
+
+```{r}
+data_clean %>% 
+  dplyr::pull(mathquiz) %>% 
+  quantile(probs = c(.10, .20, .30, .40, .50, .60, .70, .80, .90),
+           na.rm =TRUE)
+```
+
+
+---
+
+# Quartiles (break into 4 chunks)
+
+```{r}
+data_clean %>% 
+  dplyr::pull(statquiz) %>% 
+  quantile(probs = c(0, .25, .50, .75, 1))
+```
+
+---
+
+# Percentiles 
+
+```{r}
+data_clean %>% 
+  dplyr::pull(statquiz) %>% 
+  quantile(probs = c(.01, .05, .173, .90))
+```
+
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Center and Spread
+
+
