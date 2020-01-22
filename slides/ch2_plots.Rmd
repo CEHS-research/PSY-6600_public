@@ -64,7 +64,7 @@ background-size: 700px
 ---
 # Keys to Good Viz's
 
-.pull-left[.huge[
+.pull-left[.large[
 - .dcoral[Graphical method] should match .dcoral[level of measurement]
 - Label all axes and include figure caption
 - .nicegreen[Simplicity and clarity]
@@ -73,7 +73,7 @@ background-size: 700px
 
 --
 
-.pull-right[.huge[
+.pull-right[.large[
 - Unless there are 3 or more variables, avoid 3D figures (and even then, avoid it)
 - Black & white, grayscale/pattern fine for most simple figures
 ]]
@@ -223,7 +223,7 @@ background-size: 800px
 
 ```{r, message=FALSE, comment=FALSE, eval=FALSE}
 library(tidyverse)   # the easy button
-library(rio)      # read in Excel files
+library(rio)         # read in Excel files
 library(furniture)   # nice tables
 
 data_raw <- rio::import("Ihno_dataset.xls") %>% 
@@ -261,7 +261,7 @@ data_clean <- data_raw %>%
 .pull-left[
 ```{r, message=FALSE, warning=FALSE}
 data_clean %>%                 
-  furniture::tableF(major)
+  furniture::tableF(majorF)
 ```
 ]
 
@@ -290,94 +290,184 @@ data_clean %>%
 ]]
 
 
----
-# Bar Charts
-
-```{r, fig.width=8, fig.height=5.5}
-data_clean %>% 
-  ggplot(aes(major)) +
-  geom_bar()
-```
 
 ---
-# Bar Charts
+# Bar Charts: basic
 
+.pull-left[
 ```{r, fig.width=8, fig.height=5.5}
 data_clean %>% 
   ggplot(aes(coffee)) +
   geom_bar()
 ```
+]
+
+--
+
+.pull-right[
+```{r, fig.width=8, fig.height=5.5}
+data_clean %>% 
+  ggplot(aes(coffeeF)) +
+  geom_bar()
+```
+]
 
 ---
-# Histograms
+# Bar Charts: basic
 
-```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5.5}
+.pull-left[
+```{r, fig.width=8, fig.height=5.5}
+data_clean %>% 
+  ggplot(aes(major)) +
+  geom_bar()
+```
+]
+
+--
+
+.pull-right[
+```{r, fig.width=8, fig.height=5.5}
+data_clean %>% 
+  ggplot(aes(majorF)) +
+  geom_bar()
+```
+]
+
+---
+# Bar Charts: fancy
+
+.pull-left[
+```{r, eval=FALSE, fig.width=7, fig.height=5}
+data_clean %>% 
+  ggplot(aes(majorF)) +
+  geom_bar(color = "black",
+           fill  = "blue",
+           alpha = .5) +
+  labs(x = "Declared Major",
+       y = "Number of Students",
+       title = "Ihno's Experiment",
+       subtitle = "Participant Demographics") +
+  theme_bw()
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, fig.width=7, fig.height=5}
+data_clean %>% 
+  ggplot(aes(majorF)) +
+  geom_bar(color = "black",
+           fill  = "blue",
+           alpha = .5) +
+  labs(x = "Declared Major",
+       y = "Number of Students",
+       title = "Ihno's Experiment",
+       subtitle = "Participant Demographics") +
+  theme_bw()
+```
+]
+
+
+
+---
+# Histograms: default 
+
+.pull-left[
+```{r, message=FALSE, warning=FALSE, fig.width=7, fig.height=5}
 data_clean %>% 
   ggplot(aes(phobia)) +
   geom_histogram()
 ```
+]
 
----
-# Histograms (change number of bins)
+--
 
-```{r, message=FALSE, comment=FALSE, warning=FALSE, fig.width=8, fig.height=5.5}
+.pull-right[
+```{r, message=FALSE, comment=FALSE, warning=FALSE, fig.width=7, fig.height=5}
 data_clean %>% 
   ggplot(aes(phobia)) +
   geom_histogram(bins = 8)
 ```
+]
+
+
 
 ---
-# Histograms (change bins to size 5)
+# Histograms: change number of bins
 
+.pull-left[
 ```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5.5}
 data_clean %>% 
   ggplot(aes(phobia)) +
-  geom_histogram(binwidth = 5)
+  geom_histogram(bins = 4)
 ```
+]
+
+--
+
+.pull-right[
+```{r, message=FALSE, comment=FALSE, warning=FALSE, fig.width=8, fig.height=5.5}
+data_clean %>% 
+  ggplot(aes(phobia)) +
+  geom_histogram(bins = 10)
+```
+]
 
 ---
-# Histograms
+# Histograms: change bin width
 
+.pull-left[
+```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5.5}
+data_clean %>% 
+  ggplot(aes(mathquiz)) +
+  geom_histogram(binwidth = 10)
+```
+]
+
+--
+
+.pull-right[
 ```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5.5}
 data_clean %>% 
   ggplot(aes(mathquiz)) +
   geom_histogram(binwidth = 4)
 ```
+]
 
 ---
-# Histograms -by- a Factor (columns)
+# Histograms -by- a Factor 
 
+.pull-left[
 ```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
 data_clean %>% 
   ggplot(aes(mathquiz)) +
   geom_histogram(binwidth = 4) +
   facet_grid(. ~ coffeeF)
 ```
+]
 
+--
 
----
-# Histograms -by- a Factor (rows)
-
+.pull-right[
 ```{r, message=FALSE, warning=FALSE, fig.width=8, fig.height=5}
 data_clean %>% 
   ggplot(aes(mathquiz)) +
   geom_histogram(binwidth = 4) +
   facet_grid(coffeeF ~ .)
 ```
+]
 
 ---
-
-# Deciles (break into 10% chunks)
+# Deciles: break into 10% chunks
 
 ```{r}
 data_clean %>% 
   dplyr::pull(statquiz) %>% 
-  quantile(probs = c(.10, .20, .30, .40, .50, .60, .70, .80, .90))
+  quantile(probs = c(0, .10, .20, .30, .40, .50, .60, .70, .80, .90))
 ```
 
 ---
-
 # Deciles - with missing values
+
 
 ```{r, eval = FALSE}
 data_clean %>% 
@@ -389,19 +479,19 @@ data_clean %>%
 
 
 ---
-# Deciles - `na.rm = TRUE`
+# Deciles - use optional `na.rm = TRUE`
+
 
 ```{r}
 data_clean %>% 
   dplyr::pull(mathquiz) %>% 
-  quantile(probs = c(.10, .20, .30, .40, .50, .60, .70, .80, .90),
-           na.rm =TRUE)
+  quantile(probs = c(0, .10, .20, .30, .40, .50, .60, .70, .80, .90),
+           na.rm = TRUE)
 ```
 
 
 ---
-
-# Quartiles (break into 4 chunks)
+# Quartiles: break into 4 chunks
 
 ```{r}
 data_clean %>% 
@@ -410,8 +500,7 @@ data_clean %>%
 ```
 
 ---
-
-# Percentiles 
+# Percentiles: break at any point(s) 
 
 ```{r}
 data_clean %>% 

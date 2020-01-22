@@ -149,19 +149,19 @@ background-image: url(figures/fig_yellow_box_1.png)
 .pull-left[
 1. State the .nicegreen[Hypotheses] 
   - Null & Alternative
-  <br><br>
+  <br>
 2. Select the .nicegreen[Statistical Test] & .nicegreen[Significance Level] 
   - $\alpha$ level
   - One vs. Two tails
-  <br><br>
+  <br>
 3. Select random sample and collect data
-  <br><br>
+  <br>
 4. Find the .nicegreen[Region of Rejection]
   - Based on $\alpha$ & # of tails
-  <br><br>
+  <br>
 4. Calculate the .nicegreen[Test Statistic]
   - Examples include: $z, t, F, \chi^2$
-  <br><br>
+  <br>
 5. Write the .nicegreen[Conclusion]
   - Statistical decision must by in context!
 ]
@@ -169,11 +169,14 @@ background-image: url(figures/fig_yellow_box_1.png)
 --
 
 .pull-right[
-## Definition of a p-value:
 
-.center[.large[ .large[
+<br>
+## Definition of a p-value:
+<br>  
+  
+.center[.large[ 
 The probability of observing <br> a test statistic <br> .dcoral[**as extreme or more extreme**] <br> .nicegreen[**IF**] <br> the NULL hypothesis is true.
-]]]]
+]]]
 
 
 
@@ -200,9 +203,12 @@ $$H_0: \mu_1 = \mu_2$$
 .nicegreen[**Research** or Alternative Hypothesis] <br> options...
 ]
 ]
-$$H_1: \mu_1 \ne \mu_2$$
-$$H_1: \mu_1 \lt \mu_2$$
-$$H_1: \mu_1 \gt \mu_2$$
+$$
+H_1: 
+\mu_1 \ne \mu_2 \quad \text{ or } \quad  
+\mu_1 \lt \mu_2 \quad \text{ or } \quad 
+\mu_1 \gt \mu_2
+$$
 ]
 
 
@@ -238,18 +244,14 @@ The .dcoral[NULL] hypothesis is .dcoral[TRUE] in the .dcoral[POPULATION]
 
 
 
-.nicegreen[.large[IF:] 
-
-The p-value is very **SMALL**]
+.nicegreen[.large[IF:] The p-value is very **SMALL**]
 
 - How small?
 $p-value \lt \alpha$
 
 
 
-.nicegreen[.large[THEN:] 
-
-We have evidence AGAINST the NULL hypothesis]
+.nicegreen[.large[THEN:] We have evidence AGAINST the NULL hypothesis]
 
 - It is **UNLIKELY** we would have observed a sample that extreme **JUST DUE TO RANDOM CHANCE**...
 
@@ -297,8 +299,6 @@ $H_1: \mu_1 \ne \mu_2$
 $H_1: \mu_1 \lt \mu_2$ -OR- $H_1: \mu_1 \gt \mu_2$
 
 .large[**NO computational differences**]
-
-ONLY the $p-value$ differs:
 
 $2 \; tail \; p-value = \mathbf{2 \times} 1 \; tail \; p-value$
 
@@ -359,9 +359,9 @@ background-image: url(figures/fig_conf_matrix.png)
 
 .pull-right[
 
-We want $\alpha$ to be .nicegreen[SMALL], but we can't just make too tiny, since the trade off is increasing the type II error rate
+We want $\alpha$ to be .nicegreen[SMALL], but trade off (type II error rate)
 
-.nicegreen[DEFAULT] is $\alpha = .05$ (5% = 1 in 20 & seems *rare* to humans) **BUT** there is nothing magical about it
+.nicegreen[DEFAULT] is $\alpha = .05$  **BUT** there is nothing magical about it
 
 Let it be .nicegreen[LARGER] value, $\alpha = .10$, **IF** we'd rather not miss any potential relationship and are okay with some false positives
   - Ex) screening genes, early drug investigation, pilot study
@@ -411,7 +411,7 @@ Set it .nicegreen[SMALLER], $\alpha = .01$, **IF** false positives are costly an
 
 --
 
-### Example Sentence:
+## Example Sentence:
 
 A one sample z test showed that the difference in the quiz scores between the current sample (N = 9, M = 7.00, SD = 1.23) and the hypothesized value (6.000) were statistically significant, z = 2.45, p = .040.
 
@@ -454,16 +454,14 @@ background-image: url(figures/fig_ztest_2.png)
 .large[**Statistical significance**]
 
 - only says whether the effect observed is likely to be .nicegreen[due to chance] alone, because of random sampling
-
 - may not be .nicegreen[practically important]
 
 That's because *statistical* significance doesn't tell you about the .nicegreen[**magnitude of the effect**], only that there **is** one. 
 
-
-An *effect* could be too small to be .nicegreen[**relevant**].  <br><br>
+An *effect* could be too small to be .nicegreen[**relevant**].  
 
 And with a large enough sample size, significance can be reached even for the tiniest effect.
-<br><br>
+
 - EX) A drug to lower temperature is found to reproducibly lower patient temperature by 0.4 degrees Celsius, $p \lt 0.01$. But clinical benefits of temperature reduction only appear for a 1 decrease or larger. 
 
 .large[ .center[ .dcoral[**STATISTICAL significance does NOT mean PRACTICAL significance!!!**]]]

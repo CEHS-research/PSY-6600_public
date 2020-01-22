@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Center and Spread</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="pres2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Center and Spread
+## Cohen Chapter 3 <br><br> .small[EDUC/PSY 6600]
+
+---
+
+
+
+
+class: center, middle
+
+## "You can, for example, never foretell what any one man will do, but you can say with precision what an average number will be up to. *Individuals vary*, but percentages remain constant. So says the statistician." 
+### -- Sherlock Holmes, *The Sign of Four*
+
+
+---
+background-image: url(figures/fig_dist_examples.png)
+background-position: 50% 90%
+background-size: 750px
+
+# Distributions Examples
+
+---
+background-image: url(figures/fig_3centers.png)
+background-position: 50% 70%
+background-size: 1000px
+
+# Three Measures of Center
+
+---
+background-image: url(figures/fulcrum.png)
+background-position: 50% 80%
+background-size: 850px
+
+# Mean vs. Median
+
+.large[.large[
+.nicegreen[Median]: the center point, half of values are on each side, not affected by the skew, the "typical value"
+
+.dcoral[Mean]: the "balance" point, pulled to the side of the skew, not typical
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+]]
+
+--
+
+.large[If distribution is symmetrical: mean = median]
+
+---
+background-image: url(figures/fig_dist_income_2010.png)
+background-position: 50% 70%
+background-size: 1000px
+
+
+
+---
+# Distributions and Numbers
+
+.pull-left[
+.large[
+- The MEDIAN is **resistant** &amp; doesn't change much
+- The MEAN is **influenced** &amp; changes more!
+- Average does NOT mean typical
+- Average moves when we remove the high point
+]]
+
+--
+
+.pull-right[
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+# Distributions and Numbers
+
+.pull-left[
+.large[
+- The MEDIAN is **resistant** &amp; doesn't change much
+- The MEAN is **influenced** &amp; changes more!
+- Average does NOT mean typical
+- Average moves when we remove the high point
+- Median doesn't move when we remove the high point
+]]
+
+--
+
+.pull-right[
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+background-image: url(figures/fig_three_spreads.jpg)
+background-position: 50% 70%
+background-size: 1100px
+
+# Three Measures of Spread
+
+
+---
+# Best Summary of the Data?
+
+.huge[
+"... the perfect estimator does not exist." -- Rand Wilcox, 2001
+]
+
+--
+
+.pull-left[
+.large[
+## .bluer[Median and SIR]
+
+Skewed data or outliers
+]]
+
+.pull-right[
+.large[
+## .nicegreen[Mean and SD]
+
+Symmetrical and no outliers
+]]
+
+--
+
+&lt;br&gt;
+
+.large[.large[
+A .dcoral[graph gives the best overall picture of a distribution]
+]]
+
+---
+background-image: url(figures/fig_sd_properties.jpg)
+background-position: 50% 70%
+background-size: 1100px
+
+# Properties of the Mean and SD
+
+
+---
+# Skewness
+
+$$
+Skewness = \frac{N}{N - 2}\frac{\sum_{i=1}^n (X_i - \bar{X})^3}{(N - 1)s^3}
+$$
+
+.pull-left[
+.large[
+- Degree of .dcoral[symmetry]
+- Can detect **visually**
+- Skewness statistic
+    - Based on cubed deviations from the mean
+    - Divided by SE of skewness
+    - `\(&gt; \pm 2\)` is a sign of skewed data
+
+]]
+
+--
+
+.pull-right[
+.large[
+
+
+- Interpreting skewness statistic
+    - Pos value = positive skew
+    - Neg value = negative skew
+    - Zero = no skew
+]]
+
+---
+# Skewness
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Kurtosis
+
+$$
+Kurtosis = \frac{N(N+1)}{(N - 2)(N - 3)}\frac{\sum_{i=1}^n (X_i - \bar{X})^4}{(N - 1)s^4} - 3 \frac{(N - 1)(N - 1)}{(N - 2)(N - 3)}
+$$
+
+.pull-left[
+.large[
+- Degree of .dcoral[flatness] in distribution
+- Harder to detect visually
+- Kurtosis statistic
+    - Based on deviations from the mean (raised to 4th power)
+    - Divided by SE of kurtosis
+    - `\(&gt; \pm 2\)` is a sign of problems with kurtosis
+]]
+
+--
+
+.pull-right[
+.large[
+- Interpreting kurtosis statistic
+    - Pos value = peaked (leptokurtic)
+    - Neg value = flat (platykurtic)
+    - Zero = normal (mesokurtic)
+]]
+
+---
+background-image: url(figures/fig_kurtosis.png)
+background-position: 50% 70%
+background-size: 1000px
+
+# Kurtosis
+
+---
+background-image: url(figures/fig_5sum_2.png)
+background-position: 50% 50%
+
+# Five-Number Summary
+
+---
+background-image: url(figures/fig_5sum_3.png)
+background-position: 50% 50%
+
+# Five-Number Summary - Median
+
+---
+background-image: url(figures/fig_5sum_4.png)
+background-position: 50% 50%
+
+# Five-Number Summary - Quartiles
+
+
+---
+background-image: url(figures/fig_5sum_5.png)
+background-position: 50%50%
+
+# Boxplots (Modified) - Lines
+
+---
+background-image: url(figures/fig_5sum_6.png)
+background-position: 50% 50%
+
+# Boxplots (Modified) - IQR and SIQR
+
+
+
+---
+background-image: url(figures/fig_boxplot_hist.png)
+background-position: 50% 70%
+background-size: 1000px
+
+# Boxplot vs. Histogram
+
+
+
+---
+# Boxplots by Group
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+# Density Plots
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Quantile-Quantile (Q-Q) Plot
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+class: inverse, center, middle
+
+# Let's Apply This To the Cancer Dataset &lt;br&gt; (on Canvas)
+
+
+---
+# Read in the Data
+
+
+```r
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(rio)          # Read in SPSS datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+library(psych)        # Lots of nice tid-bits
+```
+
+
+```r
+cancer_raw &lt;- rio::import("cancer.sav")
+```
+
+
+
+--
+### And Clean It
+
+
+```r
+cancer_clean &lt;- cancer_raw %&gt;% 
+  dplyr::rename_all(tolower) %&gt;% 
+  dplyr::mutate(id = factor(id)) %&gt;% 
+  dplyr::mutate(trt = factor(trt,
+                             labels = c("Placebo", 
+                                        "Aloe Juice"))) %&gt;% 
+  dplyr::mutate(stage = factor(stage))
+```
+
+---
+## Frequency Tables with `furniture::tableF()`
+
+.pull-left[
+
+```r
+cancer_clean %&gt;%
+  furniture::tableF(age, n = 8)
+```
+
+```
+
+----------------------------------
+ age Freq CumFreq Percent CumPerc
+ 27  1    1       4.00%   4.00%  
+ 42  1    2       4.00%   8.00%  
+ 44  1    3       4.00%   12.00% 
+ 46  2    5       8.00%   20.00% 
+ ... ...  ...     ...     ...    
+ 68  1    20      4.00%   80.00% 
+ 69  1    21      4.00%   84.00% 
+ 73  1    22      4.00%   88.00% 
+ 77  2    24      8.00%   96.00% 
+ 86  1    25      4.00%   100.00%
+----------------------------------
+```
+]
+
+.pull-right[
+
+```r
+cancer_clean %&gt;%
+  furniture::tableF(trt)
+```
+
+```
+
+-----------------------------------------
+ trt        Freq CumFreq Percent CumPerc
+ Placebo    14   14      56.00%  56.00% 
+ Aloe Juice 11   25      44.00%  100.00%
+-----------------------------------------
+```
+]
+
+---
+## Extensive Descriptive Stats `psych:describe()`
+
+
+```r
+cancer_clean %&gt;% 
+  dplyr::select(age, weighin, totalcin, totalcw2, totalcw4, totalcw6) %&gt;%
+  psych::describe()
+```
+
+```
+         vars  n   mean    sd median trimmed   mad min   max range  skew
+age         1 25  59.64 12.93   60.0   59.95 11.86  27  86.0  59.0 -0.31
+weighin     2 25 178.28 31.98  172.8  176.57 21.05 124 261.4 137.4  0.73
+totalcin    3 25   6.52  1.53    6.0    6.33  0.00   4  12.0   8.0  1.80
+totalcw2    4 25   8.28  2.54    8.0    8.10  2.97   4  16.0  12.0  1.01
+totalcw4    5 25  10.36  3.47   10.0   10.19  2.97   6  17.0  11.0  0.49
+totalcw6    6 23   9.48  3.49    9.0    9.21  2.97   3  19.0  16.0  0.77
+         kurtosis   se
+age         -0.01 2.59
+weighin      0.07 6.40
+totalcin     4.30 0.31
+totalcw2     1.14 0.51
+totalcw4    -1.00 0.69
+totalcw6     0.53 0.73
+```
+
+---
+## Smaller Set with `furniture::table1()`
+
+.pull-left[
+For the Entire Sample
+
+```r
+cancer_clean %&gt;%
+  furniture::table1(trt, age, weighin)
+```
+
+```
+
+---------------------------------
+               Mean/Count (SD/%)
+               n = 25           
+ trt                            
+    Placebo    14 (56%)         
+    Aloe Juice 11 (44%)         
+ age                            
+               59.6 (12.9)      
+ weighin                        
+               178.3 (32.0)     
+---------------------------------
+```
+]
+
+.pull-right[
+Breaking the Sample by a Factor
+
+```r
+cancer_clean %&gt;%
+  dplyr::group_by(trt) %&gt;%        
+  furniture::table1(age, weighin)
+```
+
+```
+
+-----------------------------------
+                  trt 
+         Placebo      Aloe Juice  
+         n = 14       n = 11      
+ age                              
+         59.8 (9.0)   59.5 (17.2) 
+ weighin                          
+         167.5 (23.0) 192.0 (37.4)
+-----------------------------------
+```
+]
+
+---
+## Boxplot, one one `geom_boxplot()`
+
+
+```r
+cancer_clean %&gt;%
+  ggplot(aes(x = "Full Sample",   # x = "quoted text"
+             y = age)) +          # y = contin_var (no quotes)
+  geom_boxplot()
+```
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Boxplots, by groups - (1) fill color
+
+
+```r
+cancer_clean %&gt;%
+  ggplot(aes(x = "Full Sample",           # x = "quoted text"
+             y = age,                     # y = contin_var (no quotes)
+             fill = trt)) +               # fill = group_var (no quotes) 
+  geom_boxplot()
+```
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+## Boxplots, by groups - (2) x-axis breaks
+
+
+```r
+cancer_clean %&gt;%
+  ggplot(aes(x = trt,             # x = group_var (no quotes)  
+             y = age)) +          # y = contin_var (no quotes)
+  geom_boxplot()
+```
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+## Boxplots, by groups - (3) seperate panels
+
+
+```r
+cancer_clean %&gt;%
+  ggplot(aes(x = "Full Sample",   # x = "quoted text"
+             y = age)) +          # y = contin_var (no quotes)
+  geom_boxplot() +
+  facet_grid(. ~ trt)             # . ~ group_var (no quotes)
+```
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Boxplot for a Subset - 1 requirement 
+
+
+```r
+cancer_clean %&gt;%                # Less than 172 Pound at baseline
+  dplyr::filter(weighin &lt; 172) %&gt;%
+  ggplot(aes(x = "Weigh At Baseline &lt; 172", 
+             y = age)) +
+  geom_boxplot()
+```
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Boxplot for a Subset - 2 requirements
+
+
+```r
+cancer_clean %&gt;%           # At least 150 pounds AND not in Aloe group
+  dplyr::filter(weighin &gt;= 150 &amp; trt == "Placebo") %&gt;%
+  ggplot(aes(x = "Placebo and at least 150 Pounds", 
+             y = age)) +
+  geom_boxplot()
+```
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Boxplot for a Subset - 2 requirements (`%in%`)
+
+
+```r
+cancer_clean %&gt;%          # In Aloe group, but only stages 2-4
+  dplyr::filter(trt == "Aloe Juice" &amp; stage %in% c(2, 3, 4)) %&gt;%
+  ggplot(aes(x = "On Aloe Juice and Stage 2-4", 
+             y = weighin)) +
+  geom_boxplot()
+```
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+## Boxplot for Repeated Measures
+
+
+```r
+cancer_clean %&gt;%
+  tidyr::pivot_longer(cols = c(totalcw2, totalcw4, totalcw6),
+                      names_to = "week",
+                      names_pattern = "totalcw(.)",
+                      values_to = "condition") %&gt;%
+  ggplot(aes(x = week, 
+             y = condition)) +
+  geom_boxplot()
+```
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Boxplot: COMPLICATED!
+
+
+```r
+cancer_clean %&gt;%
+  dplyr::filter(weighin &gt; 130 &amp; stage %in% c(2, 4)) %&gt;%
+  tidyr::pivot_longer(cols = c(totalcw2, totalcw4, totalcw6),
+                      names_to = "week",
+                      names_pattern = "totalcw(.)",
+                      values_to = "condition") %&gt;%
+  ggplot(aes(x = week, y = condition, fill = stage)) +
+  geom_boxplot() +
+  facet_grid(. ~ trt)
+```
+
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Standard and Normal
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

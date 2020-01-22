@@ -1,0 +1,164 @@
+---
+title: "Psy/Educ 6600: Chapter 14"
+subtitle: "Two-Way ANOVA - In Class Example"
+author: "Dr. Sarah Schwartz"
+date: "Spring 2018"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    number_sections: false
+---
+
+
+
+# PREPARATION
+
+
+```{r oppts, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 5,        # set default figure width to 5 inches
+                      fig.height  = 3)        # set default figure height to 3 inches
+
+```
+
+## Load Packages
+
+Make sure the packages are **installed** *(Package tab)*
+
+```{r libraries}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(readxl)       # Read in Excel datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+library(afex)         # Analysis of Factorial Experiments
+library(emmeans)      # Estimated marginal means (Least-squares means)
+library(lsmeans)      # Least-Squares Means
+library(multcomp)     # Simultaneous Inference in General Parametric Models 
+```
+
+
+## Enter the dataset
+
+```{r}
+data_wide <- data.frame(control_placebo   = c(24, 20, 29, 20, 28),
+                        control_caffeine  = c(26, 22, 20, 30, 27),
+                        control_reward    = c(28, 23, 24, 30, 33),
+                        jetlag_placebo    = c(22, 18, 16, 25, 27),
+                        jetlag_caffeine   = c(25, 31, 24, 27, 21),
+                        jetlag_reward     = c(26, 20, 32, 23, 30),
+                        interrup_placebo  = c(26, 20, 11, 19, 14),
+                        interrup_caffeine = c(23, 28, 26, 17, 19),
+                        interrup_reward   = c(16, 13, 12, 18, 19),
+                        totlack_placebo   = c(14, 17, 12, 18, 10),
+                        totlack_caffeine  = c(23, 16, 26, 18, 24),
+                        totlack_reward    = c(15, 11, 19, 11, 17))
+```
+
+
+```{r}
+data_long <- data_wide %>% 
+  tidyr::gather(key = variable,
+                value = score) %>% 
+  tidyr::separate(col = variable,
+                  into = c("sleep", "stimulant")) %>% 
+  dplyr::mutate(sleep = factor(sleep,
+                               levels = c("control", 
+                                          "jetlag", 
+                                          "interrup", 
+                                          "totlack"),
+                               labels = c("Own Schedule", 
+                                          "Jet Lag", 
+                                          "Interruped", 
+                                          "Total Lack"))) %>% 
+  dplyr::mutate(stimulant = factor(stimulant,
+                                   levels = c("placebo", 
+                                              "caffeine", 
+                                              "reward"),
+                                   labels = c("Sugar Pill",
+                                              "Caffeine Pill",
+                                              "Electric Shock"))) %>% 
+  dplyr::mutate(id = row_number()) %>% 
+  dplyr::select(id, sleep, stimulant, score)
+```
+
+
+```{r}
+data_long
+```
+
+```{r}
+glimpse(data_long)
+```
+
+
+
+```{r}
+data_long %>% 
+  dplyr::group_by(sleep) %>% 
+  furniture::table1(score)
+```
+
+```{r}
+data_long %>% 
+  dplyr::group_by(stimulant) %>% 
+  furniture::table1(score)
+```
+
+
+
+```{r}
+data_long %>% 
+  dplyr::group_by(sleep, stimulant) %>% 
+  dplyr::summarise(mean = mean(score)) %>% 
+  tidyr::spread(key = stimulant,
+                value = mean)
+```
+
+
+```{r}
+data_long %>% 
+  ggplot(aes(x = sleep,
+             y = score)) +
+  stat_summary()
+```
+
+
+
+
+```{r}
+data_long %>% 
+  ggplot(aes(x = stimulant,
+             y = score)) +
+  stat_summary()
+```
+
+
+
+
+```{r}
+data_long %>% 
+  ggplot(aes(x = sleep,
+             y = score,
+             color = stimulant,
+             shape = stimulant)) +
+  stat_summary()
+```
+
+
+```{r}
+aov_math_2way <- data_long %>% 
+  afex::aov_4(score ~ steep*stimulant + (1|sub_num),
+              data = .) 
+```
+
+
+
+

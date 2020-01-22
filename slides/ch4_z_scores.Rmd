@@ -51,10 +51,10 @@ A .dcoral[density curve] is a curve that:
 ]
 
 .large[.large[
-- is always on or above the horizontal axis
-- has an area of exactly 1 underneath it
+- is always .nicegreen[on or above] the horizontal axis
+- has an .dcoral[area] of .nicegreen[exactly 1] underneath it
 
-It describes the overall pattern of a distribution and highlights proportions of observations as the area.
+It describes the overall pattern of a distribution and highlights proportions of observations as the .dcoral[area].
 ]]
 
 ---
@@ -141,7 +141,7 @@ gridExtra::grid.arrange(p1, p2, nrow = 1)
 .pull-left[
 .huge[.dcoral[Standardizing]]
 
-.large[.large[
+.large[
 Convert a value to a standard score ("z-score")
 
 - First subtract the mean
@@ -152,7 +152,7 @@ $$
 z = \frac{X - \mu}{\sigma} = \frac{X - \bar{X}}{s}
 $$
 
-]]
+]
 ]
 
 .pull-right[
@@ -180,7 +180,7 @@ gridExtra::grid.arrange(p1, p2, ncol = 1)
 ---
 # Z-Scores, Units
 
-.huge[
+.large[
 - z-scores are in .nicegreen[SD units]
 - Represent SD distances away from the mean (M = 0) 
     - if z-score = -0.50 then it is $\frac{1}{2}$ of SD below mean
@@ -363,10 +363,17 @@ background-position: 50% 50%
 
 .large[
 - The process of .nicegreen[statistical inference] involves using information .dcoral[from a sample] to draw conclusions about a wider population.
+]
 
+--
+
+.large[
 - Different random samples yield different statistics. We need to be able to describe the .dcoral[sampling distribution] of possible statistic values in order to perform .nicegreen[statistical inference].
+]
 
+--
 
+.large[
 - We can think of a statistic as a .nicegreen[random variable] because it takes numerical values that describe the outcomes of the .dcoral[random sampling process].
 ]
 
@@ -376,11 +383,11 @@ background-position: 50% 50%
 
 # Sampling Distribution
 
-.large[
+
 The .dcoral[LAW of LARGE NUMBERS] assures us that if we measure .nicegreen[enough] subjects, the statistic .nicegreen[x-bar] will eventually get .dcoral[very close to] the unknown parameter .nicegreen[mu]. 
 
 If we took every one of the possible samples of a certain size, calculated the sample mean for each, and graphed all of those values, we'd have a .dcoral[sampling distribution].
-]
+
 
 
 ---
@@ -442,7 +449,7 @@ background-position: 50% 50%
 # The Central Limit Theorem
 
 .huge[
-When a sample size (n) is .nicegreen[large], the sampling distribution of the .dcoral[sample MEAN] is approximately normally distributed about the .nicegreen[mean of the population] with the stadard deviation less than than of the population by a factor of .nicegreen[the square root of n].
+When a sample size (n) is .nicegreen[large], the sampling distribution of the .dcoral[sample MEAN] is **approximately normally distributed** about the .nicegreen[mean of the population] with the stadard deviation less than than of the population by a factor of .nicegreen[the square root of n].
 ]
 
 

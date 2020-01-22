@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Hypothesis Testing</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="pres2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Hypothesis Testing
+## Cohen Chapter 5 <br><br> .small[EDUC/PSY 6600]
+
+---
+
+
+
+
+class: center, middle
+
+## "I'm afraid that I rather &lt;br&gt; give myself away  when I explain,"  &lt;br&gt; said he. &lt;br&gt; "Results without causes &lt;br&gt; are much more impressive."
+
+
+### -- Sherlock Holmes 
+*The Stock-Broker's Cat*
+
+
+
+
+
+---
+# Two Types of Research Questions
+
+
+.pull-left[
+.center[
+### Do .dcoral[groups] &lt;br&gt;*significantly* .dcoral[differ] &lt;br&gt; on 1 or more characteristics?
+]
+
+Comparing group means, counts, or proportions
+
+.dcoral[
+- `\(t\)`-tests
+- ANOVA
+- `\(\chi^2\)` tests]
+]
+
+--
+
+.pull-right[
+.center[
+### Is there a &lt;br&gt; *significant* .nicegreen[relationship] &lt;br&gt; among a set of .nicegreen[variables]?
+]
+
+
+Testing the association or dependence
+
+.nicegreen[
+- Correlation
+- Regression]
+]
+
+
+
+
+---
+# Inferential Statistics
+
+.pull-left[
+## Descriptive statistics are limited
+
+- Rely only on **raw** data distribution
+- Generally describe **one** variable only
+- Do not address **accuracy** of estimators or hypothesis testing
+- How **precise** is sample mean or does it differ from a given value?
+- Are there between or within **group differences** or **associations**?
+]
+
+--
+
+.pull-right[
+### Goals of inferential statistics
+
+- .dcoral[Hypothesis testing]
+  - `\(p\)`-values
+- .dcoral[Parameter estimation]
+  - confidence intervals
+
+
+### Repeated sampling
+- Estimators will vary from sample to sample
+- Sampling or random error is variability due to chance
+]
+
+
+
+
+---
+background-image: url(figures/fig_old_cig.png)
+
+# Causality and Statistics
+
+
+## .dcoral[Causality] depends &lt;br&gt; on .nicegreen[**evidence**] &lt;br&gt; from outside statistics:
+
+
+- Phenomenological (educational, behavioral, biological) credibility
+- Strength of association, ruling out occurrence by chance alone
+- Consistency with past research findings
+- Temporality
+- Dose-response relationship
+- Specificity
+- Prevention
+
+--
+
+.large[.dcoral[**Causality** is often a **judgmental** evaluation &lt;br&gt; of **combined** results from **several studies**]] 
+
+
+
+---
+# z-Scores and Statistical Inference
+
+
+Probabilities of `\(z\)`-scores used to determine how **unlikely** or **unusual** a single case is relative to other cases in a sample 
+
+## .center[**Small** probabilities &lt;br&gt; .dcoral[*(p-values)*] &lt;br&gt; reflect **unlikely** or **unusual scores**]
+
+Not frequently interested in whether **individual scores** are unusual relative to others, but whether scores from **groups of cases** are unusual.
+
+.nicegreen[**Sample mean**], `\(\bar{x}\)` or `\(M\)`, summarizes .nicegreen[**central tendency**] of a group or sample of subjects
+
+
+
+
+---
+background-image: url(figures/fig_yellow_box_1.png)
+
+# Steps of a Hypothesis test 
+
+.pull-left[
+1. State the .nicegreen[Hypotheses] 
+  - Null &amp; Alternative
+  &lt;br&gt;
+2. Select the .nicegreen[Statistical Test] &amp; .nicegreen[Significance Level] 
+  - `\(\alpha\)` level
+  - One vs. Two tails
+  &lt;br&gt;
+3. Select random sample and collect data
+  &lt;br&gt;
+4. Find the .nicegreen[Region of Rejection]
+  - Based on `\(\alpha\)` &amp; # of tails
+  &lt;br&gt;
+4. Calculate the .nicegreen[Test Statistic]
+  - Examples include: `\(z, t, F, \chi^2\)`
+  &lt;br&gt;
+5. Write the .nicegreen[Conclusion]
+  - Statistical decision must by in context!
+]
+
+--
+
+.pull-right[
+
+&lt;br&gt;
+## Definition of a p-value:
+&lt;br&gt;  
+  
+.center[.large[ 
+The probability of observing &lt;br&gt; a test statistic &lt;br&gt; .dcoral[**as extreme or more extreme**] &lt;br&gt; .nicegreen[**IF**] &lt;br&gt; the NULL hypothesis is true.
+]]]
+
+
+
+
+---
+background-image: url(figures/fig_null_hyp.png)
+
+# Stating Hypotheses
+
+Hypotheses are always specified in terms of .dcoral[**population**]
+- Use `\(\mu\)` for the population mean, not `\(\bar{x}\)` which is for a sample
+
+.pull-left[ 
+**If you are comparing TWO population MEANS:**
+
+.large[
+.center[
+.dcoral[**Null** Hypothesis]
+]
+]
+`$$H_0: \mu_1 = \mu_2$$`
+.large[
+.center[
+.nicegreen[**Research** or Alternative Hypothesis] &lt;br&gt; options...
+]
+]
+$$
+H_1: 
+\mu_1 \ne \mu_2 \quad \text{ or } \quad  
+\mu_1 \lt \mu_2 \quad \text{ or } \quad 
+\mu_1 \gt \mu_2
+$$
+]
+
+
+
+
+---
+background-image: url(figures/fig_scale_null.png)
+
+# Innocent Until Proven Guilty
+
+**IF** there is Not enough statistical evidence to reject
+
+Judgment suspended until further evidence evaluated:
+
+- "Inconclusive"
+- Larger sample?
+- Insufficient data?
+
+
+
+
+
+
+
+---
+# Rejecting the Null Hypothesis
+
+.pull-left[
+
+.large[**Assumption:**] 
+
+The .dcoral[NULL] hypothesis is .dcoral[TRUE] in the .dcoral[POPULATION]
+
+
+
+.nicegreen[.large[IF:] The p-value is very **SMALL**]
+
+- How small?
+`\(p-value \lt \alpha\)`
+
+
+
+.nicegreen[.large[THEN:] We have evidence AGAINST the NULL hypothesis]
+
+- It is **UNLIKELY** we would have observed a sample that extreme **JUST DUE TO RANDOM CHANCE**...
+
+]
+
+--
+
+.pull-right[
+.large[**Criteria:**] 
+
+May judge by either...
+- the p-value `\(\lt \alpha\)`   
+-OR-   
+- test statistic `\(\lt\)` Critical Value
+
+
+
+.large[**Conclusion:**]
+
+We either **REJECT** or **FAIL TO REJECT** the .nicegreen[Null] hypothesis 
+
+.center[ .large[ .dcoral[
+We NEVER **ACCEPT** &lt;br&gt; the **ALTERNATIVE** hypothesis!!!
+]]]
+
+]
+
+
+
+
+---
+background-image: url(figures/fig_1or2_tails.png)
+
+# ONE tail or TWO?
+
+.pull-left[
+.large[**2-tailed test**]
+
+`\(H_1: \mu_1 \ne \mu_2\)`
+
+.large[**1-tailed test**]
+
+.nicegreen[**Suggests a directionality in results!**] 
+
+`\(H_1: \mu_1 \lt \mu_2\)` -OR- `\(H_1: \mu_1 \gt \mu_2\)`
+
+.large[**NO computational differences**]
+
+`\(2 \; tail \; p-value = \mathbf{2 \times} 1 \; tail \; p-value\)`
+
+- IF: 1-sided: `\(p = .03\)`
+- THEN: 2-sided: `\(p = .06\)`
+
+]
+
+---
+background-image: url(figures/fig_1tail_cv.png)
+
+# ONE tail or TWO?
+
+.large[ .large[ .center[ .dcoral[Some circumstances may warrant a 1-tailed test, BUT... &lt;br&gt;We generally **prefer** and default to a 2-tailed test!!!]]]]
+
+
+.pull-right[
+.large[**More conservative = 2 tails**]&lt;br&gt;
+
+Rejection region is distributed in both tails
+
+- e.g.: `\(\alpha = .05\)` distributed across both tails 
+  - (2.5% in each tail)
+
+- If we know outcome, why do study?
+  - Looks suspicious to reviewer's?
+  - "significant results at all costs!"
+]
+
+
+
+---
+background-image: url(figures/fig_err_types.png)
+
+# Choosing Alpha
+
+.pull-left[
+
+.dcoral[**Alpha**  = probability of making a **type I error**]
+
+.large[.dcoral[**type I error**]]
+- We reject the NULL when we should not
+- The risk of "false positive" results
+
+
+
+.large[.dcoral[**type II error**]]
+- We FAIL to reject the NULL when we should
+- The risk of "false negative" results
+
+]
+
+
+---
+background-image: url(figures/fig_conf_matrix.png)
+
+# Choosing Alpha
+
+.pull-right[
+
+We want `\(\alpha\)` to be .nicegreen[SMALL], but trade off (type II error rate)
+
+.nicegreen[DEFAULT] is `\(\alpha = .05\)`  **BUT** there is nothing magical about it
+
+Let it be .nicegreen[LARGER] value, `\(\alpha = .10\)`, **IF** we'd rather not miss any potential relationship and are okay with some false positives
+  - Ex) screening genes, early drug investigation, pilot study
+  
+Set it .nicegreen[SMALLER], `\(\alpha = .01\)`, **IF** false positives are costly and we want to be more stringent
+  - Ex) changing a national policy, mortgaging the farm
+
+]
+
+
+---
+# Assumptions of a 1-sample z-test
+
+.large[**Sample was drawn at .dcoral[random] (at least as representative as possible)**] &lt;br&gt;
+
+- Nothing can be done to fix NON-representative samples!
+- Can not statistically test
+
+--
+
+.large[**.dcoral[SD] of the sampled population = .dcoral[SD] of the comparison population**] &lt;br&gt;
+
+- Very hard to check
+- Can not statistically test
+
+--
+
+.large[**Variables have a .dcoral[normal] distribution**] &lt;br&gt;
+
+- Not as important if the sample is large (Central Limit Theorem)
+- IF the sample is far from normal &amp;/or small n, might want to transform variables
+  - Look at plots: .dcoral[histogram, boxplot, &amp; QQ plot] (straight 45 degree line)
+  - Skewness &amp; Kurtosis: Divided value by its SE &amp; `\(&gt; \pm 2\)` indicates issues
+  - .dcoral[Shapiro-Wilks] test (small N): p &lt; .05 ??? not normal
+  - Kolmogorov-Smirnov test (large N)
+  
+  
+  
+  
+---
+# APA: results of a 1-sample z-test
+
+- State the alpha &amp; number of tails prior to any results
+
+- Report exact p-values (usually 2 decimal places), except for `p &lt; .001`
+
+
+--
+
+## Example Sentence:
+
+A one sample z test showed that the difference in the quiz scores between the current sample (N = 9, M = 7.00, SD = 1.23) and the hypothesized value (6.000) were statistically significant, z = 2.45, p = .040.
+
+
+
+
+
+---
+# EXAMPLE: 1-sample z-test
+
+After an earthquake hits their town, a random sample of townspeople yields the following anxiety score:  
+
+.center[.nicegreen[72, 59, 54, 56, 48, 52, 57, 51, 64, 67]]
+
+Assume the general population has an anxiety scale that is expressed as a T score, so that `\(\mu = 50\)` and  `\(\sigma = 10\)`.  
+
+---
+background-image: url(figures/fig_ztest_a.png)
+
+# EXAMPLE: 1-sample z-test
+
+After an earthquake hits their town, a random sample of townspeople yields the following anxiety score:  
+
+.center[.nicegreen[72, 59, 54, 56, 48, 52, 57, 51, 64, 67]]
+
+Assume the general population has an anxiety scale that is expressed as a T score, so that `\(\mu = 50\)` and  `\(\sigma = 10\)`.  
+
+
+---
+background-image: url(figures/fig_ztest_2.png)
+
+
+
+
+
+
+---
+# Cautions About Significance Tests
+
+.large[**Statistical significance**]
+
+- only says whether the effect observed is likely to be .nicegreen[due to chance] alone, because of random sampling
+- may not be .nicegreen[practically important]
+
+That's because *statistical* significance doesn't tell you about the .nicegreen[**magnitude of the effect**], only that there **is** one. 
+
+An *effect* could be too small to be .nicegreen[**relevant**].  
+
+And with a large enough sample size, significance can be reached even for the tiniest effect.
+
+- EX) A drug to lower temperature is found to reproducibly lower patient temperature by 0.4 degrees Celsius, `\(p \lt 0.01\)`. But clinical benefits of temperature reduction only appear for a 1 decrease or larger. 
+
+.large[ .center[ .dcoral[**STATISTICAL significance does NOT mean PRACTICAL significance!!!**]]]
+
+
+
+
+---
+# Cautions About Significance Tests
+
+### Don't ignore lack of significance
+
+.center[.large[.dcoral[**"Absence of evidence is not evidence of absence."**]]]
+
+.nicegreen[.center[Having no proof of who committed a murder &lt;br&gt; does not imply that the murder was not committed. ]]
+
+Indeed, failing to find statistical significance in results is *not* rejecting the null hypothesis. This is very different from actually accepting it. The sample size, for instance, could be too small to overcome large variability in the population.
+
+When comparing two populations, lack of significance does NOT imply that the two samples come from the same population. They could represent two very distinct populations with similar mathematical properties.
+
+
+
+---
+class: inverse, center, middle
+
+# Let's Apply This to the Cancer Dataset 
+
+
+---
+# Read in the Data
+
+
+```r
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(rio)          # Read in SPSS datasets
+library(psych)        # Lots of nice tid-bits
+library(car)          # Companion to "Applied Regression"
+```
+
+
+```r
+cancer_raw &lt;- rio::import("cancer.sav")
+```
+
+
+
+--
+### And Clean It
+
+
+```r
+cancer_clean &lt;- cancer_raw %&gt;% 
+  dplyr::rename_all(tolower) %&gt;% 
+  dplyr::mutate(id = factor(id)) %&gt;% 
+  dplyr::mutate(trt = factor(trt,
+                             labels = c("Placebo", 
+                                        "Aloe Juice"))) %&gt;% 
+  dplyr::mutate(stage = factor(stage))
+```
+
+---
+# Descriptive Statistics
+
+
+### Skewness &amp; Kurtosis
+
+
+```r
+cancer_clean %&gt;% 
+  dplyr::select(age, totalcw4) %&gt;% 
+  psych::describe()
+```
+
+```
+         vars  n  mean    sd median trimmed   mad min max range  skew kurtosis
+age         1 25 59.64 12.93     60   59.95 11.86  27  86    59 -0.31    -0.01
+totalcw4    2 25 10.36  3.47     10   10.19  2.97   6  17    11  0.49    -1.00
+           se
+age      2.59
+totalcw4 0.69
+```
+
+
+---
+#  Tests for Normaility - Shapiro-Wilks
+
+.pull-left[
+
+```r
+cancer_clean %&gt;% 
+  dplyr::pull(age) %&gt;% 
+  shapiro.test()
+```
+
+```
+
+	Shapiro-Wilk normality test
+
+data:  .
+W = 0.98317, p-value = 0.9399
+```
+]
+
+.pull-right[
+
+```r
+cancer_clean %&gt;% 
+  dplyr::pull(totalcw4) %&gt;% 
+  shapiro.test()
+```
+
+```
+
+	Shapiro-Wilk normality test
+
+data:  .
+W = 0.9131, p-value = 0.03575
+```
+]
+
+
+---
+# Plots to Check for Normaility - Age
+
+.pull-left[
+### Histogram
+
+```r
+cancer_clean %&gt;% 
+  ggplot(aes(age)) +
+  geom_histogram(binwidth = 5)
+```
+
+&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+--
+
+.pull-right[
+### Q-Q Plot
+
+```r
+cancer_clean %&gt;% 
+  ggplot(aes(sample = age)) +
+  geom_qq()
+```
+
+&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+# Plots to Check for Normaility - Week 4
+
+.pull-left[
+### Histogram
+
+```r
+cancer_clean %&gt;% 
+  ggplot(aes(totalcw4)) +
+  geom_histogram(binwidth = 1)
+```
+
+&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+
+.pull-right[
+### Q-Q Plot
+
+```r
+cancer_clean %&gt;% 
+  ggplot(aes(sample = totalcw4)) +
+  geom_qq()
+```
+
+&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Confidence Interval Estimation &amp; &lt;br&gt; The t-Distribution
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

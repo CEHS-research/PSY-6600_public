@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Standard and Normal</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="pres2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Standard and Normal
+## Cohen Chapter 4 <br><br> .small[EDUC/PSY 6600]
+
+---
+
+
+
+
+class: center, middle
+
+## How do all these unusuals strike you, Watson? &lt;br&gt; Their cumulative effect is certainly considerable, and yet each of them is quite possible in itself.
+
+### -- Sherlock Holmes and Dr. Watson, 
+*The Adventure of Abbey Grange*
+
+---
+# Exploring Quantitative Data
+
+### Building on what we've already discussed:
+
+.large[.large[
+1. Always plot your data: .dcoral[make a graph].
+2. Look for the overall pattern (.nicegreen[shape, center, and spread]) and for striking departures such as .nicegreen[outliers].
+3. Calculate a numerical summary to briefly .bluer[describe center and spread].
+4. Sometimes the overall pattern of a large number of observations is so regular that we can describe it by a smooth curve.
+]]
+
+---
+# Let's Start with Density Curves
+
+.huge[
+A .dcoral[density curve] is a curve that:
+]
+
+.large[.large[
+- is always .nicegreen[on or above] the horizontal axis
+- has an .dcoral[area] of .nicegreen[exactly 1] underneath it
+
+It describes the overall pattern of a distribution and highlights proportions of observations as the .dcoral[area].
+]]
+
+---
+background-image: url(figures/fig_density_normal1.png)
+background-position: 50% 70%
+background-size: 1200px
+
+# Density Curves and Normal Distributions
+
+---
+background-image: url(figures/fig_density_baseball.png)
+background-position: 50% 80%
+background-size: 950px
+
+---
+# Normal Distribution
+
+.pull-left[
+.large[.large[
+Many dependent variables are assumed to be normally distributed
+]
+
+- Many statistical procedures assume this
+    - Correlation, regression, t-tests, and ANOVA
+- Also called the Gaussian distribution
+    - for Karl Gauss
+]]
+
+.pull-right[
+&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+background-image: url(figures/fig_6895rule.png)
+background-position: 50% 70%
+background-size: 1100px
+
+---
+background-image: url(figures/fig_normal.png)
+background-position: 50% 70%
+background-size: 1100px
+
+
+---
+# Do We Have a Normal Distribution?
+
+.huge[Check Plot!]
+
+.pull-left[Bell shaped curve?]
+
+.pull-right[Points on the line?]
+&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Z-Scores, Computation
+
+
+.pull-left[
+.huge[.dcoral[Standardizing]]
+
+.large[
+Convert a value to a standard score ("z-score")
+
+- First subtract the mean
+- Then divide by the standard deviation
+
+
+$$
+z = \frac{X - \mu}{\sigma} = \frac{X - \bar{X}}{s}
+$$
+
+]
+]
+
+.pull-right[
+&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+# Z-Scores, Units
+
+.large[
+- z-scores are in .nicegreen[SD units]
+- Represent SD distances away from the mean (M = 0) 
+    - if z-score = -0.50 then it is `\(\frac{1}{2}\)` of SD below mean
+- Can compare z-scores from 2 or more variables originally measured in differing units
+
+.dcoral[Note: Standardizing does NOT "normalize" the data]
+]
+
+
+---
+class: inverse, center, middle
+
+# Let's Apply This to an Exmple Situation 
+
+---
+background-image: url(figures/fig_blank_normal_slide.png)
+background-position: 50% 80%
+background-size: 950px
+
+# Example: Draw a Picture
+
+.huge[95% of students at a school are between 1.1 and 1.7 meters tall
+]
+
+Assuming this data is .nicegreen[normally distributed], can you calculate the .dcoral[MEAN] and .dcoral[STANDARD DEVIATION]?
+
+---
+background-image: url(figures/fig_school_height_1.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+# Example: Draw a Picture
+
+.huge[95% of students at a school are between 1.1 and 1.7 meters tall
+]
+
+Assuming this data is .nicegreen[normally distributed], can you calculate the .dcoral[MEAN] and .dcoral[STANDARD DEVIATION]?
+
+
+
+---
+background-image: url(figures/fig_blank_normal_slide.png)
+background-position: 50% 80%
+background-size: 950px
+
+# Example: Calculate a z-Score
+
+.huge[You have a friend who is 1.85 meters tall.
+]
+
+.nicegreen[Class: M = 1.4 meters, SD = 0.15 meters]
+
+.dcoral[How far] is 1.85 from the mean?  How many .dcoral[standard deviations] is that?
+
+
+
+---
+background-image: url(figures/fig_school_height_2.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+# Example: Calculate a z-Score
+
+.huge[You have a friend who is 1.85 meters tall.
+]
+
+.nicegreen[Class: M = 1.4 meters, SD = 0.15 meters]
+
+.dcoral[How far] is 1.85 from the mean?  How many .dcoral[standard deviations] is that?
+---
+background-image: url(figures/fig_z_table_top.png)
+background-position: 50% 50%
+background-size: 15 7
+
+# Using the z-Table
+
+---
+
+## Examples: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = ______
+
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = ______
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = ______
+
+4. The .dcoral[90th percentile] for students heights = ______
+
+
+---
+background-image: url(figures/fig_school_height_3.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = ______
+
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = ______
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = ______
+
+4. The .dcoral[90th percentile] for students heights = ______
+
+
+---
+background-image: url(figures/fig_3_blank_normal_slide.png)
+background-position: 50% 50%
+
+## Examples: Find the Probability That...
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) .dcoral[More than] 1.63 m tall    
+  
+(2) .dcoral[Less than] 1.2 m tall  
+  
+(3) .dcoral[between] 1.2 and 1.63 tall
+
+---
+background-image: url(figures/fig_school_height_4.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Find the Probability That...
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) .dcoral[More than] 1.63 m tall    
+  
+(2) .dcoral[Less than] 1.2 m tall  
+  
+(3) .dcoral[between] 1.2 and 1.63 tall
+
+---
+background-image: url(figures/fig_2_blank_normal_slide.png)
+background-position: 50% 50%
+
+## Examples: Percentiles
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[perentile rank] of a 1.7 m tall Student = ______
+  
+(2) The .dcoral[height] of a studnet in the 15th percentile = ______
+
+---
+background-image: url(figures/fig_school_height_5.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Percentiles
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[perentile rank] of a 1.7 m tall Student = ______
+  
+(2) The .dcoral[height] of a studnet in the 15th percentile = ______
+
+
+---
+
+class: inverse, center, middle
+
+# Into Theory Mode Again
+
+---
+background-image: url(figures/fig_pop_sample_slide.png)
+background-position: 50% 50%
+
+# Parameters vs. Statistics
+
+---
+
+# Statistical Estimation
+
+.large[
+- The process of .nicegreen[statistical inference] involves using information .dcoral[from a sample] to draw conclusions about a wider population.
+]
+
+--
+
+.large[
+- Different random samples yield different statistics. We need to be able to describe the .dcoral[sampling distribution] of possible statistic values in order to perform .nicegreen[statistical inference].
+]
+
+--
+
+.large[
+- We can think of a statistic as a .nicegreen[random variable] because it takes numerical values that describe the outcomes of the .dcoral[random sampling process].
+]
+
+---
+background-image: url(figures/fig_samp_dist_slide.png)
+background-position: 50% 50%
+
+# Sampling Distribution
+
+
+The .dcoral[LAW of LARGE NUMBERS] assures us that if we measure .nicegreen[enough] subjects, the statistic .nicegreen[x-bar] will eventually get .dcoral[very close to] the unknown parameter .nicegreen[mu]. 
+
+If we took every one of the possible samples of a certain size, calculated the sample mean for each, and graphed all of those values, we'd have a .dcoral[sampling distribution].
+
+
+
+---
+background-image: url(figures/web_clt.png)
+background-position: 50% 50%
+background-size: 950px
+
+[http://shiny.stat.calpoly.edu/Sampling_Distribution/](http://shiny.stat.calpoly.edu/Sampling_Distribution/)
+
+
+
+
+---
+background-image: url(figures/fig_samp_dist_forMEAN_slide.png)
+background-position: 50% 50%
+
+# Sampling Distribution for the MEAN
+
+.large[
+The .dcoral[MEAN] of a sampling distribution .nicegreen[for a sample mean] is just as likely to be above or below the .dcoral[population mean], even if the distribution of the raw data is skewed. 
+
+
+The .dcoral[STANDARD DEVIATION] of a sampling distribution .nicegreen[for a sample mean] is is SMALLER than the standard deviation for the population by a factor of the .dcoral[square-root of n].
+]
+
+---
+background-image: url(figures/fig_all_samples_slide.png)
+background-position: 50% 50%
+
+# Normally Distributed Population
+
+.large[If the population is NORMALLY distributed:]
+
+
+
+---
+background-image: url(figures/fig_bank_calls_slide.png)
+background-position: 50% 50%
+
+## Skewed Population
+
+.pull-left[
+The distribution of lengths of .dcoral[all] customer service calls received by a bank in a month. 
+]
+
+.pull-right[
+The distribution of the .dcoral[sample means] (x-bar) for 500 random samples of size 80 from this population. The scales and histogram classes are exactly the same in both panels
+]
+
+
+---
+background-image: url(figures/fig_clt_slide.png)
+background-position: 50% 50%
+
+# The Central Limit Theorem
+
+---
+
+# The Central Limit Theorem
+
+.huge[
+When a sample size (n) is .nicegreen[large], the sampling distribution of the .dcoral[sample MEAN] is **approximately normally distributed** about the .nicegreen[mean of the population] with the stadard deviation less than than of the population by a factor of .nicegreen[the square root of n].
+]
+
+
+---
+class: inverse, center, middle
+
+# Back to the Example Situation
+
+
+
+---
+background-image: url(figures/fig_2_blank_normal_slide.png)
+background-position: 50% 50%
+
+## Examples: Probabilities
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[probability] a randomly selected .nicegreen[student] is more than 1.63 m tall = ______
+  
+(2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = ______
+
+
+---
+background-image: url(figures/fig_school_height_6.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Probabilities
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[probability] a randomly selected .nicegreen[student] is more than 1.63 m tall = ______
+  
+(2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = ______
+
+- Image needed here
+
+
+---
+class: inverse, center, middle
+
+# Let's Apply This to the Cancer Dataset 
+
+
+---
+# Read in the Data
+
+
+```r
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(rio)          # Read in SPSS datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+library(psych)        # Lots of nice tid-bits
+```
+
+
+```r
+cancer_raw &lt;- rio::import("cancer.sav")
+```
+
+
+
+--
+### And Clean It
+
+
+```r
+cancer_clean &lt;- cancer_raw %&gt;% 
+  dplyr::rename_all(tolower) %&gt;% 
+  dplyr::mutate(id = factor(id)) %&gt;% 
+  dplyr::mutate(trt = factor(trt,
+                             labels = c("Placebo", 
+                                        "Aloe Juice"))) %&gt;% 
+  dplyr::mutate(stage = factor(stage))
+```
+
+---
+## Standardize a variable with `scale()`
+
+.pull-left[
+
+```r
+cancer_clean %&gt;%
+  furniture::table1(age)
+```
+
+```
+
+-----------------------
+     Mean/Count (SD/%)
+     n = 25           
+ age                  
+     59.6 (12.9)      
+-----------------------
+```
+]
+
+.pull-right[
+
+```r
+cancer_clean %&gt;%
+  dplyr::mutate(agez = (age - 59.6) / 12.9) %&gt;% 
+  dplyr::mutate(ageZ = scale(age))%&gt;%
+  dplyr::select(id, trt, age, agez, ageZ) %&gt;% 
+  head()
+```
+
+```
+  id     trt age        agez        ageZ
+1  1 Placebo  52 -0.58914729 -0.59077659
+2  5 Placebo  77  1.34883721  1.34239288
+3  6 Placebo  60  0.03100775  0.02783764
+4  9 Placebo  61  0.10852713  0.10516442
+5 11 Placebo  59 -0.04651163 -0.04948914
+6 15 Placebo  69  0.72868217  0.72377865
+```
+]
+
+---
+
+## Standardize a variable - not normal
+
+.pull-left[
+
+```r
+cancer_clean %&gt;%
+  dplyr::mutate(ageZ = scale(age)) %&gt;%
+  furniture::table1(age, ageZ)
+```
+
+```
+
+------------------------
+      Mean/Count (SD/%)
+      n = 25           
+ age                   
+      59.6 (12.9)      
+ ageZ                  
+      -0.0 (1.0)       
+------------------------
+```
+]
+
+.pull-right[
+
+```r
+cancer_clean %&gt;%
+  dplyr::mutate(ageZ = scale(age)) %&gt;%
+  ggplot(aes(ageZ)) +
+  geom_histogram(bins = 14)
+```
+
+&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Intro to Hypothesis Testing: 1 Sample z-test
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

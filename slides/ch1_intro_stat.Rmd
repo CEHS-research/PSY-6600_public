@@ -199,7 +199,7 @@ class: inverse, middle, center
 Why Use `R`?
 ]
 .large[
-- .coral[**Free**]
+- .coral[**Free**]ly available
 - Almost always up-to-date
 - Best .bluer[data visualizations]
 - .nicegreen[Syntax oriented] (easy to reproduce analyses)
@@ -224,7 +224,7 @@ count: false
 Why Use `R`?
 ]
 .large[
-- .coral[**Free**]
+- .coral[**Free**]ly available
 - Almost always up-to-date
 - Best .bluer[data visualizations]
 - .nicegreen[Syntax oriented] (easy to reproduce analyses)
@@ -256,6 +256,8 @@ Virtual objects are like physical objects (e.g., a car is good to travel in, a t
 ```{r, eval=FALSE}
 x <- 5
 ```
+
+
 ```{r, eval=FALSE}
 x = 5
 ```
@@ -286,9 +288,7 @@ df
 ]
 
 ---
-# Functions
-
-.huge[Its how we do stuff in `R`]
+# Functions: Its how we do stuff in `R`
 
 .pull-left[.large[
 
@@ -381,6 +381,10 @@ my_data <- rio::import("my_data_file.txt", sep="\t", header=TRUE)
 my_data <- rio::import("my_data_file.sav")
 ```
 
+```{r, eval = FALSE}
+my_data <- haven::read_spss("my_data_file.sav")
+```
+
 ---
 background-image: url(figures/fig_inho_data_desc.png)
 background-position: 50% 90%
@@ -405,16 +409,17 @@ background-size: 800px
 ---
 # Step 1: Get the data
 
+Data is in .sav form (SPSS)
+
 ```{r, eval=FALSE}
-## Data is in .sav form (SPSS)
 library(rio)
-d <- rio::import("Data/Ihno_dataset.sav")
+d <- rio::import("data/Ihno_dataset.sav")
 d
 ```
 
 ```{r, echo=FALSE}
 library(rio)
-d <- rio::import("~/GoogleDrive/3 Teaching/EDUC 6600/Data/Ihno_dataset.sav")
+d <- rio::import("data/Ihno_dataset.sav")
 d
 ```
 
@@ -423,13 +428,16 @@ d
 # Step 2: Prep the data
 
 ```{r, message=FALSE, warning=FALSE}
-## install.packages("tidyverse")
 library(tidyverse)
+
 d_clean <- d %>%
-  mutate(Major = factor(Major, labels = c("Psychology", "Premed",
-                                          "Biology", "Sociology",
-                                          "Economics"))) %>%
-  mutate(Coffee = factor(Coffee))
+  dplyr::mutate(MajorF = factor(Major, 
+                                levels = c(1, 2, 3, 4, 5),
+                                labels = c("Psychology", "Premed",
+                                           "Biology", "Sociology",
+                                           "Economics"))) %>%
+  dplyr::mutate(Coffee = factor(Coffee))
+
 d_clean
 ```
 
@@ -439,12 +447,11 @@ d_clean
 
 ```{r}
 d_clean <- d_clean %>%
-  mutate(newVar = Mathquiz/2)
+  dplyr::mutate(newVar = Mathquiz / 2)
 ```
-*Note that I removed the other variables just to show you but in reality all the variables are still there
-```{r, echo=FALSE}
-tibble(Mathquiz = d_clean$Mathquiz, 
-           newVar = d_clean$newVar)
+*Note that I removed the other variables just to show you but in reality all the variables are still there. Also I only want to show the first few rows.
+```{r}
+d_clean %>% dplyr::select(Mathquiz, newVar) %>% head()
 ```
 
 
@@ -454,7 +461,8 @@ tibble(Mathquiz = d_clean$Mathquiz,
 .pull-left[
 ```{r, message=FALSE, warning=FALSE}
 library(furniture)
-tableF(d_clean, Major)
+
+tableF(d_clean, MajorF)
 ```
 ]
 
@@ -469,11 +477,9 @@ tableF(d_clean, Phobia)
 # Step 4: Get descriptives
 
 ```{r}
-library(furniture)
-library(dplyr)
 d_clean %>% 
-  dplyr::group_by(Major) %>% 
-  table1(Mathquiz, Phobia, Coffee)
+  dplyr::group_by(MajorF) %>% 
+  furniture::table1(Mathquiz, Phobia, Coffee)
 ```
 
 ---
