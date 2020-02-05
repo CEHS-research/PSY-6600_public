@@ -226,6 +226,17 @@ sd(x)
 
 ```
 
+---
+## EX) 1 sample t Test: mean vs. *historic control*
+
+A physician states that, in the past, the average number of times he saw each of his patients during the year was $5$. However, he believes that his patients have visited him significantly **more frequently** during the past year. In order to validate this statement, he randomly selects $10$ of his patients and determines the number of office visits during the past year. He obtains the values presented to the below.
+
+.center[.nicegreen[**9, 10, 8, 4, 8, 3, 0, 10, 15, 9**]]
+
+Do the data support his contention that the average number of times he has seen a patient in the last year is .dcoral[different that 5]?
+
+
+
 
 ---
 background-image: url(figures/fig_ex_t_test.png)
@@ -346,7 +357,7 @@ $$\bar{x} \pm t_{cv} \times \frac{s}{\sqrt{N}}$$
 
 .pull-right[
 
-.large[**NOT the meaning of a 95% CI**]<br>
+.large[**is NOT the meaning of a 95% CI**]<br>
 
 There is **NOT** a 95% chance that the population M lies between the 2 CLs from your sample’s CI !!!
 
@@ -354,7 +365,7 @@ Each random sample will have a different CI with different CLs and a different M
 
 <br>
 
-.large[**Meaning of a 95% CI**]<br>
+.large[** IS the meaning of a 95% CI**]<br>
 
 95% of the CIs that could be constructed over repeated sampling will contain Μ
 Yours **MAY** be one of them
