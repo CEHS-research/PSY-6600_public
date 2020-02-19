@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Linear Regression</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="pres2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Linear Regression
+## Cohen Chapter 10 <br><br> .small[EDUC/PSY 6600]
+
+---
+
+
+
+
+class: center, middle
+
+## Fit the analysis to the data, *not* the data to the analysis.
+
+#### - Statistical Maxim
+
+---
+## Motivating Example
+
+.large[
+- Dr. Ramsey conducts a *non-experimental* study to evaluate what she refers to as the 'strength-injury hypothesis.' It states that overall body strength in elderly women determines the number and severity of accidents that cause bodily injury. If the results support her hypothesis, she plans to conduct an experimental study to assess whether weight training reduces injuries in elderly women. 
+- Data from 100 women who range in age from 60 to 70 years old are collected. The women initially undergo a series of measures that assess upper and lower body strength, and these measures are summarized into an overall index of body strength. 
+- Over the next 5 years, the women record each time they have an accident that results in a bodily injury and describe fully the extent of the injury. On the basis of these data, Dr. Ramsey calculates an overall injury index for each woman. 
+- A simple regression analysis is conducted with the overall index of body strength as the predictor (independent) variable and the overall injury index as the outcome (dependent) variable. 
+
+]
+
+---
+# Correlation vs. Regression
+
+.pull-left[
+## Correlation
+.large[
+- Relationship between two variables (no outcome or predictor)
+- Strength and direction of relationship
+]]
+
+--
+
+.pull-right[
+## Regression
+.large[
+- Outcome and predictor (directional)
+- Simple and Multiple Linear Regression
+]]
+
+---
+# Regression Basics
+
+.pull-left[.large[
+- Y usually predicted variable
+  - A.k.a: Dependent, criterion, outcome, response variable
+  - Predicting Y from X = 'Regressing Y on X'
+- X usually variable used to predict Y
+  - A.k.a: Independent, predictor, explanatory variable
+- Different results when X &amp; Y switched
+]]
+
+.pull-right[.large[
+Regression analysis is procedure for obtaining *the* line that best fits data (Assuming relationship is best described as linear)
+]]
+
+---
+# Regression Basics
+
+$$ \LARGE \hat{Y_i} = b_0 + b_1 X_i $$
+
+.pull-left[.large[
+
+.dcoral[
+`\(\Large \hat{Y_i}\)` = predicted (unobserved) value of Y for a given case i
+]
+
+.bluer[
+`\(\Large b_0\)` = y-intercept:
+
+Constant, `\(\Large \hat{Y}\)` when X = 0, only interpreted if X = 0 is meaningful
+
+Alternative notation: `\(\Large a\)` or `\(\Large a_{XY}\)` 
+
+]]]
+
+.pull-right[.large[
+.nicegreen[
+`\(\Large b_1\)` = slope of regression line for 1st IV
+
+Constant, Rate of change in Y for every 1-unit change in X
+
+Alternative notation: `\(\Large b_{XY}\)`
+]
+
+.dcoral[
+`\(\Large X_i\)` = value of predictor for a given case i
+]]]
+
+---
+# Accuracy of Prediction
+.huge[
+.dcoral[Correlation] `\(\Large \neq\)` .dcoral[Causation]
+]
+
+.large[
+
+- All points do not fall on regression line
+  - Prediction works for most, but not all in sample
+
+- W/out knowledge of X, best prediction of Y is mean `\(\Large \bar{Y}\)`
+  - `\(\Large s_y\)` : best measure of prediction error
+
+- With knowledge of X, best prediction of Y is from the equation `\(\Large \hat{Y}\)`
+  - Standard error of estimate (SEE or `\(s_{Y \cdot X}\)` ): best measure of prediction error
+  - Estimated SD of residuals in population
+]
+
+
+---
+# Accuracy of Prediction
+
+.pull-left[
+### .nicegreen[Standard Error of Estimate]
+&lt;br&gt;
+
+`$$\large s_{Y \cdot X} = \sqrt{\frac{\sum (Y_i - \hat{Y})^2}{N - 2}} = \sqrt{\frac{SS_{residual}}{df}}$$`
+
+]
+
+.pull-right[
+### .dcoral[Residual or Error Variance &lt;br&gt; or Mean Square Error]
+
+`$$\large s_{Y \cdot X}^2 = \frac{\sum (Y_i - \hat{Y})^2}{N - 2} = \frac{SS_{residual}}{df}$$`
+
+]
+
+&lt;br&gt;
+.large[
+`\(df = N - 2\)` (2 df lost in estimating regression coefficients)
+
+Seeking smallest `\(\LARGE s_{Y \cdot X}\)` as it is a measure of variation of observations around regression line
+
+]
+
+
+---
+# .bluer[Line of Best Fit]
+
+.large[
+The relationship (prediction) is usually not perfect so regression coefficients ( `\(b_0\)` , `\(b_1\)` ) computed to minimize error as much as possible
+]
+
+.pull-left[.large[
+**Error of Residuals**: difference between observed `\(\large Y\)` and `\(\large \hat{Y}\)` --&gt; `\(\large e_i = Y_i - \hat{Y}_i\)`
+
+**Technique**: Ordinary Least Squares (OLS) regression
+
+Goal: minimize `\(\large SS_{error}\)` ( `\(\large SS_{residuals}\)` )
+
+`\(\large SS_{residuals} = \sum_{i=1}^n (Y_i - \hat{Y}_i)\)`
+
+]
+]
+
+.pull-right[
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-1-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+count: false
+
+# .bluer[Line of Best Fit]
+
+.large[
+The relationship (prediction) is usually not perfect so regression coefficients ( `\(b_0\)` , `\(b_1\)` ) computed to minimize error as much as possible
+]
+
+.pull-left[.large[
+**Error of Residuals**: difference between observed `\(\large Y\)` and `\(\large \hat{Y}\)` --&gt; `\(\large e_i = Y_i - \hat{Y}_i\)`
+
+**Technique**: Ordinary Least Squares (OLS) regression
+
+Goal: minimize `\(\large SS_{error}\)` ( `\(\large SS_{residuals}\)` )
+
+`\(\large SS_{residuals} = \sum_{i=1}^n (Y_i - \hat{Y}_i)\)`
+
+]
+]
+
+.pull-right[
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-3-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+count: false
+
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-4-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+.pull-left[
+- Correlation = 0.764
+- Slope = `\(b_1 = r \frac{s_y}{s_x} = .764 \frac{1.66}{1.31} = .968\)`
+- Intercept = `\(b_0 = \bar{Y} - b_1 \bar{X} = 14.290 - (.968 * 4.093) = 10.328\)`
+]
+
+.pull-right[
+
+]
+
+
+---
+count: false
+
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-5-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+.pull-left[
+- Correlation = 0.764
+- Slope = `\(b_1 = r \frac{s_y}{s_x} = .764 \frac{1.66}{1.31} = .968\)`
+- Intercept = `\(b_0 = \bar{Y} - b_1 \bar{X} = 14.290 - (.968 * 4.093) = 10.328\)`
+]
+
+.pull-right[
+
+`\(\LARGE SS_{total}\)`
+
+]
+
+---
+count: false
+
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-6-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+.pull-left[
+- Correlation = 0.764
+- Slope = `\(b_1 = r \frac{s_y}{s_x} = .764 \frac{1.66}{1.31} = .968\)`
+- Intercept = `\(b_0 = \bar{Y} - b_1 \bar{X} = 14.290 - (.968 * 4.093) = 10.328\)`
+]
+
+.pull-right[
+
+`\(\LARGE SS_{total} = SS_{explained}\)`
+
+]
+
+---
+count: false
+
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-7-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+.pull-left[
+- Correlation = 0.764
+- Slope = `\(b_1 = r \frac{s_y}{s_x} = .764 \frac{1.66}{1.31} = .968\)`
+- Intercept = `\(b_0 = \bar{Y} - b_1 \bar{X} = 14.290 - (.968 * 4.093) = 10.328\)`
+]
+
+.pull-right[
+
+`\(\LARGE SS_{total} = SS_{explained} + SS_{unexplained}\)`
+
+]
+
+---
+# Explaining Variance
+
+`$$\huge SS_{total} = SS_{explained} + SS_{unexplained}$$`
+
+.large[
+- Synonyms: Explained = Regression, Unexplained = Residual or Error
+]
+
+--
+
+### Coefficient of Determination ( `\(\LARGE r^2\)` )
+
+`$$\LARGE r^2 = \frac{\text{Explained Variation}}{\text{Total Variation}} = \frac{SS_{regression}}{SS_{total}}$$`
+
+- Computed to determine how well regression equation predicts `Y` from `X`
+- Range from 0 to 1
+- SS divided by corresponding df gives us the Mean Square (Regression or Error)
+- .nicegreen[The proportion of variance in the outcome "accounted for" or "attributable to" or "predictable from" or "explained by" the predictor]
+
+
+---
+# Standardized Coefficients (i.e. Beta weights)
+
+.large[
+- 1 SD-unit change in X represents a `\(\beta\)` SD change in `Y`
+
+- Intercept = 0 and is not reported when using `\(\beta\)`
+
+- For simple regression only --&gt; `\(r = \beta\)` and `\(r^2 = \beta^2\)`
+  - When raw scores transformed into z-scores: `\(r = b = \beta\)`
+  
+- Useful for variables with abstract unit of measure
+]
+
+
+---
+# Again, Always **Visualize** Data First
+
+### Scatterplots
+
+
+
+.pull-left[
+
+
+```r
+library(tidyverse)
+df %&gt;%
+  ggplot(aes(x, y)) +
+    geom_point() +
+    geom_smooth(se = FALSE,
+                method = "lm")
+```
+]
+
+.pull-right[
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+## R Code: Regression
+
+
+```r
+df %&gt;%
+  lm(y ~ x,
+     data = .) %&gt;%
+  summary()
+```
+
+```
+
+Call:
+lm(formula = y ~ x, data = .)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.10376 -0.56125  0.05069  0.65004  2.15932 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.01762    0.09888  -0.178    0.859    
+x            0.95964    0.09696   9.897   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.9849 on 98 degrees of freedom
+Multiple R-squared:  0.4999,	Adjusted R-squared:  0.4948 
+F-statistic: 97.95 on 1 and 98 DF,  p-value: &lt; 2.2e-16
+```
+
+
+---
+## R Code: Regression
+
+
+```r
+df %&gt;%
+  lm(y ~ x,
+     data = .) %&gt;%
+  confint()
+```
+
+```
+                 2.5 %    97.5 %
+(Intercept) -0.2138558 0.1786119
+x            0.7672237 1.1520547
+```
+
+---
+## R Code: Regression
+
+
+```r
+df %&gt;%
+  lm(y ~ x,
+     data = .) %&gt;%
+  coef()
+```
+
+```
+(Intercept)           x 
+-0.01762194  0.95963917 
+```
+
+---
+## R Code: Regression
+
+
+```r
+coef1 &lt;- df %&gt;%
+  lm(y ~ x,
+     data = .) %&gt;%
+  coef()
+confint1 &lt;- df %&gt;%
+  lm(y ~ x,
+     data = .) %&gt;%
+  confint()
+cbind(coef1, confint1)
+```
+
+```
+                  coef1      2.5 %    97.5 %
+(Intercept) -0.01762194 -0.2138558 0.1786119
+x            0.95963917  0.7672237 1.1520547
+```
+
+---
+## R Code: Predicted Values
+
+
+```r
+df %&gt;%
+  lm(y ~ x,
+     data = .) %&gt;%
+  predict()
+```
+
+```
+          1           2           3           4           5           6 
+-1.66331253 -1.58805266 -0.37685641 -0.36001934 -1.82554446  1.96902590 
+          7           8           9          10          11          12 
+-1.44361263 -2.20795037 -1.52382088  0.13823564  0.40028777  1.32040382 
+         13          14          15          16          17          18 
+ 1.44610197  1.17018122 -1.18462186 -0.31876293  0.14390364 -0.85728422 
+         19          20          21          22          23          24 
+ 0.83163117 -1.23725243 -0.44710577  0.31680345  0.02232455  0.52088462 
+         25          26          27          28          29          30 
+ 0.58236193 -0.26353990 -0.42729936 -0.75393890  0.77690375  0.51344384 
+         31          32          33          34          35          36 
+-0.06357724 -0.45745486 -1.74608438 -2.49312908  0.33677392  0.78885811 
+         37          38          39          40          41          42 
+ 0.71086918  1.21521941  0.51198239  1.54369860 -0.12583856 -0.53196921 
+         43          44          45          46          47          48 
+-0.47371349  0.78368856 -0.23333494  0.69249078 -0.58503655  1.15183741 
+         49          50          51          52          53          54 
+-0.37269614  1.31926133  1.83331799  1.12312817 -0.73687320 -0.83905733 
+         55          56          57          58          59          60 
+-0.86453074  1.00706828  0.31675496 -0.02004292  0.25398427  0.18068270 
+         61          62          63          64          65          66 
+ 0.14073354 -0.54997360 -0.92320440  0.64703366 -1.18437957 -0.95163084 
+         67          68          69          70          71          72 
+-0.34907933 -1.41066739 -0.35410481 -1.73774589 -0.63731976 -1.14844358 
+         73          74          75          76          77          78 
+-0.03006009  0.60503890 -1.06444906  0.48064443 -0.14387606  0.53813732 
+         79          80          81          82          83          84 
+ 1.16031740 -0.56722153  0.56855506  0.78077100 -0.15258351 -0.90656360 
+         85          86          87          88          89          90 
+-0.97827569  1.00308499  1.07858284 -0.14627409  0.89076854 -0.72505744 
+         91          92          93          94          95          96 
+-0.91505384  1.31514942  0.38043146 -0.13967989  1.62183758 -1.96937621 
+         97          98          99         100 
+ 0.06360765 -0.90747048 -0.16306626 -1.66877101 
+```
+
+
+---
+# Assumptions
+
+.huge[
+- .nicegreen[Independence] of observations
+- .bluer[Y normally distributed]
+  - Does NOT apply to predictor variable(s) X --&gt; Can be categorical or continuous
+- Sampling .dcoral[distribution of the slope] ( `\(\huge b_1\)` ) assumed normally distributed
+- .nicegreen[Straight line] best fits data
+]
+
+---
+background-image: url(figures/fig_assumptions_reg.png)
+background-position: 50% 50%
+background-size: 1200px
+
+# Assumptions
+
+---
+# R Code: Assumptions
+
+
+```r
+df %&gt;%
+  lm(y ~ x,
+     data = .) %&gt;%
+  plot(which = 2)
+```
+
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-16-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+# R Code: Assumptions
+
+
+```r
+df %&gt;%
+  lm(y ~ x,
+     data = .) %&gt;%
+  resid %&gt;%
+  hist
+```
+
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-17-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: inverse, center, middle
+
+# Let's Apply This to the Cancer Dataset 
+
+
+---
+# Read in the Data
+
+
+```r
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(haven)        # Read in SPSS datasets
+library(furniture)    # for tableC()
+```
+
+
+```r
+cancer_raw &lt;- haven::read_spss("cancer.sav")
+```
+
+
+
+### And Clean It
+
+
+```r
+cancer_clean &lt;- cancer_raw %&gt;% 
+  dplyr::rename_all(tolower) %&gt;% 
+  dplyr::mutate(id = factor(id)) %&gt;% 
+  dplyr::mutate(trt = factor(trt,
+                             labels = c("Placebo", 
+                                        "Aloe Juice"))) %&gt;% 
+  dplyr::mutate(stage = factor(stage))
+```
+
+---
+## R Code: Regression
+
+.pull-left[
+
+```r
+cancer_clean %&gt;%
+  lm(totalcin ~ age,
+     data = .) %&gt;%
+  summary()
+```
+
+]
+
+.pull-right[
+
+```
+
+Call:
+lm(formula = totalcin ~ age, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.0463 -0.6825 -0.4097  0.6510  5.2266 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)  4.71197    1.45471   3.239  0.00362 **
+age          0.03032    0.02386   1.271  0.21657   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.512 on 23 degrees of freedom
+Multiple R-squared:  0.06559,	Adjusted R-squared:  0.02496 
+F-statistic: 1.614 on 1 and 23 DF,  p-value: 0.2166
+```
+]
+
+---
+### R Code: Standardized
+
+
+```r
+cancer_clean %&gt;%
+  mutate(totalcinZ = scale(totalcin),
+         ageZ = scale(age)) %&gt;%
+  lm(totalcinZ ~ ageZ, 
+     data = .) %&gt;%
+  summary()
+```
+
+```
+
+Call:
+lm(formula = totalcinZ ~ ageZ, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.3367 -0.4458 -0.2676  0.4253  3.4143 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept) 2.442e-16  1.975e-01   0.000    1.000
+ageZ        2.561e-01  2.016e-01   1.271    0.217
+
+Residual standard error: 0.9874 on 23 degrees of freedom
+Multiple R-squared:  0.06559,	Adjusted R-squared:  0.02496 
+F-statistic: 1.614 on 1 and 23 DF,  p-value: 0.2166
+```
+
+
+---
+# R Code: Correlation vs. Standardized
+
+.pull-left[
+
+```r
+cancer_clean %&gt;%
+  cor.test(~ totalcinZ + ageZ, 
+           data = .)
+```
+]
+
+
+.pull-right[
+
+```r
+cancer_clean %&gt;%
+  mutate(totalcinZ = scale(totalcin),
+         ageZ = scale(age)) %&gt;%
+  lm(totalcinZ ~ ageZ, 
+     data = .) %&gt;%
+  summary()
+```
+]
+
+---
+# R Code: Correlation vs. Standardized
+
+.pull-left[
+
+```
+
+	Pearson's product-moment correlation
+
+data:  totalcin and age
+t = 1.2706, df = 23, p-value = 0.2166
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.1546769  0.5913913
+sample estimates:
+      cor 
+0.2561066 
+```
+]
+
+
+.pull-right[
+
+```
+
+Call:
+lm(formula = totalcinZ ~ ageZ, data = .)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.3367 -0.4458 -0.2676  0.4253  3.4143 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept) 2.442e-16  1.975e-01   0.000    1.000
+ageZ        2.561e-01  2.016e-01   1.271    0.217
+
+Residual standard error: 0.9874 on 23 degrees of freedom
+Multiple R-squared:  0.06559,	Adjusted R-squared:  0.02496 
+F-statistic: 1.614 on 1 and 23 DF,  p-value: 0.2166
+```
+]
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Matched T-Test
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
