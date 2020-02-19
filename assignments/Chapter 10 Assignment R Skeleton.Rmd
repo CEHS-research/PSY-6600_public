@@ -1,0 +1,280 @@
+---
+title: "Psy/Educ 6600: Chapter 10"
+subtitle: "Linear Regression"
+author: "Your Name"
+date: "Spring 2019"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    number_sections: false
+---
+
+
+\clearpage
+
+# PREPARATION
+
+```{r oppts, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+
+```
+
+## Packages
+
+* Make sure the packages are **installed** *(Package tab)*
+
+```{r libraries}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(readxl)       # Read in Excel datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+```
+
+\clearpage
+
+
+
+# SECTION B
+
+## Datasets
+
+```{r data}
+schizo <- data.frame(id       = c(1:10),
+                     yr_hos   = c( 5,  7, 12,  5, 11,  3,  7,  2,  9,  6),
+                     ori_test = c(22, 26, 16, 20, 18, 30, 14, 24, 15, 19))
+
+GRE <- data.frame(id          = c(1:5),
+                  verbalGRE_1 = c(540, 510, 580, 550, 520),
+                  verbalGRE_2 = c(570, 520, 600, 530, 520))
+
+test_scores <-  data.frame(id      = c(1:12),
+                           spatial = c(13, 32, 41, 26, 28, 12, 19, 33, 24, 46, 22, 17),
+                           math    = c(19, 25, 31, 18, 37, 16, 14, 28, 20, 39, 21, 15))
+
+child_vars  <-  data.frame(child = c(1:8),
+                           shoe  = c(5.2, 4.7, 7.0, 5.8, 7.2, 6.9, 7.7, 8.0),
+                           read  = c(1.7, 1.5, 2.7, 3.1, 3.9, 4.5, 5.1, 7.4),
+                           age   = c(  5,   6,   7,   8,   9,  10,  11,  12))
+
+memory <- data.frame(id    = c(1:9),
+                     sound = c(8, 5, 6, 10, 3, 4, 7, 11, 9),
+                     look  = c(4, 5, 3, 11, 2, 6, 4,  6, 7))
+```
+
+\clearpage
+
+
+
+## Question B-6 Swapping x and y
+
+**TEXTBOOK QUESTION:** *A cognitive psychologist is interested in the relationship between spatial ability (e.g., ability to rotate objects mentally) and mathematical ability, so she measures 12 participants on both variables. The data appear in the following table.  (a) Find the regression equation for predicting the math score from the spatial ability score. (b)  Find the regression equation for predicting the spatial ability score from the math score. (c) According to your answer to part a, what math score is predicted from a spatial ability score of 20? (d) According to your answer to part b, what spatial ability score is predicted from a math score of 20?*
+
+```{r Q10b6}
+test_scores
+```
+
+-------------------------------
+
+**DIRECTIONS:** Use the `lm()` function to fit a linear model or linear regression model TWICE for `math` and `spacial` in the `test_scores` dataset, specifing which is x and which is y.
+
+The `lm()` function needs at least two arguments:
+
+1. the formula:  `continuous_y ~ continuous_x`
+2. the dataset: `data = .` *we use the period to signify that the datset is being piped from above*
+
+> **NOTE:** To view more complete information, add a `summary()` step using a pipe AFTER the `lm()` step
+
+```{r Q10b6a}
+# Linear model: y = math & x = spatial
+
+```
+
+-------------------------------
+
+```{r Q10b6b}
+# Linear model: y = spatial & x = math
+
+```
+
+\clearpage
+
+
+
+## Question B-9 Predictions and Residuals
+
+**TEXTBOOK QUESTION:** *If you calculate the correlation between shoe size and reading level in a group of elementary school children, the correlation will turn out to be quite large, provided that you have a large range of ages in your sample. The fact that each variable is correlated with age means that they will be somewhat correlated with each other. The following table illustrates this point. Shoe size is measured in inches, for this example, reading level is by grade (4.0 is average for the fourth grade), and age is measured in years. (a) Find the regression equation for predicting shoe size from age. (b) Find the regression equation for predicting reading level from age. (c) Use the equations from parts a and b to make shoe size and reading level predictions for each child. Subtract each prediction from its actual value to find the residual.*
+
+```{r Q10b9}
+child_vars
+```
+
+-------------------------------
+
+**DIRECTIONS:** Use the `lm()` function to fit a linear model or linear regression model TWICE for `shoe` and `read` each perdicited in turn by `age` in the `child_vars` dataset, specifing which is x and which is y.
+
+```{r Q10b9a}
+# Linear model: y = shoe & x = age
+
+```
+
+\clearpage
+
+
+
+```{r Q10b9b}
+# Linear model: y = read & x = age
+
+```
+
+------------------------------
+
+**DIRECTIONS:** Starting with the `child_vars` dataset, create four new variables, each with a seperate `dplyr::mutate()` function step.  Pipe it all together ans save it as new dataset with the `child_new <-` assignment operator to use in the next step.
+
+1. `shoe_pred` Use the appropriate regression equation
+2. `shoe_resid` Subtract:  `shoe` (the original) minus `shoe_pred` (the predicted)
+3. `read_pred` Use the appropriate regression equation
+4. `read_resid` Subtract:  `read` (the original) minus `read_pred` (the predicted)
+
+```{r Q10b9c}
+# create new variables --> save as: child_new 
+
+```
+
+> **Note:** Remove the hashtag symbol at the first of the code line below to show your new variables.
+
+```{r Q10b9d}
+#child_new 
+```
+
+\clearpage
+
+
+
+## Question B-10 Raw Correlation vs. Partial Correlation
+
+
+**TEXTBOOK QUESTION:** *(a) Calculate Pearson’s r for shoe size and reading level using the data from Exercise 9.  (b) Calculate Pearson’s r for the two sets of residuals you found in part c of Exercise 9. (c) Compare your answer in part b with your answer to part a. The correlation in part b is the partial correlation between shoe size and reading level after the confounding effect of age has been removed from each variable (see Chapter 17 for a much easier way to obtain partial correlations).*
+
+-------------------------------
+
+**DIRECTIONS:** Calculate Pearson's $r$ between `shoe`and `read` in the `child_new` dataset.  
+
+```{r Q10b10}
+# Pearson's r: shoe & read
+
+```
+
+-------------------------------
+
+**DIRECTIONS:** Calculate Pearson's $r$ between `shoe_resid`and `read_resid` in the `child_new` dataset.  
+
+```{r Q10b10a}
+# Pearson's r: shoe_resid & read_resid
+
+```
+
+\clearpage
+
+
+
+# SECTION C
+
+## Import Data, Define Factors, and Compute New Variables
+
+* Make sure the **dataset** is saved in the same *folder* as this file
+* Make sure the that *folder* is the **working directory**
+
+> NOTE: I added the second line to convert all the variables names to lower case.  I still kept the `F` as a capital letter at the end of the five factor variables.
+
+```{r ihno}
+data_clean <- read_excel("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(genderF = factor(gender, 
+                                 levels = c(1, 2),
+                                 labels = c("Female", 
+                                            "Male"))) %>% 
+  dplyr::mutate(majorF = factor(major, 
+                                levels = c(1, 2, 3, 4,5),
+                                labels = c("Psychology",
+                                           "Premed",
+                                           "Biology",
+                                           "Sociology",
+                                           "Economics"))) %>% 
+  dplyr::mutate(reasonF = factor(reason,
+                                 levels = c(1, 2, 3),
+                                 labels = c("Program requirement",
+                                            "Personal interest",
+                                            "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_condF = factor(exp_cond,
+                                   levels = c(1, 2, 3, 4),
+                                   labels = c("Easy",
+                                              "Moderate",
+                                              "Difficult",
+                                              "Impossible"))) %>% 
+  dplyr::mutate(coffeeF = factor(coffee,
+                                 levels = c(0, 1),
+                                 labels = c("Not a regular coffee drinker",
+                                            "Regularly drinks coffee")))  %>% 
+  dplyr::mutate(hr_base_bps = hr_base / 60) %>% 
+  dplyr::mutate(anx_plus = rowsums(anx_base, anx_pre, anx_post)) %>% 
+  dplyr::mutate(hr_avg = rowmeans(hr_base, hr_pre, hr_post)) %>% 
+  dplyr::mutate(statDiff = statquiz - exp_sqz)
+```
+
+**TEXTBOOK QUESTION:** *Perform a linear regression to predict statquiz from phobia, and write out the raw-score regression formula. Do the slope and Y intercept differ significantly from zero? Explain how you know. What stats quiz score would be predicted for a student with a phobia rating of 9? Approximately what phobia rating would a student need to have in order for her predicted statquiz score to be 7.2?*
+
+-------------------------------
+
+**Directions:**  Use the `lm()` function to fit a linear model or linear regression model predicting `statquiz` from `phobia`.
+
+```{r Q10c1}
+# Linear model: y = statquiz & x = phobia
+
+```
+
+\clearpage
+
+
+
+## Question C-2. Subgroups Analysis
+
+**TEXTBOOK QUESTION:** *(a) Perform a linear regression to predict pre-quiz anxiety from phobia, and write out the raw-score regression formula. (b) Repeat part a separately for men and women. For each gender, what prequiz anxiety rating would be predicted for someone reporting a phobia rating of 8? For which gender should you really not be making predictions at all? Explain.*
+
+-------------------------------
+
+**Directions:** Use the `lm()` function to fit a linear model or linear regression model predicting `anx_pre` from `phobia`. Then repeat the same model TWICE more: first among just men and then for just women.
+
+> **Note:** Use the `dplyr::filter()` function to subset the sample BEFORE fitting the model.  Also, be aware of which type of variable you are using:  `genderF == "Male"` or `gender == 2` works, but `gender == male` does NOT.
+
+```{r Q10c2a}
+# Linear model: y = anx_pre & x = phobia  <-- full sample
+
+```
+
+\clearpage
+
+
+
+```{r Q10c2b}
+# Linear model: y = anx_pre & x = phobia  <-- subset of men
+
+```
+
+-------------------------------
+
+```{r Q10c2c}
+# Linear model: y = anx_pre & x = phobia  <-- subset of women
+
+```
+
+
