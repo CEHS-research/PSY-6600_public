@@ -1,0 +1,602 @@
+---
+title: "Psy/Educ 6600: Chapter 14"
+subtitle: "Two-Way ANOVA Models"
+author: "Your Name"
+date: "Spring 2018"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    number_sections: false
+---
+
+\clearpage
+
+# PREPARATION
+
+```{r oppts, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 5,        # set default figure width to 5 inches
+                      fig.height  = 3)        # set default figure height to 3 inches
+
+```
+
+## Packages
+
+Make sure the packages are **installed** *(Package tab)*
+
+```{r libraries}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(readxl)       # Read in Excel datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+library(afex)         # Analysis of Factorial Experiments
+library(emmeans)      # Estimated marginal means (Least-squares means)
+library(lsmeans)      # Least-Squares Means
+library(multcomp)     # Simultaneous Inference in General Parametric Models 
+```
+
+\clearpage
+
+
+
+# SECTION B
+
+## Datasets
+
+```{r data}
+data_wait <- data.frame(child = c(10, 12, 15, 11,  5,  7,  2),
+                        woman = c(17, 13, 16, 12,  7,  8,  3),
+                        man   = c(20, 25, 14, 17, 12, 18,  7))
+
+data_food <- data.frame(green = c(3, 7, 1, 0, 9, 2),
+                        red   = c(3, 4, 5, 6, 4, 6),
+                        blue  = c(2, 0, 4, 6, 4, 1))
+
+data_undergrad <- data.frame(class      = c( 1,  1,  1,  1,  
+                                             2,  2,  2,  2,
+                                             3,  3,  3,  3,  
+                                             4,  4,  4,  4),
+                             humanities = c( 2,  4,  3,  7,  
+                                             3,  4,  6,  5,  
+                                             7,  8,  7,  7, 
+                                            10, 12,  9, 13),
+                             science    = c( 5,  6,  9, 10, 
+                                            10, 12, 16, 14, 
+                                            14, 15, 13, 12, 
+                                            16, 18, 16, 19),
+                             business   = c( 7,  8,  7, 12, 
+                                            20, 13, 16, 15, 
+                                            20, 25, 22, 21, 
+                                            30, 33, 34, 29))
+
+data_memory <- data.frame(incidental_agree     = c(8, 7, 7, 9, 4),
+                          incidental_disagree  = c(2, 3, 2, 4, 4),
+                          intentional_agree    = c(6, 8, 9, 5, 8),
+                          intentional_disagree = c(7, 9, 8, 5, 7))
+```
+
+\clearpage
+
+
+
+## `data_undergrad` Effect of on Class & Major on Employment Experctations
+
+### Question B-7a 3x4 Two ANOVA
+
+**TEXTBOOK QUESTION:** *A college is conducting a study of its students' expectations of employment upon graduation. Students are sampled by class and major area of study and are given a score from 0 to 35 according to their responses to a questionnaire concerning their job preparedness, goal orientation, and so forth. The data appear in the following table.  (a) Perform a two-way ANOVA and create a summary table.*
+
+
+```{r Q14b7a_restructure}
+# convert the dataset: wide --> long
+data_undergrad_long <- data_undergrad %>% 
+  dplyr::mutate(class = factor(class,
+                               levels = c(1, 2, 3, 4),
+                               labels = c("Freshmen",
+                                          "Sophomores",
+                                          "Juniors",
+                                          "Seniors"))) %>% 
+  tidyr::gather(key = major,
+                value = expect_employ,
+                humanities, science, business) %>% 
+  dplyr::mutate(id = row_number()) %>% 
+  dplyr::select(id, class, major, expect_employ)
+
+data_undergrad_long %>% head(n = 12)
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Fit a two-way ANOVA model for the difference in mean `expect_employ` for each of the combinations between the four-level `class` factor and three-level `major` factor with the `afex::aov_4()` function and save the results under the name `aov_employ`.
+
+```{r Q14b7a_aov}
+# Two-way ANOVA: fit and save
+
+```
+
+------------------------------------------
+
+**DIRECTIONS:** Request the more complete summary table by adding `$Anova` at the end of the name you saved your fitted model as above.
+
+```{r Q14b7a_aov_fuller}
+# Display fuller ANOVA results (includes sum of squares)
+
+```
+
+\clearpage
+
+
+
+### Question B-7b Plot Cell Means
+
+**TEXTBOOK QUESTION:** *(B) Draw a graph of the cell means. Does the interaction obscure the interpretation of the main effects?*
+
+--------------------------------
+
+Here is the 3x4 grid of cell means, giving the average for each of the 12 combinations of `class` and `major`.
+
+```{r Q14b7b_means}
+# Raw data: 2-way table of means (i.e. cell means)
+data_undergrad_long %>% 
+  dplyr::group_by(class, major) %>% 
+  dplyr::summarise(mean = mean(expect_employ)) %>% 
+  tidyr::spread(key = class, 
+                value = mean)
+```
+
+--------------------------------
+
+To incorporated a second grouping variable into the plot, we can use `shape` and/or `color`.  I prefer to use both to ensure that the color distinction is not completely lost when photo coping or if a reader is color blind.
+
+> **NOTE:** The inclusion of `> **NOTE:** ` within the `stat_summary()` function causes the points to be slightly offset so that points are not drawn on top of each other.
+
+```{r Q14b7b_plot}
+# Raw data: plot M(SE)
+data_undergrad_long %>% 
+  ggplot(aes(x = class,
+             y = expect_employ,
+             shape = major,
+             color = major)) +
+  stat_summary(position=position_dodge(width=0.25))
+```
+
+\clearpage
+
+
+
+### Question B-7c Pairwise Post Hoc with Tukey's HSD
+
+**TEXTBOOK QUESTION:** *(C) Use Tukey's HSD to determine which pairs of class years differ significantly.*
+
+**DIRECTIONS:** Request the summary statistics for `expect_employ` within each `class` using the `table1()` function from the `furniture` package, after piping a `dplyr::group_by(group_var)` step.
+
+```{r Q14b7c_means, results="asis"}
+
+```
+
+---------------------
+
+**DIRECTIONS:** Plot the raw data for each `class` using the `stat_summary()` layer in `ggplot(aes(x = group_var, y = contin_var))`.
+
+```{r Q14b7c_plot, fig.width=4, fig.height=2.5}
+# Raw data: plot M(SE)
+
+```
+
+\clearpage
+
+---------------------------
+
+**DIRECTIONS:** Request all pairwise post hoc comparisons via Tukey's HSD with the `adjust = "tukey"` option in the `pairs()` function, applied after piping a `emmeans(~ group_var)` step to the ANOVA model.
+
+
+```{r Q14b7c_tukey}
+# Pairwise post hoc: Tukey's HSD adjustment for multiple comparisons
+
+```
+
+\clearpage
+
+
+
+### Question B-7d 2x2 Contrast Statements to Test Extremes
+
+**TEXTBOOK QUESTION:** *For just the freshmen and seniors, calculate the three possible interaction contrasts. Which, if any, would be significant according to Scheffe's test?*
+
+The following code chunk will display the means for all combinations of the two grouping variables so that you can figure out which order to set up the contrast weights ($c_i$'s).
+
+```{r Q14b7d_emmeans}
+# Request all emmeans: see ORDER for contrast weights to be entered below
+# aov_employ %>% 
+#   emmeans::emmeans(~ class*major)
+```
+
+
+
+```{r Q14b7d_contrast1}
+# 2x2 Contrast statement (Freshmen vs. Seniors): Humanities vs. Science
+# aov_employ %>% 
+#   emmeans::emmeans(~ class*major) %>% 
+#   emmeans::contrast(list("fr-sr X Hum-Sc" = c( 0, 0, 0,  0, 
+#                                                1, 0, 0, -1, 
+#                                               -1, 0, 0,  1)))
+```
+
+
+
+```{r Q14b7d_contrast2}
+# 2x2 Contrast statement (Freshmen vs. Seniors): Humanities vs. Business
+# aov_employ %>% 
+#   emmeans::emmeans(~ class*major) %>% 
+#   emmeans::contrast(list("fr-sr X Hum-bus" = c(1, 0, 0, -1, 
+#                                               -1, 0, 0,  1,
+#                                                0, 0, 0,  0)))
+```
+
+
+
+```{r Q14b7d_contrast3}
+# 2x2 Contrast statement (Freshmen vs. Seniors): Science vs. Business
+# aov_employ %>% 
+#   emmeans::emmeans(~ class*major) %>% 
+#   emmeans::contrast(list("fr-sr X Hum-bus" = c(1, 0, 0, -1,
+#                                                0, 0, 0,  0, 
+#                                               -1, 0, 0,  1)))
+```
+
+\clearpage
+
+
+
+## `data_memory` Effect of Warning and Attitude on Memory
+
+### Question B-8a 2x2 Two-Way ANOVA
+
+**TEXTBOOK QUESTION:** *The data from Exercise 12B8 for a four group experiment on attitudes and memory are reproduced below. Considering the relationships among the four experimental conditions, it should be obvious that it makes sense to analyze these data with a two-way ANOVA.  (A) Perform a two-way ANOVA and create a summary table of your results. (Note : You can use the summary table from Exercise 12B8 as the basis for a new table.)*
+
+```{r Q14b8a_restructure}
+# convert the dataset: wide --> long
+data_memory_long <- data_memory %>% 
+  tidyr::gather(key = warning_attitude,
+                value = recall) %>% 
+  tidyr::separate(warning_attitude,
+                  into = c("warning", "attitude"),
+                  remove = FALSE) %>% 
+  dplyr::mutate(id = row_number()) %>% 
+  dplyr::mutate_at(vars(id, warning_attitude, warning, attitude), factor) %>% 
+  dplyr::select(id, warning_attitude, warning, attitude, recall)
+
+data_memory_long
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Fit a two-way ANOVA model for the difference in mean `recall` for each of the combinations between the two-level `warning` factor and two-level `attitude` factor with the `afex::aov_4()` function and save the results under the name `aov_memory_2way`.
+
+```{r Q14b8a_aov}
+# Two-way ANOVA: fit and save
+
+```
+
+-----------------
+
+**DIRECTIONS:** Request the more complete summary table by adding `$Anova` at the end of the name you saved your fitted model as above. 
+
+```{r Q14b8a_aov_fuller}
+# Display fuller ANOVA results (includes sum of squares)
+
+```
+
+\clearpage
+
+
+
+### Question B-8b One-Way ANOVA: one 4 level factor
+
+**TEXTBOOK QUESTION:** *(B) Compare your summary table to the one you produced for Exercise 12B8.*
+
+> **NOTE:** We did not do Exercise 12B8, but we can do it here.
+
+**DIRECTIONS:** Fit an one-way ANOVA model for the difference in mean `recall` for each of the four independent `warning_attitude` groups with the `afex::aov_4()` function and save the results under the name `aov_memory_1way`.
+
+
+```{r Q14b8b_aov}
+# One-way ANOVA: fit and save
+
+```
+
+-----------------------
+
+**DIRECTIONS:** Request the more complete summary table by adding `$Anova` at the end of the name you saved your fitted model as above. 
+
+```{r Q14b8b_aov_fuller}
+# Display fuller ANOVA results (includes sum of squares)
+
+```
+
+-----------------------
+
+### Question B-8c Plot Means to Aid Interpretation
+
+**TEXTBOOK QUESTION:** * (C) What conclusions can you draw from the two-way ANOVA?*
+
+```{r Q14b8c_means, results="asis"}
+data_memory_long %>% 
+  dplyr::group_by(warning_attitude) %>% 
+  furniture::table1(recall,                 # gives M(SD)
+                    output = "markdown")    # add chunk option: results="asis"
+```
+
+\clearpage
+
+
+
+# SECTION C
+
+## Import Data, Define Factors, and Compute New Variables
+
+Import Data, Define Factors, and Compute New Variables
+
+* Make sure the **dataset** is saved in the same *folder* as this file
+* Make sure the that *folder* is the **working directory**
+
+> NOTE: I added the second line to convert all the variables names to lower case.  I still kept the `F` as a capital letter at the end of the five factor variables.
+
+```{r ihno}
+ihno_clean <- read_excel("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(genderF = factor(gender, 
+                                 levels = c(1, 2),
+                                 labels = c("Female", 
+                                            "Male"))) %>% 
+  dplyr::mutate(majorF = factor(major, 
+                                levels = c(1, 2, 3, 4,5),
+                                labels = c("Psychology",
+                                           "Premed",
+                                           "Biology",
+                                           "Sociology",
+                                           "Economics"))) %>% 
+  dplyr::mutate(reasonF = factor(reason,
+                                 levels = c(1, 2, 3),
+                                 labels = c("Program requirement",
+                                            "Personal interest",
+                                            "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_condF = factor(exp_cond,
+                                   levels = c(1, 2, 3, 4),
+                                   labels = c("Easy",
+                                              "Moderate",
+                                              "Difficult",
+                                              "Impossible"))) %>% 
+  dplyr::mutate(coffeeF = factor(coffee,
+                                 levels = c(0, 1),
+                                 labels = c("Not a regular coffee drinker",
+                                            "Regularly drinks coffee")))  %>% 
+  dplyr::mutate(hr_base_bps = hr_base / 60) 
+```
+
+\clearpage
+
+
+
+## `ihno_clean` Ihno's Dataset
+
+### Question C-1a 5x2 ANOVA: Major and Gender on Math Quiz
+
+**TEXTBOOK QUESTION:** *Using college major and gender as your independent variables, perform a two-way ANOVA on mathquiz . Request descriptive statistics and an HOV test. Calculate the ordinary eta squared for each factor, and report your results in APA style.*
+
+**DIRECTIONS:** Fit a two-way ANOVA model for the difference in mean `mathquiz` for each of the combinations between the five-level `majorF` factor and two-level `genderF` factor with the `afex::aov_4()` function and save the results under the name `aov_math_2way`.
+
+```{r Q14c1a_aov}
+# Two-way ANOVA: fit and save
+
+```
+
+-----------------------------
+
+**DIRECTIONS:** Request the more complete summary table by adding `$Anova` at the end of the name you saved your fitted model as above. 
+
+
+```{r Q14c1a_aov_fuller}
+# Display fuller ANOVA results (includes sum of squares)
+
+```
+
+\clearpage
+
+
+
+### Question C-1b Follow-up Comparisons: by major only
+
+**TEXTBOOK QUESTION:** *Given the ANOVA results, perform an appropriate follow-up test. Explain your results in terms of the descriptive statistics.*
+
+**DIRECTIONS:** Request the summary statistics for each group using the `table1()` function from the `furniture` package, after piping a `dplyr::group_by(group_var)` step.
+
+```{r Q14c1b_summary, results='asis'}
+# Raw data: summary table
+
+```
+
+-----------------------------------
+
+**DIRECTIONS:** Fit an one-way ANOVA model using `afex::aov_4()`.  Add on via pipes both `emmeans::emmeans(~ group_var)` and `pairs()`.  Make sure to indicate `adjust = "tukey"` within the pairs command.
+
+```{r Q14c1b_tukey}                     
+# One-way ANOVA: fit and pairwise with Tukey's HSD
+
+```
+
+\clearpage
+
+
+
+### Question C-4a 2x3 ANOVA: Phobia Group and Gender on Math Quiz
+
+**TEXTBOOK QUESTION:** *Using the phobia grouping variable you created for computer exercise 5 in Chapter 12 and gender as your IVs, perform a two-way ANOVA on mathquiz . Request the appropriate post hoc test and a plot of the cell means, and report the results in APA style.*
+
+**DIRECTIONS:** Plot the raw data for each group using the `stat_summary()` layer in `ggplot(aes(x = group_var1, y = contin_var))`.  Utilize the `shape` and `color` options for `group_var2`.  Also consider dodging the position of the groups to avoid overplotting.
+
+```{r Q14c4a_plot}
+# Raw data: plot M(SE)
+
+```
+
+------------------------------------------
+
+Here is the 2x3 grid of cell means, giving the average for each of the 6 combinations of `genderF` and `phob_group`.
+
+```{r Q14c4a_means}
+# Raw data: 2-way table of means (i.e. cell means)
+data_new %>% 
+  dplyr::group_by(phob_group, genderF) %>% 
+  dplyr::summarise(mean = mean(mathquiz, na.rm = TRUE)) %>% 
+  tidyr::spread(key = phob_group, 
+                value = mean)
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Fit a two-way ANOVA model for the difference in mean `mathquiz` for each of the combinations between the five-level `phob_group` factor and two-level `genderF` factor with the `afex::aov_4()` function and save the results under the name `aov_math_phob_gender`.
+
+```{r Q14c4a_aov}
+# Two-way ANOVA: fit and save
+
+```
+
+-----------------
+
+**DIRECTIONS:** Request the $F$ value by typing the name you saved your fitted model as above.  
+
+```{r Q14c4a_aov_basic}
+# Display basic ANOVA results (includes effect size)
+
+```
+
+---------------------
+
+**DIRECTIONS:** Request all pairwise post hoc comparisons via Fisher's LSD with the `adjust = "none"` option in the `pairs()` function, applied after piping a `emmeans(~ group_var)` step to the ANOVA model above.
+
+```{r Q14c4a_fisherlsd}
+# Pairwise post hoc: Fisher's LSD adjustment for multiple comparisons
+
+```
+
+\clearpage
+
+
+
+### Question C-4b Repeat without the Moderate Group
+
+**TEXTBOOK QUESTION:** *Repeat part a (except for the post hoc test) after deleting the moderate phobia group from the analysis. What type of interaction do you see in the plot? Test the simple main effect of phobia for each gender. Do you need to follow up any of the simple main effects with pairwise comparisons? Explain.*
+
+**DIRECTIONS:** Repeat the previous ANOVA model, but preceed it by a `dplyr::filter(phob_group != "Moderate")` step in the pipeline and save the results under the name `aov_math_phob2_gender`.
+
+```{r Q14c4b_aov}
+# Two-way ANOVA: fit and save
+
+```
+
+--------------------------
+
+**DIRECTIONS:** Request the $F$ value by typing the name you saved your fitted model as above.  
+
+```{r Q14c4b_aov_basic}
+# Display basic ANOVA results (includes effect size)
+
+```
+
+\clearpage
+
+
+
+### Question C-5a 2x3 ANOVA: Coffee Drinking and Phobia Group on Post Quiz Heart Rate
+
+**TEXTBOOK QUESTION:** *Using the phobia grouping variable you created for computer exercise #5 in Chapter 12 (do not drop any phobia groups for this exercise) and coffee (regular coffee drinker or not) as your IVs, perform a two-way ANOVA on the postquiz heart rate. Request an HOV test, observed power, and a plot of the cell means. (A) Does the HOV test give you cause for concern? Explain the ANOVA results in terms of the plot you created.*
+
+Here is the 2x3 grid of cell means, giving the average for each of the 6 combinations of `coffeeF` and `phob_group`.
+
+```{r Q14c5a_means}
+# Raw data: 2-way table of means (i.e. cell means)
+data_new %>% 
+  dplyr::group_by(coffeeF, phob_group) %>% 
+  dplyr::summarise(mean = mean(hr_post)) %>% 
+  tidyr::spread(key = phob_group,
+                value = mean)
+```
+
+------------------------
+
+**DIRECTIONS:** Plot the raw data for each group using the `stat_summary()` layer in `ggplot(aes(x = group_var1, y = contin_var))`.  Utilize the `shape` and `color` options for `group_var2`.  Also consider dodging the position of the groups to avoid overplotting.
+
+```{r Q14c5a_boxplots}
+# Raw data: plot M(SE)'s
+
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Use the `car::leveneTest()` to test for violations of *HOV*. Since this is a two-way ANOVA situation, be sure to include the correct formula: `contin_var = group_var1*group_var2`. 
+
+```{r Q14c5a_hov}
+# Levene's Test of HOV
+
+```
+
+---------------------
+
+**DIRECTIONS:** Fit a two-way ANOVA model for the difference in mean `hr_post` for each of the combinations between the five-level `phob_group` factor and two-level `coffeeF` factor with the `afex::aov_4()` function and save the results under the name `aov_hrpost_phob_coffee`.
+
+```{r Q14c5a_aov}
+# Two-way ANOVA: fit and save
+
+```
+
+--------------------------
+
+**DIRECTIONS:** Request the $F$ value by typing the name you saved your fitted model as above. 
+
+```{r Q14c5a_aov_basic}
+# Display basic ANOVA results (includes effect size)
+
+```
+
+\clearpage
+
+
+
+### Question C-5b Follow-up Comparisons
+
+**TEXTBOOK QUESTION:** *Request an appropriate post hoc test to follow-up your ANOVA results, and report the results. Calculate the ordinary eta squared for each main effect; how large is each effect? ~~Does the observed power make sense in each case?~~*
+
+**DIRECTIONS:** Request the more complete summary table by adding `$Anova` at the end of the name you saved your fitted model as above. 
+
+```{r Q14c5b_aov_fuller}
+# Display fuller ANOVA results (includes sum of squares)
+
+```
+
+-----------------------
+
+**DIRECTIONS:** Request all pairwise post hoc comparisons with the `pairs()` function, applied after piping a `emmeans(~ group_var)` step to the ANOVA model. Only do this for significant main effects with at least three factor levels.
+
+```{r}
+
+```
+
+**Do NOT worry about observed power!**
+
+

@@ -1,0 +1,657 @@
+---
+title: "Psy/Educ 6600: Chapter 12"
+subtitle: "1-way ANOVA Models"
+author: "Your Name"
+date: "Spring 2018"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    number_sections: false
+---
+
+\clearpage
+
+# PREPARATION
+
+```{r oppts, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 5,        # set default figure width to 5 inches
+                      fig.height  = 3)        # set default figure height to 3 inches
+
+```
+
+## Packages
+
+Make sure the packages are **installed** *(Package tab)*
+
+```{r libraries}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(readxl)       # Read in Excel datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+library(afex)         # Analysis of Factorial Experiments
+library(emmeans)      # Estimated marginal means (Least-squares means)
+library(lsmeans)      # Least-Squares Means
+library(multcomp)     # Simultaneous Inference in General Parametric Models 
+```
+
+\clearpage
+
+# SECTION B
+
+## Datasets
+
+```{r data}
+data_wait <- data.frame(child = c(10, 12, 15, 11,  5,  7,  2),
+                        woman = c(17, 13, 16, 12,  7,  8,  3),
+                        man   = c(20, 25, 14, 17, 12, 18,  7))
+
+data_food <- data.frame(green = c(3, 7, 1, 0, 9, 2),
+                        red   = c(3, 4, 5, 6, 4, 6),
+                        blue  = c(2, 0, 4, 6, 4, 1))
+
+data_undergrad <- data.frame(class      = c( 1,  1,  1,  1,  
+                                             2,  2,  2,  2,
+                                             3,  3,  3,  3,  
+                                             4,  4,  4,  4),
+                             humanities = c( 2,  4,  3,  7,  
+                                             3,  4,  6,  5,  
+                                             7,  8,  7,  7, 
+                                            10, 12,  9, 13),
+                             science    = c( 5,  6,  9, 10, 
+                                            10, 12, 16, 14, 
+                                            14, 15, 13, 12, 
+                                            16, 18, 16, 19),
+                             business   = c( 7,  8,  7, 12, 
+                                            20, 13, 16, 15, 
+                                            20, 25, 22, 21, 
+                                            30, 33, 34, 29))
+
+data_memory <- data.frame(incidental_agree     = c(8, 7, 7, 9, 4),
+                          incidental_disagree  = c(2, 3, 2, 4, 4),
+                          intentional_agree    = c(6, 8, 9, 5, 8),
+                          intentional_disagree = c(7, 9, 8, 5, 7))
+```
+
+\clearpage
+
+
+
+## `data_wait` Reaction Time to Voice Calling for Help
+
+### Question B-4 1-Way ANOVA - introduction
+
+**TEXTBOOK QUESTION:** *A social psychologist wants to know how long people will wait before responding to cries for help from an unknown person and whether the gender or age of the person in need of help makes any difference. One at a time, subjects sit in a room waiting to be called for an experiment. After a few minutes they hear cries for help from the next room, which are actually on a tape recording. The cries are in either an adult male's, an adult female's, or a child's voice; seven subjects are randomly assigned to each condition. The dependent variable is the number of seconds from the time the cries begin until the subject gets up to investigate or help.  (a) Calculate the F ratio. (b) Find the critical F ($\alpha = .05$). (c) What is your statistical conclusion? (d) Present the results of the ANOVA in a summary table. (e) Calculate $\eta^2$ using Formula 12.10. *
+
+```{r Q12b4_data}
+# Display the raw dataset: wide format
+data_wait
+```
+
+
+
+First, the data must be restructured from **wide** to **long** format, so that each observation is on its own line.  All categorical variables must be declared as factors.  We also must add a distinct indicator variable (id number variable).  
+
+```{r Q12b4_restructure}
+# convert the dataset: wide --> long
+data_wait_long <- data_wait %>% 
+  tidyr::gather(key = caller_type,                 # new var name = groups
+                value = delay_time,                # new var name = measurements
+                child, woman, man) %>%             # all old variable names
+  dplyr::mutate(id = row_number()) %>%             # create a sequential id variable
+  dplyr::select(id, caller_type, delay_time) %>%   # reorder the variables
+  dplyr::mutate_at(vars(id, caller_type), factor)  # declare factors
+
+data_wait_long %>% head(n = 10)                    # display the top 10 rows only
+```
+
+\clearpage
+
+
+
+Second, check the summary statistics for each group.
+
+```{r Q12b4_summary, results="asis"}
+# Raw data: summary table
+data_wait_long %>% 
+  dplyr::group_by(caller_type) %>%          # divide into groups
+  furniture::table1(delay_time,             # gives M(SD)
+                    output = "markdown")    # add chunk option: results="asis"
+```
+
+
+
+Third, plot the data to eyeball the potential effect.  Remember the center line in each box represents the median, not the mean.
+
+```{r Q12b4_boxplot, fig.width=4, fig.height=2}
+# Raw data: boxplots
+data_wait_long %>% 
+  ggplot(aes(x = caller_type,
+             y = delay_time)) + 
+  geom_boxplot() +
+  geom_point() 
+```
+
+
+
+```{r Q12b4_plot, fig.width=4, fig.height=2}
+# Raw data: plot M(SE)
+data_wait_long %>% 
+  ggplot(aes(x = caller_type,
+             y = delay_time)) + 
+  stat_summary() 
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Fit an one-way ANOVA model for the differences in mean `delay_time` for each of the three independent `caller_type` groups with the `afex::aov_4()` function and save the results under the name `aov_wait_time`.
+
+```{r Q12b4_model}
+# One-way ANOVA: fit and save
+
+```
+
+Remember, since you are saving your model to a name *(`aov_wait_time`)*, there will not be any output, except a message about setting contrasts to `contr.sum`.
+
+-------------------------
+
+**DIRECTIONS:** Request the omnibus $F$ value by typing the name you saved your fitted model as above (`aov_wait_time`).  
+
+```{r Q12b4_results}
+# Display basic ANOVA results (includes effect size)
+ 
+```
+
+------------------------------------------
+
+**DIRECTIONS:** Request the more complete summary table by adding `$Anova` at the end of the name you saved your fitted model as above.  
+
+```{r Q12b4c_table}
+# Display fuller ANOVA results (includes sum of squares)
+
+```
+
+\clearpage
+
+
+
+## `data_food` Icing Color Effect on Appetite
+
+### Question 2B-5 Another One-Way ANOVA
+
+**TEXTBOOK QUESTION:** *A psychologist is interested in the relationship between color of food and appetite. To explore this relationship, the researcher bakes small cookies with icing of one of three different colors (green, red, or blue). The researcher offers cookies to subjects while they are performing a boring task.  Each subject is run individually under the same conditions, except for the color of the icing on the cookies that are available. Six subjects are randomly assigned to each color. The number of cookies consumed by each subject during the 30-minute session is shown in the following table.  (a) Calculate the F ratio. (b) Find the critical F ($\alpha = .01$). (c) What is your statistical decision with respect to the null hypothesis? (d) Present your results in the form of a summary table.*
+
+```{r Q12b5_data}
+# Display the raw dataset: wide format
+data_food
+```
+
+
+
+First, the data must be restructured from **wide** to **long** format, so that each observation is on its own line.  All categorical variables must be declared as factors.  We also must add a distinct indicator variable.  
+
+```{r Q12b5_restructure}
+# convert the dataset: wide --> long
+data_food_long <- data_food %>% 
+  tidyr::gather(key = icing_color,                 # new var name = groups
+                value = cookies_ate,               # new var name = measurements
+                green, red, blue) %>%              # all old variable names
+  dplyr::mutate(id = row_number()) %>%             # create a sequential id variable
+  dplyr::select(id, icing_color, cookies_ate) %>%  # reorder the variables
+  dplyr::mutate_at(vars(id, icing_color), factor)  # declare factors
+
+data_food_long %>% head(n = 10)
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Request the summary statistics for each group using the `table1()` function from the `furniture` package, after piping a `dplyr::group_by(group_var)` step.
+
+```{r Q12b5_summary, results="asis"}
+# Raw data: summary table
+
+```
+
+------------------------------------------
+
+**DIRECTIONS:** Plot the raw data for each group using the `stat_summary()` layer in `ggplot(aes(x = group_var, y = contin_var))`.
+
+```{r Q12b5_plot}
+# Raw data: plot M(SE)'s
+
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Fit an one-way ANOVA model for the difference in mean `cookies_ate` for each of the three independent `icing_color` groups with the `afex::aov_4()` function and save the results under the name `aov_food_time`.
+
+```{r Q12b5_aov}
+# One-way ANOVA: fit and save
+
+```
+
+------------------------------------------
+
+**DIRECTIONS:** Request the $F$ value by typing the name you saved your fitted model as above.  
+
+```{r Q12b5_aov_basic}
+# Display basic ANOVA results (includes effect size)
+
+```
+
+------------------------------------------
+
+**DIRECTIONS:** Request the more complete summary table by adding `$Anova` at the end of the name you saved your fitted model as above. 
+
+```{r Q12b5_aov_fuller}
+# Display fuller ANOVA results (includes sum of squares)
+
+```
+
+\clearpage
+
+
+
+### Question B-6 The Effect of Larger Mean Values 
+
+**TEXTBOOK QUESTION:** *Suppose that the data in Exercise 5 had turned out differently. In particular, suppose that the number of cookies eaten by subjects in the green condition remains the same, but each subject in the red condition ate 10 more cookies than in the previous data set, and each subject in the blue condition ate 20 more.  (a) Calculate the F ratio. Is the new F ratio significant at the .01 level? (b) Which part of the F ratio has changed from the previous exercise and which part has remained the same? (c) Put your results in a summary table to facilitate comparison with the results of Exercise 5. (d) Calculate estimated $\omega^2$ with Formula 12.12 and adjusted $\eta^2$ with Formula 12.14. Are they the same? Explain.*
+
+BEFORE you restructured from **wide** to **long** format, add 10 to the red counts and add 20 to the blue counts.
+
+```{r Q12b6_restructure}
+# Revised wide dataset
+data_food_long2 <- data_food %>% 
+  dplyr::mutate(red   = 10 + red) %>%              # NEW VALUES = 10 + OLD !!!
+  dplyr::mutate(blue  = 20 + blue) %>%             # NEW VALUES = 20 + OLD !!!
+  tidyr::gather(key = icing_color,                 # new var name = groups
+                value = cookies_ate,               # new var name = measurements
+                green, red, blue) %>%              # all old variable names
+  dplyr::mutate(id = row_number()) %>%             # create a sequential id variable
+  dplyr::select(id, icing_color, cookies_ate) %>%  # reorder the variables
+  dplyr::mutate_at(vars(id, icing_color), factor)  # declare factors
+
+data_food_long2 %>% head(n = 10)
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Request the summary statistics for each group using the `table1()` function from the `furniture` package, after piping a `dplyr::group_by(group_var)` step.
+
+```{r Q12b6_summary, results="asis"}
+# Raw data: summary table
+
+```
+
+------------------------------------------
+
+**DIRECTIONS:** Plot the raw data for each group using the `stat_summary()` layers in `ggplot(aes(x = group_var, y = contin_var))`.
+
+```{r Q12b6_plot}
+# Raw data: plot M(SE)
+
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Fit an one-way ANOVA model for the difference in mean `cookies_ate` for each of the three independent `icing_color` groups with the `afex::aov_4()` function and save the results under the name `aov_food_time2`.
+
+```{r Q12b6_model}
+# One-way ANOVA: fit and save
+
+```
+
+------------------------------------------
+
+**DIRECTIONS:** Request the $F$ value by typing the name you saved your fitted model as above.  
+
+```{r Q12b6_results}
+# Display basic ANOVA results (includes effect size)
+
+```
+
+------------------------------------------
+
+**DIRECTIONS:** Request the more complete summary table by adding `$Anova` at the end of the name you saved your fitted model as above. 
+
+```{r Q12b6_table}
+# Display fuller ANOVA results (includes sum of squares)
+
+```
+
+\clearpage
+
+
+
+# SECTION C
+
+## Import Data, Define Factors, and Compute New Variables
+
+Import Data, Define Factors, and Compute New Variables
+
+* Make sure the **dataset** is saved in the same *folder* as this file
+* Make sure the that *folder* is the **working directory**
+
+> NOTE: I added the second line to convert all the variables names to lower case.  I still kept the `F` as a capital letter at the end of the five factor variables.
+
+```{r ihno}
+ihno_clean <- read_excel("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(genderF = factor(gender, 
+                                 levels = c(1, 2),
+                                 labels = c("Female", 
+                                            "Male"))) %>% 
+  dplyr::mutate(majorF = factor(major, 
+                                levels = c(1, 2, 3, 4,5),
+                                labels = c("Psychology",
+                                           "Premed",
+                                           "Biology",
+                                           "Sociology",
+                                           "Economics"))) %>% 
+  dplyr::mutate(reasonF = factor(reason,
+                                 levels = c(1, 2, 3),
+                                 labels = c("Program requirement",
+                                            "Personal interest",
+                                            "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_condF = factor(exp_cond,
+                                   levels = c(1, 2, 3, 4),
+                                   labels = c("Easy",
+                                              "Moderate",
+                                              "Difficult",
+                                              "Impossible"))) %>% 
+  dplyr::mutate(coffeeF = factor(coffee,
+                                 levels = c(0, 1),
+                                 labels = c("Not a regular coffee drinker",
+                                            "Regularly drinks coffee")))  %>% 
+  dplyr::mutate(hr_base_bps = hr_base / 60) 
+```
+
+
+
+## `ihno_clean` Ihno's Dataset
+
+### Question C-1 Does Post-Quiz Heart Rate Differ by Difficulty Level?
+
+**TEXTBOOK QUESTION:** *Perform a one-way ANOVA to test whether the different experimental conditions had a significant effect on postquiz heart rate. Request descriptive statistics and an HOV test. Calculate eta squared from your ANOVA output, and present your results in APA style.*
+
+**DIRECTIONS:** Request the summary statistics for each group using the `table1()` function from the `furniture` package, after piping a `dplyr::group_by(group_var)` step.
+
+```{r Q12c1_summary, results="asis"}
+# Raw Data: summary table
+
+```
+
+------------------------------------------
+
+**DIRECTIONS:** Plot the raw data for each group using the `stat_summary()` layer in `ggplot(aes(x = group_var, y = contin_var))`.
+
+```{r Q12c1_plot, fig.height=2.75, fig.width=5}
+# Raw data: plot M(SE)
+
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Use the `leveneTest()` function from the `car` package to test if the data give any evidence of a violation of *Homoegeity of Variance (HOV)*.  
+
+```{r Q12c1_hov}
+# Levene's Test of HOV
+    
+```
+
+------------------------------------------
+
+**DIRECTIONS:** Fit an one-way ANOVA model for the difference in mean `hr_post` for each of the three independent `exp_condF` groups *(make sure to use the factor version)* with the `afex::aov_4()` function and save the results under the name `aov_hr_post` for future use.
+
+> **NOTE:** The identification variable is called `sub_num` in this dataset, not `id`.
+
+```{r Q12c1_aov}
+# One-way ANOVA: fit and save
+
+```
+
+------------------
+
+**DIRECTIONS:** Request the $F$ value by typing the name you saved your fitted model as above.  
+
+```{r Q12c1_aov_basic}
+# Display basic ANOVA results (includes effect size)
+
+```
+
+\clearpage
+
+
+
+### Question C-2a Do the Math and Stat Quiz Scores Differ by College Major?
+
+**TEXTBOOK QUESTION:** *Using college major as the independent variable, perform a one-way ANOVA to test for significant differences in both mathquiz and statquiz . Request descriptive statistics and an HOV test. Based on the HOV test, for which DV should you consider performing an alternative ANOVA test? For whichever DV yields a p value between .05 and .1, report its results as a trend. For whichever DV yields a p value less than .05, calculate the corresponding value of eta squared, and report the ANOVA results, along with the means for the groups, in APA style.*
+
+```{r Q12c2_summary, results="asis"}
+# Raw Data: summary table
+ihno_clean %>% 
+  dplyr::group_by(majorF) %>% 
+  furniture::table1(mathquiz, statquiz,     # gives M(SD)
+                    output = "markdown")    # add chunk option: results="asis") 
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Plot the raw data for each group using the `stat_summary()` layer in `ggplot(aes(x = group_var, y = contin_var))`.  Do this TWICE, once with `y = mathquiz` and then again with `y = statquiz`.
+
+```{r Q12c2_math_plot, fig.height=2.75, fig.width=5}
+# Raw data: plot M(SE) - Math Quiz
+ihno_clean %>% 
+  ggplot(aes(x = majorF,
+             y = mathquiz)) + 
+  stat_summary()
+```
+
+
+
+```{r Q12c2_stat_plot, fig.height=2.75, fig.width=5}
+# Raw data: plot M(SE) - Stat Quiz
+ihno_clean %>% 
+  ggplot(aes(x = majorF,
+             y = statquiz)) + 
+  stat_summary()
+```
+
+\clearpage
+
+
+
+#### Math Quiz - All Five Majors
+
+**DIRECTIONS:** Use the `car::leveneTest()` to test for violations of *HOV*.  
+
+```{r Q12c2_mathQ_hov}
+# Levene's Test of HOV
+
+```
+
+----------------------------
+
+**DIRECTIONS:** Fit an one-way ANOVA model using `afex::aov_4()`.
+
+> **NOTE:** Because some of the students are missing the `mathquiz` variable,  you will need to preceed the `aov_4()` step with  `dplyr::filter(complete.cases(mathquiz, majorF))` in the pipeline.
+
+```{r Q12c2_mathQ_aov}
+# One-way ANOVA: fit and save
+
+```
+
+---------------------
+
+**DIRECTIONS:** Request the $F$ value by typing the name you saved your fitted model as above.  
+
+```{r Q12c2_mathQ_aov_basic}
+# Display basic ANOVA results (includes effect size)
+
+```
+
+\clearpage
+
+
+
+#### Stat Quiz - All Five Majors
+
+**DIRECTIONS:** Use the `car::leveneTest()` to test for violations of *HOV*.  
+
+```{r Q12c2_statQ_hov}
+# Levene's Test of HOV
+
+```
+
+---------------------
+
+**DIRECTIONS:** Fit an one-way ANOVA model using `afex::aov_4()`.
+
+```{r Q12c2_statQ_aov}
+# One-way ANOVA: fit and save
+
+```
+
+---------------------
+
+**DIRECTIONS:** Request the $F$ value by typing the name you saved your fitted model as above.  
+
+```{r Q12c2_statQ_aov_basic}
+# Display basic ANOVA results (includes effect size)
+
+```
+
+\clearpage
+
+
+
+### Question C-3 Remove Two Majors and Repeat 
+
+#### Math Quiz - Only Three Majors
+
+**TEXTBOOK QUESTION:** *Repeat Exercise 2 after using Select Cases to eliminate all of the psychology and premed students.*
+
+> **NOTE:** You will need to preceed Levene's Test with `dplyr::filter(majorF %in% c("Biology", "Sociology", "Economics"))` in the pipeline in order to subset the data.
+
+**DIRECTIONS:** Use the `car::leveneTest()` to test for violations of *HOV*.  
+
+```{r Q12c3_math_hov}
+# Levene's Test of HOV
+
+```
+
+--------------------------
+
+**DIRECTIONS:** Fit an one-way ANOVA model using `afex::aov_4()`.
+
+> **NOTE:**  Here you will need both the filter step for subsetting majors and the filter step to restrict to complete cases.  The order of the two `dplyr::filter()` steps does not matter.
+
+```{r Q12c3_math_aov}
+# One-way ANOVA: fit and display
+
+```
+
+\clearpage
+
+
+
+#### Stat Quiz - Only Three Majors
+
+**DIRECTIONS:** Use the `car::leveneTest()` to test for violations of *HOV*.  
+
+> **NOTE:** You will need to preceed Levene's Test and the ANOVA with `dplyr::filter(majorF %in% c("Biology", "Sociology", "Economics"))` in the pipeline in order to subset the data.
+
+```{r Q12c3_stat_hov}
+# Levene's Test of HOV
+
+```
+
+--------------------------
+
+**DIRECTIONS:** Fit an one-way ANOVA model using `afex::aov_4()`.
+
+```{r Q12c3_stat_aov}
+# One-way ANOVA: fit and display
+
+```
+
+\clearpage
+
+
+
+### Question C-5 Phobia Group vs. Difference (Pre-Post) Heart Rate
+
+**TEXTBOOK QUESTION:** *Use Recode to create a grouping variable from phobia , such that Group 1 contains those with phobia ratings of 0, 1, or 2; Group 2 = 3 or 4; and Group 3 = 5 or more (you might call the new variable Phob_group ). Then use Transform to create another new variable, hr_diff , that equals hr_pre minus hr_base . Perform a one-way ANOVA on hr_diff using Phob_group as the factor. Request descriptive statistics. Report the results in APA style, including the means of the three groups. Explain what this ANOVA demonstrates, in terms of the variables involved.*
+
+```{r Q12c5_data}
+data_new <- ihno_clean %>% 
+  dplyr::mutate(phob_group = case_when(phobia <3            ~ 1,
+                                       phobia %in% c(3, 4)  ~ 2,
+                                       phobia >= 5          ~ 3)) %>% 
+  dplyr::mutate(phob_group = factor(phob_group,
+                                    levels = c(1, 2, 3),
+                                    labels = c("Low", "Moderate", "High"))) %>% 
+  dplyr::mutate(hr_diff = hr_pre - hr_base)  
+
+```
+
+-------------------------
+
+**DIRECTIONS:** Request the summary statistics for each group using the `table1()` function from the `furniture` package, after piping a `dplyr::group_by(group_var)` step.
+
+```{r Q12c5_summary, results='asis'}
+# Raw data: summary table
+
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Use the `car::leveneTest()` to test for violations of *HOV*.  
+
+```{r Q12c5_hov}
+# Levene's Test of HOV
+
+```
+
+-------------------------
+
+**DIRECTIONS:** Fit and save a one-way ANOVA model using `afex::aov_4()`.
+
+```{r Q12c5_aov}
+# One-way ANOVA: fit and save
+
+```
+
+-------------------------
+
+**DIRECTIONS:** Request the $F$ value by typing the name you saved your fitted model as above.  
+
+```{r Q12c5_aov_basic}
+# Display basic ANOVA results (includes effect size)
+
+```
+
+

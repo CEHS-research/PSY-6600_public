@@ -1,0 +1,331 @@
+---
+title: "Psy/Educ 6600: Chapter 11"
+subtitle: "Matched pairs t-test"
+author: "Your Name"
+date: "Spring 2019"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    number_sections: false
+---
+
+\clearpage
+
+# PREPARATION
+
+```{r oppts, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+
+```
+
+## Packages
+
+* Make sure the packages are **installed** *(Package tab)*
+
+```{r libraries}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(readxl)       # Read in Excel datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+```
+
+\clearpage
+
+
+
+# SECTION B
+
+## Datasets
+
+```{r data}
+schizo <- data.frame(id       = c(1:10),
+                     yr_hos   = c( 5,  7, 12,  5, 11,  3,  7,  2,  9,  6),
+                     ori_test = c(22, 26, 16, 20, 18, 30, 14, 24, 15, 19))
+
+GRE <- data.frame(id          = c(1:5),
+                  verbalGRE_1 = c(540, 510, 580, 550, 520),
+                  verbalGRE_2 = c(570, 520, 600, 530, 520))
+
+test_scores <-  data.frame(id      = c(1:12),
+                           spatial = c(13, 32, 41, 26, 28, 12, 19, 33, 24, 46, 22, 17),
+                           math    = c(19, 25, 31, 18, 37, 16, 14, 28, 20, 39, 21, 15))
+
+child_vars  <-  data.frame(child = c(1:8),
+                           shoe  = c(5.2, 4.7, 7.0, 5.8, 7.2, 6.9, 7.7, 8.0),
+                           read  = c(1.7, 1.5, 2.7, 3.1, 3.9, 4.5, 5.1, 7.4),
+                           age   = c(  5,   6,   7,   8,   9,  10,  11,  12))
+
+memory <- data.frame(id    = c(1:9),
+                     sound = c(8, 5, 6, 10, 3, 4, 7, 11, 9),
+                     look  = c(4, 5, 3, 11, 2, 6, 4,  6, 7))
+```
+
+\clearpage
+
+
+
+## Question B-3 Matched Pairs vs. Direct Difference Methods
+
+
+**TEXTBOOK QUESTION:** *Using the data from Exercise 9B6, which follows.  (a) Determine whether there is a significant tendency for verbal GRE scores to improve on the second testing. Calculate the matched t in terms of the Pearson correlation coefficient already calculated for that exercise. (b) Recalculate the matched t test according to the direct-difference method and compare the result to your answer for part a.*
+
+```{r Q11b3}
+GRE
+```
+
+-------------------------------
+
+**DIRECTIONS:** Calculate the matched pairs t test between `verbalGRE_1`and `verbalGRE_2` in the `GRE` dataset. 
+
+In order to use this function, you MUST first restructure your dataset so that the TWO continous variables are stacked or **gathered** together.  Use the `tidyr::gather()` function with the following FOUR options:
+
+  * A new variable name that will store the original variable names:  `key = new_group_var`
+  * A new variable name that will store the original variable values: `value = new_continuous_var`
+  * List the original variable names:  `continous_var1, continuous_var2`
+  * Do not get ride of blank values:  `na.rm = FALSE`
+
+After the dataset is fathered, ad the `t.test()` function, which needs at least THREE arguments:
+
+  * the formula:  `continuous_var ~ group_var`
+  * the dataset: `data = .` *we use the period to signify that the datset is being piped from above*
+  * specify the data is paired: `paired = TRUE` *the default is independent groups*
+  
+> **Note:** I suggest using `key = time` and `value = verbalGRE`.
+
+```{r Q11b3a}
+# Paired t-test: verbalGRE1 & verbalGRE2
+
+```
+
+\clearpage
+
+**DIRECTIONS:** Calculate a NEW variable called `verbalGRE_diff` with the `dplyr::mutate()` function by subtracting the `verbalGRE_1`and `verbalGRE_2` variables in the `GRE` dataset. Pipe it all together ans save it as new dataset with the `GRE_new <-` assignment operator to use in the next step.
+
+
+```{r Q11b3b}
+# Compute a new variable --> save as: child_new
+
+```
+
+-------------------------------
+
+> **Note:** Remember that before you do a one-sample t test for the mean, you have to use the `dplyr::pull()` function (see chapter 6)
+
+```{r Q11b3c}
+# 1-sample t test: pop mean of verbalGRE_diff = 0 (no difference)
+
+```
+
+\clearpage
+
+
+
+## Question B-8 Confidence Intervale for the Mean Difference
+
+**TEXTBOOK QUESTION:** *A cognitive psychologist is testing the theory that short-term memory is mediated by subvocal rehearsal. This theory can be tested by reading aloud a string of letters to a participant, who must repeat the string correctly after a brief delay. If the theory is correct, there will be more errors when the list contains letters that sound alike (e.g., G and T) than when the list contains letters that look alike (e.g., P and R). Each participant gets both types of letter strings, which are randomly mixed in the same experimental session. The number of errors for each type of letter string for each participant are shown in the following table. (a) Perform a matched t test ( $\alpha = .05$, one tailed) on the data above and state your conclusions.  (b) Find the 95% confidence interval for the population difference for the two types of letters.*
+
+```{r Q11b8}
+memory
+```
+
+-------------------------------
+
+**DIRECTIONS:** Calculate the matched pairs t test between `sound`and `look` in the `memory` dataset twice: first as a **one-tail** test and then again as a **two-tailed*** test.
+
+> **Note:** I suggest using `key = type` and `value = errors`.
+
+```{r Q11b8a}
+# Paired t-test: sound and look --> ONE tail
+
+```
+
+\clearpage
+
+
+
+```{r Q11b8b}
+# Paired t-test: sound and look --> TWO tails
+
+```
+
+\clearpage
+
+
+
+## Question B-9 t-Test for Mean Difference vs. Correlation
+
+**TEXTBOOK QUESTION:** *For the data in Exercise 10B6: (a) Calculate the matched t value to test whether there is a significant difference ($\alpha = .05$, two tailed) between the spatial ability and math scores. Use the correlation coefficient you calculated to find the regression slope in Exercise 10B6. (b) Explain how the Pearson r for paired data can be very high and statistically significant, while the matched t test for the same data fails to attain significance.*
+
+```{r Q11b9}
+test_scores
+```
+
+-------------------------------
+
+**DIRECTIONS:** Calculate Pearson's $r$ between `spatial` and `math` in the `schizo` test_scores 
+
+```{r Q11b9a}
+# Pearson's r: spatial & math
+
+```
+
+\clearpage
+
+> **Note:** I suggest using `key = type` and `value = score`.
+
+```{r Q11b9b}
+# Paired t-test: spatial & math 
+
+```
+
+\clearpage
+
+
+
+# SECTION C
+
+## Import Data, Define Factors, and Compute New Variables
+
+Import Data, Define Factors, and Compute New Variables
+
+* Make sure the **dataset** is saved in the same *folder* as this file
+* Make sure the that *folder* is the **working directory**
+
+> NOTE: I added the second line to convert all the variables names to lower case.  I still kept the `F` as a capital letter at the end of the five factor variables.
+
+```{r ihno}
+data_clean <- read_excel("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(genderF = factor(gender, 
+                                 levels = c(1, 2),
+                                 labels = c("Female", 
+                                            "Male"))) %>% 
+  dplyr::mutate(majorF = factor(major, 
+                                levels = c(1, 2, 3, 4,5),
+                                labels = c("Psychology",
+                                           "Premed",
+                                           "Biology",
+                                           "Sociology",
+                                           "Economics"))) %>% 
+  dplyr::mutate(reasonF = factor(reason,
+                                 levels = c(1, 2, 3),
+                                 labels = c("Program requirement",
+                                            "Personal interest",
+                                            "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_condF = factor(exp_cond,
+                                   levels = c(1, 2, 3, 4),
+                                   labels = c("Easy",
+                                              "Moderate",
+                                              "Difficult",
+                                              "Impossible"))) %>% 
+  dplyr::mutate(coffeeF = factor(coffee,
+                                 levels = c(0, 1),
+                                 labels = c("Not a regular coffee drinker",
+                                            "Regularly drinks coffee")))  %>% 
+  dplyr::mutate(hr_base_bps = hr_base / 60) %>% 
+  dplyr::mutate(anx_plus = rowsums(anx_base, anx_pre, anx_post)) %>% 
+  dplyr::mutate(hr_avg = rowmeans(hr_base, hr_pre, hr_post)) %>% 
+  dplyr::mutate(statDiff = statquiz - exp_sqz)
+```
+
+\clearpage
+
+
+
+## Question C-1a. Matched pairs t-test
+
+**TEXTBOOK QUESTION:** *(a) Perform a matched-pairs t test to determine whether there is a significant increase in heart rate from baseline to the prequiz measurement. (b) Repeat these paired t tests separately for men and women.*
+
+-------------------------------
+
+**Directions:** Calculate the matched pairs t test between `hr_base`and `hr_pre` Then repeat the calculation TWICE more: first among just men and then for just women.
+
+> **Note:** Use the `dplyr::filter()` function to subset the sample BEFORE fitting the model.  Also, be aware of which type of variable you are using:  `genderF == "Male"` or `gender == 2` works, but `gender == male` does NOT.
+
+> **Note:** I suggest using `key = time` and `value = hr`.
+
+```{r Q11c1a}
+# Paired t-test: hr_base & hr_pre  <-- full sample
+```
+
+\clearpage
+
+
+
+```{r Q11c1b}
+# Paired t-test: hr_base & hr_pre  <-- subset of men
+```
+
+-------------------------------
+
+```{r Q11c1c}
+# Paired t-test: hr_base & hr_pre  <-- subset of women
+```
+
+\clearpage
+
+
+
+## Question C-2. More than Two Variables
+
+**TEXTBOOK QUESTION:** *(a) Perform a matched-pairs t test to determine whether there is a significant increase in anxiety from baseline to the prequiz measurement. (b) Perform a matched-pairs t test to determine whether there is a significant decrease in anxiety from the prequiz to the postquiz measurement.*
+
+-------------------------------
+
+**Directions:** Calculate the matched pairs t test first between `anx_base`and `anx_pre` and then between `anx_pre`and `anx_post`.
+
+> **Note:** I suggest using `key = time` and `value = anx`.
+
+```{r Q11c2a}
+# Paired t-test: anx_base & anx_pre 
+
+```
+
+\clearpage
+
+
+
+```{r Q11c2b}
+# Paired t-test: anx_pre & anx_post
+
+```
+
+\clearpage
+
+
+
+## Question C-3. Compared to Correlation
+
+**TEXTBOOK QUESTION:** *Perform a matched-pairs t test to determine whether there is a significant difference in mean scores between the experimental stats quiz and the regular stats quiz. Is the correlation between the two quizzes statistically significant? Explain any discrepancy between the significance of the correlation and the significance of the matched t test.*
+
+-------------------------------
+
+**Directions:** Calculate the matched pairs t test between `exp_sqz`and `statquiz`.
+
+> **Note:** I suggest using `key = type` and `value = score`.
+
+```{r Q11c3a}
+# Paired t-test: exp_sqz & statquiz
+
+```
+
+-------------------------------
+
+**Directions:** Compute Pearson's $r$: for `exp_sqz` and `statquiz`
+
+```{r Q11c3b}
+# Pearson's r: exp_sqz & statquiz
+
+```
+
+

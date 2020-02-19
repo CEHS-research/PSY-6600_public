@@ -1,0 +1,271 @@
+---
+title: "Psy/Educ 6600: Chapter 2"
+subtitle: "DISTRIBUTION and UNIVARIATE PLOTS"
+author: "Your Name"
+date: "Spring 2018"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    number_sections: false
+---
+
+\clearpage
+
+# PREPARATION
+
+```{r, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 4,        # set default figure width to 4 inches
+                      fig.height  = 3)        # set default figure height to 3 inches
+```
+
+## Packages
+
+* Make sure the packages are **installed** *(Package tab)*
+
+```{r}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(readxl)       # Read in Excel datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+library(psych)        # Lots of nice tid-bits
+```
+
+\clearpage
+
+
+
+# SECTION C
+
+## Import Data, Define Factors, and Compute New Variables
+
+* Make sure the **dataset** is saved in the same *folder* as this file
+* Make sure the that *folder* is the **working directory**
+
+> NOTE: I added the second line to convert all the variables names to lower case.  I still kept the `F` as a capital letter at the end of the five factor variables.
+
+```{r}
+data_clean <- read_excel("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(genderF = factor(gender, 
+                                 levels = c(1, 2),
+                                 labels = c("Female", 
+                                            "Male"))) %>% 
+  dplyr::mutate(majorF = factor(major, 
+                                levels = c(1, 2, 3, 4,5),
+                                labels = c("Psychology",
+                                           "Premed",
+                                           "Biology",
+                                           "Sociology",
+                                           "Economics"))) %>% 
+  dplyr::mutate(reasonF = factor(reason,
+                                 levels = c(1, 2, 3),
+                                 labels = c("Program requirement",
+                                            "Personal interest",
+                                            "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_condF = factor(exp_cond,
+                                   levels = c(1, 2, 3, 4),
+                                   labels = c("Easy",
+                                              "Moderate",
+                                              "Difficult",
+                                              "Impossible"))) %>% 
+  dplyr::mutate(coffeeF = factor(coffee,
+                                 levels = c(0, 1),
+                                 labels = c("Not a regular coffee drinker",
+                                            "Regularly drinks coffee")))  %>% 
+  dplyr::mutate(hr_base_bps = hr_base / 60) %>% 
+  dplyr::mutate(anx_plus = rowsums(anx_base, anx_pre, anx_post)) %>% 
+  dplyr::mutate(hr_avg = rowmeans(hr_base + hr_pre + hr_post)) %>% 
+  dplyr::mutate(statDiff = statquiz - exp_sqz)
+```
+
+\clearpage
+
+
+
+## Question C-1. Frequency Distribution and Bar Chart
+
+Request a frequency distribution using the `furniture::tableF(continuous_var)` function  
+
+```{r}
+# Frequency distrubution: majorF
+
+```
+
+
+
+Create a bar chart using `geom_bar()` for the Undergraduate Major (`majorF`) variable for Ihno's students.
+
+> Make sure to add the variable of interest into the asthetics: `ggplot(aes(continuous_var))` before adding the `geom_bar()` layer.
+
+```{r}
+# Bar Plot: majorF
+
+```
+
+\clearpage
+
+
+
+## Question C-2. Bar Charts
+
+Repeat Exercise 1 for the variables `prevmath` and `phobia`. 
+
+> IN THE WRITEUP: Would it make sense to request a histogram instead of a bar chart for phobia ? Discuss.
+
+```{r}
+# Frequency distrubution: prevmath
+
+```
+
+
+
+```{r}
+# Bar Plot: prevmath
+
+```
+
+
+
+```{r}
+# Frequency distrubution: phobia
+
+
+```
+
+
+
+```{r}
+# Bar Plot: phobia
+
+
+```
+
+\clearpage
+
+
+
+## Question C-3. Frequency Distribution and Histogram
+
+Request a frequency distribution and a histogram for the variable `statquiz`.  Use the option in the function `geom_histogram(bins = #)` to change the number of bins or `geom_histogram(binwidth = #)` to change the bin width to give a better figure.
+
+> IN THE WRITEUP: Describe the shape of this distribution.
+
+```{r}
+# Frequency distrubution: statquiz
+
+```
+
+
+
+```{r}
+# Histogram: statquiz, with a different number/width of bins
+
+```
+
+\clearpage
+
+
+
+## Question C-4. Frequency Distribution and Histogram
+
+Request a frequency distribution and a histogram for the variables baseline anxiety (`anx_base`) and baseline heart rate (`hr_base`). 
+
+> IN THE WRITEUP: Comment on R's choice of class intervals for each histogram.
+
+```{r}
+# Frequency distrubution: anx_base
+
+```
+
+
+
+```{r, fig.height=2.5}
+# Histogram: anx_base
+
+```
+
+\clearpage
+
+
+
+```{r}
+# Frequency distrubution: hr_base
+
+```
+
+
+
+```{r}
+# Histogram: hr_base
+
+```
+
+\clearpage
+
+
+
+## Question C-6.  Histograms -by- a Factor
+
+Request Histograms for the variables `anx_base` and `hr_base` divided by `genderF` using an additional `facet_grid(group_var ~ .)` layer to create two plots.
+
+```{r}
+# Histogram: anx_base, by genderF
+
+```
+
+
+
+```{r}
+# Histogram: hr_base, by genderF
+
+```
+
+\clearpage
+
+
+
+## Question C-9. Deciles and Quartiles
+
+Using the `quantile(probs = c(#, #, ..., #))` function, request the deciles and quartiles for the `phobia` variable.  
+
+> Make sure to add a `dplyr::pull(varname)` step to pull out only the one variable you are interested in.
+
+```{r}
+# Deciles: phobia
+
+```
+
+
+
+```{r}
+# Quartiles: phobia
+
+```
+
+
+
+## Question C-10. Various Percentiles
+
+Request the following percentiles for the variables `hr_base` and `hr_pre`: 15, 30, 42.5, 81, and 96.
+
+```{r}
+# Percentiles: hr_base
+
+```
+
+
+
+```{r}
+# Percentiles: hr_pre
+
+```
+
+

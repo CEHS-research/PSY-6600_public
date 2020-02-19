@@ -1,0 +1,224 @@
+---
+title: "Psy/Educ 6600: Chapter 13"
+subtitle: "Multiple Comparisons"
+author: "Your Name"
+date: "Spring 2018"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    number_sections: false
+---
+
+\clearpage
+
+# PREPARATION
+
+
+```{r oppts, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 5,        # set default figure width to 5 inches
+                      fig.height  = 3)        # set default figure height to 3 inches
+
+```
+
+## Packages
+
+Make sure the packages are **installed** *(Package tab)*
+
+```{r libraries}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(readxl)       # Read in Excel datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+library(afex)         # Analysis of Factorial Experiments
+library(emmeans)      # Estimated marginal means (Least-squares means)
+library(lsmeans)      # Least-Squares Means
+library(multcomp)     # Simultaneous Inference in General Parametric Models 
+```
+
+\clearpage
+
+
+
+# SECTION C
+
+## Import Data, Define Factors, and Compute New Variables
+
+Import Data, Define Factors, and Compute New Variables
+
+* Make sure the **dataset** is saved in the same *folder* as this file
+* Make sure the that *folder* is the **working directory**
+
+> NOTE: I added the second line to convert all the variables names to lower case.  I still kept the `F` as a capital letter at the end of the five factor variables.
+
+```{r ihno}
+ihno_clean <- read_excel("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(genderF = factor(gender, 
+                                 levels = c(1, 2),
+                                 labels = c("Female", 
+                                            "Male"))) %>% 
+  dplyr::mutate(majorF = factor(major, 
+                                levels = c(1, 2, 3, 4,5),
+                                labels = c("Psychology",
+                                           "Premed",
+                                           "Biology",
+                                           "Sociology",
+                                           "Economics"))) %>% 
+  dplyr::mutate(reasonF = factor(reason,
+                                 levels = c(1, 2, 3),
+                                 labels = c("Program requirement",
+                                            "Personal interest",
+                                            "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_condF = factor(exp_cond,
+                                   levels = c(1, 2, 3, 4),
+                                   labels = c("Easy",
+                                              "Moderate",
+                                              "Difficult",
+                                              "Impossible"))) %>% 
+  dplyr::mutate(coffeeF = factor(coffee,
+                                 levels = c(0, 1),
+                                 labels = c("Not a regular coffee drinker",
+                                            "Regularly drinks coffee")))  %>% 
+  dplyr::mutate(hr_base_bps = hr_base / 60) 
+```
+
+
+## `ihno_clean` Ihno's Dataset
+
+### Question C-1a One-Way ANOVA: LSD and Tukey as Post Hoc tests
+
+**TEXTBOOK QUESTION:** *(A) Redo the one-way ANOVA requested in exercise #1 in Section C of the previous chapter, selecting both LSD and Tukey as Post Hoc tests. For postquiz heart rate, which pairs of experimental conditions differ significantly from each other, according to each test? Can you justify using the results of the LSD test?* 
+
+**DIRECTIONS:** Using the ANOVA model saved as `aov_hr_post` previously, request all pair wise post hoc comparisons, by first piping `emmeans::emmeans(~ group_var)` followed by `pairs(adjust = "none")` to utilize Fisher's LSD correction for multiple comparisons.
+
+```{r Q13c1a_fisherlsd}
+# Pairwise post hoc: Fisher's LSD adjustment for multiple comparisons
+
+```
+
+--------------------------------
+
+**DIRECTIONS:** Repeat the above, but use `pairs(adjust = "tukey")` to utilize Tukey's HSD correction for multiple comparisons.
+
+```{r Q13c1a_tukeyhsd}
+# Pairwise post hoc: Tukey's HSD adjustment for multiple comparisons
+
+```
+
+\clearpage
+
+
+
+### Question C-1c Contrast: Impossible vs. Others
+
+**TEXTBOOK QUESTION:** *(C) Perform a contrast to compare the "impossible" condition with the other three for postquiz heart rate. How does the significance of this contrast compare to the one-way ANOVA? Explain. Looking at the means for the four conditions, design a contrast that you think would capture a large proportion of between-group variance.*
+
+--------------------
+
+**DIRECTIONS:** Using the sample recipe code chunk in the tutorial section, perform a contrast to compare the "impossible" condition with the other three for postquiz heart rate.
+
+```{r Q13c1c_contrast}
+# Contrast statement : Impossible vs. Rest
+
+```
+
+\clearpage
+
+
+
+### Question C-2a Post Hoc Pairwise: Tukey and Bonferroni
+
+**TEXTBOOK QUESTION:** *Redo the one-way ANOVA requested in Section C, exercise 2 of the previous chapter just for the mathquiz variable, selecting both Tukey and Bonferroni as Post Hoc tests in each case. Why is it problematic to use HSD with major as the factor in this dataset? Given the results of the post hoc tests, does the Tukey or Bonferroni test seem to have greater power when testing all possible pairs of means?*
+
+**DIRECTIONS:** Fit an one-way ANOVA model for the difference in mean `mathquiz` for each `majorF` and save the results under the name `aov_math_major`.
+
+```{r Q13c2a_aov}
+# One-way ANOVA: fit and save
+
+```
+
+------------------------
+
+**DIRECTIONS:** Request all pairwise post hoc comparisons TWICE, once via Tukey's HSD with the `adjust = "tukey"` option and a second time with `adjust = "bon"` within the `pairs()` function, applied after piping a `emmeans(~ group_var)` step to the ANOVA model.
+
+```{r Q13c2a_tukey}
+# Pairwise post hoc: Tukey's HSD adjustment for multiple comparisons
+
+```
+
+
+
+```{r Q13c2a_bon}
+# Pairwise post hoc: Bonferroni adjustment for multiple comparisons
+
+```
+
+
+
+### Question C-2b Contrast: (Biology and Sociology) vs. other three majors
+
+**TEXTBOOK QUESTION:** *Redo the one-way ANOVA requested in Section C, exercise 2 of the previous chapter just for the statquiz variable and request a contrast that compares the average of the Biology and Sociology majors to the average of the other three majors. Would this contrast be significant if it had been planned? Would this contrast be significant according to Scheffe's test?*
+
+**DIRECTIONS:** Fit an one-way ANOVA model using `afex::aov_4()` and add via pipes both `emmeans::emmeans(~ group_var)` and `contrast()` with appropriate weights.
+
+```{r Q13c2b_contrast}
+# Contrast statement: Bio and Soc vs. rest
+
+```
+
+\clearpage
+
+
+
+### Question C-4a One-Way ANOVA: prequiz anxiety by Phobia Group - LSD and Bonferroni
+
+**TEXTBOOK QUESTION:** *Perform a one-way ANOVA on the prequiz anxiety measurement ( anx_pre ) using the grouping variable you created in Section C, exercise 5 of the previous chapter (based on phobia ratings). Select both LSD and Bonferroni as your post hoc tests. Which pairs differ significantly for each test?*
+
+**DIRECTIONS:** Fit an one-way ANOVA model for the difference in mean `anx_pre` for each `phob_group` and save the results under the name `aov_anx_phob`.
+
+```{r Q13c4a_aov}
+# One-way ANOVA: fit and save
+
+```
+
+--------------------------
+
+**DIRECTIONS:** Request all pairwise post hoc comparisons TWICE, once via Fisher's LSD with the `adjust = "none"` option and a second time with `adjust = "bon"` within the `pairs()` function, applied after piping a `emmeans(~ group_var)` step to the ANOVA model.
+
+```{r Q13c4a_emmeans}
+# Pairwise post hoc: Fisher's LSD adjustment for multiple comparisons
+
+```
+
+
+
+```{r Q13c4a_emmeans_bon}
+# Pairwise post hoc: Bonferroni adjustment for multiple comparisons
+
+```
+
+\clearpage
+
+
+
+### Question C-4b Contrast: Students (low or moderate) phobia vs. high
+
+**TEXTBOOK QUESTION:** *Perform a contrast that compares students who had reported low or moderate phobia with those reporting high phobia. Calculate the effect size for this contrast. Is it small, medium, or large?*
+
+**DIRECTIONS:** Starting with the previously fitted `aov_anx_phob` ANOVA model, add via pipes both `emmeans::emmeans(~ group_var)` and `contrast()` with appropriate weights.
+
+```{r Q13c4b_contrast}
+# Contrast statement: high vs. rest
+
+```
+
+

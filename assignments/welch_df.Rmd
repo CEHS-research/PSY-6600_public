@@ -1,0 +1,42 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+
+```{r}
+SE_w <- function(s, n){
+  s^2 / n
+}
+
+df_w <- function(s1, n1, s2, n2){
+  
+  w1 = SE_w(s = s1, n = n1)
+  w2 = SE_w(s = s2, n = n2)
+  
+  (w1 + w2)^2 / (w1^2/(n1 - 1) + w2^2/(n2 - 1))
+}
+
+```
+
+# Advanced Material - Cohen, pg. 230-231
+
+```{r}
+df_w(s1 = 10,       n1 = 10, 
+     s2 = sqrt(10), n2 = 100)
+```
+
+```{r}
+df_w(s1 = 4,  n1 = 15,
+     s2 = 14, n2 = 15)
+```
+
+```{r}
+df_w(s1 = 5.3, n1 = 12,
+     s2 = 4.4, n2 = 12)
+```
+
+```{r}
+df_w(s1 = 10, n1 = 60,
+     s2 =  8, n2 = 60)
+```

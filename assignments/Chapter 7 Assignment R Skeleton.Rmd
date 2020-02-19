@@ -1,0 +1,287 @@
+---
+title: "Psy/Educ 6600: Chapter 7"
+subtitle: "Independent Samples t-Test for Means"
+author: "Your Name"
+date: "Spring 2019"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    number_sections: false
+---
+
+\clearpage
+
+# PREPARATION
+
+```{r, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 4,        # set default figure width to 4 inches
+                      fig.height  = 3)        # set default figure height to 3 inches
+
+```
+
+## Packages
+
+* Make sure the packages are **installed** *(Package tab)*
+
+```{r}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(readxl)       # Read in Excel datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+library(psych)        # Lots of nice tid-bits
+library(car)          # Companion to "Applied Regression"
+```
+
+\clearpage
+
+
+
+# SECTION C
+
+## Import Data, Define Factors, and Compute New Variables
+
+* Make sure the **dataset** is saved in the same *folder* as this file
+* Make sure the that *folder* is the **working directory**
+
+> NOTE: I added the second line to convert all the variables names to lower case.  I still kept the `F` as a capital letter at the end of the five factor variables.
+
+```{r}
+data_clean <- read_excel("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(genderF = factor(gender, 
+                                 levels = c(1, 2),
+                                 labels = c("Female", 
+                                            "Male"))) %>% 
+  dplyr::mutate(majorF = factor(major, 
+                                levels = c(1, 2, 3, 4,5),
+                                labels = c("Psychology",
+                                           "Premed",
+                                           "Biology",
+                                           "Sociology",
+                                           "Economics"))) %>% 
+  dplyr::mutate(reasonF = factor(reason,
+                                 levels = c(1, 2, 3),
+                                 labels = c("Program requirement",
+                                            "Personal interest",
+                                            "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_condF = factor(exp_cond,
+                                   levels = c(1, 2, 3, 4),
+                                   labels = c("Easy",
+                                              "Moderate",
+                                              "Difficult",
+                                              "Impossible"))) %>% 
+  dplyr::mutate(coffeeF = factor(coffee,
+                                 levels = c(0, 1),
+                                 labels = c("Not a regular coffee drinker",
+                                            "Regularly drinks coffee")))  %>% 
+  dplyr::mutate(hr_base_bps = hr_base / 60) %>% 
+  dplyr::mutate(anx_plus = rowsums(anx_base, anx_pre, anx_post)) %>% 
+  dplyr::mutate(hr_avg = rowmeans(hr_base + hr_pre + hr_post)) %>% 
+  dplyr::mutate(statDiff = statquiz - exp_sqz)
+```
+
+\clearpage
+
+
+
+## Question C-1. Independent Samples `t`-Test for Mean `hr_base` by `genderF`
+
+**TEXTBOOK QUESTION:**  *Perform a two-sample t test to determine whether there is a statistically significant difference in **baseline heart rate** between the **men and the women** of Ihno’s class. Do you have **homogeneity of variance**? Report your results as they might appear in a journal article. Include the 95% CI for this gender difference.*
+
+---------------------------
+
+### Assumption Check: Homogeneity of Variance
+
+**DIRECTIONS:** Before performing the test, check to see if the assumption of homogeneity of variance is met using **Levene's Test**.  For a independent samples `t`-test for means, the men and women need to have the same amount of spread (SD) in their baseline hear rates.
+
+ > **NOTE:** Use the `car::leveneTest()` function to do this.  Inside the funtion you need to specify at least three things (sepearated by commas):
+
+> * the formula:  `continuous_var ~ grouping_var` (replace with your variable names)
+
+> * the dataset:  `data = .` to pipe it from above
+
+> * the center:  `center = "mean"` since we are comparing means
+
+```{r}
+# Levene's F-test for HOV: hr_base by genderF
+
+```
+
+\clearpage
+
+
+
+### Perform the `t`-Test for Means in 2 Indep Groups 
+
+**DIRECTIONS:** Test if men and women have different baseline heart rates using the `t.test()` function.
+
+> Use the same `t.test()` funtion we have used in the prior chapters.  This time you need to specify a two mandatory options:
+
+> * the formula:  `continuous_var ~ grouping_var` (replace with your variable names)
+
+> * the dataset:  `data = .` to pipe it from above
+
+>There are also more optional options, the first of which is most commonly used:
+
+> * is homogeneity satified: `var.equal = TRUE` (NOT the default)
+
+> * independent vs. paired:  `paired = FALSE` (this is the default)
+
+> * confidence level: `conf.level = #` (defults to .95)
+
+
+```{r}
+# indep groups t-test for means: hr_base by genderF
+
+```
+
+\clearpage
+
+
+
+## Question C-2. Independent Samples `t`-Test for Mean `phobia` by `genderF`
+
+**TEXTBOOK QUESTION:**  *Repeat Exercise 1 for the phobia variable.*
+
+---------------------------
+
+## Assumtion Check: Homogeneity of Variance
+
+
+**DIRECTIONS:** Before performing the test, check to see if the assumption of homogeneity of variance is met using **Levene's Test**.  For a independent samples `t`-test for means, the men and women need to have the same amount of spread (SD) in their phobia self-ratings.
+
+```{r}
+# Levene's F-test for HOV: phobia by genderF
+
+```
+
+\clearpage
+
+
+
+### Perform the `t`-Test for Means in 2 Indep Groups 
+
+**DIRECTIONS:** Test if men and women have different phobia self-ratings using the `t.test()` function.
+
+```{r}
+# indep groups t-test for means: phobia by genderF
+
+```
+
+\clearpage
+
+
+
+## Question C-3. Independent Samples `t`-Test for Mean `hr_post` by `exp_condF` (Restricted to just the Easy vs.Imposible groups)
+
+**TEXTBOOK QUESTION:**  *Perform a two-sample `t` test to determine whether the students in the `impossible to solve` condition exhibited significantly higher postquiz heart rates than the students in the `easy to solve` condition at the .05 level. Is this t test significantly at the .01 level? Find the 99% CI for the difference of the two population means.*
+
+---------------------------
+
+### Assumtion Check: Homogeneity of Variance
+
+**DIRECTIONS:** Before performing the test, check to see if the assumption of homogeneity of variance is met using **Levene's Test**.  For a independent samples `t`-test for means, the **"Easy"** and **"Imposible"** groups have the same amount of spread (SD) in their post quiz.
+
+> Prior to running Levene's test, make sure to reduce your dataset by throwing out the students who were assigned the middle two difficulty levels of experimental quiz.  You can do this by prefacing levene's test with ` dplyr::filter(exp_condF %in% c("Easy", "Impossible"))`.
+
+```{r}
+# Levene's F-test for HOV: hr_post by exp_condF
+
+```
+
+\clearpage
+
+
+
+### Perform the `t`-Test for Means in 2 Indep Groups 
+
+**DIRECTIONS:** Test if **"Easy"** and **"Imposible"** groups have different phobia self-ratings using the `t.test()` function.  Make sure to change the default confidence level to 99%.
+
+> Prior to running the t-test, make sure to reduce your dataset by throwing out the students who were assigned the middle two difficulty levels of experimental quiz.  You can do this by prefacing levene's test with ` dplyr::filter(exp_condF %in% c("Easy", "Impossible"))`.
+>
+> Also, within the `t.test()` function, make sure to include `conf.level = 0.99` to create a 99% confidence interval, instead of the default 95%.
+
+```{r}
+# indep groups t-test for means: hr_post by exp_condF
+
+```
+
+\clearpage
+
+
+
+## Question C-4. Independent Samples `t`-Test for Mean `anx_post` by `exp_condF` (Restricted to just the Easy vs.Imposible groups)
+
+**TEXTBOOK QUESTIONS:** *Repeat Exercise 3 for the postquiz anxiety variable.*
+
+---------------------------
+
+### Assumption Check: Homogeneity of Variance
+
+**DIRECTIONS:** Before performing the test, check to see if the assumption of homogeneity of variance is met using **Levene's Test**.  For a independent samples `t`-test for means, the **"Easy"** and **"Imposible"** groups have the same amount of spread (SD) in their post quiz anxiety levels.
+
+> Prior to running Levene's test, make sure to reduce your dataset by throwing out the students who were assigned the middle two difficulty levels of experimental quiz.  You can do this by prefacing levene's test with ` dplyr::filter(exp_condF %in% c("Easy", "Impossible"))`.
+
+```{r}
+# Levene's F-test for HOV: anx_post by exp_condF
+
+```
+
+\clearpage
+
+
+
+### Perform the `t`-Test for Means in 2 Indep Groups 
+
+**DIRECTIONS:** Test if **"Easy"** and **"Imposible"** groups have different post quiz anxiety levels using the `t.test()` function.  Make sure to change the default confidence level to 99%.
+
+> Prior to running the t-test, make sure to reduce your dataset by throwing out the students who were assigned the middle two difficulty levels of experimental quiz.  You can do this by prefacing levene's test with ` dplyr::filter(exp_condF %in% c("Easy", "Impossible"))`.
+>
+> Also, within the `t.test()` function, make sure to include `conf.level = 0.99` to create a 99% confidence interval, instead of the default 95%.
+
+```{r}
+# indep groups t-test for means: anx_post by exp_condF
+
+```
+
+\clearpage
+
+
+
+## Question C-5. Independent Samples `t`-Test for Mean `hr_post` by `coffeeF`
+
+**TEXTBOOK QUESTIONS:** *Perform a two-sample t test to determine whether **coffee drinkers** exhibited significantly higher **postquiz heart rates** than nondrinkers at the .05 level. Is this t test significant at the .01 level? Find the **99%** confidence interval for the difference of the two population means and explain its connection to your decision regarding the null hypothesis at the **.01 level**.*
+
+---------------------------
+
+### Assumption Check: Homogeneity of Variance
+
+**DIRECTIONS:** Just like the last question, run **Levene's test** first.
+
+```{r}
+# Levene's F-test for HOV: hr_post by coffeeF
+
+```
+
+\clearpage
+
+
+
+### Perform the `t`-Test for Means in 2 Indep Groups 
+
+**DIRECTIONS:** Make sure to change the confidence level to **99%**.
+
+```{r}
+# indep groups t-test for means: hr_post by coffeeF
+
+```
+
+

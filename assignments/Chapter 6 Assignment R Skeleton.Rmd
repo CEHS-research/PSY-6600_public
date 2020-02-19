@@ -1,0 +1,163 @@
+---
+title: "Psy/Educ 6600: Chapter 6"
+subtitle: "Confidence Interval Estimation: The t Distribution"
+author: "Dr. Sarah Schwartz - Answer Key"
+date: "Spring 2019"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    number_sections: false
+---
+
+\clearpage
+
+# PREPARATION
+
+```{r, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 4,        # set default figure width to 4 inches
+                      fig.height  = 3)        # set default figure height to 3 inches
+
+```
+
+## Packages
+
+* Make sure the packages are **installed** *(Package tab)*
+
+```{r}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(readxl)       # Read in Excel datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+library(psych)        # Lots of nice tid-bits
+library(car)          # Companion to "Applied Regression"
+```
+
+\clearpage
+
+
+
+# SECTION C
+
+## Import Data, Define Factors, and Compute New Variables
+
+* Make sure the **dataset** is saved in the same *folder* as this file
+* Make sure the that *folder* is the **working directory**
+
+> NOTE: I added the second line to convert all the variables names to lower case.  I still kept the `F` as a capital letter at the end of the five factor variables.
+
+```{r}
+data_clean <- read_excel("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(genderF = factor(gender, 
+                                 levels = c(1, 2),
+                                 labels = c("Female", 
+                                            "Male"))) %>% 
+  dplyr::mutate(majorF = factor(major, 
+                                levels = c(1, 2, 3, 4,5),
+                                labels = c("Psychology",
+                                           "Premed",
+                                           "Biology",
+                                           "Sociology",
+                                           "Economics"))) %>% 
+  dplyr::mutate(reasonF = factor(reason,
+                                 levels = c(1, 2, 3),
+                                 labels = c("Program requirement",
+                                            "Personal interest",
+                                            "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_condF = factor(exp_cond,
+                                   levels = c(1, 2, 3, 4),
+                                   labels = c("Easy",
+                                              "Moderate",
+                                              "Difficult",
+                                              "Impossible"))) %>% 
+  dplyr::mutate(coffeeF = factor(coffee,
+                                 levels = c(0, 1),
+                                 labels = c("Not a regular coffee drinker",
+                                            "Regularly drinks coffee")))  %>% 
+  dplyr::mutate(hr_base_bps = hr_base / 60) %>% 
+  dplyr::mutate(anx_plus = rowsums(anx_base, anx_pre, anx_post)) %>% 
+  dplyr::mutate(hr_avg = rowmeans(hr_base + hr_pre + hr_post)) %>% 
+  dplyr::mutate(statDiff = statquiz - exp_sqz)
+```
+
+\clearpage
+
+
+
+## Question C-1. 1-sample `t`-tests for `anx_base`, `anx_pre`, and `anx_post`
+
+**TEXTBOOK QUESTION:** *Perform one-sample t tests to determine whether the baseline, pre-, or postquiz anxiety scores of Ihno’s students differ significantly ( $\alpha = .05$, two-tailed) from the mean ($\mu = 18$) found by a very large study of college students across the country. Find the 95% Cconfidence interval for the population mean for each of the **three** anxiety measures.*
+
+----------------------------
+
+**DIRECTIONS:**  Use the `t.test(mu = #)` function to perform a 1 sample `t`-test.  Make sure to specify the Null hypothesis value for $\mu$.
+
+> **NOTE:** You must use a `dplyr::pull()` step to pull out one variable from the dataset before you can use the `t.test()` function.
+
+```{r}
+# 1-sample t-test for: anx_base
+
+```
+
+---------------------------
+
+```{r}
+# 1-sample t-test for: anx_pre
+
+```
+
+\clearpage
+
+
+
+```{r}
+# 1-sample t-test for: anx_post
+
+```
+
+\clearpage
+
+
+
+## Question C-2. 1-sample `t`-tests for `hr_base` among MEN
+
+**TEXTBOOK QUESTION:** *Perform a one-sample t test to determine whether the average baseline heart rate of Ihno’s **male** students differs significantly from the **mean** heart rate ($\mu = 70$) for college-aged men at the **.01 level**, two-tailed. Find the **99%** confidence intervals for the population mean represented by Ihno’s **male** students.*
+
+------------------------
+
+**DIRECTIONS:** Similar to the last problem, use the `t.test(mu = #)` function to perform a 1 sample `t`-test.  This time, make sure the subset out the MEN only (`genderF == "Male"`) with a `dplyr::filter()` step prior to the `dplyr::pull()` step.
+
+> **Note:** To change from the default 95% confidence intervals, make sure to specify `conf.level = 0.99` inside the `t.test()` function.
+
+```{r}
+# 1-sample t-test for MALES: hr_base
+
+```
+
+
+\clearpage 
+
+
+
+## Question C-3. 1-sample `t`-tests for `hr_post` among FEMALE
+
+**TEXTBOOK QUESTION:** *Perform a one-sample t test to determine whether the average postquiz heart rate of Ihno’s **female** students differs significantly ($\alpha = .05$, two-tailed) from the **mean** resting heart rate ($\mu = 72$) for college-aged women. Find the 95% confidence interval for the population mean represented by Ihno’s **female** students.*
+
+----------------------------------
+
+**DIRECTIONS:** This time, subset out WOMEN (`genderF == "Female"`) and choose the post-quiz heart rate.  Also, use a different population null value ($\mu$).
+
+```{r}
+# 1-sample t-test for FEMALES: hr_post
+
+```
+
+
