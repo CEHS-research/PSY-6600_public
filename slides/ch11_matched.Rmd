@@ -1,0 +1,160 @@
+---
+title: "Matched t-Tests"
+subtitle: "Cohen Chapter 11 <br><br> .small[EDUC/PSY 6600]"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: pres2.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center",   # center all figures
+                      fig.width   = 6.5,        # set default figure width to 4 inches
+                      fig.height  = 4.5)        # set default figure height to 3 inches
+```
+
+class: center, middle
+
+## "…we are suffering from a plethora of surmise, conjecture, and hypothesis. The difficulty is to detach the framework of fact *– of absolute undeniable fact –* from the embellishments of theorists and reporters."
+
+#### - Sherlock Holmes, *Silver Blaze*
+
+
+---
+## Motivating Examples
+
+.large[
+- Dr. Filburn wishes to assess the **effectiveness** of a leadership workshop for 60 middle managers. The 60 managers are rated by their immediate supervisors on the Leadership Rating Form (LRF), .coral[before] **and** .nicegreen[after] the workshop.
+]
+
+--
+
+.large[
+- Dr. Clarke is interested in determining if workers are more concerned with job security **or** pay. He gains the cooperation of 30 individuals who work in different settings and asks each employee to rate his or her concern about .coral[salary level] **and** .nicegreen[job security], on a scale from 1 to 10.
+]
+
+--
+
+.large[
+- Dr. Gale questions whether husbands **or** wives with infertility problems feel equally anxious. She recruits 24 infertile couples and then administers the Infertility Anxiety Measure (IAM) to both the .coral[husbands] **and** the .nicegreen[wives].
+]
+
+
+---
+# Compare Two Means: *t*-Test
+
+.pull-left[
+## Independent Groups
+.large[
+- Assumes two "Simple Random Samples" (SRS)
+- Each sample is at least **representive** of its corresponding population
+- All members of **EACH** the samples are **INDEPENDENT** of all others
+- There is no connection between members of the two samples
+]]
+
+--
+
+.pull-right[
+## Dependent Groups
+.large[
+- The assumption of independence has been violated,  resulting in a **DEPENDENCY** across groups
+- Variance of DV smaller as groups consist of same or closely matched cases
+]]
+
+
+
+---
+
+.pull-left[
+## Also known as...
+.large[
+- Matched samples t-test
+- Matched pairs t-test
+- Paired samples t-test
+- Related samples t-test 
+- Correlated samples t-test 
+- Dependent samples t-test 
+- Non-independent samples t-test 
+- Repeated-measures t-test
+]]
+
+--
+
+.pull-right[
+## Applicable Situations
+.large[
+- Parent-child dyads
+- Litter mates
+- Twins
+- Pre and Post measures (same variable)
+- Two different measures per person
+]]
+
+
+---
+
+
+.pull-left[
+## Experimental
+.large[
+- Matching groups on some variable(s) 
+   +  E.g., sex, age, education
+- Reduces potential confounds on IV-DV relationship or when cases cannot receive both conditions
+]]
+
+--
+
+.pull-left[
+## Observational
+.large[
+- Samples naturally related, correlated, or dependent based on the nature of the situation
+- repeated measures taken on the same person
+- Measures can be **successive** or **simultaneous**
+]]
+
+
+---
+# Repeated-Measures: successive designs
+
+.large[
+- 2 measurements, conditions, or sets of stimuli are applied to cases **sequentially**
+- Before-and-after (or longitudinal) designs
+    + Pre- / post-test
+    + time 1 / time 2
+- Cross-over designs (each particiapnt gets both contintions)
+    + Order effects? 
+    + Need to **counterbalance** order
+- Random subset of cases 
+    + Half get: A then B
+    + Half get: B then A
+- Counterbalancing may not eliminate **carry-over effects**
+    + Wash-out period
+]
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Matched T-Test

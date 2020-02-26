@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Matched t-Tests</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="pres2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Matched t-Tests
+## Cohen Chapter 11 <br><br> .small[EDUC/PSY 6600]
+
+---
+
+
+
+
+class: center, middle
+
+## "…we are suffering from a plethora of surmise, conjecture, and hypothesis. The difficulty is to detach the framework of fact *– of absolute undeniable fact –* from the embellishments of theorists and reporters."
+
+#### - Sherlock Holmes, *Silver Blaze*
+
+
+---
+## Motivating Examples
+
+.large[
+- Dr. Filburn wishes to assess the **effectiveness** of a leadership workshop for 60 middle managers. The 60 managers are rated by their immediate supervisors on the Leadership Rating Form (LRF), .coral[before] **and** .nicegreen[after] the workshop.
+]
+
+--
+
+.large[
+- Dr. Clarke is interested in determining if workers are more concerned with job security **or** pay. He gains the cooperation of 30 individuals who work in different settings and asks each employee to rate his or her concern about .coral[salary level] **and** .nicegreen[job security], on a scale from 1 to 10.
+]
+
+--
+
+.large[
+- Dr. Gale questions whether husbands **or** wives with infertility problems feel equally anxious. She recruits 24 infertile couples and then administers the Infertility Anxiety Measure (IAM) to both the .coral[husbands] **and** the .nicegreen[wives].
+]
+
+
+---
+# Compare Two Means: *t*-Test
+
+.pull-left[
+## Independent Groups
+.large[
+- Assumes two "Simple Random Samples" (SRS)
+- Each sample is at least **representive** of its corresponding population
+- All members of **EACH** the samples are **INDEPENDENT** of all others
+- There is no connection between members of the two samples
+]]
+
+--
+
+.pull-right[
+## Dependent Groups
+.large[
+- The assumption of independence has been violated,  resulting in a **DEPENDENCY** across groups
+- Variance of DV smaller as groups consist of same or closely matched cases
+]]
+
+
+
+---
+
+.pull-left[
+## Also known as...
+.large[
+- Matched samples t-test
+- Matched pairs t-test
+- Paired samples t-test
+- Related samples t-test 
+- Correlated samples t-test 
+- Dependent samples t-test 
+- Non-independent samples t-test 
+- Repeated-measures t-test
+]]
+
+--
+
+.pull-right[
+## Applicable Situations
+.large[
+- Parent-child dyads
+- Litter mates
+- Twins
+- Pre and Post measures (same variable)
+- Two different measures per person
+]]
+
+
+---
+
+
+.pull-left[
+## Experimental
+.large[
+- Matching groups on some variable(s) 
+   +  E.g., sex, age, education
+- Reduces potential confounds on IV-DV relationship or when cases cannot receive both conditions
+]]
+
+--
+
+.pull-left[
+## Observational
+.large[
+- Samples naturally related, correlated, or dependent based on the nature of the situation
+- repeated measures taken on the same person
+- Measures can be **successive** or **simultaneous**
+]]
+
+
+---
+# Repeated-Measures: successive designs
+
+.large[
+- 2 measurements, conditions, or sets of stimuli are applied to cases **sequentially**
+- Before-and-after (or longitudinal) designs
+    + Pre- / post-test
+    + time 1 / time 2
+- Cross-over designs (each particiapnt gets both contintions)
+    + Order effects? 
+    + Need to **counterbalance** order
+- Random subset of cases 
+    + Half get: A then B
+    + Half get: B then A
+- Counterbalancing may not eliminate **carry-over effects**
+    + Wash-out period
+]
+
+
+
+
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Matched T-Test
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
