@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Power and Effect Size</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="pres2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Power and Effect Size
+## Cohen Chapter 8 <br><br> .small[EDUC/PSY 6600]
+
+---
+
+
+
+
+class: center, middle
+
+
+
+
+
+## "I have so heavily emphasized the desirability of working with &lt;br&gt;**few variables and large sample sizes** &lt;br&gt; that some of my students have spread the rumor that my idea of  the **perfect study** is one with 10,000 cases and no variables. &lt;br&gt; **They go too far.** "
+
+### -- Cohen (1990) ["Things I Have Learned (So Far)"](https://tech.me.holycross.edu/files/2015/03/Cohen_1990.pdf) p. 1305
+
+---
+
+## “Next, I have learned and taught that the primary product of research inquiry is one or more measures of **effect size**, not p values.”
+
+
+### -- Cohen (1994) ["Things I Have Learned (So Far)"](https://tech.me.holycross.edu/files/2015/03/Cohen_1990.pdf) p. 1310
+
+---
+
+## "However, as social scientists move gradually away from reliance on single studies and obsession with null hypothesis testing, **effect size** measures will become more and more popular"
+
+### -- Abelson (1995) ["Statistics as Principled Argument"](https://www.taylorfrancis.com/books/9781410601155) p. 47
+
+
+---
+
+
+.pull-left[
+
+&lt;img src="figures/matrix_jury.png" width="740" style="display: block; margin: auto;" /&gt;
+
+]
+
+--
+
+.pull-right[
+
+&lt;img src="figures/matrix_stats.png" width="792" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+
+.pull-leftsmall[.large[
+When we conduct a hypothesis test, 
+we wither reject or fail to reject the Null Hypothesis.  
+Our decision usually causes four outcomes:
+]]
+
+
+.pull-rightbig[
+
+&lt;img src="figures/confusion_matrix.png" width="629" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+
+---
+
+.pull-left[
+
+&lt;img src="figures/preg_type_1.png" width="1013" style="display: block; margin: auto;" /&gt;
+
+* Test Concludes: Reject the Null Hypothesis
+* But the Truth is: Null Hypothesis is TRUE
+
+$$
+\alpha = P(\text{False Positive})
+$$
+]
+
+--
+
+.pull-right[
+
+&lt;img src="figures/preg_type_2.png" width="1015" style="display: block; margin: auto;" /&gt;
+
+* Test Concludes: Fail to reject the Null Hypothesis
+* But the Truth is: Null Hypothesis is FALSE
+
+$$
+\beta = P(\text{False Negative})
+$$
+
+]
+
+
+---
+
+
+.pull-left[
+## Distribution Possible
+
+&lt;img src="figures/bell_testimony.gif" width="100%" style="display: block; margin: auto;" /&gt;
+
+Distribution of possible witnesses in a trial **when the accused is innocent**.
+
+Note: [Figures from Tom Rodgers website](http://www.intuitor.com/statistics/T1T2Errors.html)
+
+]
+
+--
+
+.pull-right[
+### Standard of Judgement
+
+Distribution of possible witnesses in a trial **when the accused is innocent**, showing the probable outcomes with **a single witness**.
+
+&lt;img src="figures/bell_testimony2.gif" width="75%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+
+What happens not only to innocent suspects but also guilty ones when they are arrested and tried for crimes. In this case, the criminals are c**learly guilty** and face **certain** punishment if arrested.
+
+&lt;img src="figures/power_high.gif" width="75%" style="display: block; margin: auto;" /&gt;
+
+If the police bungle the investigation and arrest an innocent suspect, there is still a chance that the innocent person could go to jail. Also, since the normal distribution extends to infinity in both positive and negative directions there is a very slight chance that a guilty person could be found on the left side of the standard of judgment and be incorrectly set free.  
+
+---
+
+Unfortunately, justice is often not as straightforward as illustrated on the last slide. This slide shows the **more typical case** in which the real criminals are **not so clearly guilty**. Notice that the means of the two distributions are much **closer** together. 
+
+&lt;img src="figures/power_low.gif" width="60%" style="display: block; margin: auto;" /&gt;
+
+As before, if bungling police officers arrest an innocent suspect there's a **small chance** that the wrong person will be convicted. However, there is now also a **significant chance** that a guilty person will be set free. This is represented by the yellow/green area under the curve on the left and is a type II error.
+
+
+---
+
+**Increasing sample size** is an obvious way to reduce both types of errors for either the justice system or a hypothesis test. 
+
+&lt;img src="figures/power_n.gif" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+An increase of sample size **narrows** the distribution. Why? Because the distribution represents the **average** of the entire sample instead of just a single data point
+
+
+---
+## POWER = `\(1 - \beta\)`
+
+* Reject the Null Hypothesis
+* Null Hypothesis is FALSE
+
+
+
+
+---
+
+
+&lt;img src="figures/meme_pval.jpg" width="449" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Independent Samples t Tests for Means
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
