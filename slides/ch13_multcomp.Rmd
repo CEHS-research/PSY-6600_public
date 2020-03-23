@@ -1,0 +1,104 @@
+---
+title: "Post Hoc Tests and Multiple Comparisons"
+subtitle: "Cohen Chapter 13 <br><br> .small[EDUC/PSY 6600]"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: pres2.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center",   # center all figures
+                      fig.width   = 6.5,        # set default figure width to 4 inches
+                      fig.height  = 4.5)        # set default figure height to 3 inches
+```
+
+class: center, middle
+
+## "We have to go to the deductions and the inferences,” said Lestrade, winking at me.  “I find it hard enough to tackle facts, Holmes, without flying away after theories and fancies."
+
+#### - Inspector Lestrade to Sherlock Holmes, *The Boscombe Valley Mystery*
+
+
+---
+
+#### 1st - Omnibus: ANOVA *F*-test
+
+> QUESTION: **Does** the Grouping factor  **have an effect on** Continuous measures, on average **?**
+
+> ANSWER: If the p-value of the F ratio is smaller than alpha...
+
+--
+
+* .nicegreen[AT LEAST ONE] of the groups has a different MEAN
+* All of the groups are .nicegreen[NOT] from same population
+
+--
+ 
+#### 2nd - Followup: Pairwise *t*-tests
+
+* Which of the groups (factor levels) differ? 
+* Must .nicegreen[compare] and .nicegreen[contrast] means from different levels
+
+--
+
+.pull-left[
+.large[**Simple Comparisons**]
+
+* Compare **EXACTLY 2** group means
+* Focus on 1 pair (2 groups) at a time
+* Possible for .nicegreen[no ‘pair’] of group means to significantly differ
+]
+
+--
+
+.pull-left[
+.large[**Complex Comparisons**]
+
+* Compare **MORE THAN 2** group means
+* Collapse the groups into two meta-groups
+* Takes more thought and .nicegreen[effort] to get right 
+]
+
+
+---
+
+### Multiple Comparison Procedures
+
+* Used to detect **simple** or **complex** differences
+* Significant omnibus test **NOT** always necessary
+* Inaccurate when assumptions violated
+* Type II error
+
+--
+
+> OKAY to conduct multiple comparisons when p-value **CLOSE** to significance
+
+---
+
+[]()
+
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Two-Way ANOVA
