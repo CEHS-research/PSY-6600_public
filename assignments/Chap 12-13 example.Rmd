@@ -1,0 +1,129 @@
+---
+title: "Chapter 13 Multiple Comparisons"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(furniture)
+library(afex)
+library(emmeans)
+```
+
+
+
+```{r}
+df <- data.frame(None = c(8, 10, 9, 10, 9),
+                      Classical = c(7, 8, 5, 8, 5),
+                      Rock = c(4, 8, 7, 5, 7))%>% 
+  tidyr::pivot_longer(cols = c(None, Classical, Rock),
+                      names_to = "music",
+                      values_to = "memorized",
+                      names_ptype = list(music = factor())) %>% 
+  dplyr::arrange(music) %>% 
+  dplyr::mutate(id = row_number() %>% factor()) %>% 
+  dplyr::select(id, music, memorized) 
+
+
+df
+```
+
+
+
+```{r}
+df %>%
+  group_by(music) %>%
+  furniture::table1(memorized)
+```
+
+```{r}
+df %>% 
+  ggplot(aes(x = music,
+             y = memorized)) +
+  geom_boxplot()
+```
+
+
+
+```{r}
+df %>% 
+  car::leveneTest(memorized ~ music,
+                  data = .,
+                  center = "mean")
+```
+
+
+```{r} 
+fit_aov <- df %>%
+  afex::aov_4(memorized ~ music + (1|id),
+              data = .)
+
+fit_aov$Anova
+```
+
+
+```{r}
+fit_aov %>% 
+  emmeans::emmeans(~ music)
+```
+
+
+```{r}
+fit_aov %>% 
+  emmeans::emmeans(~ music) %>% 
+  pairs(adjust = "none")
+```
+
+```{r}
+fit_aov %>% 
+  emmeans::emmeans(~ music) %>% 
+  pairs(adjust = "tukey")
+```
+
+```{r}
+fit_aov %>% 
+  emmeans::emmeans(~ music) %>% 
+  pairs(adjust = "bon")
+```
+
+
+
+```{r}
+fit_aov %>% 
+  emmeans::emmeans(~ music) %>% 
+  contrast(list("1. None vs. Some"    = c(2, -1, -1),
+                "2. Classic vs. Rock" = c(0,  1, -1)))
+```
+
+```{r}
+fit_aov %>% 
+  emmeans::emmeans(~ music) %>% 
+  contrast(list("1. None vs. Some"    = c(2, -1, -1),
+                "2. Classic vs. Rock" = c(0,  1, -1)),
+           adjust = "bon")
+```
+
+
+
+```{r}
+fit_aov %>% 
+  emmeans::emmeans(~ music) %>% 
+  contrast(list("1. None vs. Some"    = c(2, -1, -1),
+                "2. Classic vs. Rock" = c(0,  1, -1)),
+           adjust = "scheffe")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
