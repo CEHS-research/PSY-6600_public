@@ -40,7 +40,6 @@ library(readxl)       # Read in Excel datasets
 library(furniture)    # Nice tables (by our own Tyson Barrett)
 library(afex)         # Analysis of Factorial Experiments
 library(emmeans)      # Estimated marginal means (Least-squares means)
-library(lsmeans)      # Least-Squares Means
 library(multcomp)     # Simultaneous Inference in General Parametric Models 
 ```
 
@@ -88,7 +87,14 @@ ihno_clean <- read_excel("Ihno_dataset.xls") %>%
                                  levels = c(0, 1),
                                  labels = c("Not a regular coffee drinker",
                                             "Regularly drinks coffee")))  %>% 
-  dplyr::mutate(hr_base_bps = hr_base / 60) 
+  dplyr::mutate(hr_base_bps = hr_base / 60) %>% 
+  dplyr::mutate(phob_group = case_when(phobia <3            ~ 1,
+                                       phobia %in% c(3, 4)  ~ 2,
+                                       phobia >= 5          ~ 3)) %>% 
+  dplyr::mutate(phob_group = factor(phob_group,
+                                    levels = c(1, 2, 3),
+                                    labels = c("Low", "Moderate", "High"))) %>% 
+  dplyr::mutate(hr_diff = hr_pre - hr_base)  
 ```
 
 
@@ -96,7 +102,24 @@ ihno_clean <- read_excel("Ihno_dataset.xls") %>%
 
 ### Question C-1a One-Way ANOVA: LSD and Tukey as Post Hoc tests
 
-**TEXTBOOK QUESTION:** *(A) Redo the one-way ANOVA requested in exercise #1 in Section C of the previous chapter, selecting both LSD and Tukey as Post Hoc tests. For postquiz heart rate, which pairs of experimental conditions differ significantly from each other, according to each test? Can you justify using the results of the LSD test?* 
+**TEXTBOOK QUESTION:** *(A) Redo the one-way ANOVA requested in exercise #1 in Section C of the previous chapter, selecting both LSD and Tukey as Post Hoc tests. For postquiz heart rate, which pairs of experimental conditions differ significantly from each other, according to each test? Can you justify using the results of the LSD test?*
+
+```{r}
+ihno_clean %>% 
+  ggplot(aes(x = exp_condF,
+             y = hr_post)) +
+  stat_summary()
+```
+
+
+```{r}
+aov_hr_post <- ihno_clean %>% 
+  afex::aov_4(hr_post ~ exp_condF + (1|sub_num),
+              data = .)
+
+aov_hr_post$Anova
+```
+
 
 **DIRECTIONS:** Using the ANOVA model saved as `aov_hr_post` previously, request all pair wise post hoc comparisons, by first piping `emmeans::emmeans(~ group_var)` followed by `pairs(adjust = "none")` to utilize Fisher's LSD correction for multiple comparisons.
 
