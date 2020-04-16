@@ -1,0 +1,160 @@
+---
+title:    "Two-way Factorial ANOVA"
+subtitle: "Interactions"
+author:   "Dr. Sarah Schwartz"
+date:     "USU: Educ/Psy 6600"
+output: pdf_document
+---
+
+```{r oppts, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      error       = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 5,        # set default figure width to 5 inches
+                      fig.height  = 3)        # set default figure height to 3 inches
+
+```
+
+# Preparation
+
+## Packages
+
+```{r}
+library(tidyverse)
+library(furniture)
+library(afex)
+library(emmeans)
+```
+
+\clearpage
+
+## Functions
+
+### Data Generation  
+
+* Row Factor = `drug`, 2 levels
+    1. `Antidepressant`
+    2. `Placebo`
+
+
+* Column Factor = `therapy`, 3 levels
+    1. `Psychoanalysis`
+    2. `Group Therapy`
+    3. `Behavior Modification`
+
+
+Function Options:
+* `mu_j` = cell means vector, *default = 2*
+* `n_j` = cell sub-sample size vector, *default = 10*
+* `sd_j` = cell standard deviation vector, *default = 1.75*
+
+> all vectors are lengeht 6, or recycled if shorter
+
+```{r}
+gen2x3 <- function(mu_j = 2,  
+                   n_j  = 10, 
+                   sd_j = 1.75){
+  expand.grid(drug    = c("Antidepressant", 
+                          "Placebo"),
+              therapy = c("Psychoanalysis",
+                          "Group Therapy",
+                          "Behavior Modification")) %>% 
+    dplyr::mutate(mean = mu_j) %>% 
+    dplyr::mutate(panic = purrr::map(mean, 
+                                     rnorm, 
+                                     n = n_j, 
+                                     sd = sd_j)) %>% 
+    tidyr::unnest(panic) %>% 
+    dplyr::mutate(id = row_number()) %>% 
+    dplyr::group_by(drug, therapy) %>% 
+    dplyr::mutate(rep = row_number()) %>% 
+    dplyr::ungroup() %>% 
+    dplyr::mutate(id = factor(id)) %>% 
+    dplyr::mutate(reg = factor(rep)) %>% 
+    dplyr::select(id, rep, drug, therapy, panic)
+}
+```
+
+\clearpage
+
+### Two-way Means Table
+
+Cells contain: *M* (*S*D) [*n*]
+
+```{r}
+tab2x3 <- function(df){
+  df %>%
+    dplyr::group_by(therapy, drug) %>% 
+    dplyr::summarise(m  = panic %>% mean() %>% round(2),
+                     sd = panic %>% sd() %>% round(2),
+                     n  = n()) %>% 
+    dplyr::mutate(cell = glue::glue("{m} ({sd}) [{n}]")) %>% 
+    dplyr::select(drug, therapy, cell) %>% 
+    tidyr::pivot_wider(names_from = therapy,
+                       values_from = cell) %>% 
+    pander::pander()
+}
+```
+
+### Two-way Means Plot
+
+```{r}
+plot2x3 <- function(df){
+  df %>% 
+    ggplot(aes(x = therapy,
+               y = panic,
+               group = drug,
+               shape = drug,
+               color = drug)) +
+    stat_summary(position = position_dodge(width = .2)) +
+    stat_summary(aes(linetype = drug),
+                 position = position_dodge(width = .2),
+                 fun.y = mean,
+                 geom = "line") +
+    theme_bw()
+}
+```
+
+
+\clearpage
+
+## Generate Datasets
+
+### Set random seed
+
+```{r}
+set.seed(1)
+```
+
+
+### Datasets
+
+```{r}
+df_0 <- gen2x3() # all defaults
+```
+
+
+# No Effects
+
+## Exploratory Data Analysis
+
+```{r}
+tibble::glimpse(df_0)
+```
+
+
+```{r}
+tab2x3(df_0)
+```
+
+```{r}
+plot2x3(df_0)
+```
+
+
