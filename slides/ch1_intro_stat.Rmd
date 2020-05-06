@@ -60,6 +60,37 @@ background-size: 900px
 # Observational vs. Experimental
 
 
+
+
+---
+# Population vs. Sample
+
+
+**Parameter**
+
+* applies to the entire population
+
+**Statistic**
+
+* calculated from a subset or sample
+
+---
+# Parametric vs. Non-parametric Statistics
+
+**Parametric**
+
+* Based on a specific distribution (i.e. normal)
+* Interval, ratio scales
+* can be mokre powerful
+* accuracy influenced by outliers
+
+**Non-parametric**
+
+* ordinal or norminal scores
+* NOT base on any specific distribution
+* no assumption makes it more flexible
+
+
 ---
 # Rounding Numbers
 
@@ -154,6 +185,9 @@ $$
 \sum (X_i \times Y_i) \neq \sum X_i \times \sum Y_i
 $$
 ]
+
+
+
 
 ---
 class: inverse, middle, center

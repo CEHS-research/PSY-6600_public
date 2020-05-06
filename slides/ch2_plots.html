@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Data Visualization</title>
     <meta charset="utf-8" />
@@ -13,7 +13,6 @@ class: center, middle, inverse, title-slide
 ## Cohen Chapter 2 <br><br> .small[EDUC/PSY 6600]
 
 ---
-
 
 
 
@@ -121,11 +120,11 @@ Can see .dcoral[central tendency] (continuous data) or .dcoral[most common value
                     
                     ------------------------------------------------------
                      x       Freq CumFreq Percent CumPerc Valid  CumValid
-                     1       247  247     24.70%  24.70%  25.31% 25.31%  
-                     2       234  481     23.40%  48.10%  23.98% 49.28%  
-                     3       231  712     23.10%  71.20%  23.67% 72.95%  
-                     4       264  976     26.40%  97.60%  27.05% 100.00% 
-                     Missing 24   1000    2.40%   100.00%                
+                     1       248  248     24.80%  24.80%  25.78% 25.78%  
+                     2       233  481     23.30%  48.10%  24.22% 50.00%  
+                     3       248  729     24.80%  72.90%  25.78% 75.78%  
+                     4       233  962     23.30%  96.20%  24.22% 100.00% 
+                     Missing 38   1000    3.80%   100.00%                
                     ------------------------------------------------------
 ```
 
@@ -191,6 +190,143 @@ What differences do you notice between them?
 - Pie chart - avoid!
 ]]]
 
+
+
+---
+
+## Example: Household Size
+
+Table 2.5, page 29
+
+
+
+
+
+
+
+```
+
+-----------------------------------
+ size Freq CumFreq Percent CumPerc
+ 2    1    1       4.00%   4.00%  
+ 4    4    5       16.00%  20.00% 
+ 5    1    6       4.00%   24.00% 
+ 6    7    13      28.00%  52.00% 
+ 7    3    16      12.00%  64.00% 
+ 8    5    21      20.00%  84.00% 
+ 9    2    23      8.00%   92.00% 
+ 10   2    25      8.00%   100.00%
+-----------------------------------
+```
+
+---
+
+
+
+
+
+
+
+
+
+.pull-left[
+### Bar Chart
+#### Discrete: spaces between bars
+![](ch2_plots_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+]
+
+--
+
+.pull-right[
+### Histogram
+#### Continuous: no space between bars
+![](ch2_plots_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+]
+
+
+---
+
+.pull-left[
+### Histogram
+![](ch2_plots_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+
+]
+
+--
+
+.pull-right[
+### Frequency Polygon
+![](ch2_plots_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+
+]
+
+---
+
+.pull-left[
+### Frequency Polygon (like histogram)
+![](ch2_plots_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+]
+
+--
+
+.pull-right[
+### Cummulative Frequency Polygon (Ogive)
+![](ch2_plots_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+]
+
+---
+
+### Ogive
+
+.pull-left[
+#### Count
+![](ch2_plots_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+
+]
+
+--
+.pull-right[
+#### Proportion
+![](ch2_plots_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+]
+
+---
+## Linear Interpolation
+
+
+.pull-left[
+#### Twentyth percentile 
+![](ch2_plots_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+
+]
+
+--
+
+.pull-right[
+#### Upper Qualtile (75th percentile)
+![](ch2_plots_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+
+]
+
+
+---
+
+## Real vs Theoretical Distributions
+
+![](figures/textbook_fig_2.5.png)&lt;!-- --&gt;
+
+
+
+
+
+
+
+
+
 ---
 class: inverse, center, middle
 
@@ -248,15 +384,15 @@ data_clean %&gt;%
 ```
 
 ```
-## 
-## -----------------------------------------
-##  majorF     Freq CumFreq Percent CumPerc
-##  Psychology 29   29      29.00%  29.00% 
-##  Premed     25   54      25.00%  54.00% 
-##  Biology    21   75      21.00%  75.00% 
-##  Sociology  15   90      15.00%  90.00% 
-##  Economics  10   100     10.00%  100.00%
-## -----------------------------------------
+
+-----------------------------------------
+ majorF     Freq CumFreq Percent CumPerc
+ Psychology 29   29      29.00%  29.00% 
+ Premed     25   54      25.00%  54.00% 
+ Biology    21   75      21.00%  75.00% 
+ Sociology  15   90      15.00%  90.00% 
+ Economics  10   100     10.00%  100.00%
+-----------------------------------------
 ```
 ]
 
@@ -268,21 +404,21 @@ data_clean %&gt;%
 ```
 
 ```
-## 
-## -------------------------------------
-##  phobia Freq CumFreq Percent CumPerc
-##  0      12   12      12.00%  12.00% 
-##  1      15   27      15.00%  27.00% 
-##  2      12   39      12.00%  39.00% 
-##  3      16   55      16.00%  55.00% 
-##  4      21   76      21.00%  76.00% 
-##  5      11   87      11.00%  87.00% 
-##  6      1    88      1.00%   88.00% 
-##  7      4    92      4.00%   92.00% 
-##  8      4    96      4.00%   96.00% 
-##  9      1    97      1.00%   97.00% 
-##  10     3    100     3.00%   100.00%
-## -------------------------------------
+
+-------------------------------------
+ phobia Freq CumFreq Percent CumPerc
+ 0      12   12      12.00%  12.00% 
+ 1      15   27      15.00%  27.00% 
+ 2      12   39      12.00%  39.00% 
+ 3      16   55      16.00%  55.00% 
+ 4      21   76      21.00%  76.00% 
+ 5      11   87      11.00%  87.00% 
+ 6      1    88      1.00%   88.00% 
+ 7      4    92      4.00%   92.00% 
+ 8      4    96      4.00%   96.00% 
+ 9      1    97      1.00%   97.00% 
+ 10     3    100     3.00%   100.00%
+-------------------------------------
 ```
 ]
 
@@ -316,7 +452,7 @@ data_clean %&gt;%
   geom_bar()
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -329,7 +465,7 @@ data_clean %&gt;%
   geom_bar()
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -343,7 +479,7 @@ data_clean %&gt;%
   geom_bar()
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -356,7 +492,7 @@ data_clean %&gt;%
   geom_bar()
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -379,7 +515,7 @@ data_clean %&gt;%
 ]
 
 .pull-right[
-![](ch2_plots_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -395,7 +531,7 @@ data_clean %&gt;%
   geom_histogram()
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -408,7 +544,7 @@ data_clean %&gt;%
   geom_histogram(bins = 8)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -424,7 +560,7 @@ data_clean %&gt;%
   geom_histogram(bins = 4)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -437,7 +573,7 @@ data_clean %&gt;%
   geom_histogram(bins = 10)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -451,7 +587,7 @@ data_clean %&gt;%
   geom_histogram(binwidth = 10)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -464,7 +600,7 @@ data_clean %&gt;%
   geom_histogram(binwidth = 4)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -479,7 +615,7 @@ data_clean %&gt;%
   facet_grid(. ~ coffeeF)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -493,7 +629,7 @@ data_clean %&gt;%
   facet_grid(coffeeF ~ .)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -507,8 +643,8 @@ data_clean %&gt;%
 ```
 
 ```
-##  0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 
-## 1.0 4.0 6.0 6.0 7.0 7.0 8.0 8.0 8.0 8.1
+ 0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 
+1.0 4.0 6.0 6.0 7.0 7.0 8.0 8.0 8.0 8.1 
 ```
 
 ---
@@ -538,8 +674,8 @@ data_clean %&gt;%
 ```
 
 ```
-##   0%  10%  20%  30%  40%  50%  60%  70%  80%  90% 
-##  9.0 15.0 21.0 25.2 28.0 30.0 32.0 33.8 37.2 41.0
+  0%  10%  20%  30%  40%  50%  60%  70%  80%  90% 
+ 9.0 15.0 21.0 25.2 28.0 30.0 32.0 33.8 37.2 41.0 
 ```
 
 
@@ -554,8 +690,8 @@ data_clean %&gt;%
 ```
 
 ```
-##   0%  25%  50%  75% 100% 
-##    1    6    7    8   10
+  0%  25%  50%  75% 100% 
+   1    6    7    8   10 
 ```
 
 ---
@@ -569,8 +705,8 @@ data_clean %&gt;%
 ```
 
 ```
-##    1%    5% 17.3%   90% 
-##  2.98  3.00  5.00  8.10
+   1%    5% 17.3%   90% 
+ 2.98  3.00  5.00  8.10 
 ```
 
 
@@ -634,6 +770,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -651,17 +813,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {
