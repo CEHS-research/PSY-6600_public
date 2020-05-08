@@ -93,68 +93,194 @@ background-size: 900px
 
 
 ---
-# Rounding Numbers
+# Rounding Numbers: Rules
 
 ### Rules
 
 .large[
-- If you want to round to N decimal places, look at the digit in the `\(N + 1\)` place…
-    - If it is LESS than 5 -&gt; do not change the digit in the Nth place
-    - If it is MORE than 5 -&gt; increase the digit in the Nth place by 1
-    - If it is EQUAL to 5 AND there are no non-zero digits to the right, -&gt; increase the digit in the Nth place by 1 ONLY IF the Nth digit is ODD (do not change it if it is EVEN)
+If you want to round to N decimal places, look at the digit in the `\(N + 1\)` place…
+- If it is LESS than 5 -&gt; do not change the digit in the Nth place
+- If it is MORE than 5 -&gt; increase the digit in the Nth place by 1
+- If it is EQUAL to 5 AND there are no non-zero digits to the right, -&gt; increase the digit in the Nth place by 1 ONLY IF the Nth digit is ODD (do not change it if it is EVEN)
 
-In all cases, the last step is to drop the digit in the `\(N+1\)` place and other digits to the right
 ]
 
+In all cases, the last step is to drop the digit in the `\(N+1\)` place and other digits to the right
+
+---
+# Rounding Numbers: Examples
+
+
+Round to **two** decimal places
+
+.pull-left[
+
+- `\(65.3\)`
+- `\(8/3\)`
+- `\(0.4255\)`
+- `\(0.4358\)`
+- `\(0.425\)`
+- `\(0.435\)`
+
+]
 
 --
 
-.center[.huge[.coral[Examples]]]
+.pull-right[
 
-???
+- `\(65.30\)`
+- `\(2.67\)`
+- `\(0.43\)`
+- `\(0.44\)`
+- `\(0.42\)`
+- `\(0.44\)`
 
-Round to two decimal places
+]
 
-- `\(65.3 = 65.30\)`
-- `\(8/3 = 2.67\)`
-- `\(0.4255 = 0.43\)`
-- `\(0.4358 = 0.44\)`
-- `\(0.425 = 0.42\)`
-- `\(0.435 = 0.44\)`
+---
+
+
+
+![](figures/sigma_notation_nice.jpg)&lt;!-- --&gt;
+
+
 
 
 ---
-background-image: url(figures/fig_summation_notation.png)
-background-position: 50% 50%
-background-size: 500px
 
-# Summation Notation
+# Summation: Example 1
 
-&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
-
-.center[.Huge[.coral[Examples]]]
-
-???
-Some examples up on the board:
 
 $$
-\frac{1}{5}\sum_{i = 1}^5 x_i
+x_1 = 5, \; x_2 = 4, \; x_3 = 3, \; x_4 = 2, \; x_5 = 1
 $$
+$$
+y_1 = 10, \; y_2 = 20, \; y_3 = 30, \; y_4 = 40, \; y_5 = 50
+$$
+
+--
+
+$$
+\sum_{i = 1}^5 x_i
+$$
+
+--
+
+$$
+= x_1 + x_2 + x_3 + x_4 + x_5 
+$$
+
+--
+
+$$
+= 5 + 4 + 3 + 2 + 1 
+$$
+--
+
+$$
+= 15
+$$
+
+---
+
+
+# Summation: Example 2
+
+
+$$
+x_1 = 5, \; x_2 = 4, \; x_3 = 3, \; x_4 = 2, \; x_5 = 1
+$$
+
+
+$$
+y_1 = 10, \; y_2 = 20, \; y_3 = 30, \; y_4 = 40, \; y_5 = 50
+$$
+
+
+
 
 $$
 \sum_{i = 1}^2 (x_i + y_i)
 $$
 
+--
+
 $$
-\sum_{i = 1}^n y_i
+= (x_1 + y_1) + (x_2 + y_2) 
 $$
+
+--
+
+$$
+= (5 + 10) + (4 + 20) 
+$$
+
+--
+
+$$
+= (15) + (24) 
+$$
+
+--
+
+$$
+= 39
+$$
+
+
+---
+
+
+# Summation: Example 3
+
+
+$$
+x_1 = 5, \; x_2 = 4, \; x_3 = 3, \; x_4 = 2, \; x_5 = 1
+$$
+
+
+$$
+y_1 = 10, \; y_2 = 20, \; y_3 = 30, \; y_4 = 40, \; y_5 = 50
+$$
+
+
 
 $$
 \sum_{i = 1}^2 (x_i \times y_i)
 $$
 
+
+--
+
+$$
+= (x_1 \times y_1) + (x_2 \times y_2) 
+$$
+
+--
+
+$$
+= (5 \times 10) + (4 \times 20) 
+$$
+
+--
+
+$$
+= (50) + (80) 
+$$
+
+--
+
+$$
+= 130
+$$
+
+
+
+
+
+
 ---
-# Summation Rules
+# Summation: Rules
 
 .pull-left[
 #### Number 1
@@ -279,24 +405,105 @@ The pro's heavily outweight the con's *if* you are willing to use it. It can sav
 ]]
 
 ---
-.pull-left[
-## .coral[Objects]
 
-.large[.large[
+## .coral[Objects] are Nouns
+
 Virtual objects are like physical objects (e.g., a car is good to travel in, a table not so much)
 
-`R` uses virtual objects (`data.frame`, `vectors`)
-]]
+`R` uses virtual objects 
+
+- a `vector` is values concatinated together
+- a `data.frame` is a group of vectors of the same length
+
+--
+
+.pull-left[
+
+.large[.bluer[Vector]]
+
+concatinate or combine
+
 
 
 ```r
-x &lt;- 5
+c(1, 3, 5, 7, 11, 13)
+```
+
+```
+&gt; [1]  1  3  5  7 11 13
+```
+
+]
+
+--
+
+
+.pull-right[
+
+.large[.bluer[Data Frame]]
+
+named vectors of the same length
+
+
+```r
+data.frame(x = c(1, 3, 5, 7),
+           y = c(2, 4, 6, 8))
+```
+
+```
+&gt;   x y
+&gt; 1 1 2
+&gt; 2 3 4
+&gt; 3 5 6
+&gt; 4 7 8
+```
+]
+
+
+
+---
+
+## .coral[Objects]: save into global environment
+
+.pull-left[
+
+
+.large[Assignment symbol:  .coral[&lt;-]]
+
+
+.large[.bluer[Constant]]
+
+
+
+```r
+fred &lt;- 13
+```
+
+
+```r
+fred
+```
+
+```
+&gt; [1] 13
 ```
 
 
 
+.large[.bluer[Vector]]
+
+
 ```r
-x = 5
+odds &lt;- c(1, 3, 5, 7, 11, 13)
+```
+
+
+```r
+odds
+```
+
+```
+&gt; [1]  1  3  5  7 11 13
 ```
 
 ]
@@ -304,14 +511,14 @@ x = 5
 --
 
 .pull-right[
-## .bluer[Vectors] and .nicegreen[Data Frames]
 
-.large[.large[
-- a `vector` is a single variable (can be numeric, character, or factor)
-- a `data.frame` is a group of vectors (variables)
-]]
+.large[.bluer[Data Frame]]
 
 
+```r
+df &lt;- data.frame(x = c(1, 3, 5, 7),
+                 y = c(2, 4, 6, 8))
+```
 
 
 ```r
@@ -320,46 +527,538 @@ df
 
 ```
 &gt;   x y
-&gt; 1 5 1
-&gt; 2 3 1
-&gt; 3 4 0
-&gt; 4 1 0
+&gt; 1 1 2
+&gt; 2 3 4
+&gt; 3 5 6
+&gt; 4 7 8
+```
+
+
+]
+
+
+
+
+---
+
+## .coral[Class] of a variable: .nicegreen[numeric (dbl)]
+
+
+.pull-leftbig[
+
+
+```r
+df &lt;- data.frame(id   = c(100, 101, 102, 103),
+                 name = c("Joe", "Jill", "Meg", "Pat"),
+                 age  = c(10, 9, 10, 11),
+                 trt  = as.factor(c("A", "B", "A", "B")))
+```
+
+
+```r
+df
+```
+
+```
+&gt;    id name age trt
+&gt; 1 100  Joe  10   A
+&gt; 2 101 Jill   9   B
+&gt; 3 102  Meg  10   A
+&gt; 4 103  Pat  11   B
+```
+
+]
+
+--
+
+
+
+.pull-rightsmall[
+
+.large[dataframe.coral[$]variable]
+
+
+
+```r
+df$id
+```
+
+```
+&gt; [1] 100 101 102 103
+```
+
+.large[numbers are not quoted]
+
+
+
+```r
+class(df$id)
+```
+
+```
+&gt; [1] "numeric"
 ```
 
 ]
 
 ---
-# Functions: Its how we do stuff in `R`
+
+## .coral[Class] of a variable: .nicegreen[numeric (dbl)]
+
+
+.pull-leftbig[
+
+
+```r
+df &lt;- data.frame(id   = c(100, 101, 102, 103),
+                 name = c("Joe", "Jill", "Meg", "Pat"),
+                 age  = c(10, 9, 10, 11),
+                 trt  = as.factor(c("A", "B", "A", "B")))
+```
+
+
+```r
+df
+```
+
+```
+&gt;    id name age trt
+&gt; 1 100  Joe  10   A
+&gt; 2 101 Jill   9   B
+&gt; 3 102  Meg  10   A
+&gt; 4 103  Pat  11   B
+```
+
+]
+
+
+.pull-rightsmall[
+
+.large[dataframe.coral[$]variable]
+
+
+```r
+df$age
+```
+
+```
+&gt; [1] 10  9 10 11
+```
+
+.large[numbers are not quoted]
+
+
+```r
+class(df$age)
+```
+
+```
+&gt; [1] "numeric"
+```
+
+]
+
+---
+
+## .coral[Class] of a variable: .nicegreen[character (chr)]
+
+
+.pull-leftbig[
+
+
+```r
+df &lt;- data.frame(id   = c(100, 101, 102, 103),
+                 name = c("Joe", "Jill", "Meg", "Pat"),
+                 age  = c(10, 9, 10, 11),
+                 trt  = as.factor(c("A", "B", "A", "B")))
+```
+
+
+```r
+df
+```
+
+```
+&gt;    id name age trt
+&gt; 1 100  Joe  10   A
+&gt; 2 101 Jill   9   B
+&gt; 3 102  Meg  10   A
+&gt; 4 103  Pat  11   B
+```
+
+]
+
+
+
+.pull-rightsmall[
+
+.large[dataframe.coral[$]variable]
+
+
+```r
+df$name
+```
+
+```
+&gt; [1] "Joe"  "Jill" "Meg"  "Pat"
+```
+
+.large[text is quoted]
+
+
+```r
+class(df$name)
+```
+
+```
+&gt; [1] "character"
+```
+
+]
+
+
+---
+
+## .coral[Class] of a variable: .nicegreen[factor (fct)]
+
+
+.pull-leftbig[
+
+
+```r
+df &lt;- data.frame(id   = c(100, 101, 102, 103),
+                 name = c("Joe", "Jill", "Meg", "Pat"),
+                 age  = c(10, 9, 10, 11),
+                 trt  = as.factor(c("A", "B", "A", "B")))
+```
+
+
+```r
+df
+```
+
+```
+&gt;    id name age trt
+&gt; 1 100  Joe  10   A
+&gt; 2 101 Jill   9   B
+&gt; 3 102  Meg  10   A
+&gt; 4 103  Pat  11   B
+```
+
+]
+
+
+
+.pull-rightsmall[
+
+.large[dataframe.coral[$]variable]
+
+
+```r
+df$trt
+```
+
+```
+&gt; [1] A B A B
+&gt; Levels: A B
+```
+
+.large[factors have levels]
+
+
+```r
+class(df$trt)
+```
+
+```
+&gt; [1] "factor"
+```
+
+]
+
+---
+## .coral[Functions] are Verbs
+
 
 .pull-left[.large[
 
-Generally looks like:
+Generally looks like: 
 
-- `stuff(arg1, arg2)`
-    - `stuff` is the function's name
-    - `()` surround the arguments that go in the function
-    -`arg1` etc. are the pieces of information we give a function
+`stuff(arg1, arg2)`
+
+- `stuff` function's name
+- `()` surround the arguments
+- `arg1` arguments or options
 ]]
 
 --
 
 .pull-right[
-.large[Here's an example of the "mean" function:
+.large[Example: "mean" function
 
-- Using our `df` data.frame from before
-    - we grab a single variable from `df` using `$`
-- `mean()` wants a single variable and it provides the average
+- `mean()` 
+- 1 argument required: a variable
+- returns variable's average
 ]
 
 ```r
 ## This is a comment
-mean(df$x)
+mean(df$age)
 ```
 
 ```
-## [1] 3.25
+&gt; [1] 10
 ```
 ]
+
+---
+
+## .coral[Functions] are Verbs
+
+![](figures/data_verb_input_output.png)&lt;!-- --&gt;
+
+
+---
+## .coral[Missing Values] are lack of data
+
+- `NA` represents missing or blank values
+- there are no quotes around the `NA`
+
+.pull-leftbig[
+
+
+```r
+df &lt;- data.frame(id   = c(100, 101, 102, 103),
+                 name = c("Joe", "Jill", "Meg", "Pat"),
+                 age  = c(10, 9.5, NA, 11),
+                 trt  = as.factor(c("A", "B", "A", "B")))
+```
+
+
+```r
+df
+```
+
+```
+&gt;    id name  age trt
+&gt; 1 100  Joe 10.0   A
+&gt; 2 101 Jill  9.5   B
+&gt; 3 102  Meg   NA   A
+&gt; 4 103  Pat 11.0   B
+```
+
+]
+
+--
+
+.pull-rightsmall[
+
+
+
+```r
+mean(df$age)
+```
+
+```
+&gt; [1] NA
+```
+
+
+default: 
+- keeps in missing values
+- NA in data cases NA in mean
+
+
+```r
+mean(df$age, na.rm = TRUE)
+```
+
+```
+&gt; [1] 10.16667
+```
+
+]
+
+
+
+
+---
+
+## .coral[Functions]: what package is it from?
+
+
+.pull-leftsmall[
+
+Function in Base R
+
+
+```r
+dim(df)
+```
+
+```
+&gt; [1] 4 4
+```
+
+
+
+```r
+names(df)
+```
+
+```
+&gt; [1] "id"   "name" "age"  "trt"
+```
+
+
+]
+
+--
+
+.pull-rightbig[
+
+Function from a specific package
+
+
+```r
+tibble::glimpse(df)
+```
+
+```
+&gt; Rows: 4
+&gt; Columns: 4
+&gt; $ id   &lt;dbl&gt; 100, 101, 102, 103
+&gt; $ name &lt;chr&gt; "Joe", "Jill", "Meg", "Pat"
+&gt; $ age  &lt;dbl&gt; 10.0, 9.5, NA, 11.0
+&gt; $ trt  &lt;fct&gt; A, B, A, B
+```
+
+]
+
+
+
+---
+
+## The .coral[Tidyverse]
+
+![](figures/tidyverse.png)&lt;!-- --&gt;
+
+---
+
+## The .coral[Tidyverse]
+
+
+https://rworkshop.uni.lu/lectures/lecture05_dplyr.html#1 
+
+
+```r
+library(tidyverse)
+```
+
+```
+&gt; -- Attaching packages --- tidyverse 1.3.0 --
+```
+
+```
+&gt; v ggplot2 3.3.0     v purrr   0.3.4
+&gt; v tibble  3.0.1     v dplyr   0.8.5
+&gt; v tidyr   1.0.2     v stringr 1.4.0
+&gt; v readr   1.3.1     v forcats 0.5.0
+```
+
+```
+&gt; -- Conflicts ------ tidyverse_conflicts() --
+&gt; x dplyr::filter() masks stats::filter()
+&gt; x dplyr::lag()    masks stats::lag()
+```
+
+
+
+---
+## The .coral[Pipe] links steps
+
+
+The symbol is typed .nicegreen[`%&gt;%`]
+
+.pull-left[
+
+
+```r
+mean(df$age, na.rm = TRUE)
+```
+
+```
+&gt; [1] 10.16667
+```
+
+
+```r
+df$age %&gt;% mean(na.rm = TRUE)
+```
+
+```
+&gt; [1] 10.16667
+```
+
+]
+
+.pull-right[
+
+
+![](figures/pipe_verb.png)&lt;!-- --&gt;
+
+]
+
+
+---
+
+![](figures/pipeline_1.png)&lt;!-- --&gt;
+
+
+---
+
+
+&lt;img src="figures/pipeline_step1.png" width="75%" /&gt;
+
+--
+
+&lt;img src="figures/pipeline_step2.png" width="75%" /&gt;
+
+---
+## Build a .coral[Pipeline]
+
+
+![](figures/chaining_data_verbs.png)&lt;!-- --&gt;
+
+---
+
+![](figures/pipeline_1.png)&lt;!-- --&gt;
+
+
+---
+
+&lt;img src="figures/pipline_compare.PNG" width="75%" /&gt;
+
+
+
+---
+
+&lt;img src="figures/pipline_compare_arrows.PNG" width="75%" /&gt;
+
+---
+
+&lt;img src="figures/pipeline_stesp_pipe.png" width="75%" /&gt;
+
+
+
+
+
+---
+
+## Build a .coral[Pipeline]
+
+![](figures/assembly-line.png)&lt;!-- --&gt;
+
 
 ---
 # Important first steps in `R`
@@ -402,36 +1101,41 @@ mean(df$x)
 .huge[Generally, it all works in a similar way]
 
 ---
-# Read in data
+# Read in data: FORMAT
 
-
-- .large[If your data is called `my_data_file.csv`, then:]
+.large[Text: .bluer[Comma-seperated]]
 
 
 ```r
-my_data &lt;- rio::import("my_data_file.csv")
+my_data &lt;- read.csv("my_data_file.csv")
 ```
 
 --
 
-- .large[If your data is called `my_data_file.txt` (and is tab-delimited), then:]
+.large[Text: .bluer[tab-delimited]]
 
 
 ```r
-my_data &lt;- rio::import("my_data_file.txt", sep="\t", header=TRUE)
+my_data &lt;- read.delim("my_data_file.txt")
 ```
 
 --
 
-- .large[If your data is an SPSS file, then:]
+.large[.bluer[Excel]]: .xls, .xlsx
 
 
 ```r
-my_data &lt;- rio::import("my_data_file.sav")
+library(readxl)
+my_data &lt;- readxl::read_excel("my_data_file.xlsx")
 ```
 
+--
+
+.large[.bluer[SPSS]]: .sav
+
 
 ```r
+library(haven)
 my_data &lt;- haven::read_spss("my_data_file.sav")
 ```
 
@@ -463,215 +1167,29 @@ Data is in .sav form (SPSS)
 
 
 ```r
-library(rio)
-d &lt;- rio::import("data/Ihno_dataset.sav")
+library(readxl)
+d &lt;- readxl::read_excel("data/Ihno_dataset.xls")
 d
 ```
 
 
 ```
-##     Sub_num Gender Major Reason Exp_cond Coffee Num_cups Phobia Prevmath
-## 1         1      1     1      3        1      1        0      1        3
-## 2         2      1     1      2        1      0        0      1        4
-## 3         3      1     1      1        1      0        0      4        1
-## 4         4      1     1      1        1      0        0      4        0
-## 5         5      1     1      1        1      0        1     10        1
-## 6         6      1     1      1        2      1        1      4        1
-## 7         7      1     1      1        2      0        0      4        2
-## 8         8      1     1      3        2      1        2      4        1
-## 9         9      1     1      1        2      0        0      4        1
-## 10       10      1     1      1        2      1        2      5        0
-## 11       11      1     1      1        2      0        1      5        1
-## 12       12      1     1      1        2      0        0      4        0
-## 13       13      1     1      1        2      0        1      7        0
-## 14       14      1     1      3        3      0        2      4        1
-## 15       15      1     1      1        4      1        3      3        1
-## 16       16      1     1      1        4      1        0      8        0
-## 17       17      1     1      1        4      0        0      4        1
-## 18       18      1     1      1        4      1        3      5        1
-## 19       19      1     1      3        4      1        2      0        3
-## 20       20      1     2      1        2      1        1      4        1
-## 21       21      1     2      2        2      1        2      4        0
-## 22       22      1     2      1        3      1        0      3        1
-## 23       23      1     2      1        3      0        2      4        1
-## 24       24      1     2      2        2      1        2      0        3
-## 25       25      1     2      2        3      1        2      1        3
-## 26       26      1     2      2        4      0        0      1        4
-## 27       27      1     2      2        4      1        2      0        6
-## 28       28      1     2      3        1      1        3      4        2
-## 29       29      1     2      1        1      0        0      3        2
-## 30       30      1     2      3        1      1        0      5        1
-## 31       31      1     3      1        1      1        1      9        1
-## 32       32      1     3      1        3      1        3      3        0
-## 33       33      1     3      1        4      1        2      4        1
-## 34       34      1     3      2        1      1        1      1        1
-## 35       35      1     3      2        1      0        0      2        1
-## 36       36      1     3      2        2      1        1      0        0
-## 37       37      1     3      2        4      1        2      3        1
-## 38       38      1     3      3        1      0        0      2        0
-## 39       39      1     3      3        2      0        1      8        1
-## 40       40      1     3      3        4      0        0      4        1
-## 41       41      1     3      3        4      0        0      4        1
-## 42       42      1     4      2        1      0        0      0        1
-## 43       43      1     4      2        2      1        0      3        1
-## 44       44      1     4      2        4      0        0      2        1
-## 45       45      1     4      2        4      0        0      2        1
-## 46       46      1     4      2        4      0        1      1        0
-## 47       47      1     4      3        1      0        0      1        1
-## 48       48      1     4      3        1      1        1      5        0
-## 49       49      1     4      3        2      1        1      5        1
-## 50       50      1     4      3        3      0        0      4        1
-## 51       51      1     4      3        3      0        0      4        1
-## 52       52      1     4      3        4      1        0     10        0
-## 53       53      1     4      3        4      0        0      7        1
-## 54       54      1     5      1        3      1        1      3        5
-## 55       55      1     5      1        3      1        2      4        1
-## 56       56      1     5      2        4      0        1      2        2
-## 57       57      1     5      3        1      0        0      2        0
-## 58       58      2     1      1        1      1        1      1        1
-## 59       59      2     1      2        1      0        0      7        0
-## 60       60      2     1      1        2      0        1      5        0
-## 61       61      2     1      1        3      1        1      5        1
-## 62       62      2     1      1        3      0        0      1        2
-## 63       63      2     1      1        3      0        0      3        0
-## 64       64      2     1      1        4      0        0      3        1
-## 65       65      2     1      1        4      0        1      5        1
-## 66       66      2     1      2        2      0        0      1        4
-## 67       67      2     1      3        1      0        0      0        3
-## 68       68      2     2      1        2      0        0      5        0
-## 69       69      2     2      1        3      0        0      6        2
-## 70       70      2     2      1        3      1        1      3        2
-## 71       71      2     2      1        4      1        1      5        0
-## 72       72      2     2      1        4      1        2      4        2
-## 73       73      2     2      2        3      0        0      0        4
-## 74       74      2     2      2        3      0        0      2        4
-## 75       75      2     2      2        4      0        0      2        3
-## 76       76      2     2      3        1      0        0      3        1
-## 77       77      2     2      1        2      1        1      1        2
-## 78       78      2     2      3        2      0        0      1        3
-## 79       79      2     2      3        3      1        1      0        2
-## 80       80      2     2      3        3      0        0      2        2
-## 81       81      2     2      3        4      0        1     10        0
-## 82       82      2     3      1        1      0        0      3        1
-## 83       83      2     3      1        1      0        1      3        1
-## 84       84      2     3      1        1      1        1      8        1
-## 85       85      2     3      1        1      1        0      3        1
-## 86       86      2     3      3        2      0        0      3        1
-## 87       87      2     3      2        2      1        0      1        0
-## 88       88      2     3      2        3      0        0      1        4
-## 89       89      2     3      3        2      0        0      2        0
-## 90       90      2     3      3        3      0        0      8        1
-## 91       91      2     3      3        3      1        1      3        1
-## 92       92      2     4      2        1      0        0      0        1
-## 93       93      2     4      2        4      0        0      0        2
-## 94       94      2     4      3        3      1        2      4        0
-## 95       95      2     5      3        3      0        0      7        2
-## 96       96      2     5      2        2      1        1      0        1
-## 97       97      2     5      2        3      0        0      0        2
-## 98       98      2     5      2        3      0        0      2        2
-## 99       99      2     5      2        4      1        1      1        4
-## 100     100      2     5      1        2      0        0      2        2
-##     Mathquiz Statquiz Exp_sqz Hr_base Hr_pre Hr_post Anx_base Anx_pre Anx_post
-## 1         43        6       7      71     68      65       17      22       20
-## 2         49        9      11      73     75      68       17      19       16
-## 3         26        8       8      69     76      72       19      14       15
-## 4         29        7       8      72     73      78       19      13       16
-## 5         31        6       6      71     83      74       26      30       25
-## 6         20        7       6      70     71      76       12      15       19
-## 7         13        3       4      71     70      66       12      16       17
-## 8         23        7       7      77     87      84       17      19       22
-## 9         38        8       7      73     72      67       20      14       17
-## 10        NA        7       6      78     76      74       20      24       19
-## 11        29        8      10      74     72      73       21      25       22
-## 12        32        8       7      73     74      74       32      35       33
-## 13        18        1       3      73     76      78       19      23       20
-## 14        NA        5       4      72     83      77       18      27       28
-## 15        21        8       6      72     74      68       21      27       22
-## 16        NA        3       1      76     76      79       14      18       21
-## 17        37        8       7      68     67      74       15      19       18
-## 18        37        7       4      77     78      73       39      39       40
-## 19        32       10       9      74     74      75       20      12       18
-## 20        NA        7       7      74     75      73       15      11       20
-## 21        25        7       6      74     84      77       19      27       23
-## 22        22        4       3      73     71      79       18      13       19
-## 23        35        8       7      71     74      76       18      22       25
-## 24        47        8       7      75     75      71       23      28       24
-## 25        41        6       6      76     73      72       18      24       26
-## 26        26        7       6      71     76      75       14      10       18
-## 27        39        8       8      74     79      79       17      12       16
-## 28        21        7       8      78     79      73       18      13       16
-## 29        NA        7       9      70     63      66       18      12       14
-## 30        22        4       7      73     78      69       21      14       17
-## 31        21        8       8      75     83      73       18      21       23
-## 32        NA        7       6      78     76      84       24      27       25
-## 33        26        8       7      76     74      81       17      26       15
-## 34        20        8       9      76     69      71       17      25       19
-## 35        30        6       9      69     69      64       22      16       18
-## 36        40        8       9      77     79      74       21      14       19
-## 37        35        8       7      78     73      78       19      12       17
-## 38        10        7       8      74     72      72       15      21       16
-## 39        35        6       5      71     70      75       20      27       22
-## 40        44        6       4      67     67      73       12      19       17
-## 41        26        7       5      77     78      78       21      15       15
-## 42        NA        9      11      71     72      67       20      23       21
-## 43        15        3       4      76     79      71       19      21       17
-## 44        42        7       7      69     70      64       13      24       22
-## 45        33        8       7      72     64      68       20      14       22
-## 46        29        6       6      72     79      76       22      27       24
-## 47        39        7       8      71     63      66       15      21       13
-## 48        38        8       8      71     82      79       20      26       26
-## 49        NA        5       4      75     76      70       16      18       23
-## 50        24        7       6      74     76      75       22      27       23
-## 51        NA        7       5      74     74      69       30      36       32
-## 52        26        5       2      78     80      80       19      24       24
-## 53        14        5       3      68     78      73       20      29       30
-## 54        45        9       9      76     79      75       15       8       17
-## 55        28        8       8      73     78      77       19      13       18
-## 56        31        8       7      74     78      82       27      21       24
-## 57        NA        8       9      72     67      67       16      20       22
-## 58        32        8      10      74     84      76       17      19       14
-## 59        15        3       6      73     73      71       19      16       16
-## 60        26        8       7      73     74      76       16      20       17
-## 61        26        8       7      80     82      86       18      27       20
-## 62        32        5       5      67     68      73       20      25       24
-## 63        21        8       7      65     75      69       26      29       23
-## 64        43        8       8      71     72      76       18      13       16
-## 65        NA        8       5      72     75      68       21      26       27
-## 66        34        9      11      70     73      65       11      19        9
-## 67        33       10      11      72     67      68       16      25       15
-## 68        30        7       7      69     70      74       18      15       15
-## 69        46        8       6      68     74      71       16      10       17
-## 70        NA        7       7      76     79      71       19      13       15
-## 71        33        7       4      68     71      77       18      21       19
-## 72        29        7       6      76     79      71       22      15       20
-## 73        30        9      10      69     70      74       15      21       17
-## 74        34        8       7      68     70      69       18      21       19
-## 75        32        9       8      70     62      71       17      23       19
-## 76        37        6       8      70     73      77       15      23       14
-## 77        NA        8      10      69     67      64       14      17       15
-## 78        31        7       8      64     74      70       22      25       19
-## 79        30        8       8      68     72      71       10      13       15
-## 80        28        5       5      71     74      67       15      17       17
-## 81        14        6       3      69     78      76       20      25       23
-## 82         9        7       8      71     69      76       13      10       13
-## 83        11        4       7      72     83      73       14      16       15
-## 84        30        6       7      76     78      71       15      18       17
-## 85        15        5       7      76     67      71       18      12       17
-## 86        32        3       5      72     70      67       15       9       13
-## 87        22        5       4      74     78      72       20      27       18
-## 88        NA        8       9      70     71      69       10      16       14
-## 89        25        6       7      68     70      73       16      20       19
-## 90        18        4       3      71     73      77       15      19       21
-## 91        11        4       3      72     75      76       24      17       21
-## 92        11        6       9      71     78      72       16      21       15
-## 93        37        9       9      72     71      73       17      11       17
-## 94        28        7       6      73     77      79       24      18       20
-## 95        NA        8       6      69     70      71       23      28       24
-## 96        33        7       9      74     73      71       17      18       17
-## 97        28        8       9      70     66      65       17      12       13
-## 98        38        9      10      65     65      69       18      14       19
-## 99        41        8       8      72     68      73       17      11       18
-## 100       39        7       7      70     70      64       17      11       14
+&gt; # A tibble: 100 x 18
+&gt;    Sub_num Gender Major Reason Exp_cond Coffee Num_cups Phobia Prevmath Mathquiz
+&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+&gt;  1       1      1     1      3        1      1        0      1        3       43
+&gt;  2       2      1     1      2        1      0        0      1        4       49
+&gt;  3       3      1     1      1        1      0        0      4        1       26
+&gt;  4       4      1     1      1        1      0        0      4        0       29
+&gt;  5       5      1     1      1        1      0        1     10        1       31
+&gt;  6       6      1     1      1        2      1        1      4        1       20
+&gt;  7       7      1     1      1        2      0        0      4        2       13
+&gt;  8       8      1     1      3        2      1        2      4        1       23
+&gt;  9       9      1     1      1        2      0        0      4        1       38
+&gt; 10      10      1     1      1        2      1        2      5        0       NA
+&gt; # ... with 90 more rows, and 8 more variables: Statquiz &lt;dbl&gt;, Exp_sqz &lt;dbl&gt;,
+&gt; #   Hr_base &lt;dbl&gt;, Hr_pre &lt;dbl&gt;, Hr_post &lt;dbl&gt;, Anx_base &lt;dbl&gt;, Anx_pre &lt;dbl&gt;,
+&gt; #   Anx_post &lt;dbl&gt;
 ```
 
 
@@ -694,309 +1212,22 @@ d_clean
 ```
 
 ```
-##     Sub_num Gender Major Reason Exp_cond Coffee Num_cups Phobia Prevmath
-## 1         1      1     1      3        1      1        0      1        3
-## 2         2      1     1      2        1      0        0      1        4
-## 3         3      1     1      1        1      0        0      4        1
-## 4         4      1     1      1        1      0        0      4        0
-## 5         5      1     1      1        1      0        1     10        1
-## 6         6      1     1      1        2      1        1      4        1
-## 7         7      1     1      1        2      0        0      4        2
-## 8         8      1     1      3        2      1        2      4        1
-## 9         9      1     1      1        2      0        0      4        1
-## 10       10      1     1      1        2      1        2      5        0
-## 11       11      1     1      1        2      0        1      5        1
-## 12       12      1     1      1        2      0        0      4        0
-## 13       13      1     1      1        2      0        1      7        0
-## 14       14      1     1      3        3      0        2      4        1
-## 15       15      1     1      1        4      1        3      3        1
-## 16       16      1     1      1        4      1        0      8        0
-## 17       17      1     1      1        4      0        0      4        1
-## 18       18      1     1      1        4      1        3      5        1
-## 19       19      1     1      3        4      1        2      0        3
-## 20       20      1     2      1        2      1        1      4        1
-## 21       21      1     2      2        2      1        2      4        0
-## 22       22      1     2      1        3      1        0      3        1
-## 23       23      1     2      1        3      0        2      4        1
-## 24       24      1     2      2        2      1        2      0        3
-## 25       25      1     2      2        3      1        2      1        3
-## 26       26      1     2      2        4      0        0      1        4
-## 27       27      1     2      2        4      1        2      0        6
-## 28       28      1     2      3        1      1        3      4        2
-## 29       29      1     2      1        1      0        0      3        2
-## 30       30      1     2      3        1      1        0      5        1
-## 31       31      1     3      1        1      1        1      9        1
-## 32       32      1     3      1        3      1        3      3        0
-## 33       33      1     3      1        4      1        2      4        1
-## 34       34      1     3      2        1      1        1      1        1
-## 35       35      1     3      2        1      0        0      2        1
-## 36       36      1     3      2        2      1        1      0        0
-## 37       37      1     3      2        4      1        2      3        1
-## 38       38      1     3      3        1      0        0      2        0
-## 39       39      1     3      3        2      0        1      8        1
-## 40       40      1     3      3        4      0        0      4        1
-## 41       41      1     3      3        4      0        0      4        1
-## 42       42      1     4      2        1      0        0      0        1
-## 43       43      1     4      2        2      1        0      3        1
-## 44       44      1     4      2        4      0        0      2        1
-## 45       45      1     4      2        4      0        0      2        1
-## 46       46      1     4      2        4      0        1      1        0
-## 47       47      1     4      3        1      0        0      1        1
-## 48       48      1     4      3        1      1        1      5        0
-## 49       49      1     4      3        2      1        1      5        1
-## 50       50      1     4      3        3      0        0      4        1
-## 51       51      1     4      3        3      0        0      4        1
-## 52       52      1     4      3        4      1        0     10        0
-## 53       53      1     4      3        4      0        0      7        1
-## 54       54      1     5      1        3      1        1      3        5
-## 55       55      1     5      1        3      1        2      4        1
-## 56       56      1     5      2        4      0        1      2        2
-## 57       57      1     5      3        1      0        0      2        0
-## 58       58      2     1      1        1      1        1      1        1
-## 59       59      2     1      2        1      0        0      7        0
-## 60       60      2     1      1        2      0        1      5        0
-## 61       61      2     1      1        3      1        1      5        1
-## 62       62      2     1      1        3      0        0      1        2
-## 63       63      2     1      1        3      0        0      3        0
-## 64       64      2     1      1        4      0        0      3        1
-## 65       65      2     1      1        4      0        1      5        1
-## 66       66      2     1      2        2      0        0      1        4
-## 67       67      2     1      3        1      0        0      0        3
-## 68       68      2     2      1        2      0        0      5        0
-## 69       69      2     2      1        3      0        0      6        2
-## 70       70      2     2      1        3      1        1      3        2
-## 71       71      2     2      1        4      1        1      5        0
-## 72       72      2     2      1        4      1        2      4        2
-## 73       73      2     2      2        3      0        0      0        4
-## 74       74      2     2      2        3      0        0      2        4
-## 75       75      2     2      2        4      0        0      2        3
-## 76       76      2     2      3        1      0        0      3        1
-## 77       77      2     2      1        2      1        1      1        2
-## 78       78      2     2      3        2      0        0      1        3
-## 79       79      2     2      3        3      1        1      0        2
-## 80       80      2     2      3        3      0        0      2        2
-## 81       81      2     2      3        4      0        1     10        0
-## 82       82      2     3      1        1      0        0      3        1
-## 83       83      2     3      1        1      0        1      3        1
-## 84       84      2     3      1        1      1        1      8        1
-## 85       85      2     3      1        1      1        0      3        1
-## 86       86      2     3      3        2      0        0      3        1
-## 87       87      2     3      2        2      1        0      1        0
-## 88       88      2     3      2        3      0        0      1        4
-## 89       89      2     3      3        2      0        0      2        0
-## 90       90      2     3      3        3      0        0      8        1
-## 91       91      2     3      3        3      1        1      3        1
-## 92       92      2     4      2        1      0        0      0        1
-## 93       93      2     4      2        4      0        0      0        2
-## 94       94      2     4      3        3      1        2      4        0
-## 95       95      2     5      3        3      0        0      7        2
-## 96       96      2     5      2        2      1        1      0        1
-## 97       97      2     5      2        3      0        0      0        2
-## 98       98      2     5      2        3      0        0      2        2
-## 99       99      2     5      2        4      1        1      1        4
-## 100     100      2     5      1        2      0        0      2        2
-##     Mathquiz Statquiz Exp_sqz Hr_base Hr_pre Hr_post Anx_base Anx_pre Anx_post
-## 1         43        6       7      71     68      65       17      22       20
-## 2         49        9      11      73     75      68       17      19       16
-## 3         26        8       8      69     76      72       19      14       15
-## 4         29        7       8      72     73      78       19      13       16
-## 5         31        6       6      71     83      74       26      30       25
-## 6         20        7       6      70     71      76       12      15       19
-## 7         13        3       4      71     70      66       12      16       17
-## 8         23        7       7      77     87      84       17      19       22
-## 9         38        8       7      73     72      67       20      14       17
-## 10        NA        7       6      78     76      74       20      24       19
-## 11        29        8      10      74     72      73       21      25       22
-## 12        32        8       7      73     74      74       32      35       33
-## 13        18        1       3      73     76      78       19      23       20
-## 14        NA        5       4      72     83      77       18      27       28
-## 15        21        8       6      72     74      68       21      27       22
-## 16        NA        3       1      76     76      79       14      18       21
-## 17        37        8       7      68     67      74       15      19       18
-## 18        37        7       4      77     78      73       39      39       40
-## 19        32       10       9      74     74      75       20      12       18
-## 20        NA        7       7      74     75      73       15      11       20
-## 21        25        7       6      74     84      77       19      27       23
-## 22        22        4       3      73     71      79       18      13       19
-## 23        35        8       7      71     74      76       18      22       25
-## 24        47        8       7      75     75      71       23      28       24
-## 25        41        6       6      76     73      72       18      24       26
-## 26        26        7       6      71     76      75       14      10       18
-## 27        39        8       8      74     79      79       17      12       16
-## 28        21        7       8      78     79      73       18      13       16
-## 29        NA        7       9      70     63      66       18      12       14
-## 30        22        4       7      73     78      69       21      14       17
-## 31        21        8       8      75     83      73       18      21       23
-## 32        NA        7       6      78     76      84       24      27       25
-## 33        26        8       7      76     74      81       17      26       15
-## 34        20        8       9      76     69      71       17      25       19
-## 35        30        6       9      69     69      64       22      16       18
-## 36        40        8       9      77     79      74       21      14       19
-## 37        35        8       7      78     73      78       19      12       17
-## 38        10        7       8      74     72      72       15      21       16
-## 39        35        6       5      71     70      75       20      27       22
-## 40        44        6       4      67     67      73       12      19       17
-## 41        26        7       5      77     78      78       21      15       15
-## 42        NA        9      11      71     72      67       20      23       21
-## 43        15        3       4      76     79      71       19      21       17
-## 44        42        7       7      69     70      64       13      24       22
-## 45        33        8       7      72     64      68       20      14       22
-## 46        29        6       6      72     79      76       22      27       24
-## 47        39        7       8      71     63      66       15      21       13
-## 48        38        8       8      71     82      79       20      26       26
-## 49        NA        5       4      75     76      70       16      18       23
-## 50        24        7       6      74     76      75       22      27       23
-## 51        NA        7       5      74     74      69       30      36       32
-## 52        26        5       2      78     80      80       19      24       24
-## 53        14        5       3      68     78      73       20      29       30
-## 54        45        9       9      76     79      75       15       8       17
-## 55        28        8       8      73     78      77       19      13       18
-## 56        31        8       7      74     78      82       27      21       24
-## 57        NA        8       9      72     67      67       16      20       22
-## 58        32        8      10      74     84      76       17      19       14
-## 59        15        3       6      73     73      71       19      16       16
-## 60        26        8       7      73     74      76       16      20       17
-## 61        26        8       7      80     82      86       18      27       20
-## 62        32        5       5      67     68      73       20      25       24
-## 63        21        8       7      65     75      69       26      29       23
-## 64        43        8       8      71     72      76       18      13       16
-## 65        NA        8       5      72     75      68       21      26       27
-## 66        34        9      11      70     73      65       11      19        9
-## 67        33       10      11      72     67      68       16      25       15
-## 68        30        7       7      69     70      74       18      15       15
-## 69        46        8       6      68     74      71       16      10       17
-## 70        NA        7       7      76     79      71       19      13       15
-## 71        33        7       4      68     71      77       18      21       19
-## 72        29        7       6      76     79      71       22      15       20
-## 73        30        9      10      69     70      74       15      21       17
-## 74        34        8       7      68     70      69       18      21       19
-## 75        32        9       8      70     62      71       17      23       19
-## 76        37        6       8      70     73      77       15      23       14
-## 77        NA        8      10      69     67      64       14      17       15
-## 78        31        7       8      64     74      70       22      25       19
-## 79        30        8       8      68     72      71       10      13       15
-## 80        28        5       5      71     74      67       15      17       17
-## 81        14        6       3      69     78      76       20      25       23
-## 82         9        7       8      71     69      76       13      10       13
-## 83        11        4       7      72     83      73       14      16       15
-## 84        30        6       7      76     78      71       15      18       17
-## 85        15        5       7      76     67      71       18      12       17
-## 86        32        3       5      72     70      67       15       9       13
-## 87        22        5       4      74     78      72       20      27       18
-## 88        NA        8       9      70     71      69       10      16       14
-## 89        25        6       7      68     70      73       16      20       19
-## 90        18        4       3      71     73      77       15      19       21
-## 91        11        4       3      72     75      76       24      17       21
-## 92        11        6       9      71     78      72       16      21       15
-## 93        37        9       9      72     71      73       17      11       17
-## 94        28        7       6      73     77      79       24      18       20
-## 95        NA        8       6      69     70      71       23      28       24
-## 96        33        7       9      74     73      71       17      18       17
-## 97        28        8       9      70     66      65       17      12       13
-## 98        38        9      10      65     65      69       18      14       19
-## 99        41        8       8      72     68      73       17      11       18
-## 100       39        7       7      70     70      64       17      11       14
-##         MajorF
-## 1   Psychology
-## 2   Psychology
-## 3   Psychology
-## 4   Psychology
-## 5   Psychology
-## 6   Psychology
-## 7   Psychology
-## 8   Psychology
-## 9   Psychology
-## 10  Psychology
-## 11  Psychology
-## 12  Psychology
-## 13  Psychology
-## 14  Psychology
-## 15  Psychology
-## 16  Psychology
-## 17  Psychology
-## 18  Psychology
-## 19  Psychology
-## 20      Premed
-## 21      Premed
-## 22      Premed
-## 23      Premed
-## 24      Premed
-## 25      Premed
-## 26      Premed
-## 27      Premed
-## 28      Premed
-## 29      Premed
-## 30      Premed
-## 31     Biology
-## 32     Biology
-## 33     Biology
-## 34     Biology
-## 35     Biology
-## 36     Biology
-## 37     Biology
-## 38     Biology
-## 39     Biology
-## 40     Biology
-## 41     Biology
-## 42   Sociology
-## 43   Sociology
-## 44   Sociology
-## 45   Sociology
-## 46   Sociology
-## 47   Sociology
-## 48   Sociology
-## 49   Sociology
-## 50   Sociology
-## 51   Sociology
-## 52   Sociology
-## 53   Sociology
-## 54   Economics
-## 55   Economics
-## 56   Economics
-## 57   Economics
-## 58  Psychology
-## 59  Psychology
-## 60  Psychology
-## 61  Psychology
-## 62  Psychology
-## 63  Psychology
-## 64  Psychology
-## 65  Psychology
-## 66  Psychology
-## 67  Psychology
-## 68      Premed
-## 69      Premed
-## 70      Premed
-## 71      Premed
-## 72      Premed
-## 73      Premed
-## 74      Premed
-## 75      Premed
-## 76      Premed
-## 77      Premed
-## 78      Premed
-## 79      Premed
-## 80      Premed
-## 81      Premed
-## 82     Biology
-## 83     Biology
-## 84     Biology
-## 85     Biology
-## 86     Biology
-## 87     Biology
-## 88     Biology
-## 89     Biology
-## 90     Biology
-## 91     Biology
-## 92   Sociology
-## 93   Sociology
-## 94   Sociology
-## 95   Economics
-## 96   Economics
-## 97   Economics
-## 98   Economics
-## 99   Economics
-## 100  Economics
+&gt; # A tibble: 100 x 19
+&gt;    Sub_num Gender Major Reason Exp_cond Coffee Num_cups Phobia Prevmath Mathquiz
+&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+&gt;  1       1      1     1      3        1 1             0      1        3       43
+&gt;  2       2      1     1      2        1 0             0      1        4       49
+&gt;  3       3      1     1      1        1 0             0      4        1       26
+&gt;  4       4      1     1      1        1 0             0      4        0       29
+&gt;  5       5      1     1      1        1 0             1     10        1       31
+&gt;  6       6      1     1      1        2 1             1      4        1       20
+&gt;  7       7      1     1      1        2 0             0      4        2       13
+&gt;  8       8      1     1      3        2 1             2      4        1       23
+&gt;  9       9      1     1      1        2 0             0      4        1       38
+&gt; 10      10      1     1      1        2 1             2      5        0       NA
+&gt; # ... with 90 more rows, and 9 more variables: Statquiz &lt;dbl&gt;, Exp_sqz &lt;dbl&gt;,
+&gt; #   Hr_base &lt;dbl&gt;, Hr_pre &lt;dbl&gt;, Hr_post &lt;dbl&gt;, Anx_base &lt;dbl&gt;, Anx_pre &lt;dbl&gt;,
+&gt; #   Anx_post &lt;dbl&gt;, MajorF &lt;fct&gt;
 ```
 
 
@@ -1015,13 +1246,15 @@ d_clean %&gt;% dplyr::select(Mathquiz, newVar) %&gt;% head()
 ```
 
 ```
-##   Mathquiz newVar
-## 1       43   21.5
-## 2       49   24.5
-## 3       26   13.0
-## 4       29   14.5
-## 5       31   15.5
-## 6       20   10.0
+&gt; # A tibble: 6 x 2
+&gt;   Mathquiz newVar
+&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+&gt; 1       43   21.5
+&gt; 2       49   24.5
+&gt; 3       26   13  
+&gt; 4       29   14.5
+&gt; 5       31   15.5
+&gt; 6       20   10
 ```
 
 
@@ -1033,44 +1266,44 @@ d_clean %&gt;% dplyr::select(Mathquiz, newVar) %&gt;% head()
 ```r
 library(furniture)
 
-tableF(d_clean, MajorF)
+furniture::tableF(d_clean, MajorF)
 ```
 
 ```
-## 
-## -----------------------------------------
-##  MajorF     Freq CumFreq Percent CumPerc
-##  Psychology 29   29      29.00%  29.00% 
-##  Premed     25   54      25.00%  54.00% 
-##  Biology    21   75      21.00%  75.00% 
-##  Sociology  15   90      15.00%  90.00% 
-##  Economics  10   100     10.00%  100.00%
-## -----------------------------------------
+&gt; 
+&gt; -----------------------------------------
+&gt;  MajorF     Freq CumFreq Percent CumPerc
+&gt;  Psychology 29   29      29.00%  29.00% 
+&gt;  Premed     25   54      25.00%  54.00% 
+&gt;  Biology    21   75      21.00%  75.00% 
+&gt;  Sociology  15   90      15.00%  90.00% 
+&gt;  Economics  10   100     10.00%  100.00%
+&gt; -----------------------------------------
 ```
 ]
 
 .pull-right[
 
 ```r
-tableF(d_clean, Phobia)
+furniture::tableF(d_clean, Phobia)
 ```
 
 ```
-## 
-## -------------------------------------
-##  Phobia Freq CumFreq Percent CumPerc
-##  0      12   12      12.00%  12.00% 
-##  1      15   27      15.00%  27.00% 
-##  2      12   39      12.00%  39.00% 
-##  3      16   55      16.00%  55.00% 
-##  4      21   76      21.00%  76.00% 
-##  5      11   87      11.00%  87.00% 
-##  6      1    88      1.00%   88.00% 
-##  7      4    92      4.00%   92.00% 
-##  8      4    96      4.00%   96.00% 
-##  9      1    97      1.00%   97.00% 
-##  10     3    100     3.00%   100.00%
-## -------------------------------------
+&gt; 
+&gt; -------------------------------------
+&gt;  Phobia Freq CumFreq Percent CumPerc
+&gt;  0      12   12      12.00%  12.00% 
+&gt;  1      15   27      15.00%  27.00% 
+&gt;  2      12   39      12.00%  39.00% 
+&gt;  3      16   55      16.00%  55.00% 
+&gt;  4      21   76      21.00%  76.00% 
+&gt;  5      11   87      11.00%  87.00% 
+&gt;  6      1    88      1.00%   88.00% 
+&gt;  7      4    92      4.00%   92.00% 
+&gt;  8      4    96      4.00%   96.00% 
+&gt;  9      1    97      1.00%   97.00% 
+&gt;  10     3    100     3.00%   100.00%
+&gt; -------------------------------------
 ```
 ]
 
@@ -1086,23 +1319,23 @@ d_clean %&gt;%
 ```
 
 ```
-## Using dplyr::group_by() groups: MajorF
+&gt; Using dplyr::group_by() groups: MajorF
 ```
 
 ```
-## 
-## -------------------------------------------------------------------
-##                                  MajorF 
-##           Psychology Premed     Biology     Sociology   Economics 
-##           n = 25     n = 21     n = 19      n = 12      n = 8     
-##  Mathquiz                                                         
-##           29.6 (8.9) 31.0 (8.2) 24.2 (10.4) 28.0 (10.4) 35.4 (6.3)
-##  Phobia                                                           
-##           3.6 (2.4)  3.0 (2.5)  3.7 (2.6)   3.2 (3.0)   1.8 (1.4) 
-##  Coffee                                                           
-##     0     17 (68%)   11 (52.4%) 10 (52.6%)  8 (66.7%)   4 (50%)   
-##     1     8 (32%)    10 (47.6%) 9 (47.4%)   4 (33.3%)   4 (50%)   
-## -------------------------------------------------------------------
+&gt; 
+&gt; -------------------------------------------------------------------
+&gt;                                  MajorF 
+&gt;           Psychology Premed     Biology     Sociology   Economics 
+&gt;           n = 25     n = 21     n = 19      n = 12      n = 8     
+&gt;  Mathquiz                                                         
+&gt;           29.6 (8.9) 31.0 (8.2) 24.2 (10.4) 28.0 (10.4) 35.4 (6.3)
+&gt;  Phobia                                                           
+&gt;           3.6 (2.4)  3.0 (2.5)  3.7 (2.6)   3.2 (3.0)   1.8 (1.4) 
+&gt;  Coffee                                                           
+&gt;     0     17 (68%)   11 (52.4%) 10 (52.6%)  8 (66.7%)   4 (50%)   
+&gt;     1     8 (32%)    10 (47.6%) 9 (47.4%)   4 (33.3%)   4 (50%)   
+&gt; -------------------------------------------------------------------
 ```
 
 ---
