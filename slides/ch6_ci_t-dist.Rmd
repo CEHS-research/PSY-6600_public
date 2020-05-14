@@ -221,10 +221,6 @@ A physician states that, in the past, the average number of times he saw each of
 Do the data support his contention that the average number of times he has seen a patient in the last year is .dcoral[**different** that 5]?
 
 
----
-### Critial Values
-background-image: url(figures/tTable_2tail_.05_df_9.PNG)
-
 
 
 
@@ -240,7 +236,6 @@ x <- c(9, 10, 8, 4, 8, 3, 0, 10, 15, 9)
 .pull-left[
 ```{r}
 length(x)                # N = sample size
-sum(x)          # Add up the sample values
 mean(x)                      # sample mean
 sd(x) # unbiased sample standard deviation
 ```
@@ -264,6 +259,9 @@ z
 
 
 
+
+---
+background-image: url(figures/tTable_2tail05_df_9.PNG)
 
 
 
@@ -363,8 +361,7 @@ Construct a .dcoral[95% confidence interval] for the mean number of visits per p
 
 
 ---
-### Critial Values
-background-image: url(figures/tTable_2tail_.05_df_9.PNG)
+background-image: url(figures/tTable_2tail05_df_9.PNG)
 
 
 ---
@@ -379,7 +376,6 @@ x <- c(9, 10, 8, 4, 8, 3, 0, 10, 15, 9)
 .pull-left[
 ```{r}
 length(x)                # N = sample size
-sum(x)          # Add up the sample values
 mean(x)                      # sample mean
 sd(x) # unbiased sample standard deviation
 ```
