@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Confidence Intervals and  the t Distribution</title>
     <meta charset="utf-8" />
@@ -25,6 +25,14 @@ class: center, middle
 
 ### -- Franklin D. Roosevelt 
 
+
+---
+class: center, middle
+
+[Video!](https://www.youtube.com/watch?v=U9Wr7VEPGXA)
+
+
+[Priceonomics: The Guinness Brewer Who Revolutionized Statistics](https://priceonomics.com/the-guinness-brewer-who-revolutionized-statistics/)
 
 ---
 # Problems with z-tests
@@ -203,7 +211,13 @@ A physician states that, in the past, the average number of times he saw each of
 
 .center[.nicegreen[**9, 10, 8, 4, 8, 3, 0, 10, 15, 9**]]
 
-Do the data support his contention that the average number of times he has seen a patient in the last year is .dcoral[different that 5]?
+Do the data support his contention that the average number of times he has seen a patient in the last year is .dcoral[**different** that 5]?
+
+
+---
+background-image: url(figures/tTable_2tail_.05_df_9.png)
+
+
 
 
 ---
@@ -211,9 +225,15 @@ Do the data support his contention that the average number of times he has seen 
 
 
 ```r
-x = c(9, 10, 8, 4, 8, 3, 0, 10, 15, 9)
+x &lt;- c(9, 10, 8, 4, 8, 3, 0, 10, 15, 9)
+```
 
-length(x)
+--
+
+.pull-left[
+
+```r
+length(x)                # N = sample size
 ```
 
 ```
@@ -221,7 +241,7 @@ length(x)
 ```
 
 ```r
-sum(x)
+sum(x)          # Add up the sample values
 ```
 
 ```
@@ -229,7 +249,7 @@ sum(x)
 ```
 
 ```r
-mean(x)
+mean(x)                      # sample mean
 ```
 
 ```
@@ -237,12 +257,45 @@ mean(x)
 ```
 
 ```r
-sd(x)
+sd(x) # unbiased sample standard deviation
 ```
 
 ```
 [1] 4.247875
 ```
+]
+
+--
+
+.pull-right[
+Standard Error:
+
+```r
+SE &lt;-  sd(x) / sqrt(length(x))
+SE
+```
+
+```
+[1] 1.343296
+```
+
+Observed t-score:
+
+```r
+z &lt;- (mean(x) - 5)/ SE
+z
+```
+
+```
+[1] 1.935538
+```
+]
+
+
+
+
+
+
 
 ---
 ## EX) 1 sample t Test: mean vs. *historic control*
@@ -291,7 +344,7 @@ CI expresses our .nicegreen[**confidence**] in a statistic &amp; the .nicegreen[
 .pull-left[
 1. Select your random sample size &lt;br&gt;&lt;br&gt;
 2. Select the **Level of Confidence** &lt;br&gt;&lt;br&gt;
-    - Generally 95% *(can by 80, 90, or even 99%)* &lt;br&gt;&lt;br&gt;
+    - Generally 95% *(can be 80, 90, or even 99%)* &lt;br&gt;&lt;br&gt;
 3. Select random sample and collect data &lt;br&gt;&lt;br&gt;
 4. Find the **Region of Rejection** &lt;br&gt;&lt;br&gt;
     - Based on `\(\alpha = 1 - Conf\)` &amp; # of tails = `\(2\)` &lt;br&gt;&lt;br&gt;
@@ -337,6 +390,85 @@ A physician states that, in the past, the average number of times he saw each of
 
 Construct a .dcoral[95% confidence interval] for the mean number of visits per patient.
 
+
+---
+background-image: url(figures/tTable_2tail_.05_df_9.png)
+
+
+---
+## EX) Confidence Interval: mean, *sample sample*
+
+
+```r
+x &lt;- c(9, 10, 8, 4, 8, 3, 0, 10, 15, 9)
+```
+
+
+
+.pull-left[
+
+```r
+length(x)                # N = sample size
+```
+
+```
+[1] 10
+```
+
+```r
+sum(x)          # Add up the sample values
+```
+
+```
+[1] 76
+```
+
+```r
+mean(x)                      # sample mean
+```
+
+```
+[1] 7.6
+```
+
+```r
+sd(x) # unbiased sample standard deviation
+```
+
+```
+[1] 4.247875
+```
+]
+
+--
+
+.pull-right[
+Standard Error:
+
+```r
+SE &lt;-  sd(x) / sqrt(length(x))
+SE
+```
+
+```
+[1] 1.343296
+```
+
+Confidence Interval:
+
+```r
+c(mean(x) - 2.262 * SE,
+  mean(x) + 2.262 * SE)
+```
+
+```
+[1]  4.561464 10.638536
+```
+
+]
+
+
+
 ---
 background-image: url(figures/fig_ex_t_ci.png)
 
@@ -347,7 +479,6 @@ A physician states that, in the past, the average number of times he saw each of
 .center[.nicegreen[**9, 10, 8, 4, 8, 3, 0, 10, 15, 9**]]
 
 Construct a .dcoral[95% confidence interval] for the mean number of visits per patient.
-
 
 
 ---
@@ -429,14 +560,14 @@ class: inverse, center, middle
 
 ```r
 library(tidyverse)    # Loads several very helpful 'tidy' packages
-library(rio)          # Read in SPSS datasets
+library(haven)        # Read in SPSS datasets
 library(psych)        # Lots of nice tid-bits
 library(car)          # Companion to "Applied Regression"
 ```
 
 
 ```r
-cancer_raw &lt;- rio::import("cancer.sav")
+cancer_raw &lt;- haven::read_spss("cancer.sav")
 ```
 
 
@@ -469,6 +600,9 @@ cancer_clean %&gt;%
   t.test(mu = 165)
 ```
 
+--
+
+
 ```
 
 	One Sample t-test
@@ -483,8 +617,11 @@ mean of x
    178.28 
 ```
 
+--
 
-
+.nicegreen[
+The patients in this study (N = 25) weigh 178.28 pounds on average, which is significantly more that 165 pounds, t(24) = 2.08, p = .049, 95% CI [165.08, 191.48].
+]
 ---
 ## ...Change the Confidence Level
 
@@ -497,6 +634,8 @@ cancer_clean %&gt;%
   t.test(mu = 165,
          conf.level = 0.99)
 ```
+
+--
 
 ```
 
@@ -512,6 +651,13 @@ mean of x
    178.28 
 ```
 
+--
+
+
+
+.nicegreen[
+The patients in this study (N = 25) weigh 178.28 pounds on average, which is significantly more that 165 pounds, t(24) = 2.08, p = .049, 99% CI [160.39, 196.17].
+]
 
 
 ---
@@ -527,6 +673,9 @@ cancer_clean %&gt;%
   t.test(mu = 165)
 ```
 
+--
+
+
 ```
 
 	One Sample t-test
@@ -541,8 +690,12 @@ mean of x
    178.25 
 ```
 
+--
 
 
+.nicegreen[
+The patients in this study with stage 3 or 4 cancer (n = 6) weigh 178.25 pounds on average, which is not significantly more that 165 pounds, t(5) = 0.83, p = .446.
+]
 
 
 
@@ -605,9 +758,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -616,7 +785,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
   }
 })();
-</script>
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 slideshow._releaseMath = function(el) {

@@ -34,6 +34,14 @@ class: center, middle
 
 
 ---
+class: center, middle
+
+[Video!](https://www.youtube.com/watch?v=U9Wr7VEPGXA)
+
+
+[Priceonomics: The Guinness Brewer Who Revolutionized Statistics](https://priceonomics.com/the-guinness-brewer-who-revolutionized-statistics/)
+
+---
 # Problems with z-tests
 
 
@@ -210,21 +218,54 @@ A physician states that, in the past, the average number of times he saw each of
 
 .center[.nicegreen[**9, 10, 8, 4, 8, 3, 0, 10, 15, 9**]]
 
-Do the data support his contention that the average number of times he has seen a patient in the last year is .dcoral[different that 5]?
+Do the data support his contention that the average number of times he has seen a patient in the last year is .dcoral[**different** that 5]?
+
+
+---
+background-image: url(figures/tTable_2tail_.05_df_9.png)
+
+
 
 
 ---
 ## EX) 1 sample t Test: mean vs. *historic control*
 
 ```{r}
-x = c(9, 10, 8, 4, 8, 3, 0, 10, 15, 9)
-
-length(x)
-sum(x)
-mean(x)
-sd(x)
-
+x <- c(9, 10, 8, 4, 8, 3, 0, 10, 15, 9)
 ```
+
+--
+
+.pull-left[
+```{r}
+length(x)                # N = sample size
+sum(x)          # Add up the sample values
+mean(x)                      # sample mean
+sd(x) # unbiased sample standard deviation
+```
+]
+
+--
+
+.pull-right[
+Standard Error:
+```{r}
+SE <-  sd(x) / sqrt(length(x))
+SE
+```
+
+Observed t-score:
+```{r}
+z <- (mean(x) - 5)/ SE
+z
+```
+]
+
+
+
+
+
+
 
 ---
 ## EX) 1 sample t Test: mean vs. *historic control*
@@ -273,7 +314,7 @@ CI expresses our .nicegreen[**confidence**] in a statistic & the .nicegreen[*wid
 .pull-left[
 1. Select your random sample size <br><br>
 2. Select the **Level of Confidence** <br><br>
-    - Generally 95% *(can by 80, 90, or even 99%)* <br><br>
+    - Generally 95% *(can be 80, 90, or even 99%)* <br><br>
 3. Select random sample and collect data <br><br>
 4. Find the **Region of Rejection** <br><br>
     - Based on $\alpha = 1 - Conf$ & # of tails = $2$ <br><br>
@@ -319,6 +360,48 @@ A physician states that, in the past, the average number of times he saw each of
 
 Construct a .dcoral[95% confidence interval] for the mean number of visits per patient.
 
+
+---
+background-image: url(figures/tTable_2tail_.05_df_9.png)
+
+
+---
+## EX) Confidence Interval: mean, *sample sample*
+
+```{r}
+x <- c(9, 10, 8, 4, 8, 3, 0, 10, 15, 9)
+```
+
+
+
+.pull-left[
+```{r}
+length(x)                # N = sample size
+sum(x)          # Add up the sample values
+mean(x)                      # sample mean
+sd(x) # unbiased sample standard deviation
+```
+]
+
+--
+
+.pull-right[
+Standard Error:
+```{r}
+SE <-  sd(x) / sqrt(length(x))
+SE
+```
+
+Confidence Interval:
+```{r}
+c(mean(x) - 2.262 * SE,
+  mean(x) + 2.262 * SE)
+```
+
+]
+
+
+
 ---
 background-image: url(figures/fig_ex_t_ci.png)
 
@@ -329,7 +412,6 @@ A physician states that, in the past, the average number of times he saw each of
 .center[.nicegreen[**9, 10, 8, 4, 8, 3, 0, 10, 15, 9**]]
 
 Construct a .dcoral[95% confidence interval] for the mean number of visits per patient.
-
 
 
 ---
@@ -410,17 +492,17 @@ class: inverse, center, middle
 
 ```{r}
 library(tidyverse)    # Loads several very helpful 'tidy' packages
-library(rio)          # Read in SPSS datasets
+library(haven)        # Read in SPSS datasets
 library(psych)        # Lots of nice tid-bits
 library(car)          # Companion to "Applied Regression"
 ```
 
 ```{r, eval=FALSE}
-cancer_raw <- rio::import("cancer.sav")
+cancer_raw <- haven::read_spss("cancer.sav")
 ```
 
 ```{r, include=FALSE}
-cancer_raw <- rio::import("data/cancer.sav")
+cancer_raw <- haven::read_spss("data/cancer.sav")
 ```
 
 ### And Clean It
@@ -443,26 +525,52 @@ cancer_clean <- cancer_raw %>%
 
 Do the patients weigh more than 165 pounds at intake, on average?
 
-```{r}
+```{r, eval=FALSE}
 cancer_clean %>% 
   dplyr::pull(weighin) %>% 
   t.test(mu = 165)
 ```
 
+--
 
+```{r, echo=FALSE}
+cancer_clean %>% 
+  dplyr::pull(weighin) %>% 
+  t.test(mu = 165)
+```
 
+--
+
+.nicegreen[
+The patients in this study (N = 25) weigh 178.28 pounds on average, which is significantly more that 165 pounds, t(24) = 2.08, p = .049, 95% CI [165.08, 191.48].
+]
 ---
 ## ...Change the Confidence Level
 
 Find a .dcoral[99%] confience level for the population mean weight.
 
-```{r}
+```{r, eval=FALSE}
 cancer_clean %>% 
   dplyr::pull(weighin) %>% 
   t.test(mu = 165,
          conf.level = 0.99)
 ```
 
+--
+```{r, echo=FALSE}
+cancer_clean %>% 
+  dplyr::pull(weighin) %>% 
+  t.test(mu = 165,
+         conf.level = 0.99)
+```
+
+--
+
+
+
+.nicegreen[
+The patients in this study (N = 25) weigh 178.28 pounds on average, which is significantly more that 165 pounds, t(24) = 2.08, p = .049, 99% CI [160.39, 196.17].
+]
 
 
 ---
@@ -470,15 +578,28 @@ cancer_clean %>%
 
 Do the patients with .dcoral[stage 3 & 4] cancer weigh more than 165 pounds at intake, on average?
 
-```{r}
+```{r, eval=FALSE}
 cancer_clean %>% 
   dplyr::filter(stage %in% c("3", "4")) %>% 
   dplyr::pull(weighin) %>% 
   t.test(mu = 165)
 ```
 
+--
+
+```{r, echo=FALSE}
+cancer_clean %>% 
+  dplyr::filter(stage %in% c("3", "4")) %>% 
+  dplyr::pull(weighin) %>% 
+  t.test(mu = 165)
+```
+
+--
 
 
+.nicegreen[
+The patients in this study with stage 3 or 4 cancer (n = 6) weigh 178.25 pounds on average, which is not significantly more that 165 pounds, t(5) = 0.83, p = .446.
+]
 
 
 
