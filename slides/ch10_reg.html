@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Linear Regression</title>
     <meta charset="utf-8" />
@@ -26,60 +26,98 @@ class: center, middle
 ---
 ## Motivating Example
 
-.large[
+
 - Dr. Ramsey conducts a *non-experimental* study to evaluate what she refers to as the 'strength-injury hypothesis.' It states that overall body strength in elderly women determines the number and severity of accidents that cause bodily injury. If the results support her hypothesis, she plans to conduct an experimental study to assess whether weight training reduces injuries in elderly women. 
+
+--
+
 - Data from 100 women who range in age from 60 to 70 years old are collected. The women initially undergo a series of measures that assess upper and lower body strength, and these measures are summarized into an overall index of body strength. 
+
+--
+
 - Over the next 5 years, the women record each time they have an accident that results in a bodily injury and describe fully the extent of the injury. On the basis of these data, Dr. Ramsey calculates an overall injury index for each woman. 
+
+--
+
 - A simple regression analysis is conducted with the overall index of body strength as the predictor (independent) variable and the overall injury index as the outcome (dependent) variable. 
 
-]
+
 
 ---
-# Correlation vs. Regression
+# Linear Association: Strength &amp; Direction
 
 .pull-left[
 ## Correlation
-.large[
-- Relationship between two variables (no outcome or predictor)
-- Strength and direction of relationship
-]]
+
+Pairwise Relationship
+
+- `\(X_1 \longleftrightarrow  X_2\)`
+- order doesn't matter (no DV or IV)
+- Parameter = `\(\rho\)`
+- Statistic = r
+
+]
 
 --
 
 .pull-right[
 ## Regression
-.large[
-- Outcome and predictor (directional)
-- Simple and Multiple Linear Regression
-]]
+
+Directional Predictive 
+
+- `\(Y \longleftarrow X\)`
+- Y = Outcome, Dependent Variable (DV)
+- X = Predictor, Independent Variable (IV)
+- Parameter = `\(\beta\)`
+- Statistic = b
+]
 
 ---
 # Regression Basics
 
-.pull-left[.large[
+
 - Y usually predicted variable
   - A.k.a: Dependent, criterion, outcome, response variable
   - Predicting Y from X = 'Regressing Y on X'
+  
+--
+
 - X usually variable used to predict Y
   - A.k.a: Independent, predictor, explanatory variable
-- Different results when X &amp; Y switched
-]]
 
-.pull-right[.large[
-Regression analysis is procedure for obtaining *the* line that best fits data (Assuming relationship is best described as linear)
-]]
+--
+
+- Different results when X &amp; Y switched
+
+--
+
+- Procedure for obtaining *the* line that best fits data (Assuming relationship is best described as linear)
+
 
 ---
 # Regression Basics
 
+.coral[
+
 $$ \LARGE \hat{Y_i} = b_0 + b_1 X_i $$
-
-.pull-left[.large[
-
-.dcoral[
-`\(\Large \hat{Y_i}\)` = predicted (unobserved) value of Y for a given case i
 ]
 
+--
+
+
+.center[
+
+`\(\Large X_i\)` = value of predictor for a given case i
+
+`\(\Large \hat{Y_i}\)` = predicted (unobserved) value of Y for a given case i
+
+]
+
+
+--
+
+.pull-left[
+.large[
 .bluer[
 `\(\Large b_0\)` = y-intercept:
 
@@ -89,18 +127,20 @@ Alternative notation: `\(\Large a\)` or `\(\Large a_{XY}\)`
 
 ]]]
 
-.pull-right[.large[
+
+--
+
+.pull-right[
+.large[
 .nicegreen[
 `\(\Large b_1\)` = slope of regression line for 1st IV
 
 Constant, Rate of change in Y for every 1-unit change in X
 
 Alternative notation: `\(\Large b_{XY}\)`
-]
-
-.dcoral[
-`\(\Large X_i\)` = value of predictor for a given case i
 ]]]
+
+
 
 ---
 # Accuracy of Prediction
@@ -108,18 +148,24 @@ Alternative notation: `\(\Large b_{XY}\)`
 .dcoral[Correlation] `\(\Large \neq\)` .dcoral[Causation]
 ]
 
-.large[
+--
+
+
 
 - All points do not fall on regression line
   - Prediction works for most, but not all in sample
+  
+--
 
 - W/out knowledge of X, best prediction of Y is mean `\(\Large \bar{Y}\)`
   - `\(\Large s_y\)` : best measure of prediction error
 
+--
+
 - With knowledge of X, best prediction of Y is from the equation `\(\Large \hat{Y}\)`
   - Standard error of estimate (SEE or `\(s_{Y \cdot X}\)` ): best measure of prediction error
   - Estimated SD of residuals in population
-]
+
 
 
 ---
@@ -133,12 +179,17 @@ Alternative notation: `\(\Large b_{XY}\)`
 
 ]
 
+
+--
+
 .pull-right[
 ### .dcoral[Residual or Error Variance &lt;br&gt; or Mean Square Error]
 
 `$$\large s_{Y \cdot X}^2 = \frac{\sum (Y_i - \hat{Y})^2}{N - 2} = \frac{SS_{residual}}{df}$$`
 
 ]
+
+--
 
 &lt;br&gt;
 .large[
@@ -156,8 +207,12 @@ Seeking smallest `\(\LARGE s_{Y \cdot X}\)` as it is a measure of variation of o
 The relationship (prediction) is usually not perfect so regression coefficients ( `\(b_0\)` , `\(b_1\)` ) computed to minimize error as much as possible
 ]
 
+--
+
 .pull-left[.large[
 **Error of Residuals**: difference between observed `\(\large Y\)` and `\(\large \hat{Y}\)` --&gt; `\(\large e_i = Y_i - \hat{Y}_i\)`
+
+
 
 **Technique**: Ordinary Least Squares (OLS) regression
 
@@ -167,6 +222,8 @@ Goal: minimize `\(\large SS_{error}\)` ( `\(\large SS_{residuals}\)` )
 
 ]
 ]
+
+--
 
 .pull-right[
 &lt;img src="ch10_reg_files/figure-html/unnamed-chunk-1-1.png" width="80%" style="display: block; margin: auto;" /&gt;
@@ -182,6 +239,7 @@ count: false
 The relationship (prediction) is usually not perfect so regression coefficients ( `\(b_0\)` , `\(b_1\)` ) computed to minimize error as much as possible
 ]
 
+
 .pull-left[.large[
 **Error of Residuals**: difference between observed `\(\large Y\)` and `\(\large \hat{Y}\)` --&gt; `\(\large e_i = Y_i - \hat{Y}_i\)`
 
@@ -194,6 +252,7 @@ Goal: minimize `\(\large SS_{error}\)` ( `\(\large SS_{residuals}\)` )
 ]
 ]
 
+
 .pull-right[
 &lt;img src="ch10_reg_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
@@ -201,9 +260,14 @@ Goal: minimize `\(\large SS_{error}\)` ( `\(\large SS_{residuals}\)` )
 
 
 ---
+
 &lt;img src="ch10_reg_files/figure-html/unnamed-chunk-3-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
+.pull-left[
+Scatterplot:
 
+* 1 point per observation (person)
+]
 
 
 ---
@@ -211,14 +275,13 @@ count: false
 
 &lt;img src="ch10_reg_files/figure-html/unnamed-chunk-4-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
+
 .pull-left[
-- Correlation = 0.764
-- Slope = `\(b_1 = r \frac{s_y}{s_x} = .764 \frac{1.66}{1.31} = .968\)`
-- Intercept = `\(b_0 = \bar{Y} - b_1 \bar{X} = 14.290 - (.968 * 4.093) = 10.328\)`
-]
+Scatterplot:
 
-.pull-right[
-
+* 1 point per observation (person)
+* Dashed lines = mean values
+* Cross at the "Point of Averages"
 ]
 
 
@@ -226,6 +289,20 @@ count: false
 count: false
 
 &lt;img src="ch10_reg_files/figure-html/unnamed-chunk-5-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+.pull-left[
+- Correlation = 0.764
+- Slope = `\(b_1 = r \frac{s_y}{s_x} = .764 \frac{1.66}{1.31} = .968\)`
+- Intercept = `\(b_0 = \bar{Y} - b_1 \bar{X} = 14.290 - (.968 * 4.093) = 10.328\)`
+]
+
+
+
+---
+count: false
+
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-6-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
 
 
 .pull-left[
@@ -243,7 +320,8 @@ count: false
 ---
 count: false
 
-&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-6-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-7-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
 
 
 .pull-left[
@@ -251,6 +329,8 @@ count: false
 - Slope = `\(b_1 = r \frac{s_y}{s_x} = .764 \frac{1.66}{1.31} = .968\)`
 - Intercept = `\(b_0 = \bar{Y} - b_1 \bar{X} = 14.290 - (.968 * 4.093) = 10.328\)`
 ]
+
+
 
 .pull-right[
 
@@ -261,7 +341,8 @@ count: false
 ---
 count: false
 
-&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-7-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
 
 
 .pull-left[
@@ -269,6 +350,8 @@ count: false
 - Slope = `\(b_1 = r \frac{s_y}{s_x} = .764 \frac{1.66}{1.31} = .968\)`
 - Intercept = `\(b_0 = \bar{Y} - b_1 \bar{X} = 14.290 - (.968 * 4.093) = 10.328\)`
 ]
+
+
 
 .pull-right[
 
@@ -281,35 +364,51 @@ count: false
 
 `$$\huge SS_{total} = SS_{explained} + SS_{unexplained}$$`
 
-.large[
-- Synonyms: Explained = Regression, Unexplained = Residual or Error
-]
+Synonyms: 
+* Explained = Regression
+* Unexplained = Residual or Error
+
 
 --
 
-### Coefficient of Determination ( `\(\LARGE r^2\)` )
+Coefficient of Determination: `\(\LARGE r^2 = \frac{\text{Explained Variation}}{\text{Total Variation}} = \frac{SS_{regression}}{SS_{total}}\)`
 
-`$$\LARGE r^2 = \frac{\text{Explained Variation}}{\text{Total Variation}} = \frac{SS_{regression}}{SS_{total}}$$`
+--
 
 - Computed to determine how well regression equation predicts `Y` from `X`
+
+--
+
 - Range from 0 to 1
+
+--
+
 - SS divided by corresponding df gives us the Mean Square (Regression or Error)
+
+--
+
 - .nicegreen[The proportion of variance in the outcome "accounted for" or "attributable to" or "predictable from" or "explained by" the predictor]
 
 
 ---
-# Standardized Coefficients (i.e. Beta weights)
+# Standardized Coefficients (Beta weights)
 
-.large[
+
 - 1 SD-unit change in X represents a `\(\beta\)` SD change in `Y`
+
+--
 
 - Intercept = 0 and is not reported when using `\(\beta\)`
 
+--
+
 - For simple regression only --&gt; `\(r = \beta\)` and `\(r^2 = \beta^2\)`
   - When raw scores transformed into z-scores: `\(r = b = \beta\)`
+
+--
   
 - Useful for variables with abstract unit of measure
-]
+
 
 
 ---
@@ -332,8 +431,12 @@ df %&gt;%
 ```
 ]
 
+
+--
+
+
 .pull-right[
-&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-11-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -346,6 +449,9 @@ df %&gt;%
      data = .) %&gt;%
   summary()
 ```
+
+--
+
 
 ```
 
@@ -478,10 +584,21 @@ df %&gt;%
 
 .huge[
 - .nicegreen[Independence] of observations
-- .bluer[Y normally distributed]
-  - Does NOT apply to predictor variable(s) X --&gt; Can be categorical or continuous
-- Sampling .dcoral[distribution of the slope] ( `\(\huge b_1\)` ) assumed normally distributed
+
+
 - .nicegreen[Straight line] best fits data
+
+
+- .bluer[Y normally distributed around the PREDICTIONS]
+  - Does NOT apply to Y overall: check with residuals
+  - Does NOT apply to predictor variable(s) X --&gt; Can be categorical or continuous
+  
+
+
+- Sampling .dcoral[distribution of the slope] ( `\(\huge b_1\)` ) assumed normally distributed
+
+
+
 ]
 
 ---
@@ -491,8 +608,9 @@ background-size: 1200px
 
 # Assumptions
 
+
 ---
-# R Code: Assumptions
+# R Code: Assumption - Normal Residuals
 
 
 ```r
@@ -502,21 +620,21 @@ df %&gt;%
   plot(which = 2)
 ```
 
-&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-16-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-18-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
-# R Code: Assumptions
+# R Code: Assumptions - Normal Residuals
 
 
 ```r
 df %&gt;%
   lm(y ~ x,
      data = .) %&gt;%
-  resid %&gt;%
-  hist
+  resid() %&gt;%
+  hist()
 ```
 
-&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-17-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-19-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -754,6 +872,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -771,17 +915,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {
