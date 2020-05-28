@@ -582,15 +582,23 @@ df %&gt;%
 ---
 # Assumptions
 
-.huge[
+
 - .nicegreen[Independence] of observations
+  - SRS = simple random sample
+
+--
 
 
 - .nicegreen[Straight line] best fits data
+  - linear, not curved, ect.
+
+--
 
 
-- .bluer[Y normally distributed around the PREDICTIONS]
-  - Does NOT apply to Y overall: check with residuals
+- .bluer[Y is **CONDITIONALLY** normally distributed, with constant variance,  around the line]
+  - Does NOT apply to Y overall
+  - DOES apply to Y values, FOR A GIVEN X value
+  - Check with residual diagnostics
   - Does NOT apply to predictor variable(s) X --&gt; Can be categorical or continuous
   
 
@@ -599,7 +607,7 @@ df %&gt;%
 
 
 
-]
+
 
 ---
 background-image: url(figures/fig_assumptions_reg.png)

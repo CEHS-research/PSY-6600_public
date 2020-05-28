@@ -312,7 +312,7 @@ df <- tibble::data_frame(
 
 p_0 <- df %>%
   ggplot(aes(x, y)) +
-    geom_point() +
+    geom_point(size = 3) +
     theme_bw() +
     scale_color_gradient2(low = "chartreuse3", 
                           mid = "grey90", 
@@ -343,7 +343,15 @@ p_1 <- p_0 +
                linetype = 2) +
     geom_hline(aes(yintercept = mean(y)),
                color = "darkorchid3",
-               linetype = 2) 
+               linetype = 2) +
+  geom_text(label = "mean of Y",
+               color = "darkorchid4",
+            x = 2.75,
+            y = 14.5)+
+  geom_text(label = "mean of X",
+               color = "darkorchid4",
+            x = 4.5,
+            y = 12)
 
 p_1
 ```
@@ -367,7 +375,11 @@ p_2 <- p_1 +
                 color = "coral2",
                 se = FALSE,
                 size = 1,
-                alpha = .8) 
+                alpha = .8) +
+  geom_text(label = "Predicted Y\n based on X",
+            color = "coral2",
+            x = 6,
+            y = 17)
 
 p_2
 ```
@@ -386,7 +398,11 @@ count: false
 ```{r, echo=FALSE, fig.ext='png', dpi = 150, out.width = "50%"}
 p_2 +
     geom_segment(aes(xend = x, yend = mean(y)),
-                 color = "chartreuse3")
+                 color = "chartreuse3") +
+  geom_text(label = "Deviations of\nobserved Y's\nfrom the mean of Y",
+            color = "chartreuse3",
+            x = 6.5,
+            y = 15.5)
 ```
 
 
@@ -409,7 +425,11 @@ count: false
 ```{r, echo=FALSE, fig.ext='png', dpi = 150, out.width = "50%"}
 p_2 +
     geom_segment(aes(xend = x, yend = pred, y = mean(y)),
-                 color = "dodgerblue3")
+                 color = "dodgerblue3") +
+  geom_text(label = "Deviations of\npredicted Y's\nfrom the mean of Y",
+            color = "dodgerblue3",
+            x = 6.5,
+            y = 15.5)
 ```
 
 
@@ -434,7 +454,11 @@ count: false
 ```{r, echo=FALSE, fig.ext='png', dpi = 150, out.width = "50%"}
 p_2 +
     geom_segment(aes(xend = x, yend = pred),
-                 color = "firebrick3")
+                 color = "firebrick3") +
+  geom_text(label = "Deviations of\nobserved Y's\nfrom the predicted Ys",
+            color = "firebrick3",
+            x = 6.5,
+            y = 15.5)
 ```
 
 
@@ -614,15 +638,23 @@ df %>%
 ---
 # Assumptions
 
-.huge[
+
 - .nicegreen[Independence] of observations
+  - SRS = simple random sample
+
+--
 
 
 - .nicegreen[Straight line] best fits data
+  - linear, not curved, ect.
+
+--
 
 
-- .bluer[Y normally distributed around the PREDICTIONS]
-  - Does NOT apply to Y overall: check with residuals
+- .bluer[Y is **CONDITIONALLY** normally distributed, with constant variance,  around the line]
+  - Does NOT apply to Y overall
+  - DOES apply to Y values, FOR A GIVEN X value
+  - Check with residual diagnostics
   - Does NOT apply to predictor variable(s) X --> Can be categorical or continuous
   
 
@@ -631,7 +663,7 @@ df %>%
 
 
 
-]
+
 
 ---
 background-image: url(figures/fig_assumptions_reg.png)
