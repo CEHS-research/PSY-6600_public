@@ -1,8 +1,8 @@
 ---
 title: "Psy/Educ 6600: Chapter 11"
-subtitle: "Matched pairs t-test"
+subtitle: "Matched or Paired t Test for Mean Difference"
 author: "Your Name"
-date: "Spring 2019"
+date: "Summer 2020"
 output: 
   pdf_document:
     latex_engine: xelatex
@@ -11,11 +11,14 @@ output:
     number_sections: false
 ---
 
+
 \clearpage
 
 # PREPARATION
 
-```{r oppts, include=FALSE}
+
+
+```{r, include=FALSE}
 # set global chunk options...  
 #  this changes the defaults so you don't have to repeat yourself
 knitr::opts_chunk$set(comment     = NA,
@@ -24,30 +27,27 @@ knitr::opts_chunk$set(comment     = NA,
                       warning     = FALSE, 
                       message     = FALSE,
                       fig.align   = "center", # center all figures
-                      fig.width   = 6,        # set default figure width to 4 inches
-                      fig.height  = 4)        # set default figure height to 3 inches
+                      fig.width   = 5,        # set default figure width to 4 inches
+                      fig.height  = 3)        # set default figure height to 3 inches
 
 ```
 
-## Packages
+## Load Packages
 
 * Make sure the packages are **installed** *(Package tab)*
 
-```{r libraries}
+```{r}
 library(tidyverse)    # Loads several very helpful 'tidy' packages
 library(readxl)       # Read in Excel datasets
 library(furniture)    # Nice tables (by our own Tyson Barrett)
 ```
 
-\clearpage
 
 
 
-# SECTION B
+## Toy Datasets for Section B's
 
-## Datasets
-
-```{r data}
+```{r}
 schizo <- data.frame(id       = c(1:10),
                      yr_hos   = c( 5,  7, 12,  5, 11,  3,  7,  2,  9,  6),
                      ori_test = c(22, 26, 16, 20, 18, 30, 14, 24, 15, 19))
@@ -70,131 +70,10 @@ memory <- data.frame(id    = c(1:9),
                      look  = c(4, 5, 3, 11, 2, 6, 4,  6, 7))
 ```
 
-\clearpage
-
-
-
-## Question B-3 Matched Pairs vs. Direct Difference Methods
-
-
-**TEXTBOOK QUESTION:** *Using the data from Exercise 9B6, which follows.  (a) Determine whether there is a significant tendency for verbal GRE scores to improve on the second testing. Calculate the matched t in terms of the Pearson correlation coefficient already calculated for that exercise. (b) Recalculate the matched t test according to the direct-difference method and compare the result to your answer for part a.*
-
-```{r Q11b3}
-GRE
-```
-
--------------------------------
-
-**DIRECTIONS:** Calculate the matched pairs t test between `verbalGRE_1`and `verbalGRE_2` in the `GRE` dataset. 
-
-In order to use this function, you MUST first restructure your dataset so that the TWO continous variables are stacked or **gathered** together.  Use the `tidyr::gather()` function with the following FOUR options:
-
-  * A new variable name that will store the original variable names:  `key = new_group_var`
-  * A new variable name that will store the original variable values: `value = new_continuous_var`
-  * List the original variable names:  `continous_var1, continuous_var2`
-  * Do not get ride of blank values:  `na.rm = FALSE`
-
-After the dataset is fathered, ad the `t.test()` function, which needs at least THREE arguments:
-
-  * the formula:  `continuous_var ~ group_var`
-  * the dataset: `data = .` *we use the period to signify that the datset is being piped from above*
-  * specify the data is paired: `paired = TRUE` *the default is independent groups*
-  
-> **Note:** I suggest using `key = time` and `value = verbalGRE`.
-
-```{r Q11b3a}
-# Paired t-test: verbalGRE1 & verbalGRE2
-
-```
 
 \clearpage
 
-**DIRECTIONS:** Calculate a NEW variable called `verbalGRE_diff` with the `dplyr::mutate()` function by subtracting the `verbalGRE_1`and `verbalGRE_2` variables in the `GRE` dataset. Pipe it all together ans save it as new dataset with the `GRE_new <-` assignment operator to use in the next step.
-
-
-```{r Q11b3b}
-# Compute a new variable --> save as: child_new
-
-```
-
--------------------------------
-
-> **Note:** Remember that before you do a one-sample t test for the mean, you have to use the `dplyr::pull()` function (see chapter 6)
-
-```{r Q11b3c}
-# 1-sample t test: pop mean of verbalGRE_diff = 0 (no difference)
-
-```
-
-\clearpage
-
-
-
-## Question B-8 Confidence Intervale for the Mean Difference
-
-**TEXTBOOK QUESTION:** *A cognitive psychologist is testing the theory that short-term memory is mediated by subvocal rehearsal. This theory can be tested by reading aloud a string of letters to a participant, who must repeat the string correctly after a brief delay. If the theory is correct, there will be more errors when the list contains letters that sound alike (e.g., G and T) than when the list contains letters that look alike (e.g., P and R). Each participant gets both types of letter strings, which are randomly mixed in the same experimental session. The number of errors for each type of letter string for each participant are shown in the following table. (a) Perform a matched t test ( $\alpha = .05$, one tailed) on the data above and state your conclusions.  (b) Find the 95% confidence interval for the population difference for the two types of letters.*
-
-```{r Q11b8}
-memory
-```
-
--------------------------------
-
-**DIRECTIONS:** Calculate the matched pairs t test between `sound`and `look` in the `memory` dataset twice: first as a **one-tail** test and then again as a **two-tailed*** test.
-
-> **Note:** I suggest using `key = type` and `value = errors`.
-
-```{r Q11b8a}
-# Paired t-test: sound and look --> ONE tail
-
-```
-
-\clearpage
-
-
-
-```{r Q11b8b}
-# Paired t-test: sound and look --> TWO tails
-
-```
-
-\clearpage
-
-
-
-## Question B-9 t-Test for Mean Difference vs. Correlation
-
-**TEXTBOOK QUESTION:** *For the data in Exercise 10B6: (a) Calculate the matched t value to test whether there is a significant difference ($\alpha = .05$, two tailed) between the spatial ability and math scores. Use the correlation coefficient you calculated to find the regression slope in Exercise 10B6. (b) Explain how the Pearson r for paired data can be very high and statistically significant, while the matched t test for the same data fails to attain significance.*
-
-```{r Q11b9}
-test_scores
-```
-
--------------------------------
-
-**DIRECTIONS:** Calculate Pearson's $r$ between `spatial` and `math` in the `schizo` test_scores 
-
-```{r Q11b9a}
-# Pearson's r: spatial & math
-
-```
-
-\clearpage
-
-> **Note:** I suggest using `key = type` and `value = score`.
-
-```{r Q11b9b}
-# Paired t-test: spatial & math 
-
-```
-
-\clearpage
-
-
-
-# SECTION C
-
-## Import Data, Define Factors, and Compute New Variables
+## Ihno's Dataset for Section C's
 
 Import Data, Define Factors, and Compute New Variables
 
@@ -203,7 +82,7 @@ Import Data, Define Factors, and Compute New Variables
 
 > NOTE: I added the second line to convert all the variables names to lower case.  I still kept the `F` as a capital letter at the end of the five factor variables.
 
-```{r ihno}
+```{r}
 data_clean <- read_excel("Ihno_dataset.xls") %>% 
   dplyr::rename_all(tolower) %>% 
   dplyr::mutate(genderF = factor(gender, 
@@ -238,94 +117,642 @@ data_clean <- read_excel("Ihno_dataset.xls") %>%
   dplyr::mutate(statDiff = statquiz - exp_sqz)
 ```
 
+
+
 \clearpage
 
 
+# Section B - Other Datasets
 
-## Question C-1a. Matched pairs t-test
+
+
+## 11B-3 Matched Pairs vs. Direct Difference Methods
+
+
+**TEXTBOOK QUESTION:** *Using the data from Exercise 9B6, which follows.  (a) Determine whether there is a significant tendency for verbal GRE scores to improve on the second testing. Calculate the matched t in terms of the Pearson correlation coefficient already calculated for that exercise. (b) Recalculate the matched t test according to the direct-difference method and compare the result to your answer for part a.*
+
+
+```{r}
+GRE
+```
+
+### Convert to Long Format
+
+In order to use the `paired = TRUE` option in the `t.test()` function, you MUST first restructure your dataset from **WIDE** format *(one line per person)* to **LONG** format *(one line per observation, per person)*.  
+
+```{r}
+GRE_long <- GRE %>% 
+  tidyr::pivot_longer(cols         = c(verbalGRE_1, verbalGRE_2),
+                      names_to     = "time",
+                      names_prefix = "verbalGRE_",
+                      names_ptypes = list(time = factor()),
+                      values_to    = "verbalGRE")
+
+GRE_long
+```
+
+
+\clearpage
+
+
+### Exploratory Data Analysis
+
+```{r}
+GRE %>% 
+  furniture::table1("First Attempt"  = verbalGRE_1, 
+                    "Second Attempt" = verbalGRE_2, 
+                    "Difference in Attempts" = verbalGRE_1 - verbalGRE_2,
+                    digits = 2,
+                    output = "markdown")
+```
+
+
+
+```{r}
+GRE_long %>% 
+  ggplot(aes(x = time,
+             y = verbalGRE,
+             group = 1)) +
+  geom_point(alpha = .5) +
+  geom_line(aes(group = id), alpha = .5) +
+  stat_summary(fun = mean, shape = 10, size = 1) +
+  stat_summary(fun = mean, geom = "line", linetype = "dashed", size = 1.25) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Verbal GRE Score") +
+  scale_x_discrete(labels = c("1" = "First Attempt",
+                              "2" = "Second Attempt"))
+```
+
+
+
+\clearpage
+
+### Paired-sample t-test for Difference in Means (correlation method)
+
+**DIRECTIONS:** Calculate the matched pairs t test for `verbalGRE` at the two `time` points in the `GRE_long` dataset. 
+
+> **Note:** To use the `t.test()` function for **PAIRED** (non-independent) data, you **MUST** have your dataset in **LONG** format *-and-* include the `paired = TRUE` option.
+
+
+```{r}
+# Paired t-test: verbalGRE by time
+
+```
+
+\clearpage
+
+### One-sample t-test for Mean Difference (direct difference method)
+
+**DIRECTIONS:** Calculate a NEW variable called `verbalGRE_diff` with the `dplyr::mutate()` function by subtracting the `verbalGRE_1`and `verbalGRE_2` variables in the original **WIDE** `GRE` dataset. Pipe it all together ans save it as new dataset with the `GRE_new <-` assignment operator to use in the next step.
+
+```{r}
+# Compute a new variable --> save as: GRE_new
+
+```
+
+**DIRECTIONS:** Conduct a one-sample t-test do determine if there is evidence of a *(non-zero)* difference in the population.
+
+> **Note:** To use the `t.test()` function for a **ONE-sample** t test for the mean *(such as the direct difference approach for paired data)*, you **MUST** have your dataset in **WIDE** format *-and-*, you have to use the `dplyr::pull()` function **BEFORE** the `t.test()` step *(see chapter 6)*.
+
+```{r}
+# 1-sample t test: population mean of verbalGRE_diff = 0 (no difference)
+
+```
+
+
+
+\clearpage
+
+## 11B-8 Confidence Intervale for the Mean Difference
+
+**TEXTBOOK QUESTION:** *A cognitive psychologist is testing the theory that short-term memory is mediated by subvocal rehearsal. This theory can be tested by reading aloud a string of letters to a participant, who must repeat the string correctly after a brief delay. If the theory is correct, there will be more errors when the list contains letters that sound alike (e.g., G and T) than when the list contains letters that look alike (e.g., P and R). Each participant gets both types of letter strings, which are randomly mixed in the same experimental session. The number of errors for each type of letter string for each participant are shown in the following table. (a) Perform a matched t test ( $\alpha = .05$, one tailed) on the data above and state your conclusions.  (b) Find the 95% confidence interval for the population difference for the two types of letters.*
+
+```{r}
+memory
+```
+
+### Convert to Long Format
+
+In order to use the `paired = TRUE` option in the `t.test()` function, you MUST first restructure your dataset from **WIDE** format *(one line per person)* to **LONG** format *(one line per observation, per person)*.  
+
+```{r}
+memory_long <- memory %>% 
+  tidyr::pivot_longer(cols         = c(sound, look),
+                      names_to     = "type",
+                      names_ptypes = list(type = factor()),
+                      values_to    = "errors")
+
+memory_long %>% 
+  psych::headTail(top = 6)
+```
+
+\clearpage
+
+### Exploratory Data Analysis
+
+```{r}
+memory %>% 
+  furniture::table1("Sound Alike Word Errors" = sound,
+                    "Look Alike Word Errors"  = look,
+                    "Difference in Number of Errors" = sound - look,
+                    digits = 2,
+                    output = "markdown")
+```
+
+
+
+```{r}
+memory_long %>% 
+  ggplot(aes(x = type,
+             y = errors,
+             group = 1)) +
+  geom_point(alpha = .5)+
+  geom_line(aes(group = id), alpha = .5) +
+  stat_summary(fun = mean, shape = 10, size = 1) +
+  stat_summary(fun = mean, geom = "line", linetype = "dashed", size = 1.25) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Number of Errors") +
+  scale_x_discrete(labels = c("sound" = "Sound Alike Words",
+                              "look" = "Look Alike Words"))
+```
+
+
+\clearpage
+
+
+### Paired-sample t-test for Difference in Means: ONE tail
+
+**DIRECTIONS:** Calculate the matched pairs t test for number of `errors` between the two `type` of errors in the `memory_long` dataset as a **one-tail** test using the option `alternative = "less"` in the `t.test` function.  
+
+
+> **Note:** To use the `t.test()` function for **PAIRED** (non-independent) data, you **MUST** have your dataset in **LONG** format *-and-* include the `paired = TRUE` option.
+
+
+```{r}
+# Paired t-test: errors by type --> ONE tail
+ 
+```
+
+### Confidence Intervals for the Difference in Paired Means
+
+**DIRECTIONS:** Calculate the confidence interval for the difference in the paired means by calculating the matched pairs t test for number of `errors` between the two `type` of errors in the `memory_long` dataset as a **two-tail** test.   
+
+> **Note:** To get a meaningful confidence interval, you **MUST** run the t test as **TWO** sided, using the default: `alternative = "two.sided"`.
+
+```{r}
+# Paired t-test: errors by type --> TWO tails
+ 
+```
+
+
+
+
+\clearpage
+
+## 11B-9 t-Test for Mean Difference vs. Correlation
+
+**TEXTBOOK QUESTION:** *For the data in Exercise 10B6: (a) Calculate the matched t value to test whether there is a significant difference ($\alpha = .05$, two tailed) between the spatial ability and math scores. Use the correlation coefficient you calculated to find the regression slope in Exercise 10B6. (b) Explain how the Pearson r for paired data can be very high and statistically significant, while the matched t test for the same data fails to attain significance.*
+
+
+```{r}
+test_scores
+```
+
+### Convert to Long Format
+
+In order to use the `paired = TRUE` option in the `t.test()` function, you MUST first restructure your dataset from **WIDE** format *(one line per person)* to **LONG** format *(one line per observation, per person)*.  
+
+```{r}
+test_scores_long <- test_scores %>% 
+  tidyr::pivot_longer(cols         = c(spatial, math),
+                      names_to     = "type",
+                      names_ptypes = list(time = factor()),
+                      values_to    = "score")
+
+test_scores_long%>% 
+  psych::headTail(top = 6)
+```
+
+
+\clearpage
+
+
+### Exploratory Data Analysis
+
+```{r, fig.width=4, fig.height=4}
+test_scores %>% 
+  ggplot(aes(x = spatial,
+             y = math)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "black") +
+  theme_bw() +
+  labs(x = "Spatial Ability Score",
+       y = "Mathematical Ability Score")
+```
+
+
+\clearpage
+
+```{r}
+test_scores %>% 
+  furniture::table1("Mathematical Ability" = math,
+                    "Spatial Ability" = spatial,
+                    "Difference in Abilities" = math - spatial,
+                    digits = 2,
+                    output = "markdown")
+```
+
+
+```{r}
+test_scores_long %>% 
+  ggplot(aes(x = type,
+             y = score,
+             group = 1)) +
+  geom_point(alpha = .5) +
+  geom_line(aes(group = id), alpha = .5) +
+  stat_summary(fun = mean, shape = 10, size = 1) +
+  stat_summary(fun = mean, geom = "line", linetype = "dashed", size = 1.25) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Score") +
+  scale_x_discrete(labels = c("math" = "Mathematical Ability",
+                              "spatial" = "Spatial Ability"))
+```
+
+
+
+\clearpage
+
+### Pearson's Correlation 
+
+**DIRECTIONS:** Calculate Pearson's $r$ between `spatial` and `math` in the `test_scores` data set.
+
+> **Note:** To use the `cor.test()` function, you **MUST** have your dataset in **WIDE** format *(see chapter 9)*.
+
+
+```{r}
+# Pearson's r: spatial & math
+
+```
+
+### Paired-sample t-test for Difference in Means
+
+**DIRECTIONS:** Calculate the matched pairs t test for `score` at the two `type` of tests in the `test_scores_long` dataset. 
+
+> **Note:** To use the `t.test()` function for **PAIRED** (non-independent) data, you **MUST** have your dataset in **LONG** format *-and-* include the `paired = TRUE` option.
+ 
+
+```{r}
+# Paired t-test: score by type 
+
+```
+
+
+
+
+
+\clearpage
+
+# Section C - Ihno's Dataset
+
+
+## 11C-1a. Heart Rate at Baseline vs. Pre-Quiz
 
 **TEXTBOOK QUESTION:** *(a) Perform a matched-pairs t test to determine whether there is a significant increase in heart rate from baseline to the prequiz measurement. (b) Repeat these paired t tests separately for men and women.*
 
--------------------------------
 
-**Directions:** Calculate the matched pairs t test between `hr_base`and `hr_pre` Then repeat the calculation TWICE more: first among just men and then for just women.
+```{r}
+data_clean %>% 
+  dplyr::select(sub_num, hr_base, hr_pre) %>% 
+  psych::headTail()
+```
+
+
+### Convert to Long Format
+
+In order to use the `paired = TRUE` option in the `t.test()` function, you MUST first restructure your dataset from **WIDE** format *(one line per person)* to **LONG** format *(one line per observation, per person)*.  
+
+```{r}
+ihno_hr_long <- data_clean %>% 
+  tidyr::pivot_longer(cols         = c(hr_base, hr_pre),
+                      names_to     = "time",
+                      names_prefix = "hr_",
+                      names_ptypes = list(type = factor()),
+                      values_to    = "hr")
+
+ihno_hr_long %>% 
+  dplyr::select(sub_num, time, hr) %>% 
+  psych::headTail(top = 6)
+```
+
+\clearpage
+
+### Exploratory Data Analysis
+
+```{r}
+data_clean %>% 
+  dplyr::group_by(genderF) %>% 
+  furniture::table1("Heart Rate at Baseline" = hr_base,
+                    "Heart Rate at Pre-Quiz" = hr_pre,
+                    "Change in Heart Rate" = hr_pre - hr_base,
+                    total = TRUE,
+                    digits = 2,
+                    output = "markdown")
+```
+
+
+```{r}
+ihno_hr_long %>% 
+  ggplot(aes(x = time,
+             y = hr,
+             group = 1)) +
+  geom_count(alpha = .2) +
+  geom_line(aes(group = sub_num), alpha = .2) +
+  stat_summary(fun = mean, shape = 10, size = 1.5) +
+  stat_summary(fun = mean, geom = "line", linetype = "dashed", size = 1.5) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Heart Rate, Beats Per Minute") +
+  scale_x_discrete(labels = c("base" = "Baseline\nBefore Pop Quiz Announced",
+                              "pre" = "Pre-Quiz\nAfter Pop Quiz Announced"))
+```
+
+\clearpage
+
+
+
+```{r, fig.width=6.5, fig.height=5}
+ihno_hr_long %>% 
+  ggplot(aes(x = time,
+             y = hr,
+             group = 1)) +
+  geom_count(alpha = .3) +
+  geom_line(aes(group = sub_num), alpha = .3) +
+  stat_summary(fun = mean, shape = 10, size = 1.5) +
+  stat_summary(fun = mean, geom = "line", linetype = "dashed", size = 1.5) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Heart Rate, Beats Per Minute",
+       size = "Count") +
+  scale_x_discrete(labels = c("base" = "Baseline\nBefore\nPop Quiz\nAnnounced",
+                              "pre" = "Pre-Quiz\nAfter\nPop Quiz\nAnnounced")) +
+  facet_grid(. ~ genderF) +
+  theme(legend.position = "bottom")
+```
+
+\clearpage
+
+### Full Sample
+
+**DIRECTIONS:** Calculate the matched pairs t test for `hr` at the two `time` points in the `ihno_hr_long` dataset. 
+
+> **Note:** To use the `t.test()` function for **PAIRED** (non-independent) data, you **MUST** have your dataset in **LONG** format *-and-* include the `paired = TRUE` option.
+
+
+
+```{r}
+# Paired t-test: hr by time  <-- full sample
+
+```
+
+
+
+\clearpage
+
+
+### Seprately for Males and Females
+
+
+**DIRECTIONS:** Calculate the matched pairs t test for `hr` at the two `time` points in the `ihno_hr_long` dataset first for just males, and then again for just females.
 
 > **Note:** Use the `dplyr::filter()` function to subset the sample BEFORE fitting the model.  Also, be aware of which type of variable you are using:  `genderF == "Male"` or `gender == 2` works, but `gender == male` does NOT.
 
-> **Note:** I suggest using `key = time` and `value = hr`.
 
-```{r Q11c1a}
-# Paired t-test: hr_base & hr_pre  <-- full sample
+```{r}
+# Paired t-test: hr by time  <-- subset of men
+
 ```
+
+
+```{r}
+# Paired t-test: hr by time  <-- subset of women
+
+```
+
+
+
+
 
 \clearpage
 
-
-
-```{r Q11c1b}
-# Paired t-test: hr_base & hr_pre  <-- subset of men
-```
-
--------------------------------
-
-```{r Q11c1c}
-# Paired t-test: hr_base & hr_pre  <-- subset of women
-```
-
-\clearpage
-
-
-
-## Question C-2. More than Two Variables
+## 11C-2. Anxiety at Baseline vs. Pre-Quiz AND Pre-Quiz vs. Post-Quiz
 
 **TEXTBOOK QUESTION:** *(a) Perform a matched-pairs t test to determine whether there is a significant increase in anxiety from baseline to the prequiz measurement. (b) Perform a matched-pairs t test to determine whether there is a significant decrease in anxiety from the prequiz to the postquiz measurement.*
 
--------------------------------
-
-**Directions:** Calculate the matched pairs t test first between `anx_base`and `anx_pre` and then between `anx_pre`and `anx_post`.
-
-> **Note:** I suggest using `key = time` and `value = anx`.
-
-```{r Q11c2a}
-# Paired t-test: anx_base & anx_pre 
-
+```{r}
+data_clean %>% 
+  dplyr::select(sub_num, anx_base, anx_pre, anx_post) %>% 
+  psych::headTail()
 ```
+
+
+### Convert to Long Format
+
+In order to use the `paired = TRUE` option in the `t.test()` function, you MUST first restructure your dataset from **WIDE** format *(one line per person)* to **LONG** format *(one line per observation, per person)*.  
+
+```{r}
+ihno_anx_long <- data_clean %>% 
+  tidyr::pivot_longer(cols         = c(anx_base, anx_pre, anx_post),
+                      names_to     = "time",
+                      names_prefix = "anx_",
+                      names_ptypes = list(type = factor()),
+                      values_to    = "anx")
+
+ihno_anx_long %>% 
+  dplyr::select(sub_num, time, anx) %>% 
+  psych::headTail(top = 6)
+```
+
 
 \clearpage
 
 
+### Exploratory Data Analysis
 
-```{r Q11c2b}
-# Paired t-test: anx_pre & anx_post
-
+```{r}
+data_clean %>% 
+  furniture::table1("Anxiety, Baseline" = anx_base,
+                    "Anxiety, Pre-Quiz" = anx_pre,
+                    "Anxiety, Post-Quiz" = anx_post,
+                    total = TRUE,
+                    digits = 2,
+                    output = "markdown")
 ```
+
+
+
+```{r, fig.width=7, fig.height=3}
+ihno_anx_long %>% 
+  ggplot(aes(x = time, y = anx, group = 1)) +
+  geom_count(alpha = .2) +
+  geom_line(aes(group = sub_num), alpha = .2) +
+  stat_summary(fun = mean, shape = 10, size = 1.5) +
+  stat_summary(fun = mean, geom = "line", linetype = "dashed", size = 1.5) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Self-Rate Anxiety Score",
+       size = "Count") +
+  scale_x_discrete(limits = c("base", "pre", "post"),
+                   labels = c("base" = "Baseline\nBefore\nPop Quiz Announced",
+                              "pre" = "Pre-Quiz\nAfter\nPop Quiz Announced",
+                              "post" = "Post-Quiz\nAfter\nPop Quiz Taken"))
+```
+
 
 \clearpage
 
 
+### Baseline vs. Pre-Quiz
 
-## Question C-3. Compared to Correlation
+
+**Directions:** Calculate the matched pairs t test between baseline and pre-quiz anxiety measrues by first sub-setting the time points (`dplyr::Fitler(time %in% c("base", "pre"))`).
+
+
+```{r}
+# Paired t-test: for base and pre, anx by time
+
+```
+
+
+
+### Pre-Quiz vs. Post-Quiz
+
+
+**Directions:** Calculate the matched pairs t test between baseline and pre-quiz anxiety measrues by first sub-setting the time points (`dplyr::Fitler(time %in% c("pre", "post"))`).
+
+
+```{r}
+# Paired t-test: for pre and post, anx by time
+
+```
+
+
+\clearpage
+
+
+## 11C-3. Compared to Correlation
 
 **TEXTBOOK QUESTION:** *Perform a matched-pairs t test to determine whether there is a significant difference in mean scores between the experimental stats quiz and the regular stats quiz. Is the correlation between the two quizzes statistically significant? Explain any discrepancy between the significance of the correlation and the significance of the matched t test.*
 
--------------------------------
 
-**Directions:** Calculate the matched pairs t test between `exp_sqz`and `statquiz`.
+```{r}
+data_clean %>% 
+  dplyr::select(sub_num, exp_sqz, statquiz) %>% 
+  psych::headTail()
+```
 
-> **Note:** I suggest using `key = type` and `value = score`.
 
-```{r Q11c3a}
-# Paired t-test: exp_sqz & statquiz
+### Convert to Long Format
+
+In order to use the `paired = TRUE` option in the `t.test()` function, you MUST first restructure your dataset from **WIDE** format *(one line per person)* to **LONG** format *(one line per observation, per person)*.  
+
+```{r}
+ihno_statquiz_long <- data_clean %>% 
+  tidyr::pivot_longer(cols         = c(exp_sqz, statquiz),
+                      names_to     = "type",
+                      names_ptypes = list(type = factor()),
+                      values_to    = "score")
+
+ihno_statquiz_long %>% 
+  dplyr::select(sub_num, type, score) %>% 
+  psych::headTail(top = 6)
+```
+
+\clearpage
+
+### Exploratory Data Analysis
+
+```{r, fig.width=5, fig.height=3.5}
+data_clean %>% 
+  ggplot(aes(x = statquiz, 
+             y = exp_sqz)) +
+  geom_count() +
+  geom_smooth(method = "lm", color = "black") +
+  theme_bw() +
+  labs(x = "Standard Statistics Quiz Score, 10 Items",
+       y = "Experimental Statistics Quiz Score\nWith Bonus Item",
+       size = "Count")
+```
+
+\clearpage
+
+```{r}
+data_clean %>% 
+  furniture::table1("Standard Statistics Quiz Score\n (10 Items)" = statquiz,
+                    "Experimental Statistics Quiz Score\n (With Bonus Item)" = exp_sqz,
+                    "Difference in Statistics Quiz Scores" = statquiz - exp_sqz,
+                    digits = 2,
+                    output = "markdown")
+```
+
+
+```{r}
+ihno_statquiz_long %>% 
+  ggplot(aes(x = type,
+             y = score,
+             group = 1)) +
+  geom_count(alpha = .2) +
+  geom_line(aes(group = sub_num), alpha = .2) +
+  stat_summary(fun = mean, shape = 10, size = 1.25) +
+  stat_summary(fun = mean, geom = "line", linetype = "dashed", size = 1.25) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Score, Out of 10",
+       size = "Count") +
+  scale_x_discrete(limits = c("statquiz", "exp_sqz"),
+                   labels = c("Standard\nStatistics Quiz\n(10 items)", 
+                              "Experimental\nStatistics Quiz\n(with Bonus Item)"))
+```
+
+
+
+\clearpage
+
+
+### Paired-sample t-test for Difference in Means (correlation method)
+
+**DIRECTIONS:** Calculate the matched pairs t test for the scores (`score`) on the two statistics quizes (`type`) in the `ihno_statquiz_long` dataset. 
+
+> **Note:** To use the `t.test()` function for **PAIRED** (non-independent) data, you **MUST** have your dataset in **LONG** format *-and-* include the `paired = TRUE` option.
+
+
+```{r}
+# Paired t-test: score by type
 
 ```
 
--------------------------------
 
-**Directions:** Compute Pearson's $r$: for `exp_sqz` and `statquiz`
+### Pearson's Correlation 
 
-```{r Q11c3b}
+**DIRECTIONS:** Calculate Pearson's $r$ between `exp_sqz` and `statquiz` in the `data_clean` data set.
+
+> **Note:** To use the `cor.test()` function, you **MUST** have your dataset in **WIDE** format *(see chapter 9)*.
+
+
+
+```{r}
 # Pearson's r: exp_sqz & statquiz
 
 ```
+
+
+
+
+
+
+
+
 
 
