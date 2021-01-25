@@ -546,7 +546,7 @@ df$age %>% mean(na.rm = TRUE)
 
 
 ```{r, echo=FALSE}
-knitr::include_graphics("figures/pipe_verb.png")
+knitr::include_graphics("figures/pipe_verb.PNG")
 ```
 
 ]
@@ -555,7 +555,7 @@ knitr::include_graphics("figures/pipe_verb.png")
 ---
 
 ```{r, echo=FALSE}
-knitr::include_graphics("figures/pipeline_1.png")
+knitr::include_graphics("figures/pipeline_1.PNG")
 ```
 
 
@@ -563,13 +563,13 @@ knitr::include_graphics("figures/pipeline_1.png")
 
 
 ```{r, echo=FALSE, out.width = '75%'}
-knitr::include_graphics("figures/pipeline_step1.png")
+knitr::include_graphics("figures/pipeline_step1.PNG")
 ```
 
 --
 
 ```{r, echo=FALSE, out.width = '75%'}
-knitr::include_graphics("figures/pipeline_step2.png")
+knitr::include_graphics("figures/pipeline_step2.PNG")
 ```
 
 ---
@@ -583,14 +583,14 @@ knitr::include_graphics("figures/chaining_data_verbs.png")
 ---
 
 ```{r, echo=FALSE}
-knitr::include_graphics("figures/pipeline_1.png")
+knitr::include_graphics("figures/pipeline_1.PNG")
 ```
 
 
 ---
 
 ```{r, echo=FALSE, out.width = '75%'}
-knitr::include_graphics("figures/pipline_compare.png")
+knitr::include_graphics("figures/pipline_compare.PNG")
 ```
 
 
@@ -598,13 +598,13 @@ knitr::include_graphics("figures/pipline_compare.png")
 ---
 
 ```{r, echo=FALSE, out.width = '75%'}
-knitr::include_graphics("figures/pipline_compare_arrows.png")
+knitr::include_graphics("figures/pipline_compare_arrows.PNG")
 ```
 
 ---
 
 ```{r, echo=FALSE, out.width = '75%'}
-knitr::include_graphics("figures/pipeline_stesp_pipe.png")
+knitr::include_graphics("figures/pipeline_stesp_pipe.PNG")
 
 ```
 
