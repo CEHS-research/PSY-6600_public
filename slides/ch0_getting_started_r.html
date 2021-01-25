@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Getting Started with R</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+    <script src="libs/anchor-sections/anchor-sections.js"></script>
+    <link rel="stylesheet" href="pres2.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Getting Started with R
+## Basics of R <br><br> .small[EDUC/PSY 6600]
+
+---
+
+
+
+
+
+# Download Software
+
+&lt;img src="figures/R_studio_LaTeX_header.png" width="2133" /&gt;
+
+Directions: [Encyclopedia, Vol. 0: Install Software](https://cehs-research.github.io/eBook_install/install-software.html)
+
+
+
+---
+
+# `R` vs. `R Studio`
+
+&lt;br&gt;
+
+.huge[If `R` is like a car's engine, then `RStudio` is the steering wheel, the pedals, and the comfortable seat]
+
+--
+.pull-left[.huge[.center[
+`R`
+
+[www.r-project.org](https://cran.cnr.berkeley.edu/)
+]]]
+
+.pull-right[.huge[.center[
+`RStudio`
+
+[www.rstudio.com](https://www.rstudio.com/products/rstudio/download/)
+]]]
+
+---
+# Focus on what is needed in `R`
+
+&lt;br&gt;
+
+.center[.Huge[
+".dcoral[Success] is neither magical nor mysterious. Success is the natural consequence of consistently applying the .nicegreen[basic fundamentals]." --- Jim Rohn
+]]
+
+.footnote[https://www.brainyquote.com/quotes/jim_rohn_122132?src=t_fundamentals]
+
+
+---
+# Intro to `R`
+
+.pull-left[.huge[
+Why Use `R`?
+]
+.large[
+- .coral[**Free**]ly available
+- Almost always up-to-date
+- Best .bluer[data visualizations]
+- .nicegreen[Syntax oriented] (easy to reproduce analyses)
+- Gets updated regularly
+- You can make your .gray1[own functionality] (e.g., `table1()`)
+]]
+
+--
+
+.pull-right[
+.huge[`table1()` produces 👇] 
+&lt;br&gt;
+![](figures/table1_fig.png)
+]
+
+
+---
+count: false
+# Intro to `R`
+
+.pull-left[.huge[
+Why Use `R`?
+]
+.large[
+- .coral[**Free**]ly available
+- Almost always up-to-date
+- Best .bluer[data visualizations]
+- .nicegreen[Syntax oriented] (easy to reproduce analyses)
+- Gets updated regularly
+- You can make your .gray1[own functionality] (e.g., `table1()`)
+]]
+
+.pull-right[.huge[
+Any Issues?
+]
+.large[
+- Learning curve
+- Too extensive (people often focus on too much)
+- Advisor's sometimes don't use it
+
+The pro's heavily outweight the con's *if* you are willing to use it. It can save you tons of time in the long-run.
+]]
+
+---
+
+## .coral[Objects] are Nouns
+
+Virtual objects are like physical objects (e.g., a car is good to travel in, a table not so much)
+
+`R` uses virtual objects 
+
+- a `vector` is values concatinated together
+- a `data.frame` is a group of vectors of the same length
+
+--
+
+.pull-left[
+
+.large[.bluer[Vector]]
+
+concatinate or combine
+
+
+
+```r
+c(1, 3, 5, 7, 11, 13)
+```
+
+```
+&gt; [1]  1  3  5  7 11 13
+```
+
+]
+
+--
+
+
+.pull-right[
+
+.large[.bluer[Data Frame]]
+
+named vectors of the same length
+
+
+```r
+data.frame(x = c(1, 3, 5, 7),
+           y = c(2, 4, 6, 8))
+```
+
+```
+&gt;   x y
+&gt; 1 1 2
+&gt; 2 3 4
+&gt; 3 5 6
+&gt; 4 7 8
+```
+]
+
+
+
+---
+
+## .coral[Objects]: save into global environment
+
+.pull-left[
+
+
+.large[Assignment symbol:  .coral[&lt;-]]
+
+
+.large[.bluer[Constant]]
+
+
+
+```r
+fred &lt;- 13
+```
+
+
+```r
+fred
+```
+
+```
+&gt; [1] 13
+```
+
+
+
+.large[.bluer[Vector]]
+
+
+```r
+odds &lt;- c(1, 3, 5, 7, 11, 13)
+```
+
+
+```r
+odds
+```
+
+```
+&gt; [1]  1  3  5  7 11 13
+```
+
+]
+
+--
+
+.pull-right[
+
+.large[.bluer[Data Frame]]
+
+
+```r
+df &lt;- data.frame(x = c(1, 3, 5, 7),
+                 y = c(2, 4, 6, 8))
+```
+
+
+```r
+df
+```
+
+```
+&gt;   x y
+&gt; 1 1 2
+&gt; 2 3 4
+&gt; 3 5 6
+&gt; 4 7 8
+```
+
+
+]
+
+
+
+
+---
+
+## .coral[Class] of a variable: .nicegreen[numeric (dbl)]
+
+
+.pull-leftbig[
+
+
+```r
+df &lt;- data.frame(id   = c(100, 101, 102, 103),
+                 name = c("Joe", "Jill", "Meg", "Pat"),
+                 age  = c(10, 9, 10, 11),
+                 trt  = as.factor(c("A", "B", "A", "B")))
+```
+
+
+```r
+df
+```
+
+```
+&gt;    id name age trt
+&gt; 1 100  Joe  10   A
+&gt; 2 101 Jill   9   B
+&gt; 3 102  Meg  10   A
+&gt; 4 103  Pat  11   B
+```
+
+]
+
+--
+
+
+
+.pull-rightsmall[
+
+.large[dataframe.coral[$]variable]
+
+
+
+```r
+df$id
+```
+
+```
+&gt; [1] 100 101 102 103
+```
+
+.large[numbers are not quoted]
+
+
+
+```r
+class(df$id)
+```
+
+```
+&gt; [1] "numeric"
+```
+
+]
+
+---
+
+## .coral[Class] of a variable: .nicegreen[numeric (dbl)]
+
+
+.pull-leftbig[
+
+
+```r
+df &lt;- data.frame(id   = c(100, 101, 102, 103),
+                 name = c("Joe", "Jill", "Meg", "Pat"),
+                 age  = c(10, 9, 10, 11),
+                 trt  = as.factor(c("A", "B", "A", "B")))
+```
+
+
+```r
+df
+```
+
+```
+&gt;    id name age trt
+&gt; 1 100  Joe  10   A
+&gt; 2 101 Jill   9   B
+&gt; 3 102  Meg  10   A
+&gt; 4 103  Pat  11   B
+```
+
+]
+
+
+.pull-rightsmall[
+
+.large[dataframe.coral[$]variable]
+
+
+```r
+df$age
+```
+
+```
+&gt; [1] 10  9 10 11
+```
+
+.large[numbers are not quoted]
+
+
+```r
+class(df$age)
+```
+
+```
+&gt; [1] "numeric"
+```
+
+]
+
+---
+
+## .coral[Class] of a variable: .nicegreen[character (chr)]
+
+
+.pull-leftbig[
+
+
+```r
+df &lt;- data.frame(id   = c(100, 101, 102, 103),
+                 name = c("Joe", "Jill", "Meg", "Pat"),
+                 age  = c(10, 9, 10, 11),
+                 trt  = as.factor(c("A", "B", "A", "B")))
+```
+
+
+```r
+df
+```
+
+```
+&gt;    id name age trt
+&gt; 1 100  Joe  10   A
+&gt; 2 101 Jill   9   B
+&gt; 3 102  Meg  10   A
+&gt; 4 103  Pat  11   B
+```
+
+]
+
+
+
+.pull-rightsmall[
+
+.large[dataframe.coral[$]variable]
+
+
+```r
+df$name
+```
+
+```
+&gt; [1] "Joe"  "Jill" "Meg"  "Pat"
+```
+
+.large[text is quoted]
+
+
+```r
+class(df$name)
+```
+
+```
+&gt; [1] "character"
+```
+
+]
+
+
+---
+
+## .coral[Class] of a variable: .nicegreen[factor (fct)]
+
+
+.pull-leftbig[
+
+
+```r
+df &lt;- data.frame(id   = c(100, 101, 102, 103),
+                 name = c("Joe", "Jill", "Meg", "Pat"),
+                 age  = c(10, 9, 10, 11),
+                 trt  = as.factor(c("A", "B", "A", "B")))
+```
+
+
+```r
+df
+```
+
+```
+&gt;    id name age trt
+&gt; 1 100  Joe  10   A
+&gt; 2 101 Jill   9   B
+&gt; 3 102  Meg  10   A
+&gt; 4 103  Pat  11   B
+```
+
+]
+
+
+
+.pull-rightsmall[
+
+.large[dataframe.coral[$]variable]
+
+
+```r
+df$trt
+```
+
+```
+&gt; [1] A B A B
+&gt; Levels: A B
+```
+
+.large[factors have levels]
+
+
+```r
+class(df$trt)
+```
+
+```
+&gt; [1] "factor"
+```
+
+]
+
+---
+## .coral[Functions] are Verbs
+
+
+.pull-left[.large[
+
+Generally looks like: 
+
+`stuff(arg1, arg2)`
+...or...
+
+`pkg::stuff(arg1, arg2)`
+
+- `pkg` package the function is from
+- `stuff` function's name
+- `()` surround the arguments
+- `arg1` and `arg2` arguments or options
+]]
+
+--
+
+.pull-right[
+.large[Example: "mean" function
+
+- `mean()` 
+- 1 argument required: a variable
+- returns variable's average
+]
+
+```r
+## This is a comment 
+mean(df$age)
+```
+
+```
+&gt; [1] 10
+```
+
+...does the same thing...
+
+
+```r
+base::mean(df$age)
+```
+
+```
+&gt; [1] 10
+```
+
+]
+
+---
+
+## .coral[Functions] are Verbs
+
+&lt;img src="figures/data_verb_input_output.png" width="1656" /&gt;
+
+
+---
+## .coral[Missing Values] are lack of data
+
+- `NA` represents missing or blank values
+- there are no quotes around the `NA`
+
+.pull-leftbig[
+
+
+```r
+df &lt;- data.frame(id   = c(100, 101, 102, 103),
+                 name = c("Joe", "Jill", "Meg", "Pat"),
+                 age  = c(10, 9.5, NA, 11),
+                 trt  = as.factor(c("A", "B", "A", "B")))
+```
+
+
+```r
+df
+```
+
+```
+&gt;    id name  age trt
+&gt; 1 100  Joe 10.0   A
+&gt; 2 101 Jill  9.5   B
+&gt; 3 102  Meg   NA   A
+&gt; 4 103  Pat 11.0   B
+```
+
+]
+
+--
+
+.pull-rightsmall[
+
+
+
+```r
+mean(df$age)
+```
+
+```
+&gt; [1] NA
+```
+
+
+default: 
+- keeps in missing values
+- NA in data cases NA in mean
+
+
+```r
+mean(df$age, na.rm = TRUE)
+```
+
+```
+&gt; [1] 10.16667
+```
+
+]
+
+
+
+
+---
+
+## .coral[Functions]: what package is it from?
+
+
+.pull-leftsmall[
+
+Function in Base R
+
+
+```r
+dim(df)
+```
+
+```
+&gt; [1] 4 4
+```
+
+
+
+```r
+names(df)
+```
+
+```
+&gt; [1] "id"   "name" "age"  "trt"
+```
+
+
+]
+
+--
+
+.pull-rightbig[
+
+Function from a specific package
+
+
+```r
+tibble::glimpse(df)
+```
+
+```
+&gt; Rows: 4
+&gt; Columns: 4
+&gt; $ id   &lt;dbl&gt; 100, 101, 102, 103
+&gt; $ name &lt;chr&gt; "Joe", "Jill", "Meg", "Pat"
+&gt; $ age  &lt;dbl&gt; 10.0, 9.5, NA, 11.0
+&gt; $ trt  &lt;fct&gt; A, B, A, B
+```
+
+]
+
+
+
+---
+
+## The .coral[Tidyverse]
+
+&lt;img src="figures/tidyverse.png" width="2205" /&gt;
+
+---
+
+## The .coral[Tidyverse]
+
+
+https://rworkshop.uni.lu/lectures/lecture05_dplyr.html#1 
+
+
+```r
+library(tidyverse)
+```
+
+
+
+---
+## The .coral[Pipe] links steps
+
+
+The symbol is typed .nicegreen[`%&gt;%`]
+
+.pull-left[
+
+
+```r
+mean(df$age, na.rm = TRUE)
+```
+
+```
+&gt; [1] 10.16667
+```
+
+
+```r
+df$age %&gt;% mean(na.rm = TRUE)
+```
+
+```
+&gt; [1] 10.16667
+```
+
+]
+
+.pull-right[
+
+
+&lt;img src="figures/pipe_verb.png" width="1745" /&gt;
+
+]
+
+
+---
+
+&lt;img src="figures/pipeline_1.png" width="1863" /&gt;
+
+
+---
+
+
+&lt;img src="figures/pipeline_step1.png" width="75%" /&gt;
+
+--
+
+&lt;img src="figures/pipeline_step2.png" width="75%" /&gt;
+
+---
+## Build a .coral[Pipeline]
+
+
+&lt;img src="figures/chaining_data_verbs.png" width="2317" /&gt;
+
+---
+
+&lt;img src="figures/pipeline_1.png" width="1863" /&gt;
+
+
+---
+
+&lt;img src="figures/pipline_compare.PNG" width="75%" /&gt;
+
+
+
+---
+
+&lt;img src="figures/pipline_compare_arrows.PNG" width="75%" /&gt;
+
+---
+
+&lt;img src="figures/pipeline_stesp_pipe.png" width="75%" /&gt;
+
+
+
+
+
+---
+
+## Build a .coral[Pipeline]
+
+&lt;img src="figures/assembly-line.png" width="1923" /&gt;
+
+
+---
+# Important first steps in `R`
+
+.large[.large[
+1. Read in Data
+2. Quickly assess the data
+3. Clean the data
+4. Analyze the data
+]]
+
+--
+
+.large[We'll show each of these over the next few weeks starting with reading in, assessing and cleaning the data]
+
+
+---
+# Read in the data
+
+.huge[Data comes in various files:]
+
+.pull-left[.large[
+- CSV
+- tab-delimited
+- SPSS
+- Excel
+]]
+.pull-right[.large[
+- SAS
+- Stata
+- Mplus
+- etc.
+]]
+
+--
+### `R` can read all types
+
+--
+
+.huge[Generally, it all works in a similar way]
+
+---
+# Read in data: FORMAT
+
+.large[Text: .bluer[Comma-seperated]]
+
+
+```r
+my_data &lt;- read.csv("my_data_file.csv")
+```
+
+--
+
+.large[Text: .bluer[tab-delimited]]
+
+
+```r
+my_data &lt;- read.delim("my_data_file.txt")
+```
+
+--
+
+.large[.bluer[Excel]]: .xls, .xlsx
+
+
+```r
+library(readxl)
+my_data &lt;- readxl::read_excel("my_data_file.xlsx")
+```
+
+--
+
+.large[.bluer[SPSS]]: .sav
+
+
+```r
+library(haven)
+my_data &lt;- haven::read_spss("my_data_file.sav")
+```
+
+---
+background-image: url(figures/fig_inho_data_desc.png)
+background-position: 50% 90%
+background-size: 800px
+
+# Let's use the data from the book
+
+
+---
+# Steps for .dcoral[Preparing] the Data for Analysis
+
+.large[.large[
+1. .coral[Get the data]
+2. .nicegreen[Prep the data]
+    - Variable Labels 	
+    - Value Labels	
+    - Missing Values
+3. .bluer[Compute] new variables and values (fill in missing codes, recode scores, categorize/group values, combine)
+4. Get .dcoral[descriptives] using `tableF()` and `table1()` from the `furniture` package to check what is going on
+]]
+
+---
+# Step 1: Get the data
+
+Data is in .sav form (SPSS)
+
+
+```r
+library(readxl)
+d &lt;- readxl::read_excel("data/Ihno_dataset.xls")
+d
+```
+
+
+```
+&gt; # A tibble: 100 x 18
+&gt;    Sub_num Gender Major Reason Exp_cond Coffee Num_cups Phobia Prevmath Mathquiz
+&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+&gt;  1       1      1     1      3        1      1        0      1        3       43
+&gt;  2       2      1     1      2        1      0        0      1        4       49
+&gt;  3       3      1     1      1        1      0        0      4        1       26
+&gt;  4       4      1     1      1        1      0        0      4        0       29
+&gt;  5       5      1     1      1        1      0        1     10        1       31
+&gt;  6       6      1     1      1        2      1        1      4        1       20
+&gt;  7       7      1     1      1        2      0        0      4        2       13
+&gt;  8       8      1     1      3        2      1        2      4        1       23
+&gt;  9       9      1     1      1        2      0        0      4        1       38
+&gt; 10      10      1     1      1        2      1        2      5        0       NA
+&gt; # ... with 90 more rows, and 8 more variables: Statquiz &lt;dbl&gt;, Exp_sqz &lt;dbl&gt;,
+&gt; #   Hr_base &lt;dbl&gt;, Hr_pre &lt;dbl&gt;, Hr_post &lt;dbl&gt;, Anx_base &lt;dbl&gt;, Anx_pre &lt;dbl&gt;,
+&gt; #   Anx_post &lt;dbl&gt;
+```
+
+
+---
+# Step 2: Prep the data
+
+
+```r
+library(tidyverse)
+
+d_clean &lt;- d %&gt;%
+  dplyr::mutate(MajorF = factor(Major, 
+                                levels = c(1, 2, 3, 4, 5),
+                                labels = c("Psychology", "Premed",
+                                           "Biology", "Sociology",
+                                           "Economics"))) %&gt;%
+  dplyr::mutate(Coffee = factor(Coffee))
+
+d_clean
+```
+
+```
+&gt; # A tibble: 100 x 19
+&gt;    Sub_num Gender Major Reason Exp_cond Coffee Num_cups Phobia Prevmath Mathquiz
+&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+&gt;  1       1      1     1      3        1 1             0      1        3       43
+&gt;  2       2      1     1      2        1 0             0      1        4       49
+&gt;  3       3      1     1      1        1 0             0      4        1       26
+&gt;  4       4      1     1      1        1 0             0      4        0       29
+&gt;  5       5      1     1      1        1 0             1     10        1       31
+&gt;  6       6      1     1      1        2 1             1      4        1       20
+&gt;  7       7      1     1      1        2 0             0      4        2       13
+&gt;  8       8      1     1      3        2 1             2      4        1       23
+&gt;  9       9      1     1      1        2 0             0      4        1       38
+&gt; 10      10      1     1      1        2 1             2      5        0       NA
+&gt; # ... with 90 more rows, and 9 more variables: Statquiz &lt;dbl&gt;, Exp_sqz &lt;dbl&gt;,
+&gt; #   Hr_base &lt;dbl&gt;, Hr_pre &lt;dbl&gt;, Hr_post &lt;dbl&gt;, Anx_base &lt;dbl&gt;, Anx_pre &lt;dbl&gt;,
+&gt; #   Anx_post &lt;dbl&gt;, MajorF &lt;fct&gt;
+```
+
+
+---
+# Step 3: Compute new variables/values
+
+
+```r
+d_clean &lt;- d_clean %&gt;%
+  dplyr::mutate(newVar = Mathquiz / 2)
+```
+*Note that I removed the other variables just to show you but in reality all the variables are still there. Also I only want to show the first few rows.
+
+```r
+d_clean %&gt;% dplyr::select(Mathquiz, newVar) %&gt;% head()
+```
+
+```
+&gt; # A tibble: 6 x 2
+&gt;   Mathquiz newVar
+&gt;      &lt;dbl&gt;  &lt;dbl&gt;
+&gt; 1       43   21.5
+&gt; 2       49   24.5
+&gt; 3       26   13  
+&gt; 4       29   14.5
+&gt; 5       31   15.5
+&gt; 6       20   10
+```
+
+
+---
+# Step 4: Get descriptives
+
+.pull-left[
+
+```r
+library(furniture)
+
+furniture::tableF(d_clean, MajorF)
+```
+
+```
+&gt; 
+&gt; -----------------------------------------
+&gt;  MajorF     Freq CumFreq Percent CumPerc
+&gt;  Psychology 29   29      29.00%  29.00% 
+&gt;  Premed     25   54      25.00%  54.00% 
+&gt;  Biology    21   75      21.00%  75.00% 
+&gt;  Sociology  15   90      15.00%  90.00% 
+&gt;  Economics  10   100     10.00%  100.00%
+&gt; -----------------------------------------
+```
+]
+
+.pull-right[
+
+```r
+furniture::tableF(d_clean, Phobia)
+```
+
+```
+&gt; 
+&gt; -------------------------------------
+&gt;  Phobia Freq CumFreq Percent CumPerc
+&gt;  0      12   12      12.00%  12.00% 
+&gt;  1      15   27      15.00%  27.00% 
+&gt;  2      12   39      12.00%  39.00% 
+&gt;  3      16   55      16.00%  55.00% 
+&gt;  4      21   76      21.00%  76.00% 
+&gt;  5      11   87      11.00%  87.00% 
+&gt;  6      1    88      1.00%   88.00% 
+&gt;  7      4    92      4.00%   92.00% 
+&gt;  8      4    96      4.00%   96.00% 
+&gt;  9      1    97      1.00%   97.00% 
+&gt;  10     3    100     3.00%   100.00%
+&gt; -------------------------------------
+```
+]
+
+
+---
+# Step 4: Get descriptives
+
+
+```r
+d_clean %&gt;% 
+  dplyr::group_by(MajorF) %&gt;% 
+  furniture::table1(Mathquiz, Phobia, Coffee)
+```
+
+```
+&gt; Using dplyr::group_by() groups: MajorF
+```
+
+```
+&gt; 
+&gt; -------------------------------------------------------------------
+&gt;                                  MajorF 
+&gt;           Psychology Premed     Biology     Sociology   Economics 
+&gt;           n = 25     n = 21     n = 19      n = 12      n = 8     
+&gt;  Mathquiz                                                         
+&gt;           29.6 (8.9) 31.0 (8.2) 24.2 (10.4) 28.0 (10.4) 35.4 (6.3)
+&gt;  Phobia                                                           
+&gt;           3.6 (2.4)  3.0 (2.5)  3.7 (2.6)   3.2 (3.0)   1.8 (1.4) 
+&gt;  Coffee                                                           
+&gt;     0     17 (68%)   11 (52.4%) 10 (52.6%)  8 (66.7%)   4 (50%)   
+&gt;     1     8 (32%)    10 (47.6%) 9 (47.4%)   4 (33.3%)   4 (50%)   
+&gt; -------------------------------------------------------------------
+```
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topics
+
+### More Data Manipulation
+### Understanding Data via Figures
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
