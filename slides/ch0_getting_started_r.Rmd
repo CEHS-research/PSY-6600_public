@@ -1,6 +1,7 @@
 ---
 title: "Getting Started with R"
 subtitle: "Basics of R <br><br> .small[EDUC/PSY 6600]"
+date: "Spring 2021"
 output:
   xaringan::moon_reader:
     lib_dir: libs
