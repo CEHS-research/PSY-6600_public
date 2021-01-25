@@ -95,196 +95,68 @@ background-size: 900px
 
 
 ---
-# Rounding Numbers: Rules
+# Rounding Numbers
 
 ### Rules
 
 .large[
-If you want to round to N decimal places, look at the digit in the $N + 1$ place…
-- If it is LESS than 5 -> do not change the digit in the Nth place
-- If it is MORE than 5 -> increase the digit in the Nth place by 1
-- If it is EQUAL to 5 AND there are no non-zero digits to the right, -> increase the digit in the Nth place by 1 ONLY IF the Nth digit is ODD (do not change it if it is EVEN)
-
-]
+- If you want to round to N decimal places, look at the digit in the $N + 1$ place…
+    - If it is LESS than 5 -> do not change the digit in the Nth place
+    - If it is MORE than 5 -> increase the digit in the Nth place by 1
+    - If it is EQUAL to 5 AND there are no non-zero digits to the right, -> increase the digit in the Nth place by 1 ONLY IF the Nth digit is ODD (do not change it if it is EVEN)
 
 In all cases, the last step is to drop the digit in the $N+1$ place and other digits to the right
-
----
-# Rounding Numbers: Examples
-
-
-Round to **two** decimal places
-
-.pull-left[
-
-- $65.3$
-- $8/3$
-- $0.4255$
-- $0.4358$
-- $0.425$
-- $0.435$
-
 ]
 
+
 --
 
-.pull-right[
+.center[.huge[.coral[Examples]]]
 
-- $65.30$
-- $2.67$
-- $0.43$
-- $0.44$
-- $0.42$
-- $0.44$
+???
 
-]
+Round to two decimal places
 
----
-
-
-
-```{r, echo=FALSE}
-knitr::include_graphics("figures/sigma_notation_nice.jpg")
-```
-
-
+- $65.3 = 65.30$
+- $8/3 = 2.67$
+- $0.4255 = 0.43$
+- $0.4358 = 0.44$
+- $0.425 = 0.42$
+- $0.435 = 0.44$
 
 
 ---
+background-image: url(figures/fig_summation_notation.png)
+background-position: 50% 50%
+background-size: 500px
 
-# Summation: Example 1
+# Summation Notation
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
 
-$$
-x_1 = 5, \; x_2 = 4, \; x_3 = 3, \; x_4 = 2, \; x_5 = 1
-$$
-$$
-y_1 = 10, \; y_2 = 20, \; y_3 = 30, \; y_4 = 40, \; y_5 = 50
-$$
+.center[.Huge[.coral[Examples]]]
 
---
-
-$$
-\sum_{i = 1}^5 x_i
-$$
-
---
+???
+Some examples up on the board:
 
 $$
-= x_1 + x_2 + x_3 + x_4 + x_5 
+\frac{1}{5}\sum_{i = 1}^5 x_i
 $$
-
---
-
-$$
-= 5 + 4 + 3 + 2 + 1 
-$$
---
-
-$$
-= 15
-$$
-
----
-
-
-# Summation: Example 2
-
-
-$$
-x_1 = 5, \; x_2 = 4, \; x_3 = 3, \; x_4 = 2, \; x_5 = 1
-$$
-
-
-$$
-y_1 = 10, \; y_2 = 20, \; y_3 = 30, \; y_4 = 40, \; y_5 = 50
-$$
-
-
-
 
 $$
 \sum_{i = 1}^2 (x_i + y_i)
 $$
 
---
-
 $$
-= (x_1 + y_1) + (x_2 + y_2) 
+\sum_{i = 1}^n y_i
 $$
-
---
-
-$$
-= (5 + 10) + (4 + 20) 
-$$
-
---
-
-$$
-= (15) + (24) 
-$$
-
---
-
-$$
-= 39
-$$
-
-
----
-
-
-# Summation: Example 3
-
-
-$$
-x_1 = 5, \; x_2 = 4, \; x_3 = 3, \; x_4 = 2, \; x_5 = 1
-$$
-
-
-$$
-y_1 = 10, \; y_2 = 20, \; y_3 = 30, \; y_4 = 40, \; y_5 = 50
-$$
-
-
 
 $$
 \sum_{i = 1}^2 (x_i \times y_i)
 $$
 
-
---
-
-$$
-= (x_1 \times y_1) + (x_2 \times y_2) 
-$$
-
---
-
-$$
-= (5 \times 10) + (4 \times 20) 
-$$
-
---
-
-$$
-= (50) + (80) 
-$$
-
---
-
-$$
-= 130
-$$
-
-
-
-
-
-
 ---
-# Summation: Rules
+# Summation Rules
 
 .pull-left[
 #### Number 1
@@ -410,7 +282,7 @@ The pro's heavily outweight the con's *if* you are willing to use it. It can sav
 
 ---
 
-## .coral[Objects] are Nouns
+## .coral[Objects]: specify
 
 Virtual objects are like physical objects (e.g., a car is good to travel in, a table not so much)
 
@@ -450,6 +322,35 @@ data.frame(x = c(1, 3, 5, 7),
 ]
 
 
+
+---
+## .coral[Functions]: Its how we do stuff in `R`
+
+.pull-left[.large[
+
+Generally looks like: 
+
+`stuff(arg1, arg2)`
+
+- `stuff` function's name
+- `()` surround the arguments
+- `arg1` arguments or options
+]]
+
+--
+
+.pull-right[
+.large[Example: "mean" function
+
+- `mean()` 
+- 1 argument required: a variable
+- returns variable's average
+]
+```{r}
+## This is a comment
+mean(df$age)
+```
+]
 
 ---
 
@@ -663,47 +564,9 @@ class(df$trt)
 
 ]
 
+-
 ---
-## .coral[Functions] are Verbs
-
-
-.pull-left[.large[
-
-Generally looks like: 
-
-`stuff(arg1, arg2)`
-
-- `stuff` function's name
-- `()` surround the arguments
-- `arg1` arguments or options
-]]
-
---
-
-.pull-right[
-.large[Example: "mean" function
-
-- `mean()` 
-- 1 argument required: a variable
-- returns variable's average
-]
-```{r}
-## This is a comment
-mean(df$age)
-```
-]
-
----
-
-## .coral[Functions] are Verbs
-
-```{r, echo=FALSE}
-knitr::include_graphics("figures/data_verb_input_output.png")
-```
-
-
----
-## .coral[Missing Values] are lack of data
+## .coral[Missing Values]
 
 - `NA` represents missing or blank values
 - there are no quotes around the `NA`
@@ -733,17 +596,11 @@ mean(df$age)
 ```
 
 
-default: 
-- keeps in missing values
-- NA in data cases NA in mean
-
 ```{r}
 mean(df$age, na.rm = TRUE)
 ```
 
 ]
-
-
 
 
 ---
@@ -785,31 +642,23 @@ tibble::glimpse(df)
 
 ## The .coral[Tidyverse]
 
-```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+Formerly known as the "Hadleyverse"
 
-knitr::include_graphics("figures/tidyverse.png")
-```
-
----
-
-## The .coral[Tidyverse]
-
-
-https://rworkshop.uni.lu/lectures/lecture05_dplyr.html#1 
 
 ```{r}
 library(tidyverse)
 ```
 
 
-
 ---
-## The .coral[Pipe] links steps
+## .coral[Pipe]: linking steps
 
 
 The symbol is typed .nicegreen[`%>%`]
 
-.pull-left[
+.pull-leftsmall[
+
+
 
 ```{r}
 mean(df$age, na.rm = TRUE)
@@ -821,83 +670,8 @@ df$age %>% mean(na.rm = TRUE)
 
 ]
 
-.pull-right[
 
 
-```{r, echo=FALSE}
-knitr::include_graphics("figures/pipe_verb.png")
-```
-
-]
-
-
----
-
-```{r, echo=FALSE}
-knitr::include_graphics("figures/pipeline_1.png")
-```
-
-
----
-
-
-```{r, echo=FALSE, out.width = '75%'}
-knitr::include_graphics("figures/pipeline_step1.png")
-```
-
---
-
-```{r, echo=FALSE, out.width = '75%'}
-knitr::include_graphics("figures/pipeline_step2.png")
-```
-
----
-## Build a .coral[Pipeline]
-
-
-```{r, echo=FALSE}
-knitr::include_graphics("figures/chaining_data_verbs.png")
-```
-
----
-
-```{r, echo=FALSE}
-knitr::include_graphics("figures/pipeline_1.png")
-```
-
-
----
-
-```{r, echo=FALSE, out.width = '75%'}
-knitr::include_graphics("figures/pipline_compare.PNG")
-```
-
-
-
----
-
-```{r, echo=FALSE, out.width = '75%'}
-knitr::include_graphics("figures/pipline_compare_arrows.PNG")
-```
-
----
-
-```{r, echo=FALSE, out.width = '75%'}
-knitr::include_graphics("figures/pipeline_stesp_pipe.png")
-
-```
-
-
-
-
-
----
-
-## Build a .coral[Pipeline]
-
-```{r, echo=FALSE}
-knitr::include_graphics("figures/assembly-line.png")
-```
 
 
 ---
