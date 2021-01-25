@@ -590,7 +590,7 @@ knitr::include_graphics("figures/pipeline_1.png")
 ---
 
 ```{r, echo=FALSE, out.width = '75%'}
-knitr::include_graphics("figures/pipline_compare.PNG")
+knitr::include_graphics("figures/pipline_compare.png")
 ```
 
 
@@ -598,7 +598,7 @@ knitr::include_graphics("figures/pipline_compare.PNG")
 ---
 
 ```{r, echo=FALSE, out.width = '75%'}
-knitr::include_graphics("figures/pipline_compare_arrows.PNG")
+knitr::include_graphics("figures/pipline_compare_arrows.png")
 ```
 
 ---
@@ -720,11 +720,11 @@ background-size: 800px
 ---
 # Step 1: Get the data
 
-Data is in .sav form (SPSS)
+Data is in .xls form (Excel) saved in the folder with .Rmd file
 
 ```{r, eval=FALSE}
 library(readxl)
-d <- readxl::read_excel("data/Ihno_dataset.xls")
+d <- readxl::read_excel("Ihno_dataset.xls")
 d
 ```
 
