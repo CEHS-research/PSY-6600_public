@@ -3,6 +3,7 @@
   <head>
     <title>Data Visualization</title>
     <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="pres2.css" type="text/css" />
   </head>
   <body>
@@ -317,7 +318,7 @@ Table 2.5, page 29
 
 ## Real vs Theoretical Distributions
 
-![](figures/textbook_fig_2.5.png)&lt;!-- --&gt;
+&lt;img src="figures/textbook_fig_2.5.PNG" width="2844" /&gt;
 
 
 
@@ -342,26 +343,19 @@ background-size: 800px
 
 
 ---
-# Read in the Data
+# Read in the Data &amp; Wrangle it
 
 
 ```r
 library(tidyverse)   # the easy button
-library(rio)         # read in Excel files
+library(readxl)      # read in Excel files
 library(furniture)   # nice tables
 
-data_raw &lt;- rio::import("Ihno_dataset.xls") %&gt;% 
-  dplyr::rename_all(tolower)                   # converts all variable names to lower case
-```
-
-
-
---
-### And Clean It
-
-
-```r
-data_clean &lt;- data_raw %&gt;%                     
+data_clean &lt;- readxl::read_excel("Ihno_dataset.xls") %&gt;% 
+  dplyr::rename_all(tolower) %&gt;%  
+  dplyr::mutate(genderF = factor(gender,
+                                 levels = c(1, 2),
+                                 labels = c("Female", "Male"))) %&gt;% 
   dplyr::mutate(majorF = factor(major,
                                 levels= c(1, 2, 3, 4, 5),
                                 labels = c("Psychology", "Premed",
@@ -452,7 +446,7 @@ data_clean %&gt;%
   geom_bar()
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -465,7 +459,7 @@ data_clean %&gt;%
   geom_bar()
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -479,7 +473,7 @@ data_clean %&gt;%
   geom_bar()
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -492,7 +486,7 @@ data_clean %&gt;%
   geom_bar()
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -515,7 +509,7 @@ data_clean %&gt;%
 ]
 
 .pull-right[
-![](ch2_plots_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -531,7 +525,7 @@ data_clean %&gt;%
   geom_histogram()
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -544,7 +538,7 @@ data_clean %&gt;%
   geom_histogram(bins = 8)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
 ]
 
 
@@ -560,7 +554,7 @@ data_clean %&gt;%
   geom_histogram(bins = 4)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -573,7 +567,7 @@ data_clean %&gt;%
   geom_histogram(bins = 10)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -587,7 +581,7 @@ data_clean %&gt;%
   geom_histogram(binwidth = 10)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -600,7 +594,7 @@ data_clean %&gt;%
   geom_histogram(binwidth = 4)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -615,7 +609,7 @@ data_clean %&gt;%
   facet_grid(. ~ coffeeF)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -629,7 +623,7 @@ data_clean %&gt;%
   facet_grid(coffeeF ~ .)
 ```
 
-![](ch2_plots_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+![](ch2_plots_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
 ]
 
 ---
@@ -722,6 +716,8 @@ class: inverse, center, middle
 # Next Topic
 
 ### Center and Spread
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

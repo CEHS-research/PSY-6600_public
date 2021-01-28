@@ -433,7 +433,7 @@ ogive_prop  +
 ## Real vs Theoretical Distributions
 
 ```{r,echo=FALSE}
-knitr::include_graphics("figures/textbook_fig_2.5.png")
+knitr::include_graphics("figures/textbook_fig_2.5.PNG")
 ```
 
 
@@ -459,31 +459,18 @@ background-size: 800px
 
 
 ---
-# Read in the Data
-
-```{r, message=FALSE, comment=FALSE, eval=FALSE}
-library(tidyverse)   # the easy button
-library(rio)         # read in Excel files
-library(furniture)   # nice tables
-
-data_raw <- rio::import("Ihno_dataset.xls") %>% 
-  dplyr::rename_all(tolower)                   # converts all variable names to lower case
-```
-
-```{r, message=FALSE, comment=FALSE, echo=FALSE}
-library(tidyverse)   # the easy button
-library(rio)      # read in Excel files
-library(furniture)   # nice tables
-
-data_raw <- rio::import("Ihno_dataset.xls") %>% 
-  dplyr::rename_all(tolower)                   # converts all variable names to lower case
-```
-
---
-### And Clean It
+# Read in the Data & Wrangle it
 
 ```{r, message=FALSE, warning=FALSE}
-data_clean <- data_raw %>%                     
+library(tidyverse)   # the easy button
+library(readxl)      # read in Excel files
+library(furniture)   # nice tables
+
+data_clean <- readxl::read_excel("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower) %>%  
+  dplyr::mutate(genderF = factor(gender,
+                                 levels = c(1, 2),
+                                 labels = c("Female", "Male"))) %>% 
   dplyr::mutate(majorF = factor(major,
                                 levels= c(1, 2, 3, 4, 5),
                                 labels = c("Psychology", "Premed",
