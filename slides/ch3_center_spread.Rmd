@@ -36,12 +36,38 @@ background-size: 750px
 
 # Distributions Examples
 
+
+
 ---
 background-image: url(figures/fig_3centers.png)
 background-position: 50% 70%
 background-size: 1000px
 
 # Three Measures of Center
+
+
+
+
+---
+
+## Areas in Distribution Plot
+
+.pull-left[
+
+Frequency Histogram
+```{r,echo=FALSE}
+knitr::include_graphics("figures/textbook_fig_3.2.PNG")
+```
+
+]
+
+
+.pull-right[
+Frequency Polygon
+```{r,echo=FALSE}
+knitr::include_graphics("figures/textbook_fig_3.3.PNG")
+```
+]
 
 ---
 background-image: url(figures/fulcrum.png)
@@ -117,6 +143,9 @@ gridExtra::grid.arrange(p1, p2)
 ```
 ]
 
+
+
+
 ---
 # Distributions and Numbers
 
@@ -168,6 +197,8 @@ gridExtra::grid.arrange(p1, p2)
 
 
 
+
+
 ---
 background-image: url(figures/fig_three_spreads.jpg)
 background-position: 50% 70%
@@ -208,11 +239,38 @@ A .dcoral[graph gives the best overall picture of a distribution]
 ]]
 
 ---
-background-image: url(figures/fig_sd_properties.jpg)
-background-position: 50% 70%
-background-size: 1100px
 
-# Properties of the Mean and SD
+## Properties of the Mean and SD
+
+.pull-left[
+
+Add 10 to Every Value
+
+```{r,echo=FALSE}
+knitr::include_graphics("figures/textbook_fig_3.11.PNG")
+```
+
+]
+
+
+.pull-right[
+
+
+Multiply Every Value by 10
+
+```{r,echo=FALSE}
+knitr::include_graphics("figures/textbook_fig_3.12.PNG")
+```
+
+]
+
+
+```{r,echo=FALSE, out.width = "70%"}
+knitr::include_graphics("figures/fig_sd_properties-small.jpg")
+```
+
+
+
 
 
 ---
@@ -316,6 +374,29 @@ background-position: 50% 70%
 background-size: 1000px
 
 # Kurtosis
+
+
+---
+## [Are the Skewness and Kurtosis Useful Statistics?](https://www.spcforexcel.com/knowledge/basic-statistics/are-skewness-and-kurtosis-useful-statistics) 
+
+
+The .coral[skewness] and .coral[kurtosis] statistics appear to be very dependent on the sample size. In fact, even several hundred data points didn't give very good estimates of the true kurtosis and skewness. Smaller sample sizes can give results that are very misleading. 
+
+.large[
+.nicegreen[
+
+> "In short, skewness and kurtosis are practically **worthless**." 
+
+> "The statistics for skewness and kurtosis simply do not provide any useful information beyond that already given by the measures of location *(center)* and dispersion *(spread)*."
+
+]
+]
+
+So, don't put much emphasis on skewness and kurtosis values you may see. And remember, the more data you have, the better you can describe the shape of the distribution.  But, in general, it appears there is little reason to pay much attention to skewness and kurtosis statistics. 
+
+.coral[ **Just look at the histogram.  It often gives you all the information you need.** ]
+
+
 
 ---
 background-image: url(figures/fig_5sum_2.png)
@@ -423,29 +504,38 @@ data_frame(x = rnorm(50)) %>%
 ```
 
 
+---
+class: inverse, center, middle
+
+# Interactive Apps
+
+[Describing and Exploring Quantitative Variables](https://istats.shinyapps.io/EDA_quantitative/ )
+
+
+[Mean versus Median](https://istats.shinyapps.io/MeanvsMedian/)
+
 
 ---
 class: inverse, center, middle
 
 # Let's Apply This To the Cancer Dataset <br> (on Canvas)
 
-
 ---
 # Read in the Data
 
 ```{r}
 library(tidyverse)    # Loads several very helpful 'tidy' packages
-library(rio)          # Read in SPSS datasets
+library(haven)        # Read in SPSS datasets
 library(furniture)    # Nice tables (by our own Tyson Barrett)
 library(psych)        # Lots of nice tid-bits
 ```
 
 ```{r, eval=FALSE}
-cancer_raw <- rio::import("cancer.sav")
+cancer_raw <- haven::read_sav("cancer.sav")
 ```
 
 ```{r, include=FALSE}
-cancer_raw <- rio::import("data/cancer.sav")
+cancer_raw <- haven::read_sav("data/cancer.sav")
 ```
 
 --
@@ -456,6 +546,7 @@ cancer_clean <- cancer_raw %>%
   dplyr::rename_all(tolower) %>% 
   dplyr::mutate(id = factor(id)) %>% 
   dplyr::mutate(trt = factor(trt,
+                             levels = c(0, 1),
                              labels = c("Placebo", 
                                         "Aloe Juice"))) %>% 
   dplyr::mutate(stage = factor(stage))
@@ -471,6 +562,8 @@ cancer_clean %>%
 ```
 ]
 
+--
+
 .pull-right[
 ```{r, message=FALSE, warning=FALSE}
 cancer_clean %>%
@@ -479,7 +572,7 @@ cancer_clean %>%
 ]
 
 ---
-## Extensive Descriptive Stats `psych:describe()`
+## Extensive Descriptive Stats: `psych:describe()`
 
 ```{r}
 cancer_clean %>% 
@@ -488,22 +581,52 @@ cancer_clean %>%
 ```
 
 ---
-## Smaller Set with `furniture::table1()`
+## Brief Descriptive Stats: `furniture::table1()`
 
 .pull-left[
-For the Entire Sample
+Defaults
 ```{r}
 cancer_clean %>%
   furniture::table1(trt, age, weighin)
 ```
 ]
 
-.pull-right[
-Breaking the Sample by a Factor
+--
+
+.pull-left[
+Add Text
+```{r}
+cancer_clean %>%
+  furniture::table1("Treatment" = trt, 
+                    "Age, years" = age, 
+                    "Weight, lbs" = weighin)
+```
+]
+
+
+---
+## Stratified Stats: `furniture::table1()`
+
+.pull-left[
+Defaults, but increase the number of digits
 ```{r}
 cancer_clean %>%
   dplyr::group_by(trt) %>%        
-  furniture::table1(age, weighin)
+  furniture::table1(age, weighin,
+                    digits = 2)
+```
+]
+
+--
+
+.pull-right[
+Add Text
+```{r}
+cancer_clean %>%
+  dplyr::group_by("Treatment" = trt) %>%        
+  furniture::table1("Age, years" = age, 
+                    "Weight, lbs" = weighin,
+                    total = TRUE)
 ```
 ]
 
@@ -528,6 +651,9 @@ cancer_clean %>%
              fill = trt)) +               # fill = group_var (no quotes) 
   geom_boxplot()
 ```
+
+
+
 
 ---
 ## Boxplots, by groups - (2) x-axis breaks
@@ -591,9 +717,12 @@ cancer_clean %>%          # In Aloe group, but only stages 2-4
 ---
 ## Boxplot for Repeated Measures
 
-```{r, fig.height = 4.5}
+.pull-left[
+```{r, eval=FALSE}
 cancer_clean %>%
-  tidyr::pivot_longer(cols = c(totalcw2, totalcw4, totalcw6),
+  tidyr::pivot_longer(cols = c(totalcw2, 
+                               totalcw4, 
+                               totalcw6),
                       names_to = "week",
                       names_pattern = "totalcw(.)",
                       values_to = "condition") %>%
@@ -601,22 +730,108 @@ cancer_clean %>%
              y = condition)) +
   geom_boxplot()
 ```
+]
 
+.pull-right[
+```{r, echo=FALSE}
+cancer_clean %>%
+  tidyr::pivot_longer(cols = c(totalcw2, 
+                               totalcw4, 
+                               totalcw6),
+                      names_to = "week",
+                      names_pattern = "totalcw(.)",
+                      values_to = "condition") %>%
+  ggplot(aes(x = week, 
+             y = condition)) +
+  geom_boxplot()
+```
+]
 
 ---
 ## Boxplot: COMPLICATED!
 
-```{r, fig.height = 4.5}
+.pull-left[
+```{r, eval=FALSE}
 cancer_clean %>%
-  dplyr::filter(weighin > 130 & stage %in% c(2, 4)) %>%
-  tidyr::pivot_longer(cols = c(totalcw2, totalcw4, totalcw6),
+  dplyr::filter(weighin > 130 & 
+                  stage %in% c(2, 4)) %>%
+  tidyr::pivot_longer(cols = c(totalcw2, 
+                               totalcw4, 
+                               totalcw6),
                       names_to = "week",
                       names_pattern = "totalcw(.)",
                       values_to = "condition") %>%
-  ggplot(aes(x = week, y = condition, fill = stage)) +
+  ggplot(aes(x = week, 
+             y = condition, 
+             fill = stage)) +
   geom_boxplot() +
   facet_grid(. ~ trt)
 ```
+]
+
+
+.pull-right[
+```{r, echo=FALSE}
+cancer_clean %>%
+  dplyr::filter(weighin > 130 & 
+                  stage %in% c(2, 4)) %>%
+  tidyr::pivot_longer(cols = c(totalcw2, 
+                               totalcw4, 
+                               totalcw6),
+                      names_to = "week",
+                      names_pattern = "totalcw(.)",
+                      values_to = "condition") %>%
+  ggplot(aes(x = week, 
+             y = condition, 
+             fill = stage)) +
+  geom_boxplot() +
+  facet_grid(. ~ trt)
+```
+]
+
+---
+
+## Alternative: Violin Plots
+
+
+.pull-left[
+```{r, eval=FALSE}
+cancer_clean %>%
+  ggplot(aes(x = trt,           
+             y = age)) +     
+  geom_violin(fill = "gray") +
+  geom_boxplot(fill = "white",
+               alpha = .75,
+               width = .25) +
+  stat_summary(fun = mean,
+               geom = "point",
+               size = 5) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Age in Years") +
+  theme(legend.position = "none") 
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, fig.width=4, fig.height=3, out.width = "100%"}
+cancer_clean %>%
+  ggplot(aes(x = trt,           
+             y = age)) +     
+  geom_violin(fill = "gray") +
+  geom_boxplot(fill = "white",
+               alpha = .75,
+               width = .25) +
+  stat_summary(fun = mean,
+               geom = "point",
+               size = 5) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Age in Years") +
+  theme(legend.position = "none") 
+```
+]
+
 
 
 ---

@@ -1,0 +1,5 @@
+"0","data_frame(x = rnorm(50)) %>%"
+"0","  ggplot(aes(sample = x)) +"
+"0","    geom_qq() +"
+"0","    geom_abline(slope = 1, intercept = 0) +"
+"0","    theme_minimal(base_size = 18)"

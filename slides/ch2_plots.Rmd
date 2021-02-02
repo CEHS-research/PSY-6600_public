@@ -441,8 +441,12 @@ knitr::include_graphics("figures/textbook_fig_2.5.PNG")
 
 
 
+---
+class: inverse, center, middle
 
+# Interactive App
 
+[Describing and Exploring Categorical Data](https://istats.shinyapps.io/EDA_categorical/)
 
 ---
 class: inverse, center, middle

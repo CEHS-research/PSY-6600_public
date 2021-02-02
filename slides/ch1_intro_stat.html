@@ -3,6 +3,7 @@
   <head>
     <title>Intro to Statistics</title>
     <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="pres2.css" type="text/css" />
   </head>
   <body>
@@ -17,11 +18,8 @@ class: center, middle, inverse, title-slide
 
 
 
-class: inverse, middle, center
 
-# Background Information
 
----
 background-image: url(figures/fig_scale_variable.png)
 background-position: 50% 80%
 background-size: 600px
@@ -46,12 +44,92 @@ background-size: 600px
 ## VARIABLE TYPE
 
 .large[
-- .coral[Categorical] = finite, countable number of levels, no intermediate values possible	
-- .nicegreen[Numeric] = infinite intermediate values are possible, at least in theory
+- .coral[Categorical or Discrete] = finite, countable number of levels, no intermediate values possible	
+- .nicegreen[Numeric or Continuous] = infinite intermediate values are possible, at least in theory
 ]
 
 *NOTE: due to limits on measurement precision, observed data may be discrete, even though the underlying construct is continuous*
 ]
+
+
+---
+
+## Ordinal, Interval, Ratio
+
+- .dcoral[Ordinal] = groupings that do have natural order
+- .nicegreen[Interval] = precise units that are equally spaced
+- .bluer[Ratio]	= interval + true zero point
+
+.pull-left[
+
+&lt;img src="figures/textbook_fig_1.1.PNG" width="1205" /&gt;
+
+]
+
+
+.pull-right[
+
+&lt;img src="figures/textbook_fig_1.2.PNG" width="1161" /&gt;
+
+]
+
+
+---
+
+## Discrete vs. Continuous
+
+- .coral[Categorical or Discrete] = finite, countable number of levels, no intermediate values possible	
+- .nicegreen[Numeric or Continuous] = infinite intermediate values are possible, at least in theory
+
+
+.pull-left[
+&lt;img src="figures/textbook_fig_1.3.PNG" width="1369" /&gt;
+]
+
+*NOTE: due to limits on measurement precision, observed data may be discrete, even though the underlying construct is continuous*
+
+---
+
+## .coral[Scale Examples]
+
+
+
+.pull-left[
+
+### Temperature
+
+* **Nominal**
+   + Comfortable vs Uncomfortable
+   
+* **Ordinal**
+   + Ice, Chilly, Comfy, Warm, Hates
+
+* **Interval**
+   + Celsius (C)
+   + Fahrenheit (F) 
+
+* **Ratio**
+   + Kelvin (K)
+]
+
+
+--
+
+.pull-right[
+
+### Depression
+
+* **Nominal**
+   + Early onset, Late onset, Chronic
+   
+* **Ordinal**
+   + None, mild, moderate, severe
+
+* **Interval-Ratio'ish**
+   + Beck Depression Inventory, average of 21 Likert items each on a scale of 0-3
+
+]
+
 
 ---
 background-image: url(figures/fig_obs_exp.jpg)
@@ -93,200 +171,273 @@ background-size: 900px
 
 
 ---
-# Rounding Numbers: Rules
+# Rounding Numbers
 
 ### Rules
 
 .large[
-If you want to round to N decimal places, look at the digit in the `\(N + 1\)` place…
-- If it is LESS than 5 -&gt; do not change the digit in the Nth place
-- If it is MORE than 5 -&gt; increase the digit in the Nth place by 1
-- If it is EQUAL to 5 AND there are no non-zero digits to the right, -&gt; increase the digit in the Nth place by 1 ONLY IF the Nth digit is ODD (do not change it if it is EVEN)
-
-]
+- If you want to round to N decimal places, look at the digit in the `\(N + 1\)` place…
+    - If it is LESS than 5 -&gt; do not change the digit in the Nth place
+    - If it is MORE than 5 -&gt; increase the digit in the Nth place by 1
+    - If it is EQUAL to 5 AND there are no non-zero digits to the right, -&gt; increase the digit in the Nth place by 1 ONLY IF the Nth digit is ODD (do not change it if it is EVEN)
 
 In all cases, the last step is to drop the digit in the `\(N+1\)` place and other digits to the right
+]
+
 
 ---
-# Rounding Numbers: Examples
+
+## .coral[Rounding Examples]
 
 
-Round to **two** decimal places
 
-.pull-left[
+Round to **two** decimal places: 
 
-- `\(65.3\)`
-- `\(8/3\)`
-- `\(0.4255\)`
-- `\(0.4358\)`
-- `\(0.425\)`
-- `\(0.435\)`
+1. 65.302
+--
+  =  65.30
+  
+--
 
+2. 65.3
+--
+  =  65.30
+  
+--
+
+3. 8/3 = 2.66666666...
+--
+  = 2.67
+   
+--
+
+4. 0.4252
+--
+  = 0.43
+   
+--
+
+5. 0.4258
+--
+  = 0.43
+    
+--
+
+6. 0.425
+--
+  = 0.42
+    
+--
+
+7. 0.435
+--
+  = 0.44
+
+
+---
+background-image: url(figures/fig_summation_notation.png)
+background-position: 50% 50%
+background-size: 500px
+
+# Summation Notation
+
+---
+
+## .coral[Summation Example 1]
+
+.nicegreen[
+$$
+`\begin{matrix}
+x_1 = 5  &amp; x_2 = 4  &amp; x_3 = 3  &amp; x_4 = 2  &amp;  x_5 = 1 \\
+y_1 = 10 &amp; y_2 = 20 &amp; y_3 = 30 &amp; y_4 = 40 &amp;  y_5 = 50
+\end{matrix}`
+$$
+]
+
+
+
+.coral[
+$$
+\frac{1}{5}\sum_{i = 1}^5 x_i \\
+$$
 ]
 
 --
 
-.pull-right[
 
-- `\(65.30\)`
-- `\(2.67\)`
-- `\(0.43\)`
-- `\(0.44\)`
-- `\(0.42\)`
-- `\(0.44\)`
+$$
+\frac{1}{5} \times (x_1 + x_2 + x_3 + x_4 + x_5) \\
+$$
 
+
+--
+
+
+$$
+\frac{1}{5} \times (5 + 4 + 3 + 2 + 1) \\
+$$
+
+--
+
+$$
+\frac{1}{5} \times 15 \\
+$$
+
+
+--
+
+$$
+3
+$$
+
+
+
+---
+
+## .coral[Summation Example 2]
+
+.nicegreen[
+$$
+`\begin{matrix}
+x_1 = 5  &amp; x_2 = 4  &amp; x_3 = 3  &amp; x_4 = 2  &amp;  x_5 = 1 \\
+y_1 = 10 &amp; y_2 = 20 &amp; y_3 = 30 &amp; y_4 = 40 &amp;  y_5 = 50
+\end{matrix}`
+$$
 ]
 
----
+.coral[
+$$
+\sum_{i = 2}^5 (y_i - x_i)
+$$
+]
 
-
-
-![](figures/sigma_notation_nice.jpg)&lt;!-- --&gt;
-
-
-
-
----
-
-# Summation: Example 1
-
+--
 
 $$
-x_1 = 5, \; x_2 = 4, \; x_3 = 3, \; x_4 = 2, \; x_5 = 1
-$$
-$$
-y_1 = 10, \; y_2 = 20, \; y_3 = 30, \; y_4 = 40, \; y_5 = 50
+(y_2 - x_2)  + ( y_3 - x_3) + ( y_4 - x_4) + ( y_5 - x_5)
 $$
 
 --
 
 $$
-\sum_{i = 1}^5 x_i
+(20-4)+(30-3)+(40-2)+(50-1)
 $$
 
 --
 
 $$
-= x_1 + x_2 + x_3 + x_4 + x_5 
+16+27+38+49
 $$
 
 --
 
 $$
-= 5 + 4 + 3 + 2 + 1 
-$$
---
-
-$$
-= 15
-$$
-
----
-
-
-# Summation: Example 2
-
-
-$$
-x_1 = 5, \; x_2 = 4, \; x_3 = 3, \; x_4 = 2, \; x_5 = 1
-$$
-
-
-$$
-y_1 = 10, \; y_2 = 20, \; y_3 = 30, \; y_4 = 40, \; y_5 = 50
-$$
-
-
-
-
-$$
-\sum_{i = 1}^2 (x_i + y_i)
-$$
-
---
-
-$$
-= (x_1 + y_1) + (x_2 + y_2) 
-$$
-
---
-
-$$
-= (5 + 10) + (4 + 20) 
-$$
-
---
-
-$$
-= (15) + (24) 
-$$
-
---
-
-$$
-= 39
+130
 $$
 
 
 ---
 
+## .coral[Summation Example 3]
 
-# Summation: Example 3
-
-
+.nicegreen[
 $$
-x_1 = 5, \; x_2 = 4, \; x_3 = 3, \; x_4 = 2, \; x_5 = 1
+`\begin{matrix}
+x_1 = 5  &amp; x_2 = 4  &amp; x_3 = 3  &amp; x_4 = 2  &amp;  x_5 = 1 \\
+y_1 = 10 &amp; y_2 = 20 &amp; y_3 = 30 &amp; y_4 = 40 &amp;  y_5 = 50
+\end{matrix}`
 $$
+]
 
-
-$$
-y_1 = 10, \; y_2 = 20, \; y_3 = 30, \; y_4 = 40, \; y_5 = 50
-$$
-
-
-
+.coral[
 $$
 \sum_{i = 1}^2 (x_i \times y_i)
 $$
-
-
---
-
-$$
-= (x_1 \times y_1) + (x_2 \times y_2) 
-$$
+]
 
 --
 
 $$
-= (5 \times 10) + (4 \times 20) 
+(x_1 \times y_1 )  + ( x_2 \times y_2 )
 $$
 
 --
 
 $$
-= (50) + (80) 
+(5\times10)+(4\times20)
 $$
 
 --
 
 $$
-= 130
+50+80
 $$
 
+--
 
-
-
+$$
+130
+$$
 
 
 ---
-# Summation: Rules
+
+## .coral[Summation Example 4]
+
+.nicegreen[
+$$
+`\begin{matrix}
+x_1 = 5  &amp; x_2 = 4  &amp; x_3 = 3  &amp; x_4 = 2  &amp;  x_5 = 1 \\
+y_1 = 10 &amp; y_2 = 20 &amp; y_3 = 30 &amp; y_4 = 40 &amp;  y_5 = 50
+\end{matrix}`
+$$
+]
+
+.coral[
+$$
+\sum_{i = 1}^2 (x_i + y_i)^2
+$$
+]
+
+--
+
+$$
+(x_1 + y_1 )^2  + ( x_2 + y_2 )^2
+$$
+
+--
+
+$$
+(5+10)^2+(4+20)^2
+$$
+
+--
+
+$$
+15^2+24^2
+$$
+
+--
+
+$$
+225 + 576
+$$
+
+--
+
+$$
+801
+$$
+
+---
+# Summation Rules
 
 .pull-left[
 #### Number 1
 $$
 \sum (X_i + Y_i) = \sum X_i + \sum Y_i
 $$
+
 $$
 \sum (X_i - Y_i) = \sum X_i - \sum Y_i
 $$
@@ -315,1028 +466,10 @@ $$
 
 
 
-
----
-class: inverse, middle, center
-
-# Intro to R
-
----
-# Download `R` and `RStudio`
-
-&lt;br&gt;
-
-.huge[If `R` is like a car's engine, then `RStudio` is the steering wheel, the pedals, and the comfortable seat]
-
---
-.pull-left[.huge[.center[
-`R`
-
-[www.r-project.org](https://cran.cnr.berkeley.edu/)
-]]]
-
-.pull-right[.huge[.center[
-`RStudio`
-
-[www.rstudio.com](https://www.rstudio.com/products/rstudio/download/)
-]]]
-
----
-# Focus on what is needed in `R`
-
-&lt;br&gt;
-
-.center[.Huge[
-".dcoral[Success] is neither magical nor mysterious. Success is the natural consequence of consistently applying the .nicegreen[basic fundamentals]." --- Jim Rohn
-]]
-
-.footnote[https://www.brainyquote.com/quotes/jim_rohn_122132?src=t_fundamentals]
-
-
----
-# Intro to `R`
-
-.pull-left[.huge[
-Why Use `R`?
-]
-.large[
-- .coral[**Free**]ly available
-- Almost always up-to-date
-- Best .bluer[data visualizations]
-- .nicegreen[Syntax oriented] (easy to reproduce analyses)
-- Gets updated regularly
-- You can make your .gray1[own functionality] (e.g., `table1()`)
-]]
-
---
-
-.pull-right[
-.huge[`table1()` produces 👇] 
-&lt;br&gt;
-![](figures/table1_fig.png)
-]
-
-
----
-count: false
-# Intro to `R`
-
-.pull-left[.huge[
-Why Use `R`?
-]
-.large[
-- .coral[**Free**]ly available
-- Almost always up-to-date
-- Best .bluer[data visualizations]
-- .nicegreen[Syntax oriented] (easy to reproduce analyses)
-- Gets updated regularly
-- You can make your .gray1[own functionality] (e.g., `table1()`)
-]]
-
-.pull-right[.huge[
-Any Issues?
-]
-.large[
-- Learning curve
-- Too extensive (people often focus on too much)
-- Advisor's sometimes don't use it
-
-The pro's heavily outweight the con's *if* you are willing to use it. It can save you tons of time in the long-run.
-]]
-
----
-
-## .coral[Objects] are Nouns
-
-Virtual objects are like physical objects (e.g., a car is good to travel in, a table not so much)
-
-`R` uses virtual objects 
-
-- a `vector` is values concatinated together
-- a `data.frame` is a group of vectors of the same length
-
---
-
-.pull-left[
-
-.large[.bluer[Vector]]
-
-concatinate or combine
-
-
-
-```r
-c(1, 3, 5, 7, 11, 13)
-```
-
-```
-&gt; [1]  1  3  5  7 11 13
-```
-
-]
-
---
-
-
-.pull-right[
-
-.large[.bluer[Data Frame]]
-
-named vectors of the same length
-
-
-```r
-data.frame(x = c(1, 3, 5, 7),
-           y = c(2, 4, 6, 8))
-```
-
-```
-&gt;   x y
-&gt; 1 1 2
-&gt; 2 3 4
-&gt; 3 5 6
-&gt; 4 7 8
-```
 ]
 
 
 
----
-
-## .coral[Objects]: save into global environment
-
-.pull-left[
-
-
-.large[Assignment symbol:  .coral[&lt;-]]
-
-
-.large[.bluer[Constant]]
-
-
-
-```r
-fred &lt;- 13
-```
-
-
-```r
-fred
-```
-
-```
-&gt; [1] 13
-```
-
-
-
-.large[.bluer[Vector]]
-
-
-```r
-odds &lt;- c(1, 3, 5, 7, 11, 13)
-```
-
-
-```r
-odds
-```
-
-```
-&gt; [1]  1  3  5  7 11 13
-```
-
-]
-
---
-
-.pull-right[
-
-.large[.bluer[Data Frame]]
-
-
-```r
-df &lt;- data.frame(x = c(1, 3, 5, 7),
-                 y = c(2, 4, 6, 8))
-```
-
-
-```r
-df
-```
-
-```
-&gt;   x y
-&gt; 1 1 2
-&gt; 2 3 4
-&gt; 3 5 6
-&gt; 4 7 8
-```
-
-
-]
-
-
-
-
----
-
-## .coral[Class] of a variable: .nicegreen[numeric (dbl)]
-
-
-.pull-leftbig[
-
-
-```r
-df &lt;- data.frame(id   = c(100, 101, 102, 103),
-                 name = c("Joe", "Jill", "Meg", "Pat"),
-                 age  = c(10, 9, 10, 11),
-                 trt  = as.factor(c("A", "B", "A", "B")))
-```
-
-
-```r
-df
-```
-
-```
-&gt;    id name age trt
-&gt; 1 100  Joe  10   A
-&gt; 2 101 Jill   9   B
-&gt; 3 102  Meg  10   A
-&gt; 4 103  Pat  11   B
-```
-
-]
-
---
-
-
-
-.pull-rightsmall[
-
-.large[dataframe.coral[$]variable]
-
-
-
-```r
-df$id
-```
-
-```
-&gt; [1] 100 101 102 103
-```
-
-.large[numbers are not quoted]
-
-
-
-```r
-class(df$id)
-```
-
-```
-&gt; [1] "numeric"
-```
-
-]
-
----
-
-## .coral[Class] of a variable: .nicegreen[numeric (dbl)]
-
-
-.pull-leftbig[
-
-
-```r
-df &lt;- data.frame(id   = c(100, 101, 102, 103),
-                 name = c("Joe", "Jill", "Meg", "Pat"),
-                 age  = c(10, 9, 10, 11),
-                 trt  = as.factor(c("A", "B", "A", "B")))
-```
-
-
-```r
-df
-```
-
-```
-&gt;    id name age trt
-&gt; 1 100  Joe  10   A
-&gt; 2 101 Jill   9   B
-&gt; 3 102  Meg  10   A
-&gt; 4 103  Pat  11   B
-```
-
-]
-
-
-.pull-rightsmall[
-
-.large[dataframe.coral[$]variable]
-
-
-```r
-df$age
-```
-
-```
-&gt; [1] 10  9 10 11
-```
-
-.large[numbers are not quoted]
-
-
-```r
-class(df$age)
-```
-
-```
-&gt; [1] "numeric"
-```
-
-]
-
----
-
-## .coral[Class] of a variable: .nicegreen[character (chr)]
-
-
-.pull-leftbig[
-
-
-```r
-df &lt;- data.frame(id   = c(100, 101, 102, 103),
-                 name = c("Joe", "Jill", "Meg", "Pat"),
-                 age  = c(10, 9, 10, 11),
-                 trt  = as.factor(c("A", "B", "A", "B")))
-```
-
-
-```r
-df
-```
-
-```
-&gt;    id name age trt
-&gt; 1 100  Joe  10   A
-&gt; 2 101 Jill   9   B
-&gt; 3 102  Meg  10   A
-&gt; 4 103  Pat  11   B
-```
-
-]
-
-
-
-.pull-rightsmall[
-
-.large[dataframe.coral[$]variable]
-
-
-```r
-df$name
-```
-
-```
-&gt; [1] "Joe"  "Jill" "Meg"  "Pat"
-```
-
-.large[text is quoted]
-
-
-```r
-class(df$name)
-```
-
-```
-&gt; [1] "character"
-```
-
-]
-
-
----
-
-## .coral[Class] of a variable: .nicegreen[factor (fct)]
-
-
-.pull-leftbig[
-
-
-```r
-df &lt;- data.frame(id   = c(100, 101, 102, 103),
-                 name = c("Joe", "Jill", "Meg", "Pat"),
-                 age  = c(10, 9, 10, 11),
-                 trt  = as.factor(c("A", "B", "A", "B")))
-```
-
-
-```r
-df
-```
-
-```
-&gt;    id name age trt
-&gt; 1 100  Joe  10   A
-&gt; 2 101 Jill   9   B
-&gt; 3 102  Meg  10   A
-&gt; 4 103  Pat  11   B
-```
-
-]
-
-
-
-.pull-rightsmall[
-
-.large[dataframe.coral[$]variable]
-
-
-```r
-df$trt
-```
-
-```
-&gt; [1] A B A B
-&gt; Levels: A B
-```
-
-.large[factors have levels]
-
-
-```r
-class(df$trt)
-```
-
-```
-&gt; [1] "factor"
-```
-
-]
-
----
-## .coral[Functions] are Verbs
-
-
-.pull-left[.large[
-
-Generally looks like: 
-
-`stuff(arg1, arg2)`
-
-- `stuff` function's name
-- `()` surround the arguments
-- `arg1` arguments or options
-]]
-
---
-
-.pull-right[
-.large[Example: "mean" function
-
-- `mean()` 
-- 1 argument required: a variable
-- returns variable's average
-]
-
-```r
-## This is a comment
-mean(df$age)
-```
-
-```
-&gt; [1] 10
-```
-]
-
----
-
-## .coral[Functions] are Verbs
-
-![](figures/data_verb_input_output.png)&lt;!-- --&gt;
-
-
----
-## .coral[Missing Values] are lack of data
-
-- `NA` represents missing or blank values
-- there are no quotes around the `NA`
-
-.pull-leftbig[
-
-
-```r
-df &lt;- data.frame(id   = c(100, 101, 102, 103),
-                 name = c("Joe", "Jill", "Meg", "Pat"),
-                 age  = c(10, 9.5, NA, 11),
-                 trt  = as.factor(c("A", "B", "A", "B")))
-```
-
-
-```r
-df
-```
-
-```
-&gt;    id name  age trt
-&gt; 1 100  Joe 10.0   A
-&gt; 2 101 Jill  9.5   B
-&gt; 3 102  Meg   NA   A
-&gt; 4 103  Pat 11.0   B
-```
-
-]
-
---
-
-.pull-rightsmall[
-
-
-
-```r
-mean(df$age)
-```
-
-```
-&gt; [1] NA
-```
-
-
-default: 
-- keeps in missing values
-- NA in data cases NA in mean
-
-
-```r
-mean(df$age, na.rm = TRUE)
-```
-
-```
-&gt; [1] 10.16667
-```
-
-]
-
-
-
-
----
-
-## .coral[Functions]: what package is it from?
-
-
-.pull-leftsmall[
-
-Function in Base R
-
-
-```r
-dim(df)
-```
-
-```
-&gt; [1] 4 4
-```
-
-
-
-```r
-names(df)
-```
-
-```
-&gt; [1] "id"   "name" "age"  "trt"
-```
-
-
-]
-
---
-
-.pull-rightbig[
-
-Function from a specific package
-
-
-```r
-tibble::glimpse(df)
-```
-
-```
-&gt; Rows: 4
-&gt; Columns: 4
-&gt; $ id   &lt;dbl&gt; 100, 101, 102, 103
-&gt; $ name &lt;chr&gt; "Joe", "Jill", "Meg", "Pat"
-&gt; $ age  &lt;dbl&gt; 10.0, 9.5, NA, 11.0
-&gt; $ trt  &lt;fct&gt; A, B, A, B
-```
-
-]
-
-
-
----
-
-## The .coral[Tidyverse]
-
-![](figures/tidyverse.png)&lt;!-- --&gt;
-
----
-
-## The .coral[Tidyverse]
-
-
-https://rworkshop.uni.lu/lectures/lecture05_dplyr.html#1 
-
-
-```r
-library(tidyverse)
-```
-
-```
-&gt; -- Attaching packages --- tidyverse 1.3.0 --
-```
-
-```
-&gt; v ggplot2 3.3.0     v purrr   0.3.4
-&gt; v tibble  3.0.1     v dplyr   0.8.5
-&gt; v tidyr   1.0.2     v stringr 1.4.0
-&gt; v readr   1.3.1     v forcats 0.5.0
-```
-
-```
-&gt; -- Conflicts ------ tidyverse_conflicts() --
-&gt; x dplyr::filter() masks stats::filter()
-&gt; x dplyr::lag()    masks stats::lag()
-```
-
-
-
----
-## The .coral[Pipe] links steps
-
-
-The symbol is typed .nicegreen[`%&gt;%`]
-
-.pull-left[
-
-
-```r
-mean(df$age, na.rm = TRUE)
-```
-
-```
-&gt; [1] 10.16667
-```
-
-
-```r
-df$age %&gt;% mean(na.rm = TRUE)
-```
-
-```
-&gt; [1] 10.16667
-```
-
-]
-
-.pull-right[
-
-
-![](figures/pipe_verb.png)&lt;!-- --&gt;
-
-]
-
-
----
-
-![](figures/pipeline_1.png)&lt;!-- --&gt;
-
-
----
-
-
-&lt;img src="figures/pipeline_step1.png" width="75%" /&gt;
-
---
-
-&lt;img src="figures/pipeline_step2.png" width="75%" /&gt;
-
----
-## Build a .coral[Pipeline]
-
-
-![](figures/chaining_data_verbs.png)&lt;!-- --&gt;
-
----
-
-![](figures/pipeline_1.png)&lt;!-- --&gt;
-
-
----
-
-&lt;img src="figures/pipline_compare.PNG" width="75%" /&gt;
-
-
-
----
-
-&lt;img src="figures/pipline_compare_arrows.PNG" width="75%" /&gt;
-
----
-
-&lt;img src="figures/pipeline_stesp_pipe.png" width="75%" /&gt;
-
-
-
-
-
----
-
-## Build a .coral[Pipeline]
-
-![](figures/assembly-line.png)&lt;!-- --&gt;
-
-
----
-# Important first steps in `R`
-
-.large[.large[
-1. Read in Data
-2. Quickly assess the data
-3. Clean the data
-4. Analyze the data
-]]
-
---
-
-.large[We'll show each of these over the next few weeks starting with reading in, assessing and cleaning the data]
-
-
----
-# Read in the data
-
-.huge[Data comes in various files:]
-
-.pull-left[.large[
-- CSV
-- tab-delimited
-- SPSS
-- Excel
-]]
-.pull-right[.large[
-- SAS
-- Stata
-- Mplus
-- etc.
-]]
-
---
-### `R` can read all types
-
---
-
-.huge[Generally, it all works in a similar way]
-
----
-# Read in data: FORMAT
-
-.large[Text: .bluer[Comma-seperated]]
-
-
-```r
-my_data &lt;- read.csv("my_data_file.csv")
-```
-
---
-
-.large[Text: .bluer[tab-delimited]]
-
-
-```r
-my_data &lt;- read.delim("my_data_file.txt")
-```
-
---
-
-.large[.bluer[Excel]]: .xls, .xlsx
-
-
-```r
-library(readxl)
-my_data &lt;- readxl::read_excel("my_data_file.xlsx")
-```
-
---
-
-.large[.bluer[SPSS]]: .sav
-
-
-```r
-library(haven)
-my_data &lt;- haven::read_spss("my_data_file.sav")
-```
-
----
-background-image: url(figures/fig_inho_data_desc.png)
-background-position: 50% 90%
-background-size: 800px
-
-# Let's use the data from the book
-
-
----
-# Steps for .dcoral[Preparing] the Data for Analysis
-
-.large[.large[
-1. .coral[Get the data]
-2. .nicegreen[Prep the data]
-    - Variable Labels 	
-    - Value Labels	
-    - Missing Values
-3. .bluer[Compute] new variables and values (fill in missing codes, recode scores, categorize/group values, combine)
-4. Get .dcoral[descriptives] using `tableF()` and `table1()` from the `furniture` package to check what is going on
-]]
-
----
-# Step 1: Get the data
-
-Data is in .sav form (SPSS)
-
-
-```r
-library(readxl)
-d &lt;- readxl::read_excel("data/Ihno_dataset.xls")
-d
-```
-
-
-```
-&gt; # A tibble: 100 x 18
-&gt;    Sub_num Gender Major Reason Exp_cond Coffee Num_cups Phobia Prevmath Mathquiz
-&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-&gt;  1       1      1     1      3        1      1        0      1        3       43
-&gt;  2       2      1     1      2        1      0        0      1        4       49
-&gt;  3       3      1     1      1        1      0        0      4        1       26
-&gt;  4       4      1     1      1        1      0        0      4        0       29
-&gt;  5       5      1     1      1        1      0        1     10        1       31
-&gt;  6       6      1     1      1        2      1        1      4        1       20
-&gt;  7       7      1     1      1        2      0        0      4        2       13
-&gt;  8       8      1     1      3        2      1        2      4        1       23
-&gt;  9       9      1     1      1        2      0        0      4        1       38
-&gt; 10      10      1     1      1        2      1        2      5        0       NA
-&gt; # ... with 90 more rows, and 8 more variables: Statquiz &lt;dbl&gt;, Exp_sqz &lt;dbl&gt;,
-&gt; #   Hr_base &lt;dbl&gt;, Hr_pre &lt;dbl&gt;, Hr_post &lt;dbl&gt;, Anx_base &lt;dbl&gt;, Anx_pre &lt;dbl&gt;,
-&gt; #   Anx_post &lt;dbl&gt;
-```
-
-
----
-# Step 2: Prep the data
-
-
-```r
-library(tidyverse)
-
-d_clean &lt;- d %&gt;%
-  dplyr::mutate(MajorF = factor(Major, 
-                                levels = c(1, 2, 3, 4, 5),
-                                labels = c("Psychology", "Premed",
-                                           "Biology", "Sociology",
-                                           "Economics"))) %&gt;%
-  dplyr::mutate(Coffee = factor(Coffee))
-
-d_clean
-```
-
-```
-&gt; # A tibble: 100 x 19
-&gt;    Sub_num Gender Major Reason Exp_cond Coffee Num_cups Phobia Prevmath Mathquiz
-&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt; &lt;fct&gt;     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-&gt;  1       1      1     1      3        1 1             0      1        3       43
-&gt;  2       2      1     1      2        1 0             0      1        4       49
-&gt;  3       3      1     1      1        1 0             0      4        1       26
-&gt;  4       4      1     1      1        1 0             0      4        0       29
-&gt;  5       5      1     1      1        1 0             1     10        1       31
-&gt;  6       6      1     1      1        2 1             1      4        1       20
-&gt;  7       7      1     1      1        2 0             0      4        2       13
-&gt;  8       8      1     1      3        2 1             2      4        1       23
-&gt;  9       9      1     1      1        2 0             0      4        1       38
-&gt; 10      10      1     1      1        2 1             2      5        0       NA
-&gt; # ... with 90 more rows, and 9 more variables: Statquiz &lt;dbl&gt;, Exp_sqz &lt;dbl&gt;,
-&gt; #   Hr_base &lt;dbl&gt;, Hr_pre &lt;dbl&gt;, Hr_post &lt;dbl&gt;, Anx_base &lt;dbl&gt;, Anx_pre &lt;dbl&gt;,
-&gt; #   Anx_post &lt;dbl&gt;, MajorF &lt;fct&gt;
-```
-
-
----
-# Step 3: Compute new variables/values
-
-
-```r
-d_clean &lt;- d_clean %&gt;%
-  dplyr::mutate(newVar = Mathquiz / 2)
-```
-*Note that I removed the other variables just to show you but in reality all the variables are still there. Also I only want to show the first few rows.
-
-```r
-d_clean %&gt;% dplyr::select(Mathquiz, newVar) %&gt;% head()
-```
-
-```
-&gt; # A tibble: 6 x 2
-&gt;   Mathquiz newVar
-&gt;      &lt;dbl&gt;  &lt;dbl&gt;
-&gt; 1       43   21.5
-&gt; 2       49   24.5
-&gt; 3       26   13  
-&gt; 4       29   14.5
-&gt; 5       31   15.5
-&gt; 6       20   10
-```
-
-
----
-# Step 4: Get descriptives
-
-.pull-left[
-
-```r
-library(furniture)
-
-furniture::tableF(d_clean, MajorF)
-```
-
-```
-&gt; 
-&gt; -----------------------------------------
-&gt;  MajorF     Freq CumFreq Percent CumPerc
-&gt;  Psychology 29   29      29.00%  29.00% 
-&gt;  Premed     25   54      25.00%  54.00% 
-&gt;  Biology    21   75      21.00%  75.00% 
-&gt;  Sociology  15   90      15.00%  90.00% 
-&gt;  Economics  10   100     10.00%  100.00%
-&gt; -----------------------------------------
-```
-]
-
-.pull-right[
-
-```r
-furniture::tableF(d_clean, Phobia)
-```
-
-```
-&gt; 
-&gt; -------------------------------------
-&gt;  Phobia Freq CumFreq Percent CumPerc
-&gt;  0      12   12      12.00%  12.00% 
-&gt;  1      15   27      15.00%  27.00% 
-&gt;  2      12   39      12.00%  39.00% 
-&gt;  3      16   55      16.00%  55.00% 
-&gt;  4      21   76      21.00%  76.00% 
-&gt;  5      11   87      11.00%  87.00% 
-&gt;  6      1    88      1.00%   88.00% 
-&gt;  7      4    92      4.00%   92.00% 
-&gt;  8      4    96      4.00%   96.00% 
-&gt;  9      1    97      1.00%   97.00% 
-&gt;  10     3    100     3.00%   100.00%
-&gt; -------------------------------------
-```
-]
-
-
----
-# Step 4: Get descriptives
-
-
-```r
-d_clean %&gt;% 
-  dplyr::group_by(MajorF) %&gt;% 
-  furniture::table1(Mathquiz, Phobia, Coffee)
-```
-
-```
-&gt; Using dplyr::group_by() groups: MajorF
-```
-
-```
-&gt; 
-&gt; -------------------------------------------------------------------
-&gt;                                  MajorF 
-&gt;           Psychology Premed     Biology     Sociology   Economics 
-&gt;           n = 25     n = 21     n = 19      n = 12      n = 8     
-&gt;  Mathquiz                                                         
-&gt;           29.6 (8.9) 31.0 (8.2) 24.2 (10.4) 28.0 (10.4) 35.4 (6.3)
-&gt;  Phobia                                                           
-&gt;           3.6 (2.4)  3.0 (2.5)  3.7 (2.6)   3.2 (3.0)   1.8 (1.4) 
-&gt;  Coffee                                                           
-&gt;     0     17 (68%)   11 (52.4%) 10 (52.6%)  8 (66.7%)   4 (50%)   
-&gt;     1     8 (32%)    10 (47.6%) 9 (47.4%)   4 (33.3%)   4 (50%)   
-&gt; -------------------------------------------------------------------
-```
 
 ---
 class: inverse, center, middle
@@ -1351,6 +484,8 @@ class: inverse, center, middle
 
 ### More Data Manipulation
 ### Understanding Data via Figures
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

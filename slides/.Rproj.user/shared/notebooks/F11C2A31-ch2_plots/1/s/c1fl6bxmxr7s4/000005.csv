@@ -6,7 +6,7 @@
 "0","  dplyr::rename_all(tolower) %>%  "
 "0","  dplyr::mutate(genderF = factor(gender,"
 "0","                                 levels = c(1, 2),"
-"0","                                 labels = c(""Female"", ""Male"")))"
+"0","                                 labels = c(""Female"", ""Male""))) %>% "
 "0","  dplyr::mutate(majorF = factor(major,"
 "0","                                levels= c(1, 2, 3, 4, 5),"
 "0","                                labels = c(""Psychology"", ""Premed"","
@@ -16,6 +16,3 @@
 "0","                                 levels = c(0, 1),"
 "0","                                 labels = c(""Not a regular coffee drinker"","
 "0","                                            ""Regularly drinks coffee"")))"
-"2","Error in factor(major, levels = c(1, 2, 3, 4, 5), labels = c(""Psychology"",  : 
-  object 'major' not found
-"

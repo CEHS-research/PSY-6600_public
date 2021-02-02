@@ -3,6 +3,7 @@
   <head>
     <title>Center and Spread</title>
     <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="pres2.css" type="text/css" />
   </head>
   <body>
@@ -30,12 +31,34 @@ background-size: 750px
 
 # Distributions Examples
 
+
+
 ---
 background-image: url(figures/fig_3centers.png)
 background-position: 50% 70%
 background-size: 1000px
 
 # Three Measures of Center
+
+
+
+
+---
+
+## Areas in Distribution Plot
+
+.pull-left[
+
+Frequency Histogram
+&lt;img src="figures/textbook_fig_3.2.PNG" width="833" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+.pull-right[
+Frequency Polygon
+&lt;img src="figures/textbook_fig_3.3.PNG" width="991" style="display: block; margin: auto;" /&gt;
+]
 
 ---
 background-image: url(figures/fulcrum.png)
@@ -77,8 +100,11 @@ background-size: 1000px
 --
 
 .pull-right[
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
 ]
+
+
+
 
 ---
 # Distributions and Numbers
@@ -95,8 +121,10 @@ background-size: 1000px
 --
 
 .pull-right[
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
 ]
+
+
 
 
 
@@ -140,11 +168,32 @@ A .dcoral[graph gives the best overall picture of a distribution]
 ]]
 
 ---
-background-image: url(figures/fig_sd_properties.jpg)
-background-position: 50% 70%
-background-size: 1100px
 
-# Properties of the Mean and SD
+## Properties of the Mean and SD
+
+.pull-left[
+
+Add 10 to Every Value
+
+&lt;img src="figures/textbook_fig_3.11.PNG" width="1177" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+.pull-right[
+
+
+Multiply Every Value by 10
+
+&lt;img src="figures/textbook_fig_3.12.PNG" width="1516" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+&lt;img src="figures/fig_sd_properties-small.jpg" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+
 
 
 ---
@@ -180,7 +229,7 @@ $$
 ---
 # Skewness
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -217,6 +266,29 @@ background-position: 50% 70%
 background-size: 1000px
 
 # Kurtosis
+
+
+---
+## [Are the Skewness and Kurtosis Useful Statistics?](https://www.spcforexcel.com/knowledge/basic-statistics/are-skewness-and-kurtosis-useful-statistics) 
+
+
+The .coral[skewness] and .coral[kurtosis] statistics appear to be very dependent on the sample size. In fact, even several hundred data points didn't give very good estimates of the true kurtosis and skewness. Smaller sample sizes can give results that are very misleading. 
+
+.large[
+.nicegreen[
+
+&gt; "In short, skewness and kurtosis are practically **worthless**." 
+
+&gt; "The statistics for skewness and kurtosis simply do not provide any useful information beyond that already given by the measures of location *(center)* and dispersion *(spread)*."
+
+]
+]
+
+So, don't put much emphasis on skewness and kurtosis values you may see. And remember, the more data you have, the better you can describe the shape of the distribution.  But, in general, it appears there is little reason to pay much attention to skewness and kurtosis statistics. 
+
+.coral[ **Just look at the histogram.  It often gives you all the information you need.** ]
+
+
 
 ---
 background-image: url(figures/fig_5sum_2.png)
@@ -263,21 +335,31 @@ background-size: 1000px
 ---
 # Boxplots by Group
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
 
 
 
 ---
 # Density Plots
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
 # Quantile-Quantile (Q-Q) Plot
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
 
+
+---
+class: inverse, center, middle
+
+# Interactive Apps
+
+[Describing and Exploring Quantitative Variables](https://istats.shinyapps.io/EDA_quantitative/ )
+
+
+[Mean versus Median](https://istats.shinyapps.io/MeanvsMedian/)
 
 
 ---
@@ -285,21 +367,20 @@ class: inverse, center, middle
 
 # Let's Apply This To the Cancer Dataset &lt;br&gt; (on Canvas)
 
-
 ---
 # Read in the Data
 
 
 ```r
 library(tidyverse)    # Loads several very helpful 'tidy' packages
-library(rio)          # Read in SPSS datasets
+library(haven)        # Read in SPSS datasets
 library(furniture)    # Nice tables (by our own Tyson Barrett)
 library(psych)        # Lots of nice tid-bits
 ```
 
 
 ```r
-cancer_raw &lt;- rio::import("cancer.sav")
+cancer_raw &lt;- haven::read_sav("cancer.sav")
 ```
 
 
@@ -313,6 +394,7 @@ cancer_clean &lt;- cancer_raw %&gt;%
   dplyr::rename_all(tolower) %&gt;% 
   dplyr::mutate(id = factor(id)) %&gt;% 
   dplyr::mutate(trt = factor(trt,
+                             levels = c(0, 1),
                              labels = c("Placebo", 
                                         "Aloe Juice"))) %&gt;% 
   dplyr::mutate(stage = factor(stage))
@@ -346,6 +428,8 @@ cancer_clean %&gt;%
 ```
 ]
 
+--
+
 .pull-right[
 
 ```r
@@ -364,7 +448,7 @@ cancer_clean %&gt;%
 ]
 
 ---
-## Extensive Descriptive Stats `psych:describe()`
+## Extensive Descriptive Stats: `psych:describe()`
 
 
 ```r
@@ -391,10 +475,10 @@ totalcw6     0.53 0.73
 ```
 
 ---
-## Smaller Set with `furniture::table1()`
+## Brief Descriptive Stats: `furniture::table1()`
 
 .pull-left[
-For the Entire Sample
+Defaults
 
 ```r
 cancer_clean %&gt;%
@@ -417,26 +501,86 @@ cancer_clean %&gt;%
 ```
 ]
 
-.pull-right[
-Breaking the Sample by a Factor
+--
+
+.pull-left[
+Add Text
+
+```r
+cancer_clean %&gt;%
+  furniture::table1("Treatment" = trt, 
+                    "Age, years" = age, 
+                    "Weight, lbs" = weighin)
+```
+
+```
+
+---------------------------------
+               Mean/Count (SD/%)
+               n = 25           
+ Treatment                      
+    Placebo    14 (56%)         
+    Aloe Juice 11 (44%)         
+ Age, years                     
+               59.6 (12.9)      
+ Weight, lbs                    
+               178.3 (32.0)     
+---------------------------------
+```
+]
+
+
+---
+## Stratified Stats: `furniture::table1()`
+
+.pull-left[
+Defaults, but increase the number of digits
 
 ```r
 cancer_clean %&gt;%
   dplyr::group_by(trt) %&gt;%        
-  furniture::table1(age, weighin)
+  furniture::table1(age, weighin,
+                    digits = 2)
 ```
 
 ```
 
------------------------------------
-                  trt 
-         Placebo      Aloe Juice  
-         n = 14       n = 11      
- age                              
-         59.8 (9.0)   59.5 (17.2) 
- weighin                          
-         167.5 (23.0) 192.0 (37.4)
------------------------------------
+---------------------------------------
+                    trt 
+         Placebo        Aloe Juice    
+         n = 14         n = 11        
+ age                                  
+         59.79 (8.98)   59.45 (17.22) 
+ weighin                              
+         167.51 (23.01) 191.99 (37.37)
+---------------------------------------
+```
+]
+
+--
+
+.pull-right[
+Add Text
+
+```r
+cancer_clean %&gt;%
+  dplyr::group_by("Treatment" = trt) %&gt;%        
+  furniture::table1("Age, years" = age, 
+                    "Weight, lbs" = weighin,
+                    total = TRUE)
+```
+
+```
+
+----------------------------------------------------
+                               Treatment 
+             Total        Placebo      Aloe Juice  
+             n = 25       n = 14       n = 11      
+ Age, years                                        
+             59.6 (12.9)  59.8 (9.0)   59.5 (17.2) 
+ Weight, lbs                                       
+             178.3 (32.0) 167.5 (23.0) 192.0 (37.4)
+----------------------------------------------------
 ```
 ]
 
@@ -451,7 +595,7 @@ cancer_clean %&gt;%
   geom_boxplot()
 ```
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -466,7 +610,10 @@ cancer_clean %&gt;%
   geom_boxplot()
 ```
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+
+
+
 
 ---
 ## Boxplots, by groups - (2) x-axis breaks
@@ -479,7 +626,7 @@ cancer_clean %&gt;%
   geom_boxplot()
 ```
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-25-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 ## Boxplots, by groups - (3) seperate panels
@@ -493,7 +640,7 @@ cancer_clean %&gt;%
   facet_grid(. ~ trt)             # . ~ group_var (no quotes)
 ```
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -508,7 +655,7 @@ cancer_clean %&gt;%                # Less than 172 Pound at baseline
   geom_boxplot()
 ```
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-27-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -523,7 +670,7 @@ cancer_clean %&gt;%           # At least 150 pounds AND not in Aloe group
   geom_boxplot()
 ```
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -538,17 +685,20 @@ cancer_clean %&gt;%          # In Aloe group, but only stages 2-4
   geom_boxplot()
 ```
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
 
 
 
 ---
 ## Boxplot for Repeated Measures
 
+.pull-left[
 
 ```r
 cancer_clean %&gt;%
-  tidyr::pivot_longer(cols = c(totalcw2, totalcw4, totalcw6),
+  tidyr::pivot_longer(cols = c(totalcw2, 
+                               totalcw4, 
+                               totalcw6),
                       names_to = "week",
                       names_pattern = "totalcw(.)",
                       values_to = "condition") %&gt;%
@@ -556,27 +706,69 @@ cancer_clean %&gt;%
              y = condition)) +
   geom_boxplot()
 ```
+]
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
-
+.pull-right[
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+]
 
 ---
 ## Boxplot: COMPLICATED!
 
+.pull-left[
 
 ```r
 cancer_clean %&gt;%
-  dplyr::filter(weighin &gt; 130 &amp; stage %in% c(2, 4)) %&gt;%
-  tidyr::pivot_longer(cols = c(totalcw2, totalcw4, totalcw6),
+  dplyr::filter(weighin &gt; 130 &amp; 
+                  stage %in% c(2, 4)) %&gt;%
+  tidyr::pivot_longer(cols = c(totalcw2, 
+                               totalcw4, 
+                               totalcw6),
                       names_to = "week",
                       names_pattern = "totalcw(.)",
                       values_to = "condition") %&gt;%
-  ggplot(aes(x = week, y = condition, fill = stage)) +
+  ggplot(aes(x = week, 
+             y = condition, 
+             fill = stage)) +
   geom_boxplot() +
   facet_grid(. ~ trt)
 ```
+]
 
-&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+
+.pull-right[
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Alternative: Violin Plots
+
+
+.pull-left[
+
+```r
+cancer_clean %&gt;%
+  ggplot(aes(x = trt,           
+             y = age)) +     
+  geom_violin(fill = "gray") +
+  geom_boxplot(fill = "white",
+               alpha = .75,
+               width = .25) +
+  stat_summary(fun = mean,
+               geom = "point",
+               size = 5) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Age in Years") +
+  theme(legend.position = "none") 
+```
+]
+
+.pull-right[
+&lt;img src="ch3_center_spread_files/figure-html/unnamed-chunk-35-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
 
 
 ---
@@ -591,6 +783,8 @@ class: inverse, center, middle
 # Next Topic
 
 ### Standard and Normal
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
