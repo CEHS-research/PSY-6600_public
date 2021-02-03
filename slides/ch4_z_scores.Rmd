@@ -96,6 +96,29 @@ tibble(x = rnorm(1000)) %>%
 
 ]
 
+
+---
+
+## Interactive Shiny App
+
+
+
+.large[LINK: [Probability Distribution Viewer](http://shiny.calpoly.sh/Prob_View/)]
+
+```{r,echo=FALSE, out.width = "75%"}
+knitr::include_graphics("figures/app_prob_view.png")
+```
+
+
+
+
+> Cal Poly      
+> Statistics Department   
+
+
+
+
+
 ---
 background-image: url(figures/fig_6895rule.png)
 background-position: 50% 70%
@@ -257,6 +280,8 @@ background-size: 15 7
 
 # Using the z-Table
 
+[Download here](https://cehs-research.github.io/PSY-6600_public/psy6600%20statistical%20tables.pdf)
+
 ---
 
 ## Examples: Standardizing Scores
@@ -391,12 +416,25 @@ If we took every one of the possible samples of a certain size, calculated the s
 
 
 ---
-background-image: url(figures/web_clt.png)
-background-position: 50% 50%
-background-size: 950px
+## Interactive Shiny App
 
-[http://shiny.stat.calpoly.edu/Sampling_Distribution/](http://shiny.stat.calpoly.edu/Sampling_Distribution/)
+.pull-leftsmall[
 
+.large[LINK: [Sampling Distribution Demo](http://shiny.calpoly.sh/Sampling_Distribution/)]
+
+
+> Cal Poly       
+> Statistics Department   
+
+]
+
+.pull-rightbig[
+
+```{r,echo=FALSE}
+knitr::include_graphics("figures/app_sample_dist.png")
+```
+
+]
 
 
 
@@ -474,7 +512,7 @@ Assume: School's population of students heights are .nicegreen[normal (M = 1.4m,
 
 
 ---
-background-image: url(figures/fig_school_height_6.jpg)
+background-image: url(figures/fig_school_height_6-1.jpg)
 background-position: 50% 80%
 background-size: 950px
 
@@ -486,7 +524,49 @@ Assume: School's population of students heights are .nicegreen[normal (M = 1.4m,
   
 (2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = ______
 
-- Image needed here
+
+---
+background-image: url(figures/fig_school_height_6-2.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Probabilities
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[probability] a randomly selected .nicegreen[student] is more than 1.63 m tall = ______
+  
+(2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = ______
+
+
+---
+background-image: url(figures/fig_school_height_6-3.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Probabilities
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[probability] a randomly selected .nicegreen[student] is more than 1.63 m tall = ______
+  
+(2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = ______
+
+
+
+---
+background-image: url(figures/fig_school_height_6-4.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Probabilities
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[probability] a randomly selected .nicegreen[student] is more than 1.63 m tall =  .coral[**.063**]
+  
+(2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = .coral[**< .001**]
+
 
 
 ---
@@ -500,17 +580,17 @@ class: inverse, center, middle
 
 ```{r}
 library(tidyverse)    # Loads several very helpful 'tidy' packages
-library(rio)          # Read in SPSS datasets
+library(haven)        # Read in SPSS datasets
 library(furniture)    # Nice tables (by our own Tyson Barrett)
 library(psych)        # Lots of nice tid-bits
 ```
 
 ```{r, eval=FALSE}
-cancer_raw <- rio::import("cancer.sav")
+cancer_raw <- haven::read_spss("cancer.sav")
 ```
 
 ```{r, include=FALSE}
-cancer_raw <- rio::import("data/cancer.sav")
+cancer_raw <- haven::read_spss("data/cancer.sav")
 ```
 
 --

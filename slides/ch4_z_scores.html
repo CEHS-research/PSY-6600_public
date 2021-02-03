@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Standard and Normal</title>
     <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="pres2.css" type="text/css" />
   </head>
   <body>
@@ -81,6 +82,27 @@ Many dependent variables are assumed to be normally distributed
 
 ]
 
+
+---
+
+## Interactive Shiny App
+
+
+
+.large[LINK: [Probability Distribution Viewer](http://shiny.calpoly.sh/Prob_View/)]
+
+&lt;img src="figures/app_prob_view.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+&gt; Cal Poly      
+&gt; Statistics Department   
+
+
+
+
+
 ---
 background-image: url(figures/fig_6895rule.png)
 background-position: 50% 70%
@@ -100,7 +122,7 @@ background-size: 1100px
 .pull-left[Bell shaped curve?]
 
 .pull-right[Points on the line?]
-&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -125,7 +147,7 @@ $$
 ]
 
 .pull-right[
-&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -208,6 +230,8 @@ background-position: 50% 50%
 background-size: 15 7
 
 # Using the z-Table
+
+[Download here](https://cehs-research.github.io/PSY-6600_public/psy6600%20statistical%20tables.pdf)
 
 ---
 
@@ -343,12 +367,23 @@ If we took every one of the possible samples of a certain size, calculated the s
 
 
 ---
-background-image: url(figures/web_clt.png)
-background-position: 50% 50%
-background-size: 950px
+## Interactive Shiny App
 
-[http://shiny.stat.calpoly.edu/Sampling_Distribution/](http://shiny.stat.calpoly.edu/Sampling_Distribution/)
+.pull-leftsmall[
 
+.large[LINK: [Sampling Distribution Demo](http://shiny.calpoly.sh/Sampling_Distribution/)]
+
+
+&gt; Cal Poly       
+&gt; Statistics Department   
+
+]
+
+.pull-rightbig[
+
+&lt;img src="figures/app_sample_dist.png" width="1267" style="display: block; margin: auto;" /&gt;
+
+]
 
 
 
@@ -426,7 +461,7 @@ Assume: School's population of students heights are .nicegreen[normal (M = 1.4m,
 
 
 ---
-background-image: url(figures/fig_school_height_6.jpg)
+background-image: url(figures/fig_school_height_6-1.jpg)
 background-position: 50% 80%
 background-size: 950px
 
@@ -438,7 +473,49 @@ Assume: School's population of students heights are .nicegreen[normal (M = 1.4m,
   
 (2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = ______
 
-- Image needed here
+
+---
+background-image: url(figures/fig_school_height_6-2.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Probabilities
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[probability] a randomly selected .nicegreen[student] is more than 1.63 m tall = ______
+  
+(2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = ______
+
+
+---
+background-image: url(figures/fig_school_height_6-3.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Probabilities
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[probability] a randomly selected .nicegreen[student] is more than 1.63 m tall = ______
+  
+(2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = ______
+
+
+
+---
+background-image: url(figures/fig_school_height_6-4.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Examples: Probabilities
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[probability] a randomly selected .nicegreen[student] is more than 1.63 m tall =  .coral[**.063**]
+  
+(2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = .coral[**&lt; .001**]
+
 
 
 ---
@@ -453,14 +530,14 @@ class: inverse, center, middle
 
 ```r
 library(tidyverse)    # Loads several very helpful 'tidy' packages
-library(rio)          # Read in SPSS datasets
+library(haven)        # Read in SPSS datasets
 library(furniture)    # Nice tables (by our own Tyson Barrett)
 library(psych)        # Lots of nice tid-bits
 ```
 
 
 ```r
-cancer_raw &lt;- rio::import("cancer.sav")
+cancer_raw &lt;- haven::read_spss("cancer.sav")
 ```
 
 
@@ -555,7 +632,7 @@ cancer_clean %&gt;%
   geom_histogram(bins = 14)
 ```
 
-&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
@@ -570,6 +647,8 @@ class: inverse, center, middle
 # Next Topic
 
 ### Intro to Hypothesis Testing: 1 Sample z-test
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -618,6 +697,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -635,17 +740,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {
