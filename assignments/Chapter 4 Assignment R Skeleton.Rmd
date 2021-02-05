@@ -94,7 +94,10 @@ data_clean <- read_excel("Ihno_dataset.xls") %>%
 
 Use the `dplyr::mutate(new_zscore_var = scale(old_orig_var))` function to create two new variables consisting of the *z scores* for the **anxiety** and **heart rate** measures at **baseline** in Ihno's data set. 
 
+
 Then request *means* and *SD's* of the *z-score* variables with the `furniture::table1()` function to demonstrate that the means and SD s are `0` and `1`, respectively, in each case.
+
+> Hint: see Chapter 4 slide2 #44-45
 
 ```{r}
 # Descriptive Stats: baseline anx & hr, original and z-scores

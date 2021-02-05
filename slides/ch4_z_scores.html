@@ -25,6 +25,8 @@ class: center, middle
 ### -- Sherlock Holmes and Dr. Watson, 
 *The Adventure of Abbey Grange*
 
+
+
 ---
 # Exploring Quantitative Data
 
@@ -36,6 +38,12 @@ class: center, middle
 3. Calculate a numerical summary to briefly .bluer[describe center and spread].
 4. Sometimes the overall pattern of a large number of observations is so regular that we can describe it by a smooth curve.
 ]]
+
+---
+
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/Txlm4ORI4Gs?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
 
 ---
 # Let's Start with Density Curves
@@ -59,9 +67,16 @@ background-size: 1200px
 # Density Curves and Normal Distributions
 
 ---
-background-image: url(figures/fig_density_baseball.png)
-background-position: 50% 80%
-background-size: 950px
+
+&lt;img src="figures/move_normal_height_histograms.gif" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Density Curves and Normal Distributions
+
+&lt;img src="figures/fig_normal_height_histograms.png" width="1664" style="display: block; margin: auto;" /&gt;
+
+
 
 ---
 # Normal Distribution
@@ -78,12 +93,14 @@ Many dependent variables are assumed to be normally distributed
 ]]
 
 .pull-right[
-&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-1-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
 
 ---
+
+class: inverse
 
 ## Interactive Shiny App
 
@@ -100,8 +117,19 @@ Many dependent variables are assumed to be normally distributed
 &gt; Statistics Department   
 
 
+---
+
+&lt;img src="figures/fig_normal_height_density_shade.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
+--
+
+&lt;img src="figures/fig_normal_height_density_rule.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/mtbJbDwqWLE?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
 
 ---
 background-image: url(figures/fig_6895rule.png)
@@ -115,6 +143,15 @@ background-size: 1100px
 
 
 ---
+background-image: url(figures/fig_z_table_top.png)
+background-position: 50% 50%
+background-size: 15 7
+
+# The z-Table *(A.1)*
+
+[Download here](https://cehs-research.github.io/PSY-6600_public/psy6600%20statistical%20tables.pdf)
+
+---
 # Do We Have a Normal Distribution?
 
 .huge[Check Plot!]
@@ -122,7 +159,9 @@ background-size: 1100px
 .pull-left[Bell shaped curve?]
 
 .pull-right[Points on the line?]
-&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+
+
 
 
 ---
@@ -138,16 +177,18 @@ Convert a value to a standard score ("z-score")
 - First subtract the mean
 - Then divide by the standard deviation
 
+.large[
 
 $$
-z = \frac{X - \mu}{\sigma} = \frac{X - \bar{X}}{s}
+z = \frac{X - \mu}{\sigma} = \frac{X - \bar{x}}{s}
 $$
 
+]
 ]
 ]
 
 .pull-right[
-&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -174,7 +215,7 @@ background-image: url(figures/fig_blank_normal_slide.png)
 background-position: 50% 80%
 background-size: 950px
 
-# Example: Draw a Picture
+# Example 1: Draw a Picture
 
 .huge[95% of students at a school are between 1.1 and 1.7 meters tall
 ]
@@ -182,11 +223,49 @@ background-size: 950px
 Assuming this data is .nicegreen[normally distributed], can you calculate the .dcoral[MEAN] and .dcoral[STANDARD DEVIATION]?
 
 ---
-background-image: url(figures/fig_school_height_1.jpg)
+background-image: url(figures/fig_school_height_1-1.jpg)
 background-position: 50% 80%
 background-size: 950px
 
-# Example: Draw a Picture
+# Example 1: Draw a Picture
+
+.huge[95% of students at a school are between 1.1 and 1.7 meters tall
+]
+
+Assuming this data is .nicegreen[normally distributed], can you calculate the .dcoral[MEAN] and .dcoral[STANDARD DEVIATION]?
+
+
+---
+background-image: url(figures/fig_school_height_1-2.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+# Example 1: Draw a Picture
+
+.huge[95% of students at a school are between 1.1 and 1.7 meters tall
+]
+
+Assuming this data is .nicegreen[normally distributed], can you calculate the .dcoral[MEAN] and .dcoral[STANDARD DEVIATION]?
+
+
+---
+background-image: url(figures/fig_school_height_1-3.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+# Example 1: Draw a Picture
+
+.huge[95% of students at a school are between 1.1 and 1.7 meters tall
+]
+
+Assuming this data is .nicegreen[normally distributed], can you calculate the .dcoral[MEAN] and .dcoral[STANDARD DEVIATION]?
+
+---
+background-image: url(figures/fig_school_height_1-4.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+# Example 1: Draw a Picture
 
 .huge[95% of students at a school are between 1.1 and 1.7 meters tall
 ]
@@ -200,7 +279,7 @@ background-image: url(figures/fig_blank_normal_slide.png)
 background-position: 50% 80%
 background-size: 950px
 
-# Example: Calculate a z-Score
+# Example 2: Calculate a z-Score
 
 .huge[You have a friend who is 1.85 meters tall.
 ]
@@ -212,11 +291,11 @@ background-size: 950px
 
 
 ---
-background-image: url(figures/fig_school_height_2.jpg)
+background-image: url(figures/fig_school_height_2-1.jpg)
 background-position: 50% 80%
 background-size: 950px
 
-# Example: Calculate a z-Score
+# Example 2: Calculate a z-Score
 
 .huge[You have a friend who is 1.85 meters tall.
 ]
@@ -224,6 +303,40 @@ background-size: 950px
 .nicegreen[Class: M = 1.4 meters, SD = 0.15 meters]
 
 .dcoral[How far] is 1.85 from the mean?  How many .dcoral[standard deviations] is that?
+
+
+
+---
+background-image: url(figures/fig_school_height_2-2.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+# Example 2: Calculate a z-Score
+
+.huge[You have a friend who is 1.85 meters tall.
+]
+
+.nicegreen[Class: M = 1.4 meters, SD = 0.15 meters]
+
+.dcoral[How far] is 1.85 from the mean?  How many .dcoral[standard deviations] is that?
+
+
+---
+background-image: url(figures/fig_school_height_2-3.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+# Example 2: Calculate a z-Score
+
+.huge[You have a friend who is 1.85 meters tall.
+]
+
+.nicegreen[Class: M = 1.4 meters, SD = 0.15 meters]
+
+.dcoral[How far] is 1.85 from the mean?  How many .dcoral[standard deviations] is that?
+
+
+
 ---
 background-image: url(figures/fig_z_table_top.png)
 background-position: 50% 50%
@@ -235,7 +348,7 @@ background-size: 15 7
 
 ---
 
-## Examples: Standardizing Scores
+## Example 3: Standardizing Scores
 
 Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
 
@@ -249,11 +362,11 @@ Assume: School's population of students heights are .nicegreen[normal (M = 1.4m,
 
 
 ---
-background-image: url(figures/fig_school_height_3.jpg)
+background-image: url(figures/fig_school_height_3-1.jpg)
 background-position: 50% 80%
 background-size: 950px
 
-## Examples: Standardizing Scores
+## Example 3: Standardizing Scores
 
 Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
 
@@ -264,13 +377,192 @@ Assume: School's population of students heights are .nicegreen[normal (M = 1.4m,
 3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = ______
 
 4. The .dcoral[90th percentile] for students heights = ______
+
+---
+background-image: url(figures/fig_school_height_3-2.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 3: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = .dcoral[**1.53 SDs**]
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = ______
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = ______
+
+4. The .dcoral[90th percentile] for students heights = ______
+
+
+---
+background-image: url(figures/fig_school_height_3-3.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 3: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = .dcoral[**1.53 SDs**]
+
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = .dcoral[**1.59 meters**]
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = ______
+
+4. The .dcoral[90th percentile] for students heights = ______
+
+
+---
+background-image: url(figures/fig_school_height_3-4.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 3: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = .dcoral[**1.53 SDs**]
+
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = .dcoral[**1.59 meters**]
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = ______
+
+4. The .dcoral[90th percentile] for students heights = ______
+
+
+---
+background-image: url(figures/fig_school_height_3-5.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 3: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = .dcoral[**1.53 SDs**]
+
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = .dcoral[**1.59 meters**]
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = ______
+
+4. The .dcoral[90th percentile] for students heights = ______
+
+---
+
+&lt;img src="figures/fig_school_height_3blank_ztab.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+&lt;img src="figures/fig_school_height_3a_ztab.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+background-image: url(figures/fig_school_height_3-6.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 3: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = .dcoral[**1.53 SDs**]
+
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = .dcoral[**1.59 meters**]
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = ______
+
+4. The .dcoral[90th percentile] for students heights = ______
+
+
+---
+background-image: url(figures/fig_school_height_3-7.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 3: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = .dcoral[**1.53 SDs**]
+
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = .dcoral[**1.59 meters**]
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = .dcoral[**81st %tile**]
+
+4. The .dcoral[90th percentile] for students heights = ______
+
+
+
+---
+background-image: url(figures/fig_school_height_3-8.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 3: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = .dcoral[**1.53 SDs**]
+
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = .dcoral[**1.59 meters**]
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = .dcoral[**81st %tile**]
+
+4. The .dcoral[90th percentile] for students heights = ______
+
+
+
+---
+
+&lt;img src="figures/fig_school_height_3b_ztab.jpg" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+---
+background-image: url(figures/fig_school_height_3-9.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 3: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = .dcoral[**1.53 SDs**]
+
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = .dcoral[**1.59 meters**]
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = .dcoral[**81st %tile**]
+
+4. The .dcoral[90th percentile] for students heights = ______
+
+
+
+---
+background-image: url(figures/fig_school_height_3-10.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 3: Standardizing Scores
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+1. The .dcoral[z-score] for a student 1.63 m tall = .dcoral[**1.53 SDs**]
+
+2. The .nicegreen[height] of a student with a z-socre of -2.65 = .dcoral[**1.59 meters**]
+
+3. The .dcoral[Pecentile Rank] of a student that is 1.51 m tall = .dcoral[**81st %tile**]
+
+4. The .dcoral[90th percentile] for students heights = .dcoral[**1.59 meters**]
+
 
 
 ---
 background-image: url(figures/fig_3_blank_normal_slide.png)
 background-position: 50% 50%
 
-## Examples: Find the Probability That...
+## Example 4: Find the Probability That...
 
 Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
 
@@ -281,11 +573,11 @@ Assume: School's population of students heights are .nicegreen[normal (M = 1.4m,
 (3) .dcoral[between] 1.2 and 1.63 tall
 
 ---
-background-image: url(figures/fig_school_height_4.jpg)
+background-image: url(figures/fig_school_height_4-1.jpg)
 background-position: 50% 80%
 background-size: 950px
 
-## Examples: Find the Probability That...
+## Example 4: Find the Probability That...
 
 Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
 
@@ -294,12 +586,103 @@ Assume: School's population of students heights are .nicegreen[normal (M = 1.4m,
 (2) .dcoral[Less than] 1.2 m tall  
   
 (3) .dcoral[between] 1.2 and 1.63 tall
+
+---
+background-image: url(figures/fig_school_height_4-2.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 4: Find the Probability That...
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) .dcoral[More than] 1.63 m tall    
+  
+(2) .dcoral[Less than] 1.2 m tall  
+  
+(3) .dcoral[between] 1.2 and 1.63 tall
+
+---
+background-image: url(figures/fig_school_height_4-3.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 4: Find the Probability That...
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) .dcoral[More than] 1.63 m tall    
+  
+(2) .dcoral[Less than] 1.2 m tall  
+  
+(3) .dcoral[between] 1.2 and 1.63 tall
+
+
+---
+background-image: url(figures/fig_school_height_4-4.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 4: Find the Probability That...
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) .dcoral[More than] 1.63 m tall    
+  
+(2) .dcoral[Less than] 1.2 m tall  
+  
+(3) .dcoral[between] 1.2 and 1.63 tall
+
+---
+background-image: url(figures/fig_school_height_4-5.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 4: Find the Probability That...
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) .dcoral[More than] 1.63 m tall    
+  
+(2) .dcoral[Less than] 1.2 m tall  
+  
+(3) .dcoral[between] 1.2 and 1.63 tall
+
+
+---
+
+&lt;img src="figures/fig_school_height_4blank_ztab.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+&lt;img src="figures/fig_school_height_4_ztab.jpg" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
+---
+background-image: url(figures/fig_school_height_4-6.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 4: Find the Probability That...
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) .dcoral[More than] 1.63 m tall = .dcoral[**.0630**] 
+  
+(2) .dcoral[Less than] 1.2 m tall  = .dcoral[**.0918**] 
+  
+(3) .dcoral[between] 1.2 and 1.63 tall = .dcoral[**.8452**] 
+
 
 ---
 background-image: url(figures/fig_2_blank_normal_slide.png)
 background-position: 50% 50%
 
-## Examples: Percentiles
+## Example 5: Percentiles
 
 Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
 
@@ -308,17 +691,108 @@ Assume: School's population of students heights are .nicegreen[normal (M = 1.4m,
 (2) The .dcoral[height] of a studnet in the 15th percentile = ______
 
 ---
-background-image: url(figures/fig_school_height_5.jpg)
+background-image: url(figures/fig_school_height_5-1.jpg)
 background-position: 50% 80%
 background-size: 950px
 
-## Examples: Percentiles
+## Example 5: Percentiles
 
 Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
 
 (1) The .dcoral[perentile rank] of a 1.7 m tall Student = ______
   
 (2) The .dcoral[height] of a studnet in the 15th percentile = ______
+
+
+
+
+---
+background-image: url(figures/fig_school_height_5-2.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 5: Percentiles
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[perentile rank] of a 1.7 m tall Student = ______
+  
+(2) The .dcoral[height] of a studnet in the 15th percentile = ______
+
+---
+background-image: url(figures/fig_school_height_5-3.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 5: Percentiles
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[perentile rank] of a 1.7 m tall Student = ______
+  
+(2) The .dcoral[height] of a studnet in the 15th percentile = ______
+
+
+
+---
+
+&lt;img src="figures/fig_school_height_5blank_ztab.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+&lt;img src="figures/fig_school_height_5a_ztab.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+background-image: url(figures/fig_school_height_5-4.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 5: Percentiles
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[perentile rank] of a 1.7 m tall Student = .dcoral[**98th percentile**]
+  
+(2) The .dcoral[height] of a studnet in the 15th percentile = ______
+
+
+---
+background-image: url(figures/fig_school_height_5-5.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 5: Percentiles
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[perentile rank] of a 1.7 m tall Student = .dcoral[**98th percentile**]
+  
+(2) The .dcoral[height] of a studnet in the 15th percentile = ______
+
+
+
+---
+
+&lt;img src="figures/fig_school_height_5b_ztab.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(figures/fig_school_height_5-6.jpg)
+background-position: 50% 80%
+background-size: 950px
+
+## Example 5: Percentiles
+
+Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
+
+(1) The .dcoral[perentile rank] of a 1.7 m tall Student = .dcoral[**98th percentile**]
+  
+(2) The .dcoral[height] of a studnet in the 15th percentile = .dcoral[**1.24 meters**]
+
+
 
 
 ---
@@ -367,6 +841,9 @@ If we took every one of the possible samples of a certain size, calculated the s
 
 
 ---
+
+class: inverse
+
 ## Interactive Shiny App
 
 .pull-leftsmall[
@@ -425,6 +902,13 @@ The distribution of the .dcoral[sample means] (x-bar) for 500 random samples of 
 ]
 
 
+
+---
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/jvoxEYmQHNM?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
 ---
 background-image: url(figures/fig_clt_slide.png)
 background-position: 50% 50%
@@ -451,7 +935,7 @@ class: inverse, center, middle
 background-image: url(figures/fig_2_blank_normal_slide.png)
 background-position: 50% 50%
 
-## Examples: Probabilities
+## Example 6: Probabilities
 
 Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
 
@@ -465,7 +949,7 @@ background-image: url(figures/fig_school_height_6-1.jpg)
 background-position: 50% 80%
 background-size: 950px
 
-## Examples: Probabilities
+## Example 6: Probabilities
 
 Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
 
@@ -479,7 +963,7 @@ background-image: url(figures/fig_school_height_6-2.jpg)
 background-position: 50% 80%
 background-size: 950px
 
-## Examples: Probabilities
+## Example 6: Probabilities
 
 Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
 
@@ -489,11 +973,17 @@ Assume: School's population of students heights are .nicegreen[normal (M = 1.4m,
 
 
 ---
+
+&lt;img src="figures/fig_school_height_6_ztab.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
 background-image: url(figures/fig_school_height_6-3.jpg)
 background-position: 50% 80%
 background-size: 950px
 
-## Examples: Probabilities
+## Example 6: Probabilities
 
 Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
 
@@ -508,13 +998,13 @@ background-image: url(figures/fig_school_height_6-4.jpg)
 background-position: 50% 80%
 background-size: 950px
 
-## Examples: Probabilities
+## Example 6: Probabilities
 
 Assume: School's population of students heights are .nicegreen[normal (M = 1.4m, SD = 0.15m)]
 
-(1) The .dcoral[probability] a randomly selected .nicegreen[student] is more than 1.63 m tall =  .coral[**.063**]
+(1) The .dcoral[probability] a randomly selected .nicegreen[student] is more than 1.63 m tall =  .dcoral[**.063**]
   
-(2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = .coral[**&lt; .001**]
+(2) The .dcoral[probability] a randomly selected .nicegreen[sample] of 16 students .nicegreen[average] more than 1.63 m tall = .dcoral[**&lt; .001**]
 
 
 
@@ -588,13 +1078,15 @@ cancer_clean %&gt;%
 ```
 
 ```
-  id     trt age        agez        ageZ
-1  1 Placebo  52 -0.58914729 -0.59077659
-2  5 Placebo  77  1.34883721  1.34239288
-3  6 Placebo  60  0.03100775  0.02783764
-4  9 Placebo  61  0.10852713  0.10516442
-5 11 Placebo  59 -0.04651163 -0.04948914
-6 15 Placebo  69  0.72868217  0.72377865
+# A tibble: 6 x 5
+  id    trt       age    agez ageZ[,1]
+  &lt;fct&gt; &lt;fct&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+1 1     Placebo    52 -0.589   -0.591 
+2 5     Placebo    77  1.35     1.34  
+3 6     Placebo    60  0.0310   0.0278
+4 9     Placebo    61  0.109    0.105 
+5 11    Placebo    59 -0.0465  -0.0495
+6 15    Placebo    69  0.729    0.724 
 ```
 ]
 
@@ -632,7 +1124,7 @@ cancer_clean %&gt;%
   geom_histogram(bins = 14)
 ```
 
-&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch4_z_scores_files/figure-html/unnamed-chunk-26-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
