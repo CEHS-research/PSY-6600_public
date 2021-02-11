@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Hypothesis Testing</title>
     <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="pres2.css" type="text/css" />
   </head>
   <body>
@@ -24,8 +25,6 @@ class: center, middle
 
 ### -- Sherlock Holmes 
 *The Stock-Broker's Cat*
-
-
 
 
 
@@ -65,6 +64,15 @@ Testing the association or dependence
 
 
 ---
+
+&lt;!-- Dr. Nic: Understanding Statistical Inference - statistics help (&lt;7 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/tFRXsngz4UQ?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+
+---
 # Inferential Statistics
 
 .pull-left[
@@ -97,21 +105,32 @@ Testing the association or dependence
 
 
 ---
+
+&lt;!-- Instand HPS: Smoking and Lung Cancer: From Association to Causation --&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/HHCzDbev7tw?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+---
 background-image: url(figures/fig_old_cig.png)
 
-# Causality and Statistics
+# Causality and Statistics: 
+
+Hill's View Points - Diversity of Evidence
 
 
-## .dcoral[Causality] depends &lt;br&gt; on .nicegreen[**evidence**] &lt;br&gt; from outside statistics:
+.huge[ .dcoral[Causality] depends  on .nicegreen[**evidence**] &lt;br&gt; from outside statistics: ]
 
 
-- Phenomenological (educational, behavioral, biological) credibility
+- Plausibility/Phenomenological credibility (educational, behavioral, biological) 
 - Strength of association, ruling out occurrence by chance alone
-- Consistency with past research findings
+- Coherence/Consistency with past research findings
 - Temporality
 - Dose-response relationship
 - Specificity
 - Prevention
+- Experiment
+- Analogy
 
 --
 
@@ -131,6 +150,18 @@ Not frequently interested in whether **individual scores** are unusual relative 
 
 .nicegreen[**Sample mean**], `\(\bar{x}\)` or `\(M\)`, summarizes .nicegreen[**central tendency**] of a group or sample of subjects
 
+---
+
+&lt;!-- Stat Quest: Hypothesis Testing and The Null Hypothesis (14.5 min) --&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/0zZYBALbZgg?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+---
+
+&lt;!-- Joshua Emmanuel: Hypothesis Testing - Introduction (4 min) --&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/DlwOTOydeyk?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
 
 
 
@@ -173,6 +204,15 @@ The probability of observing &lt;br&gt; a test statistic &lt;br&gt; .dcoral[**as
 
 
 
+---
+
+&lt;!-- CrashCourse: How P-Values Help Us Test Hypotheses: Crash Course Statistics #21 (12 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/bf3egy7TQ2Q?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+
 
 ---
 background-image: url(figures/fig_null_hyp.png)
@@ -203,6 +243,17 @@ H_1:
 \mu_1 \gt \mu_2
 $$
 ]
+
+
+
+
+---
+
+&lt;!-- Statistical Significance and p-Values Explained Intuitively (cut off of .05)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/DAkJhY2zQ3c?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
 
 
 
@@ -406,7 +457,7 @@ Set it .nicegreen[SMALLER], `\(\alpha = .01\)`, **IF** false positives are costl
 
 ## Example Sentence:
 
-A one sample z test showed that the difference in the quiz scores between the current sample (N = 9, M = 7.00, SD = 1.23) and the hypothesized value (6.000) were statistically significant, z = 2.45, p = .040.
+A one sample z test showed that the difference in the quiz scores between the current sample (N = 9, M = 7.00, SD = 1.23) and the hypothesized value (6.00) were statistically significant, z = 2.45, p = .040.
 
 
 
@@ -422,7 +473,7 @@ After an earthquake hits their town, a random sample of townspeople yields the f
 Assume the general population has an anxiety scale that is expressed as a T score, so that `\(\mu = 50\)` and  `\(\sigma = 10\)`.  
 
 ---
-background-image: url(figures/fig_ztest_a.png)
+background-image: url(figures/fig_ztest_ex_1.jpg)
 
 # EXAMPLE: 1-sample z-test
 
@@ -432,10 +483,64 @@ After an earthquake hits their town, a random sample of townspeople yields the f
 
 Assume the general population has an anxiety scale that is expressed as a T score, so that `\(\mu = 50\)` and  `\(\sigma = 10\)`.  
 
+---
+background-image: url(figures/fig_ztest_ex_2.jpg)
+
+# EXAMPLE: 1-sample z-test
+
+After an earthquake hits their town, a random sample of townspeople yields the following anxiety score:  
+
+.center[.nicegreen[72, 59, 54, 56, 48, 52, 57, 51, 64, 67]]
+
+Assume the general population has an anxiety scale that is expressed as a T score, so that `\(\mu = 50\)` and  `\(\sigma = 10\)`.  
 
 ---
-background-image: url(figures/fig_ztest_2.png)
+background-image: url(figures/fig_ztest_ex_3.jpg)
 
+# EXAMPLE: 1-sample z-test
+
+After an earthquake hits their town, a random sample of townspeople yields the following anxiety score:  
+
+.center[.nicegreen[72, 59, 54, 56, 48, 52, 57, 51, 64, 67]]
+
+Assume the general population has an anxiety scale that is expressed as a T score, so that `\(\mu = 50\)` and  `\(\sigma = 10\)`.  
+
+---
+background-image: url(figures/fig_ztest_ex_4.jpg)
+
+# EXAMPLE: 1-sample z-test
+
+After an earthquake hits their town, a random sample of townspeople yields the following anxiety score:  
+
+.center[.nicegreen[72, 59, 54, 56, 48, 52, 57, 51, 64, 67]]
+
+Assume the general population has an anxiety scale that is expressed as a T score, so that `\(\mu = 50\)` and  `\(\sigma = 10\)`.  
+
+---
+background-image: url(figures/fig_ztest_ex_5.jpg)
+
+---
+background-image: url(figures/fig_ztest_ex_6.jpg)
+
+---
+background-image: url(figures/fig_ztest_ex_7.jpg)
+
+---
+background-image: url(figures/fig_ztest_ex_8.jpg)
+
+---
+background-image: url(figures/fig_ztest_ex_9.jpg)
+ 
+---
+background-image: url(figures/fig_ztest_ex_10.jpg)
+
+
+
+---
+
+&lt;!-- CrashCourse: P-Value Problems: Crash Course Statistics #22 (12 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/PPD8lER8ju4?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
 
 
 
@@ -449,7 +554,7 @@ background-image: url(figures/fig_ztest_2.png)
 - only says whether the effect observed is likely to be .nicegreen[due to chance] alone, because of random sampling
 - may not be .nicegreen[practically important]
 
-That's because *statistical* significance doesn't tell you about the .nicegreen[**magnitude of the effect**], only that there **is** one. 
+That's because *statistical* significance doesn't tell you about the .nicegreen[**magnitude of the effect**], only that there likely **is** one. 
 
 An *effect* could be too small to be .nicegreen[**relevant**].  
 
@@ -478,9 +583,33 @@ When comparing two populations, lack of significance does NOT imply that the two
 
 
 ---
+
+&lt;!-- CrashCourse: The Replication Crisis: Crash Course Statistics #31 (14.5 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/vBzEGSm23y8?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+---
+
+# APA Task Force on p-values
+
+* Repication/Tranparency
+
+* Publication Bias, reliance on p-values
+
+* clear detailing of wrangling/analysis
+
+* Statistical Power, increase sample size
+
+* Make data open to all
+
+---
 class: inverse, center, middle
 
 # Let's Apply This to the Cancer Dataset 
+
+### Testing normality in the population, based on a sample
 
 
 ---
@@ -489,14 +618,14 @@ class: inverse, center, middle
 
 ```r
 library(tidyverse)    # Loads several very helpful 'tidy' packages
-library(rio)          # Read in SPSS datasets
+library(haven)        # Read in SPSS datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
 library(psych)        # Lots of nice tid-bits
-library(car)          # Companion to "Applied Regression"
 ```
 
 
 ```r
-cancer_raw &lt;- rio::import("cancer.sav")
+cancer_raw &lt;- haven::read_spss("cancer.sav")
 ```
 
 
@@ -539,15 +668,22 @@ totalcw4 0.69
 
 
 ---
-#  Tests for Normaility - Shapiro-Wilks
+#  Tests for Normaility - Age
 
-.pull-left[
+
+In our population, does .dcoral[age] follow the normal distribution?
+
+--
+
 
 ```r
-cancer_clean %&gt;% 
-  dplyr::pull(age) %&gt;% 
-  shapiro.test()
+cancer_clean %&gt;%               # start with the dataset
+  dplyr::pull(age) %&gt;%         # pull out the variable to test 
+  shapiro.test()               # run the Shapiro Wilks test of normality
 ```
+
+--
+
 
 ```
 
@@ -556,15 +692,30 @@ cancer_clean %&gt;%
 data:  .
 W = 0.98317, p-value = 0.9399
 ```
-]
 
-.pull-right[
+--
+
+&gt; **Conclusion:** The Shapiro-Wilks test on this sample provides **no evidence** that distribution of .dcoral[age] in the population is **not** normally distributed, *W* = 0.98, p = .940.
+
+
+
+---
+
+#  Tests for Normaility - Week 4 
+
+In our population, does the .dcoral[total oral condition at 4 weeks] follow the normal distribution?
+
+--
+
 
 ```r
-cancer_clean %&gt;% 
-  dplyr::pull(totalcw4) %&gt;% 
-  shapiro.test()
+cancer_clean %&gt;%               # start with the dataset
+  dplyr::pull(totalcw4) %&gt;%    # pull out the variable to test 
+  shapiro.test()               # run the Shapiro Wilks test of normality
 ```
+
+--
+
 
 ```
 
@@ -573,7 +724,13 @@ cancer_clean %&gt;%
 data:  .
 W = 0.9131, p-value = 0.03575
 ```
-]
+
+
+--
+
+&gt; **Conclusion:** The Shapiro-Wilks test on this sample provides **does** provide **evidence** that distribution of .dcoral[total oral condition at 4 weeks] in the population is **NOT** normally distributed, *W* = 0.91, p = .036.
+
+
 
 
 ---
@@ -588,7 +745,7 @@ cancer_clean %&gt;%
   geom_histogram(binwidth = 5)
 ```
 
-&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -603,7 +760,7 @@ cancer_clean %&gt;%
   geom_qq()
 ```
 
-&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -620,11 +777,11 @@ cancer_clean %&gt;%
   geom_histogram(binwidth = 1)
 ```
 
-&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
-
+--
 
 .pull-right[
 ### Q-Q Plot
@@ -635,7 +792,7 @@ cancer_clean %&gt;%
   geom_qq()
 ```
 
-&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -700,6 +857,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -717,17 +900,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {

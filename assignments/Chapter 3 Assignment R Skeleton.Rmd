@@ -173,7 +173,7 @@ Use `dplyr::filter()` to create a SIDE-by-SIDE Boxplots for the `statquiz` varia
 
 Create Boxplots for both baseline and prequiz **anxiety**, so that they appear side-by-side on the same graph.
 
-> Some data manipulations is needed to "pivot" the two variables (baseline and pre-test) into a single variable.  This is done with with the `tidyr::pivot_longer(cols = c(existing_var1, existing_var2), names = "newvar_names", values = "newvar_values)` function.  The two existing variables would be `anx_base` and `anx_pre`.  The new variable for the names (`"newvar_names"`) could be called `"time"` and the new values variable (`"newvar_valus"`) could be classed `"anx"`.
+> Some data manipulations is needed to "pivot" the two variables (baseline and pre-test) into a single variable.  This is done with with the `tidyr::pivot_longer(cols = c(existing_var1, existing_var2), names_to = "newvar_names", values_to = "newvar_values")` function.  The two existing variables would be `anx_base` and `anx_pre`.  The new variable for the names (`"newvar_names"`) could be called `"time"` and the new values variable (`"newvar_values"`) could be classed `"anx"`.
  
 ```{r}
 # Boxplot: anxiety, compare two repeated measures

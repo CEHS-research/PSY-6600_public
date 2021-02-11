@@ -34,8 +34,6 @@ class: center, middle
 
 
 
-
-
 ---
 # Two Types of Research Questions
 
@@ -67,6 +65,15 @@ Testing the association or dependence
 - Correlation
 - Regression]
 ]
+
+
+
+
+---
+
+<!-- Dr. Nic: Understanding Statistical Inference - statistics help (<7 min)-->
+
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/tFRXsngz4UQ?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 
@@ -104,21 +111,32 @@ Testing the association or dependence
 
 
 ---
+
+<!-- Instand HPS: Smoking and Lung Cancer: From Association to Causation -->
+
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/HHCzDbev7tw?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+---
 background-image: url(figures/fig_old_cig.png)
 
-# Causality and Statistics
+# Causality and Statistics: 
+
+Hill's View Points - Diversity of Evidence
 
 
-## .dcoral[Causality] depends <br> on .nicegreen[**evidence**] <br> from outside statistics:
+.huge[ .dcoral[Causality] depends  on .nicegreen[**evidence**] <br> from outside statistics: ]
 
 
-- Phenomenological (educational, behavioral, biological) credibility
+- Plausibility/Phenomenological credibility (educational, behavioral, biological) 
 - Strength of association, ruling out occurrence by chance alone
-- Consistency with past research findings
+- Coherence/Consistency with past research findings
 - Temporality
 - Dose-response relationship
 - Specificity
 - Prevention
+- Experiment
+- Analogy
 
 --
 
@@ -138,6 +156,18 @@ Not frequently interested in whether **individual scores** are unusual relative 
 
 .nicegreen[**Sample mean**], $\bar{x}$ or $M$, summarizes .nicegreen[**central tendency**] of a group or sample of subjects
 
+---
+
+<!-- Stat Quest: Hypothesis Testing and The Null Hypothesis (14.5 min) -->
+
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/0zZYBALbZgg?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+---
+
+<!-- Joshua Emmanuel: Hypothesis Testing - Introduction (4 min) -->
+
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/DlwOTOydeyk?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 
@@ -180,6 +210,15 @@ The probability of observing <br> a test statistic <br> .dcoral[**as extreme or 
 
 
 
+---
+
+<!-- CrashCourse: How P-Values Help Us Test Hypotheses: Crash Course Statistics #21 (12 min)-->
+
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/bf3egy7TQ2Q?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+
 
 ---
 background-image: url(figures/fig_null_hyp.png)
@@ -210,6 +249,17 @@ H_1:
 \mu_1 \gt \mu_2
 $$
 ]
+
+
+
+
+---
+
+<!-- Statistical Significance and p-Values Explained Intuitively (cut off of .05)-->
+
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/DAkJhY2zQ3c?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 
 
 
@@ -406,14 +456,14 @@ Set it .nicegreen[SMALLER], $\alpha = .01$, **IF** false positives are costly an
 
 - State the alpha & number of tails prior to any results
 
-- Report exact p-values (usually 2 decimal places), except for `p < .001`
+- Report exact p-values *(usually 3 decimal places)*, except for `p < .001`
 
 
 --
 
 ## Example Sentence:
 
-A one sample z test showed that the difference in the quiz scores between the current sample (N = 9, M = 7.00, SD = 1.23) and the hypothesized value (6.000) were statistically significant, z = 2.45, p = .040.
+A one sample z test showed that the difference in the quiz scores between the current sample (N = 9, M = 7.00, SD = 1.23) and the hypothesized value (6.00) were statistically significant, z = 2.45, p = .040.
 
 
 
@@ -429,7 +479,7 @@ After an earthquake hits their town, a random sample of townspeople yields the f
 Assume the general population has an anxiety scale that is expressed as a T score, so that $\mu = 50$ and  $\sigma = 10$.  
 
 ---
-background-image: url(figures/fig_ztest_a.png)
+background-image: url(figures/fig_ztest_ex_1.jpg)
 
 # EXAMPLE: 1-sample z-test
 
@@ -439,10 +489,64 @@ After an earthquake hits their town, a random sample of townspeople yields the f
 
 Assume the general population has an anxiety scale that is expressed as a T score, so that $\mu = 50$ and  $\sigma = 10$.  
 
+---
+background-image: url(figures/fig_ztest_ex_2.jpg)
+
+# EXAMPLE: 1-sample z-test
+
+After an earthquake hits their town, a random sample of townspeople yields the following anxiety score:  
+
+.center[.nicegreen[72, 59, 54, 56, 48, 52, 57, 51, 64, 67]]
+
+Assume the general population has an anxiety scale that is expressed as a T score, so that $\mu = 50$ and  $\sigma = 10$.  
 
 ---
-background-image: url(figures/fig_ztest_2.png)
+background-image: url(figures/fig_ztest_ex_3.jpg)
 
+# EXAMPLE: 1-sample z-test
+
+After an earthquake hits their town, a random sample of townspeople yields the following anxiety score:  
+
+.center[.nicegreen[72, 59, 54, 56, 48, 52, 57, 51, 64, 67]]
+
+Assume the general population has an anxiety scale that is expressed as a T score, so that $\mu = 50$ and  $\sigma = 10$.  
+
+---
+background-image: url(figures/fig_ztest_ex_4.jpg)
+
+# EXAMPLE: 1-sample z-test
+
+After an earthquake hits their town, a random sample of townspeople yields the following anxiety score:  
+
+.center[.nicegreen[72, 59, 54, 56, 48, 52, 57, 51, 64, 67]]
+
+Assume the general population has an anxiety scale that is expressed as a T score, so that $\mu = 50$ and  $\sigma = 10$.  
+
+---
+background-image: url(figures/fig_ztest_ex_5.jpg)
+
+---
+background-image: url(figures/fig_ztest_ex_6.jpg)
+
+---
+background-image: url(figures/fig_ztest_ex_7.jpg)
+
+---
+background-image: url(figures/fig_ztest_ex_8.jpg)
+
+---
+background-image: url(figures/fig_ztest_ex_9.jpg)
+ 
+---
+background-image: url(figures/fig_ztest_ex_10.jpg)
+
+
+
+---
+
+<!-- CrashCourse: P-Value Problems: Crash Course Statistics #22 (12 min)-->
+
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/PPD8lER8ju4?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 
@@ -456,7 +560,7 @@ background-image: url(figures/fig_ztest_2.png)
 - only says whether the effect observed is likely to be .nicegreen[due to chance] alone, because of random sampling
 - may not be .nicegreen[practically important]
 
-That's because *statistical* significance doesn't tell you about the .nicegreen[**magnitude of the effect**], only that there **is** one. 
+That's because *statistical* significance doesn't tell you about the .nicegreen[**magnitude of the effect**], only that there likely **is** one. 
 
 An *effect* could be too small to be .nicegreen[**relevant**].  
 
@@ -485,9 +589,33 @@ When comparing two populations, lack of significance does NOT imply that the two
 
 
 ---
+
+<!-- CrashCourse: The Replication Crisis: Crash Course Statistics #31 (14.5 min)-->
+
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/vBzEGSm23y8?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+---
+
+# APA Task Force on p-values
+
+* Repication/Tranparency
+
+* Publication Bias, reliance on p-values
+
+* clear detailing of wrangling/analysis
+
+* Statistical Power, increase sample size
+
+* Make data open to all
+
+---
 class: inverse, center, middle
 
 # Let's Apply This to the Cancer Dataset 
+
+### Testing normality in the population, based on a sample
 
 
 ---
@@ -495,17 +623,17 @@ class: inverse, center, middle
 
 ```{r}
 library(tidyverse)    # Loads several very helpful 'tidy' packages
-library(rio)          # Read in SPSS datasets
+library(haven)        # Read in SPSS datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
 library(psych)        # Lots of nice tid-bits
-library(car)          # Companion to "Applied Regression"
 ```
 
 ```{r, eval=FALSE}
-cancer_raw <- rio::import("cancer.sav")
+cancer_raw <- haven::read_spss("cancer.sav")
 ```
 
 ```{r, include=FALSE}
-cancer_raw <- rio::import("data/cancer.sav")
+cancer_raw <- haven::read_spss("data/cancer.sav")
 ```
 
 --
@@ -535,23 +663,65 @@ cancer_clean %>%
 
 
 ---
-#  Tests for Normaility - Shapiro-Wilks
+#  Tests for Normaility - Age
 
-.pull-left[
-```{r}
-cancer_clean %>% 
+
+In our population, does .dcoral[age] follow the normal distribution?
+
+--
+
+```{r, eval=FALSE}
+cancer_clean %>%               # start with the dataset
+  dplyr::pull(age) %>%         # pull out the variable to test 
+  shapiro.test()               # run the Shapiro Wilks test of normality
+```
+
+--
+
+```{r, echo=FALSE}
+age_sw <- cancer_clean %>% 
   dplyr::pull(age) %>% 
   shapiro.test()
-```
-]
 
-.pull-right[
-```{r}
-cancer_clean %>% 
+age_sw
+```
+
+--
+
+> **Conclusion:** The Shapiro-Wilks test on this sample provides **no evidence** that distribution of .dcoral[age] in the population is **not** normally distributed, *W* = `r round(age_sw$stat, 2)`, `r numform::f_pval(age_sw$p.val, alpha = .001, digits = 3)`.
+
+
+
+---
+
+#  Tests for Normaility - Week 4 
+
+In our population, does the .dcoral[total oral condition at 4 weeks] follow the normal distribution?
+
+--
+
+```{r, eval=FALSE}
+cancer_clean %>%               # start with the dataset
+  dplyr::pull(totalcw4) %>%    # pull out the variable to test 
+  shapiro.test()               # run the Shapiro Wilks test of normality
+```
+
+--
+
+```{r, echo=FALSE}
+totalcw4_sw <- cancer_clean %>% 
   dplyr::pull(totalcw4) %>% 
   shapiro.test()
+
+totalcw4_sw
 ```
-]
+
+
+--
+
+> **Conclusion:** The Shapiro-Wilks test on this sample provides **does** provide **evidence** that distribution of .dcoral[total oral condition at 4 weeks] in the population is **NOT** normally distributed, *W* = `r round(totalcw4_sw$stat, 2)`, `r numform::f_pval(totalcw4_sw$p.val, alpha = .001, digits = 3)`.
+
+
 
 
 ---
@@ -593,7 +763,7 @@ cancer_clean %>%
 
 ]
 
-
+--
 
 .pull-right[
 ### Q-Q Plot
