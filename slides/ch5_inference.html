@@ -4,6 +4,15 @@
     <title>Hypothesis Testing</title>
     <meta charset="utf-8" />
     <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
     <link rel="stylesheet" href="pres2.css" type="text/css" />
   </head>
   <body>
@@ -14,6 +23,8 @@ class: center, middle, inverse, title-slide
 ## Cohen Chapter 5 <br><br> .small[EDUC/PSY 6600]
 
 ---
+
+
 
 
 
@@ -106,7 +117,7 @@ Testing the association or dependence
 
 ---
 
-&lt;!-- Instand HPS: Smoking and Lung Cancer: From Association to Causation --&gt;
+&lt;!-- Instant HPS: Smoking and Lung Cancer: From Association to Causation (5 min)--&gt;
 
 &lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/HHCzDbev7tw?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
 
@@ -116,7 +127,7 @@ background-image: url(figures/fig_old_cig.png)
 
 # Causality and Statistics: 
 
-Hill's View Points - Diversity of Evidence
+Hill's View Points and "Diversity of Evidence"
 
 
 .huge[ .dcoral[Causality] depends  on .nicegreen[**evidence**] &lt;br&gt; from outside statistics: ]
@@ -148,11 +159,11 @@ Probabilities of `\(z\)`-scores used to determine how **unlikely** or **unusual*
 
 Not frequently interested in whether **individual scores** are unusual relative to others, but whether scores from **groups of cases** are unusual.
 
-.nicegreen[**Sample mean**], `\(\bar{x}\)` or `\(M\)`, summarizes .nicegreen[**central tendency**] of a group or sample of subjects
+.nicegreen[**Sample mean**], `\(\bar{x}\)` *(for formulas)* or `\(M\)`  *(for APA)*, summarizes .nicegreen[**central tendency**] of a group or sample of subjects
 
 ---
 
-&lt;!-- Stat Quest: Hypothesis Testing and The Null Hypothesis (14.5 min) --&gt;
+&lt;!-- Dr. Nic: Hypothesis Testing steps (7 min) --&gt;
 
 &lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/0zZYBALbZgg?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
 
@@ -194,10 +205,9 @@ background-image: url(figures/fig_yellow_box_1.png)
 
 .pull-right[
 
-&lt;br&gt;
+
 ## Definition of a p-value:
-&lt;br&gt;  
-  
+
 .center[.large[ 
 The probability of observing &lt;br&gt; a test statistic &lt;br&gt; .dcoral[**as extreme or more extreme**] &lt;br&gt; .nicegreen[**IF**] &lt;br&gt; the NULL hypothesis is true.
 ]]]
@@ -249,7 +259,7 @@ $$
 
 ---
 
-&lt;!-- Statistical Significance and p-Values Explained Intuitively (cut off of .05)--&gt;
+&lt;!-- Statistical Significance and p-Values Explained Intuitively (cut off of .05) (9 min)--&gt;
 
 &lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/DAkJhY2zQ3c?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
 
@@ -375,6 +385,24 @@ Rejection region is distributed in both tails
 
 
 ---
+
+&lt;img src="figures/fig_inferene_grid_blank.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+&lt;img src="figures/fig_inferene_grid_correct.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="figures/fig_inferene_grid_errors.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+---
+
+&lt;img src="figures/fig_inferene_grid_final.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+---
 background-image: url(figures/fig_err_types.png)
 
 # Choosing Alpha
@@ -419,28 +447,38 @@ Set it .nicegreen[SMALLER], `\(\alpha = .01\)`, **IF** false positives are costl
 ---
 # Assumptions of a 1-sample z-test
 
-.large[**Sample was drawn at .dcoral[random] (at least as representative as possible)**] &lt;br&gt;
+.large[**1. Sample was drawn at .dcoral[RANDOM]** *(at least as representative as possible)*] 
 
-- Nothing can be done to fix NON-representative samples!
-- Can not statistically test
-
---
-
-.large[**.dcoral[SD] of the sampled population = .dcoral[SD] of the comparison population**] &lt;br&gt;
-
-- Very hard to check
-- Can not statistically test
+- Nothing can be done to fix a NON-representative samples!
+- Can .bluer[**NOT**] statistically test
 
 --
 
-.large[**Variables have a .dcoral[normal] distribution**] &lt;br&gt;
+.large[**2. .dcoral[SD] of the sampled population = .dcoral[SD] of the comparison population**] 
 
-- Not as important if the sample is large (Central Limit Theorem)
-- IF the sample is far from normal &amp;/or small n, might want to transform variables
-  - Look at plots: .dcoral[histogram, boxplot, &amp; QQ plot] (straight 45 degree line)
-  - Skewness &amp; Kurtosis: Divided value by its SE &amp; `\(&gt; \pm 2\)` indicates issues
-  - .dcoral[Shapiro-Wilks] test (small N): p &lt; .05 ??? not normal
-  - Kolmogorov-Smirnov test (large N)
+- Nearly impossible to check, can .bluer[**NOT**] statistically test
+
+--
+
+.large[**3. Variable has a .dcoral[NORMAL] distribution in the population**] 
+
+- .bluer[**NOT**] as important if the sample is large, due to the **Central Limit Theorem**
+
+--
+- .bluer[**CAN**] statistically test:
+
+--
+  - Visual inspection of a .nicegreen[histogram], .nicegreen[boxplot], and/or .nicegreen[QQ plot] *(straight 45 degree line)*
+  
+--
+  - Calculate the Skewness &amp; Kurtosis... less clear guidelines
+  
+--
+  - Conduct .nicegreen[Shapiro-Wilks] test *(p &lt; .05 ??? not normal)*
+  
+--
+
+&gt; For more information see this blogpost [Is This Normal? Shapiro-Wilk Test in R To The Rescue](https://www.programmingr.com/shapiro-wilk-test-in-r/) and this article [Power comparisons of Shapiro-Wilk, Kolmogorov-Smirnov, Lilliefors and Anderson-Darling tests](https://www.nrc.gov/docs/ML1714/ML17143A100.pdf), as well as the R help page with `?shapiro.test`.
   
   
   
@@ -448,16 +486,20 @@ Set it .nicegreen[SMALLER], `\(\alpha = .01\)`, **IF** false positives are costl
 ---
 # APA: results of a 1-sample z-test
 
-- State the alpha &amp; number of tails prior to any results
+- State the alpha &amp; number of tails in the methods section, prior to the results section
 
-- Report exact p-values (usually 2 decimal places), except for `p &lt; .001`
+- When used in a sentence, spell out .coral[mean] and .coral[standard deviation]
+- When included in a table, figure, or within parentheses, use abbreviates: .coral[*n*, *M*, *SD*]
+
+- Report most values to TWO decimal places *usually*
+- Report exact p-values to THREE decimal places *usually*, except for *p* &lt; .001
 
 
 --
 
 ## Example Sentence:
 
-A one sample z test showed that the difference in the quiz scores between the current sample (N = 9, M = 7.00, SD = 1.23) and the hypothesized value (6.00) were statistically significant, z = 2.45, p = .040.
+A .nicegreen[one sample z test] showed that the difference in the quiz scores between the current sample .coral[(*N* = 9, *M* = 7.00, *SD* = 1.23)] and the hypothesized value .coral[(6.00)] were statistically significant.bluer[, *z* = 2.45, *p* = .040].
 
 
 
@@ -592,17 +634,67 @@ When comparing two populations, lack of significance does NOT imply that the two
 
 ---
 
-# APA Task Force on p-values
+Good statistical practice is an essential component of good scientific practice, the statement observes and such practice .bluer[“emphasizes principles of good study design and conduct, a variety of numerical and graphical summaries of data, understanding of the phenomenon under study, interpretation of results in context, complete reporting and proper logical and quantitative understanding of what data summaries mean.”]  
 
-* Repication/Tranparency
+.coral[“The p-value was never intended to be a substitute for scientific reasoning,”] said Ron Wasserstein, ASA’s executive director. .coral[“Well-reasoned statistical arguments contain much more than the value of a single number and whether that number exceeds an arbitrary threshold. The ASA statement is intended to steer research into a ‘post p&lt;0.05 era.’”]
 
-* Publication Bias, reliance on p-values
+.nicegreen[“Over time it appears the p-value has become a gatekeeper for whether work is publishable, at least in some fields,”] said Jessica Utts, ASA president. “This apparent editorial bias leads to the **‘file-drawer effect’** in which research with statistically significant outcomes are much more likely to get published, while other work that might well be just as important scientifically is never seen in print. It also leads to practices called by such names as **‘p-hacking’** and **‘data dredging’** that emphasize the search for small p-values over other statistical and scientific reasoning.”
 
-* clear detailing of wrangling/analysis
+In light of misuses of and misconceptions concerning p-values, the statement notes that statisticians often supplement or even replace p-values with other approaches. These include methods .dcoral[“that emphasize estimation over testing, such as confidence, credibility or prediction intervals; Bayesian methods; alternative measures of evidence, such as likelihood ratios or Bayes Factors; and other approaches such as decision-theoretic modeling and false discovery rates.”]
 
-* Statistical Power, increase sample size
+“The contents of the ASA statement and the reasoning behind it **are not new** — statisticians and other scientists have been writing on the topic for decades,” Utts said. 
 
-* Make data open to all
+
+---
+
+### APA Task Force on p-values 
+
+The six principles, which are elaborated in the statement, are:
+
+--
+
+1. P-values .dcoral[**CAN**] indicate how .nicegreen[incompatible] the data are with a specified *statistical model*.
+
+--
+
+2. P-values .dcoral[**DO NOT**] measure the *probability* that the studied .bluer[hypothesis is true], or the probability that the data were .bluer[produced by *random* chance alone].
+
+--
+
+3. Scientific conclusions and business or policy decisions .dcoral[**SHOULD NOT**] be based only on whether a p-value passes a specific threshold.
+
+--
+
+4. Proper inference requires .dcoral[**FULL REPORTING**] and .dcoral[**TRANSPARENCY**].
+
+--
+
+5. A p-value or statistical significance .dcoral[**DOES NOT**] measure the .bluer[**SIZE**] of an effect or the .bluer[**IMPORTANCE**] of a result.
+
+--
+
+6. By itself, a p-value .dcoral[**DOES NOT**] provide a .nicegreen[good measure of evidence] regarding a model or hypothesis.
+
+&gt; See [Statistical Methods in Psychology Journals: Guidelines and Explanations, *(1999) by Leland Wilkinson and the Task Force on Statistical Inference APA Board of Scientific Affairs*](https://www.apa.org/science/leadership/bsa/statistical/tfsi-followup-report.pdf)
+
+---
+
+# Some ways to improve the 'Crisis of Lack of Replicability'
+
+* Be completely transparent in reporting, including data cleaning/wrangling and statistical analysis
+
+* Make all data *(deidentified)* open source and freely available repositories
+
+* Reduce focus on *NEW* findings and incentives *REPLICATION* studies
+
+* Increase statistical power, often requiring larger sample sizes, more complex study design, or more sophisicated sattistical analyses
+
+* Reduce publication bias
+
+   + interpret p-values correctly *(not overstate)*
+   + lower the reliance on p-values and the strict .05 cut-off
+   + employ pre-registrations processes
+
 
 ---
 class: inverse, center, middle
@@ -614,6 +706,10 @@ class: inverse, center, middle
 
 ---
 # Read in the Data
+
+
+
+
 
 
 ```r
@@ -644,18 +740,34 @@ cancer_clean &lt;- cancer_raw %&gt;%
   dplyr::mutate(stage = factor(stage))
 ```
 
+
+---
+
+## The Cancer Dataset
+
+
+```{=html}
+&lt;div id="htmlwidget-03746a5f6d563ca6a4bc" style="width:100%;height:auto;" class="datatables html-widget"&gt;&lt;/div&gt;
+&lt;script type="application/json" data-for="htmlwidget-03746a5f6d563ca6a4bc"&gt;{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"],["1","5","6","9","11","15","21","26","31","35","39","41","45","2","12","14","16","22","24","34","37","42","44","50","58"],["Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice"],[52,77,60,61,59,69,67,56,61,51,46,65,67,46,56,42,44,27,68,77,86,73,67,60,54],[124,160,136.5,179.6,175.8,167.6,186,158,212.8,189,149,157,186,163.8,227.2,162.6,261.4,225.4,226,164,140,181.5,187,164,172.8],["2","1","4","1","2","1","1","3","1","1","4","1","1","2","4","1","2","1","4","2","1","0","1","2","4"],[6,9,7,6,6,6,6,6,6,6,7,6,8,7,6,4,6,6,12,5,6,8,5,6,7],[6,6,9,7,7,6,11,11,9,4,8,6,8,16,10,6,11,7,11,7,7,11,7,8,8],[6,10,17,9,16,6,11,15,6,8,11,9,9,9,11,8,11,6,12,13,7,16,7,16,10],[7,9,19,3,13,11,10,15,8,7,11,6,10,10,9,7,14,6,9,12,7,null,7,null,8]],"container":"&lt;table class=\"display\"&gt;\n  &lt;thead&gt;\n    &lt;tr&gt;\n      &lt;th&gt; &lt;\/th&gt;\n      &lt;th&gt;id&lt;\/th&gt;\n      &lt;th&gt;trt&lt;\/th&gt;\n      &lt;th&gt;age&lt;\/th&gt;\n      &lt;th&gt;weighin&lt;\/th&gt;\n      &lt;th&gt;stage&lt;\/th&gt;\n      &lt;th&gt;totalcin&lt;\/th&gt;\n      &lt;th&gt;totalcw2&lt;\/th&gt;\n      &lt;th&gt;totalcw4&lt;\/th&gt;\n      &lt;th&gt;totalcw6&lt;\/th&gt;\n    &lt;\/tr&gt;\n  &lt;\/thead&gt;\n&lt;\/table&gt;","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[3,4,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}&lt;/script&gt;
+```
+
+
+
+
 ---
 # Descriptive Statistics
 
 
-### Skewness &amp; Kurtosis
+### Skewness &amp; Kurtosis - Age &amp; Week 4
 
 
 ```r
-cancer_clean %&gt;% 
-  dplyr::select(age, totalcw4) %&gt;% 
-  psych::describe()
+cancer_clean %&gt;%                         # start with the dataset name
+  dplyr::select(`age`, `totalcw4`) %&gt;%   # select your variables
+  psych::describe()                      # calculate descriptive statistics
 ```
+
+
 
 ```
          vars  n  mean    sd median trimmed   mad min max range  skew kurtosis
@@ -667,19 +779,29 @@ totalcw4 0.69
 ```
 
 
+
+
 ---
 #  Tests for Normaility - Age
 
 
-In our population, does .dcoral[age] follow the normal distribution?
+&gt; In our population, does .dcoral[age] follow the normal distribution?
+
+--
+
+The Shapiro-Wilks test: 
+
+* `\(H_0\)`: In the population, .dcoral[age] DOES follow the normal distribution
+* `\(H_1\)`: In the population, .dcoral[age] does NOT follow the normal distribution
+
 
 --
 
 
 ```r
-cancer_clean %&gt;%               # start with the dataset
-  dplyr::pull(age) %&gt;%         # pull out the variable to test 
-  shapiro.test()               # run the Shapiro Wilks test of normality
+cancer_clean %&gt;%               # start with the dataset name
+  dplyr::pull(`age`) %&gt;%       # pull out the variable in question 
+  shapiro.test()               # run the Shapiro Wilks test of normality (in base R)
 ```
 
 --
@@ -695,7 +817,48 @@ W = 0.98317, p-value = 0.9399
 
 --
 
+Big p-value...fail to reject the Null...
+
+--
+
 &gt; **Conclusion:** The Shapiro-Wilks test on this sample provides **no evidence** that distribution of .dcoral[age] in the population is **not** normally distributed, *W* = 0.98, p = .940.
+
+
+
+
+---
+# Plots to Check for Normaility - Age
+
+.pull-left[
+### Histogram
+
+
+```r
+cancer_clean %&gt;%                  
+  ggplot(aes(`age`)) +            
+  geom_histogram(binwidth = 5)    
+```
+
+&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+--
+
+.pull-right[
+### Q-Q Plot
+
+```r
+cancer_clean %&gt;%                   
+  ggplot(aes(sample = `age`)) +   
+  geom_qq()                        
+```
+
+&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
 
 
 
@@ -703,15 +866,23 @@ W = 0.98317, p-value = 0.9399
 
 #  Tests for Normaility - Week 4 
 
-In our population, does the .dcoral[total oral condition at 4 weeks] follow the normal distribution?
+
+&gt; In our population, does .dcoral[total oral condition at 4 weeks] follow the normal distribution?
+
+--
+
+The Shapiro-Wilks test: 
+
+* `\(H_0\)`: In the population, .dcoral[totalcw4] DOES follow the normal distribution
+* `\(H_1\)`: In the population, .dcoral[totalcw4] does NOT follow the normal distribution
 
 --
 
 
 ```r
-cancer_clean %&gt;%               # start with the dataset
-  dplyr::pull(totalcw4) %&gt;%    # pull out the variable to test 
-  shapiro.test()               # run the Shapiro Wilks test of normality
+cancer_clean %&gt;%                
+  dplyr::pull(`totalcw4`) %&gt;%    
+  shapiro.test()                
 ```
 
 --
@@ -728,40 +899,13 @@ W = 0.9131, p-value = 0.03575
 
 --
 
-&gt; **Conclusion:** The Shapiro-Wilks test on this sample provides **does** provide **evidence** that distribution of .dcoral[total oral condition at 4 weeks] in the population is **NOT** normally distributed, *W* = 0.91, p = .036.
-
-
-
-
----
-# Plots to Check for Normaility - Age
-
-.pull-left[
-### Histogram
-
-```r
-cancer_clean %&gt;% 
-  ggplot(aes(age)) +
-  geom_histogram(binwidth = 5)
-```
-
-&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
-
-]
+Tiny p-value...reject the Null...
 
 --
 
-.pull-right[
-### Q-Q Plot
+&gt; **Conclusion:** The Shapiro-Wilks test on this sample **does** provide **evidence** that distribution of .dcoral[total oral condition at 4 weeks] in the population is **NOT** normally distributed, *W* = 0.91, p = .036.
 
-```r
-cancer_clean %&gt;% 
-  ggplot(aes(sample = age)) +
-  geom_qq()
-```
 
-&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
-]
 
 
 
@@ -772,12 +916,12 @@ cancer_clean %&gt;%
 ### Histogram
 
 ```r
-cancer_clean %&gt;% 
-  ggplot(aes(totalcw4)) +
-  geom_histogram(binwidth = 1)
+cancer_clean %&gt;%                  
+  ggplot(aes(`totalcw4`)) +   
+  geom_histogram(binwidth = 1) 
 ```
 
-&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -787,12 +931,12 @@ cancer_clean %&gt;%
 ### Q-Q Plot
 
 ```r
-cancer_clean %&gt;% 
-  ggplot(aes(sample = totalcw4)) +
-  geom_qq()
+cancer_clean %&gt;%                
+  ggplot(aes(sample = `totalcw4`)) +
+  geom_qq() 
 ```
 
-&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch5_inference_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 
@@ -815,6 +959,7 @@ class: inverse, center, middle
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
+"highlightSpans": true,
 "countIncrementalSlides": false,
 "ratio": "16:9"
 });

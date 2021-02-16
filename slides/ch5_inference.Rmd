@@ -8,12 +8,17 @@ output:
     nature:
       highlightStyle: github
       highlightLines: true
+      highlightSpans: true
       countIncrementalSlides: false
       ratio: '16:9'
 ---
 
+
+
 ```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
+options(htmltools.dir.version = FALSE,
+        htmltools.preserve.raw = FALSE)
+
 knitr::opts_chunk$set(comment     = NA,
                       cache       = TRUE,
                       echo        = TRUE, 
@@ -112,7 +117,7 @@ Testing the association or dependence
 
 ---
 
-<!-- Instand HPS: Smoking and Lung Cancer: From Association to Causation -->
+<!-- Instant HPS: Smoking and Lung Cancer: From Association to Causation (5 min)-->
 
 <iframe width="1000" height="750" src="https://www.youtube.com/embed/HHCzDbev7tw?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -122,7 +127,7 @@ background-image: url(figures/fig_old_cig.png)
 
 # Causality and Statistics: 
 
-Hill's View Points - Diversity of Evidence
+Hill's View Points and "Diversity of Evidence"
 
 
 .huge[ .dcoral[Causality] depends  on .nicegreen[**evidence**] <br> from outside statistics: ]
@@ -154,11 +159,11 @@ Probabilities of $z$-scores used to determine how **unlikely** or **unusual** a 
 
 Not frequently interested in whether **individual scores** are unusual relative to others, but whether scores from **groups of cases** are unusual.
 
-.nicegreen[**Sample mean**], $\bar{x}$ or $M$, summarizes .nicegreen[**central tendency**] of a group or sample of subjects
+.nicegreen[**Sample mean**], $\bar{x}$ *(for formulas)* or $M$  *(for APA)*, summarizes .nicegreen[**central tendency**] of a group or sample of subjects
 
 ---
 
-<!-- Stat Quest: Hypothesis Testing and The Null Hypothesis (14.5 min) -->
+<!-- Dr. Nic: Hypothesis Testing steps (7 min) -->
 
 <iframe width="1000" height="750" src="https://www.youtube.com/embed/0zZYBALbZgg?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -200,10 +205,9 @@ background-image: url(figures/fig_yellow_box_1.png)
 
 .pull-right[
 
-<br>
+
 ## Definition of a p-value:
-<br>  
-  
+
 .center[.large[ 
 The probability of observing <br> a test statistic <br> .dcoral[**as extreme or more extreme**] <br> .nicegreen[**IF**] <br> the NULL hypothesis is true.
 ]]]
@@ -255,7 +259,7 @@ $$
 
 ---
 
-<!-- Statistical Significance and p-Values Explained Intuitively (cut off of .05)-->
+<!-- Statistical Significance and p-Values Explained Intuitively (cut off of .05) (9 min)-->
 
 <iframe width="1000" height="750" src="https://www.youtube.com/embed/DAkJhY2zQ3c?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -381,6 +385,32 @@ Rejection region is distributed in both tails
 
 
 ---
+
+```{r,echo=FALSE, out.width="75%"}
+knitr::include_graphics("figures/fig_inferene_grid_blank.png")
+```
+
+
+---
+
+```{r,echo=FALSE, out.width="75%"}
+knitr::include_graphics("figures/fig_inferene_grid_correct.png")
+```
+
+---
+
+```{r,echo=FALSE, out.width="75%"}
+knitr::include_graphics("figures/fig_inferene_grid_errors.png")
+```
+
+---
+
+```{r,echo=FALSE, out.width="75%"}
+knitr::include_graphics("figures/fig_inferene_grid_final.png")
+```
+
+
+---
 background-image: url(figures/fig_err_types.png)
 
 # Choosing Alpha
@@ -425,28 +455,38 @@ Set it .nicegreen[SMALLER], $\alpha = .01$, **IF** false positives are costly an
 ---
 # Assumptions of a 1-sample z-test
 
-.large[**Sample was drawn at .dcoral[random] (at least as representative as possible)**] <br>
+.large[**1. Sample was drawn at .dcoral[RANDOM]** *(at least as representative as possible)*] 
 
-- Nothing can be done to fix NON-representative samples!
-- Can not statistically test
-
---
-
-.large[**.dcoral[SD] of the sampled population = .dcoral[SD] of the comparison population**] <br>
-
-- Very hard to check
-- Can not statistically test
+- Nothing can be done to fix a NON-representative samples!
+- Can .bluer[**NOT**] statistically test
 
 --
 
-.large[**Variables have a .dcoral[normal] distribution**] <br>
+.large[**2. .dcoral[SD] of the sampled population = .dcoral[SD] of the comparison population**] 
 
-- Not as important if the sample is large (Central Limit Theorem)
-- IF the sample is far from normal &/or small n, might want to transform variables
-  - Look at plots: .dcoral[histogram, boxplot, & QQ plot] (straight 45 degree line)
-  - Skewness & Kurtosis: Divided value by its SE & $> \pm 2$ indicates issues
-  - .dcoral[Shapiro-Wilks] test (small N): p < .05 ??? not normal
-  - Kolmogorov-Smirnov test (large N)
+- Nearly impossible to check, can .bluer[**NOT**] statistically test
+
+--
+
+.large[**3. Variable has a .dcoral[NORMAL] distribution in the population**] 
+
+- .bluer[**NOT**] as important if the sample is large, due to the **Central Limit Theorem**
+
+--
+- .bluer[**CAN**] statistically test:
+
+--
+  - Visual inspection of a .nicegreen[histogram], .nicegreen[boxplot], and/or .nicegreen[QQ plot] *(straight 45 degree line)*
+  
+--
+  - Calculate the Skewness & Kurtosis... less clear guidelines
+  
+--
+  - Conduct .nicegreen[Shapiro-Wilks] test *(p < .05 ??? not normal)*
+  
+--
+
+> For more information see this blogpost [Is This Normal? Shapiro-Wilk Test in R To The Rescue](https://www.programmingr.com/shapiro-wilk-test-in-r/) and this article [Power comparisons of Shapiro-Wilk, Kolmogorov-Smirnov, Lilliefors and Anderson-Darling tests](https://www.nrc.gov/docs/ML1714/ML17143A100.pdf), as well as the R help page with `?shapiro.test`.
   
   
   
@@ -454,16 +494,20 @@ Set it .nicegreen[SMALLER], $\alpha = .01$, **IF** false positives are costly an
 ---
 # APA: results of a 1-sample z-test
 
-- State the alpha & number of tails prior to any results
+- State the alpha & number of tails in the methods section, prior to the results section
 
-- Report exact p-values *(usually 3 decimal places)*, except for `p < .001`
+- When used in a sentence, spell out .coral[mean] and .coral[standard deviation]
+- When included in a table, figure, or within parentheses, use abbreviates: .coral[*n*, *M*, *SD*]
+
+- Report most values to TWO decimal places *usually*
+- Report exact p-values to THREE decimal places *usually*, except for *p* < .001
 
 
 --
 
 ## Example Sentence:
 
-A one sample z test showed that the difference in the quiz scores between the current sample (N = 9, M = 7.00, SD = 1.23) and the hypothesized value (6.00) were statistically significant, z = 2.45, p = .040.
+A .nicegreen[one sample z test] showed that the difference in the quiz scores between the current sample .coral[(*N* = 9, *M* = 7.00, *SD* = 1.23)] and the hypothesized value .coral[(6.00)] were statistically significant.bluer[, *z* = 2.45, *p* = .040].
 
 
 
@@ -598,17 +642,67 @@ When comparing two populations, lack of significance does NOT imply that the two
 
 ---
 
-# APA Task Force on p-values
+Good statistical practice is an essential component of good scientific practice, the statement observes and such practice .bluer[“emphasizes principles of good study design and conduct, a variety of numerical and graphical summaries of data, understanding of the phenomenon under study, interpretation of results in context, complete reporting and proper logical and quantitative understanding of what data summaries mean.”]  
 
-* Repication/Tranparency
+.coral[“The p-value was never intended to be a substitute for scientific reasoning,”] said Ron Wasserstein, ASA’s executive director. .coral[“Well-reasoned statistical arguments contain much more than the value of a single number and whether that number exceeds an arbitrary threshold. The ASA statement is intended to steer research into a ‘post p<0.05 era.’”]
 
-* Publication Bias, reliance on p-values
+.nicegreen[“Over time it appears the p-value has become a gatekeeper for whether work is publishable, at least in some fields,”] said Jessica Utts, ASA president. “This apparent editorial bias leads to the **‘file-drawer effect’** in which research with statistically significant outcomes are much more likely to get published, while other work that might well be just as important scientifically is never seen in print. It also leads to practices called by such names as **‘p-hacking’** and **‘data dredging’** that emphasize the search for small p-values over other statistical and scientific reasoning.”
 
-* clear detailing of wrangling/analysis
+In light of misuses of and misconceptions concerning p-values, the statement notes that statisticians often supplement or even replace p-values with other approaches. These include methods .dcoral[“that emphasize estimation over testing, such as confidence, credibility or prediction intervals; Bayesian methods; alternative measures of evidence, such as likelihood ratios or Bayes Factors; and other approaches such as decision-theoretic modeling and false discovery rates.”]
 
-* Statistical Power, increase sample size
+“The contents of the ASA statement and the reasoning behind it **are not new** — statisticians and other scientists have been writing on the topic for decades,” Utts said. 
 
-* Make data open to all
+
+---
+
+### APA Task Force on p-values 
+
+The six principles, which are elaborated in the statement, are:
+
+--
+
+1. P-values .dcoral[**CAN**] indicate how .nicegreen[incompatible] the data are with a specified *statistical model*.
+
+--
+
+2. P-values .dcoral[**DO NOT**] measure the *probability* that the studied .bluer[hypothesis is true], or the probability that the data were .bluer[produced by *random* chance alone].
+
+--
+
+3. Scientific conclusions and business or policy decisions .dcoral[**SHOULD NOT**] be based only on whether a p-value passes a specific threshold.
+
+--
+
+4. Proper inference requires .dcoral[**FULL REPORTING**] and .dcoral[**TRANSPARENCY**].
+
+--
+
+5. A p-value or statistical significance .dcoral[**DOES NOT**] measure the .bluer[**SIZE**] of an effect or the .bluer[**IMPORTANCE**] of a result.
+
+--
+
+6. By itself, a p-value .dcoral[**DOES NOT**] provide a .nicegreen[good measure of evidence] regarding a model or hypothesis.
+
+> See [Statistical Methods in Psychology Journals: Guidelines and Explanations, *(1999) by Leland Wilkinson and the Task Force on Statistical Inference APA Board of Scientific Affairs*](https://www.apa.org/science/leadership/bsa/statistical/tfsi-followup-report.pdf)
+
+---
+
+# Some ways to improve the 'Crisis of Lack of Replicability'
+
+* Be completely transparent in reporting, including data cleaning/wrangling and statistical analysis
+
+* Make all data *(deidentified)* open source and freely available repositories
+
+* Reduce focus on *NEW* findings and incentives *REPLICATION* studies
+
+* Increase statistical power, often requiring larger sample sizes, more complex study design, or more sophisicated sattistical analyses
+
+* Reduce publication bias
+
+   + interpret p-values correctly *(not overstate)*
+   + lower the reliance on p-values and the strict .05 cut-off
+   + employ pre-registrations processes
+
 
 ---
 class: inverse, center, middle
@@ -620,6 +714,12 @@ class: inverse, center, middle
 
 ---
 # Read in the Data
+
+```{r, echo=FALSE}
+library(DT)
+```
+
+
 
 ```{r}
 library(tidyverse)    # Loads several very helpful 'tidy' packages
@@ -649,31 +749,61 @@ cancer_clean <- cancer_raw %>%
   dplyr::mutate(stage = factor(stage))
 ```
 
+
+---
+
+## The Cancer Dataset
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cancer_clean %>% 
+  DT::datatable(options = list(pageLength = 5))
+```
+
+
+
+
 ---
 # Descriptive Statistics
 
 
-### Skewness & Kurtosis
+### Skewness & Kurtosis - Age & Week 4
 
-```{r}
+```{r, eval=FALSE}
+cancer_clean %>%                         # start with the dataset name
+  dplyr::select(`age`, `totalcw4`) %>%   # select your variables
+  psych::describe()                      # calculate descriptive statistics
+```
+
+
+```{r, echo=FALSE}
 cancer_clean %>% 
   dplyr::select(age, totalcw4) %>% 
   psych::describe()
 ```
 
 
+
+
 ---
 #  Tests for Normaility - Age
 
 
-In our population, does .dcoral[age] follow the normal distribution?
+> In our population, does .dcoral[age] follow the normal distribution?
+
+--
+
+The Shapiro-Wilks test: 
+
+* $H_0$: In the population, .dcoral[age] DOES follow the normal distribution
+* $H_1$: In the population, .dcoral[age] does NOT follow the normal distribution
+
 
 --
 
 ```{r, eval=FALSE}
-cancer_clean %>%               # start with the dataset
-  dplyr::pull(age) %>%         # pull out the variable to test 
-  shapiro.test()               # run the Shapiro Wilks test of normality
+cancer_clean %>%               # start with the dataset name
+  dplyr::pull(`age`) %>%       # pull out the variable in question 
+  shapiro.test()               # run the Shapiro Wilks test of normality (in base R)
 ```
 
 --
@@ -688,7 +818,54 @@ age_sw
 
 --
 
+Big p-value...fail to reject the Null...
+
+--
+
 > **Conclusion:** The Shapiro-Wilks test on this sample provides **no evidence** that distribution of .dcoral[age] in the population is **not** normally distributed, *W* = `r round(age_sw$stat, 2)`, `r numform::f_pval(age_sw$p.val, alpha = .001, digits = 3)`.
+
+
+
+
+---
+# Plots to Check for Normaility - Age
+
+.pull-left[
+### Histogram
+
+```{r, eval=FALSE}
+cancer_clean %>%                  
+  ggplot(aes(`age`)) +            
+  geom_histogram(binwidth = 5)    
+```
+
+```{r, echo=FALSE, fig.height=3.75}
+cancer_clean %>% 
+  ggplot(aes(age)) +
+  geom_histogram(binwidth = 5)
+```
+
+]
+
+--
+
+.pull-right[
+### Q-Q Plot
+```{r, eval=FALSE}
+cancer_clean %>%                   
+  ggplot(aes(sample = `age`)) +   
+  geom_qq()                        
+```
+
+```{r, echo=FALSE, fig.height=3.75}
+cancer_clean %>% 
+  ggplot(aes(sample = age)) +
+  geom_qq()
+```
+
+
+]
+
 
 
 
@@ -696,14 +873,22 @@ age_sw
 
 #  Tests for Normaility - Week 4 
 
-In our population, does the .dcoral[total oral condition at 4 weeks] follow the normal distribution?
+
+> In our population, does .dcoral[total oral condition at 4 weeks] follow the normal distribution?
+
+--
+
+The Shapiro-Wilks test: 
+
+* $H_0$: In the population, .dcoral[totalcw4] DOES follow the normal distribution
+* $H_1$: In the population, .dcoral[totalcw4] does NOT follow the normal distribution
 
 --
 
 ```{r, eval=FALSE}
-cancer_clean %>%               # start with the dataset
-  dplyr::pull(totalcw4) %>%    # pull out the variable to test 
-  shapiro.test()               # run the Shapiro Wilks test of normality
+cancer_clean %>%                
+  dplyr::pull(`totalcw4`) %>%    
+  shapiro.test()                
 ```
 
 --
@@ -719,34 +904,13 @@ totalcw4_sw
 
 --
 
-> **Conclusion:** The Shapiro-Wilks test on this sample provides **does** provide **evidence** that distribution of .dcoral[total oral condition at 4 weeks] in the population is **NOT** normally distributed, *W* = `r round(totalcw4_sw$stat, 2)`, `r numform::f_pval(totalcw4_sw$p.val, alpha = .001, digits = 3)`.
-
-
-
-
----
-# Plots to Check for Normaility - Age
-
-.pull-left[
-### Histogram
-```{r, fig.height=3.75}
-cancer_clean %>% 
-  ggplot(aes(age)) +
-  geom_histogram(binwidth = 5)
-```
-
-]
+Tiny p-value...reject the Null...
 
 --
 
-.pull-right[
-### Q-Q Plot
-```{r, fig.height=3.75}
-cancer_clean %>% 
-  ggplot(aes(sample = age)) +
-  geom_qq()
-```
-]
+> **Conclusion:** The Shapiro-Wilks test on this sample **does** provide **evidence** that distribution of .dcoral[total oral condition at 4 weeks] in the population is **NOT** normally distributed, *W* = `r round(totalcw4_sw$stat, 2)`, `r numform::f_pval(totalcw4_sw$p.val, alpha = .001, digits = 3)`.
+
+
 
 
 
@@ -755,7 +919,13 @@ cancer_clean %>%
 
 .pull-left[
 ### Histogram
-```{r, fig.height=3.75}
+```{r, eval=FALSE}
+cancer_clean %>%                  
+  ggplot(aes(`totalcw4`)) +   
+  geom_histogram(binwidth = 1) 
+```
+
+```{r, echo=FALSE, fig.height=3.75}
 cancer_clean %>% 
   ggplot(aes(totalcw4)) +
   geom_histogram(binwidth = 1)
@@ -767,7 +937,13 @@ cancer_clean %>%
 
 .pull-right[
 ### Q-Q Plot
-```{r, fig.height=3.75}
+```{r, eval=FALSE}
+cancer_clean %>%                
+  ggplot(aes(sample = `totalcw4`)) +
+  geom_qq() 
+```
+
+```{r, echo=FALSE, fig.height=3.75}
 cancer_clean %>% 
   ggplot(aes(sample = totalcw4)) +
   geom_qq()
