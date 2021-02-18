@@ -124,7 +124,7 @@ class: inverse
 
 
 
-.large[LINK: [Probability Distribution Viewer](http://shiny.calpoly.sh/Prob_View/)]
+.large[Probability Distribution Viewer] [link 1](http://shiny.calpoly.sh/Prob_View/)], [link 2](https://calpolystat1.shinyapps.io/prob_view/)
 
 ```{r,echo=FALSE, out.width = "75%"}
 knitr::include_graphics("figures/app_prob_view.png")

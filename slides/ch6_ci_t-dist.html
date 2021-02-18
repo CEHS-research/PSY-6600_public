@@ -3,6 +3,16 @@
   <head>
     <title>Confidence Intervals and  the t Distribution</title>
     <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/htmlwidgets/htmlwidgets.js"></script>
+    <script src="libs/jquery/jquery.min.js"></script>
+    <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
+    <script src="libs/datatables-binding/datatables.js"></script>
+    <link href="libs/dt-core/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="libs/dt-core/css/jquery.dataTables.extra.css" rel="stylesheet" />
+    <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
+    <link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+    <script src="libs/crosstalk/js/crosstalk.min.js"></script>
     <link rel="stylesheet" href="pres2.css" type="text/css" />
   </head>
   <body>
@@ -20,62 +30,97 @@ class: center, middle, inverse, title-slide
 class: center, middle
 
 ## “It is common sense to take a method and try it. &lt;br&gt; If it fails, admit it frankly and try another. &lt;br&gt; But above all, try something.”
-"
+
 
 
 ### -- Franklin D. Roosevelt 
 
 
 ---
-class: center, middle
 
-[Video!](https://www.youtube.com/watch?v=U9Wr7VEPGXA)
+&lt;!-- Research By Design: Why We Might Not Have Statistics Without Guinness Brewery – A History of the t-Test  (2.5 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/U9Wr7VEPGXA?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
 
 
-[Priceonomics: The Guinness Brewer Who Revolutionized Statistics](https://priceonomics.com/the-guinness-brewer-who-revolutionized-statistics/)
+
+
+
+
 
 ---
 # Problems with z-tests
 
 
 
-Often don’t know `\(\sigma^2\)`, so we cannot compute `\(SE_M\)`, *Standard Error for the Mean* or `\(\sigma_{\bar{x}}\)`
-
-$$
-\sigma_{\bar{x}} = \frac{\sigma_x}{\sqrt{n}}
-$$
-
-
-
-Can you use `\(s\)` in place of `\(\sigma\)` in `\(SE_{\bar{x}}\)` and do `\(z\)` test?
-
-- Small samples – No, **inaccurate** results
-- Large samples – Yes (&gt; 300 participants)
-
-$$
-z = \frac{\bar{x} - \mu_x}{\frac{s}{\sqrt{n}}}
-$$
-
-
----
-## .dcoral[Small] samples
-
-As samples get smaller: `\(N \downarrow\)`
-
-- the skewness of the sampling distribution of `\(s^2 \uparrow\)` 
-- `\(s^2\)` **under**estimates `\(\sigma^2\)`
-- `\(z\)` will `\(\uparrow\)`
-- an overestimate `\(\uparrow\)` risk of **Type I error**
+Usually we do **NOT** know `\(\sigma\)`, so we can **NOT** compute .nicegreen[*Standard Error for the Mean (SEM)*] `\((SE_{\bar{x}})\)`
 
 --
 
-## Comparatively... in .dcoral[LARGE] samples
+.large[
+$$
+\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}
+$$
+]
 
-- `\(s^2\)` **un**biased estimate of `\(\sigma^2\)`
-- `\(\sigma\)` is a constant, *unknown truth*
-- `\(s\)` is NOT a constant, since it varies from sample to sample
+
+--
+
+Can you use the .dcoral[sample's *SD*] `\((s)\)` in place of .dcoral[populations's *SD*] `\((\sigma)\)` to calculate the .nicegreen[SEM] `\((SE_{\bar{x}})\)` as part of the `\(z\)`-test?   
+
+--
+
+
+- .nicegreen[Large samples] – Yes (N &gt; 300 participants)    
+
+- .nicegreen[Small samples] – No, **inaccurate** results    
+
+
+--
+
+.large[
+$$
+z = \frac{\bar{x} - \mu}{\frac{\sigma}{\sqrt{n}}}
+\xrightarrow{\quad \text{If N is large} \quad} 
+z= \frac{\bar{x} - \mu}{\frac{s}{\sqrt{n}}}
+$$
+]
+
+
+
+
+---
+# Sample Size Matters
+
+.pull-left[
+## .dcoral[Small] samples
+
+As samples get .coral[smaller]: `\(N \downarrow\)`
+
+- the skewness of the sampling distribution of `\(s \uparrow\)`   
+
+- `\(s\)` .nicegreen[**under**estimates] `\(\sigma\)`  
+
+- `\(z\)` will `\(\uparrow\)`  
+
+- an .nicegreen[**over**estimate] `\(\uparrow\)` risk of **Type I error**
+]
+
+--
+
+.pull-right[
+## .dcoral[LARGE] samples
+
+Compared to smaller samples:
+
+- `\(s\)` **un**biased estimate of `\(\sigma\)`  
+
+- `\(\sigma\)` is a constant, *unknown truth*  
+
+- `\(s\)` is NOT a constant, since it varies from sample to sample  
+
 - As `\(N\)` increases, `\(s \rightarrow \sigma\)` 
-
+]
 
 
 
@@ -94,7 +139,17 @@ background-image: url(figures/fig_will_gossett.png)
 Wrote paper using moniker .nicegreen[“a student”] discussing nature of `\(SE_M\)` when .dcoral[using] `\(s^2\)` .dcoral[instead of] `\(\sigma^2\)`
 
 - Worked with Fisher, Neyman, Pearson, and Galton
+
+[Priceonomics: The Guinness Brewer Who Revolutionized Statistics](https://priceonomics.com/the-guinness-brewer-who-revolutionized-statistics/)
 ]
+
+
+---
+# Student’s t Distributions
+
+&lt;img src="figures/fig_t_vs_z.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
 
 ---
 
@@ -102,7 +157,7 @@ Wrote paper using moniker .nicegreen[“a student”] discussing nature of `\(SE
 
 
 .pull-left[
-.large[.nicegreen[**Similarities**]]
+.large[.nicegreen[**Similarities between t &amp; z**]]
 
 - Follows mathematical function 
 
@@ -114,13 +169,14 @@ Wrote paper using moniker .nicegreen[“a student”] discussing nature of `\(SE
 
 - Area under curve = `\(p(event[s])\)`
 
-- When `\(N\)` is **large** --- `\(\approx 300\)` --- `\(t = z\)`
+- When `\(N\)` is **large** `\((\approx 300)\)`, `\(t = z\)`
 ]
 
 
+--
 
 .pull-right[
-.large[.dcoral[**Differences**]]
+.large[.dcoral[**How t is Different from z**]]
 
 - Family of distributions
 
@@ -137,13 +193,10 @@ Wrote paper using moniker .nicegreen[“a student”] discussing nature of `\(SE
 
 
 
+
 ---
-background-image: url(figures/fig_t_table.png)
 
-# The t Table
-
-
-
+&lt;img src="figures/fig_t_table_top.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -154,110 +207,168 @@ background-image: url(figures/fig_t_table.png)
 `\(x\)` is interval/ratio data (ordinal okay: `\(\ge 10-16\)` levels or values)
 ]
 
-Like `\(z\)`, `\(t\)`-statistic represents a **SD** score (the # of SE's that `\(\bar{x}\)` deviates from `\(\mu\)`)
+Like `\(z\)`, the `\(t\)`-statistic represents a **SD** score (the # of SE's that `\(\bar{x}\)` deviates from `\(\mu\)`)
 
-
+.large[
 .center[$$t =  \frac{\bar{x} - \mu_x}{\frac{s_x}{\sqrt{N}}}$$]
 
 .center[$$df = N - 1$$]
 
-When `\(\sigma\)` is known, `\(t\)`-statistic is sometimes computed (rather than `\(z\)`-statistic) if `\(N\)` is small
+]
+
+When `\(\sigma\)` is known, `\(t\)`-statistic is sometimes computed .bluer[(rather than `\(z\)`-statistic)] if `\(N\)` is **small**
 
 .center[.large[.dcoral[
-Estimate the population `\(SE_M\)` with sample data:
+Estimate the population `\(SEM\)` with sample data:
 ]]]
 
 .center[
-Estimated `\(SE_M\)` is the amount a sample's observed **mean** &lt;br&gt;may have deviated from &lt;br&gt; the true or population value &lt;br&gt;just due to random chance variation due to sampling.
+Estimated `\(SEM\)` is the amount a sample's observed **mean** &lt;br&gt;may have deviated from &lt;br&gt; the true or population value &lt;br&gt;just due to random chance variation due to sampling.
 ]
 
 
 
 
+
 ---
-# Assumptions (same as z tests)
+# Assumptions of a 1-sample t-test
 
-.large[**Sample was drawn at .nicegreen[random] (at least as representative as possible)**] &lt;br&gt;
+.large[**1. Sample was drawn at .dcoral[RANDOM]** *(at least as representative as possible)*] 
 
-- Nothing can be done to fix NON-representative samples!
-- .dcoral[Can not statistically test]
+- Nothing can be done to fix a NON-representative samples!
+- Can .bluer[**NOT**] statistically test 
+
+&lt;br&gt;
 
 --
 
-.large[**.nicegreen[SD] of the sampled population = .nicegreen[SD] of the comparison population**] &lt;br&gt;
+.large[**2. .dcoral[SD] of the sampled population = .dcoral[SD] of the comparison population**] 
 
-- Very hard to check
-- .dcoral[Can not statistically test]
+- Nearly impossible to check, can .bluer[**NOT**] statistically test 
+
+&lt;br&gt;
 
 --
 
-.large[**Variables have a .nicegreen[normal] distribution**] &lt;br&gt;
+.large[**3. Variable has a .dcoral[NORMAL] distribution in the population**] 
 
-- Not as important if the sample is large (Central Limit Theorem)
-- IF the sample is far from normal &amp;/or small n, might want to transform variables
-  - Look at plots: .dcoral[histogram, boxplot, &amp; QQ plot] (straight `\(45\degree\)` line)
-  - Skewness &amp; Kurtosis: Divided value by its SE &amp; `\(&gt; \pm 2\)` indicates issues
-  - .dcoral[Shapiro-Wilks] test (small N): p &lt; .05 ??? not normal
-  - Kolmogorov-Smirnov test (large N)
-  
+- .bluer[**NOT**] as important if the sample is large, due to the **Central Limit Theorem**
 
-
+--
+- .bluer[**CAN**] statistically test:
+  - Visual inspection of a .nicegreen[histogram], .nicegreen[boxplot], and/or .nicegreen[QQ plot] *(straight 45 degree line)*
+  - Calculate the Skewness &amp; Kurtosis... less clear guidelines
+  - Conduct .nicegreen[Shapiro-Wilks] test *(p &lt; .05 ??? not normal)*
 
 
 ---
-## EX) 1 sample t Test: mean vs. *historic control*
 
-A physician states that, in the past, the average number of times he saw each of his patients during the year was `\(5\)`. However, he believes that his patients have visited him significantly **more frequently** during the past year. In order to validate this statement, he randomly selects `\(10\)` of his patients and determines the number of office visits during the past year. He obtains the values presented to the below.
+## Formula Sheet
+
+.dcoral[**One-Sample Tests**]
+
+&lt;img src="figures/fig_formulas_1sample_mean.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+## Ex) 1-Sample t Test: mean vs. *historic control*
+
+A physician states that, .dcoral[in the past], the average number of times he saw each of his patients during the year .dcoral[**5**]. However, he believes that his patients have visited him significantly **more frequently** during the past year. In order to validate this statement, he .nicegreen[randomly selects **10** of his patients] and determines the number of office visits during the past year. He obtains the values presented to the below.
 
 .center[.nicegreen[**9, 10, 8, 4, 8, 3, 0, 10, 15, 9**]]
 
 Do the data support his contention that the average number of times he has seen a patient in the last year is .dcoral[**different** that 5]?
 
 
+--
 
+.pull-left[
+**Step 1) State the Hypotheses **
+
+
+$$
+H_0: \mu = 5
+$$
+
+$$
+H_1: \mu \ne 5
+$$
+
+
+
+**Step 2) Select the Statistical Test and Significance Level**
+
+* 1-sample t-Test for the Mean
+* TWO tailed &amp; `\(\alpha = .05\)`
+]
+
+--
+
+.pull-right[
+&lt;img src="figures/fig_ttest_ex1a.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+]
 
 
 ---
-## EX) 1 sample t Test: mean vs. *historic control*
+## Ex) 1-Sample t Test: mean vs. *historic control*
+
+**Step 3) Select the Sample and Collect the Data**
 
 
 ```r
-x &lt;- c(9, 10, 8, 4, 8, 3, 0, 10, 15, 9)
+x &lt;- c(9, 10, 8, 4, 8, 3, 0, 10, 15, 9)  # compare to historic value: mu = 5
 ```
 
 --
 
 .pull-left[
 
+.dcoral[**Sample Size (*N*)**]
+
 ```r
-length(x)                # N = sample size
+length(x)
 ```
 
 ```
 [1] 10
 ```
 
+.dcoral[**Sample Mean (*M*)**]
+
+$$
+\bar{X} = \frac{\sum{X}}{N}
+$$
+
+
 ```r
-mean(x)                      # sample mean
+mean(x)
 ```
 
 ```
 [1] 7.6
 ```
 
-```r
-sd(x) # unbiased sample standard deviation
-```
-
-```
-[1] 4.247875
-```
 ]
 
 --
 
 .pull-right[
-Standard Error:
+
+.dcoral[**Sample Standard Deviation (*SD*)**]
+
+```r
+sd(x) 
+```
+
+```
+[1] 4.247875
+```
+
+.dcoral[**Standard Error (*SEM*)**]
+
+$$
+\sigma_{\bar{X}} = \frac{s}{\sqrt{N}}
+$$
+
 
 ```r
 SE &lt;-  sd(x) / sqrt(length(x))
@@ -268,11 +379,89 @@ SE
 [1] 1.343296
 ```
 
-Observed t-score:
+]
+
+
+---
+## Ex) 1-Sample t Test: mean vs. *historic control*
+
+**Step 4) Find the Region of Rejection**
+
+
+&lt;img src="figures/fig_t_table_top_df9.jpg" width="62%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Ex) 1-Sample t Test: mean vs. *historic control*
+
+**Step 4) Find the Region of Rejection**
+
+
+&lt;img src="figures/fig_t_table_top_df9_2tail_05.jpg" width="62%" style="display: block; margin: auto;" /&gt;
+
+
+---
+## Ex) 1-Sample t Test: mean vs. *historic control*
+
+**Step 4) Find the Region of Rejection**
+
+
+&lt;img src="figures/fig_t_table_top_df9_2tail_05_cv.jpg" width="62%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+## Ex) 1-Sample t Test: mean vs. *historic control*
+
+
+.pull-left[
+
+**Step 5) Calculate the Test Statistic**
+
+]
+
+.pull-right[
+
+&lt;img src="figures/fig_ttest_ex1a.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+
+
+
+
+
+
+
+---
+## Ex) 1-Sample t Test: mean vs. *historic control*
+
+.pull-left[
+
+**Step 5) Calculate the Test Statistic**
+
+]
+
+.pull-right[
+
+&lt;img src="figures/fig_ttest_ex1b.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+## Ex) 1-Sample t Test: mean vs. *historic control*
+
+.pull-left[
+
+**Step 5) Calculate the Test Statistic**
+
+.dcoral[**Observed t-score (*t*)**]
 
 ```r
-z &lt;- (mean(x) - 5)/ SE
-z
+t &lt;- (mean(x) - 5)/ SE
+t
 ```
 
 ```
@@ -280,38 +469,93 @@ z
 ```
 ]
 
+.pull-right[
+
+&lt;img src="figures/fig_ttest_ex1c.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
 
 
 
 ---
-background-image: url(figures/tTable_2tail05_df_9.PNG)
+## Ex) 1-Sample t Test: mean vs. *historic control*
 
+.pull-left[
+
+**Step 5) Calculate the Test Statistic**
+
+.dcoral[**Observed t-score (*t*)**]
+
+```r
+t &lt;- (mean(x) - 5)/ SE
+t
+```
+
+```
+[1] 1.935538
+```
+]
+
+.pull-right[
+
+&lt;img src="figures/fig_ttest_ex1d.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
 
 
 
 ---
-## EX) 1 sample t Test: mean vs. *historic control*
 
-A physician states that, in the past, the average number of times he saw each of his patients during the year was `\(5\)`. However, he believes that his patients have visited him significantly **more frequently** during the past year. In order to validate this statement, he randomly selects `\(10\)` of his patients and determines the number of office visits during the past year. He obtains the values presented to the below.
+## Ex) 1-Sample t Test: mean vs. *historic control*
+
+**Calculate the p-value** *Only can get a rough range with this table*
+
+
+&lt;img src="figures/fig_t_table_top_df9_find_194.jpg" width="62%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+## Ex) 1-Sample t Test: mean vs. *historic control*
+
+**Calculate the p-value** *Only can get a rough range with this table*
+
+
+&lt;img src="figures/fig_t_table_top_df9_found_194.jpg" width="62%" style="display: block; margin: auto;" /&gt;
+
+---
+## Ex) 1-Sample t Test: mean vs. *historic control*
+
+A physician states that, .dcoral[in the past], the average number of times he saw each of his patients during the year .dcoral[**5**]. However, he believes that his patients have visited him significantly **more frequently** during the past year. In order to validate this statement, he .nicegreen[randomly selects **10** of his patients] and determines the number of office visits during the past year. He obtains the values presented to the below.
 
 .center[.nicegreen[**9, 10, 8, 4, 8, 3, 0, 10, 15, 9**]]
 
 Do the data support his contention that the average number of times he has seen a patient in the last year is .dcoral[different that 5]?
 
+**Step 6) State the Conclusion** *APA format in context*
 
+--
 
+&gt; Even though this sample of .coral[ten] patients has a mean of .bluer[**7.60**] visits per year, this could be due to sampling variance and does not provide evidence patients have .bluer[**changed**] the mean number of visit per year.nicegreen[, *t*(9) = 1.94, .05 &lt; *p* &lt; .10]. 
+
+--
+
+*Note: Using the t **table**, we can only get a rough idea of the p-value, but when we use **software** we will get a p-vlaue with lots of decimal places.*
 
 ---
-background-image: url(figures/fig_ex_t_test.png)
 
-## EX) 1 sample t Test: mean vs. *historic control*
+&lt;!-- Dr. Nic: Understanding Confidence Intervals: Statistics Help (4 min) --&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/tFWsuO9f74o?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
 
 
 
 ---
 # Confidence Intervals
 
-.large[Statistics are .dcoral[point estimates], or *population parameters*, .dcoral[**with error**]]
+.large[Statistics are .dcoral[point estimates] of a *population parameter* with .dcoral[**with error**]]
 
 How .nicegreen[**close**] is estimate to population parameter?
 
@@ -319,10 +563,10 @@ How .nicegreen[**close**] is estimate to population parameter?
     - Upper limit: UL or UCL
     - Lower limit: LL or LCL
 
-CI expresses our .nicegreen[**confidence**] in a statistic &amp; the .nicegreen[*width*] depends on `\(SE_M\)` and `\(t_{cv}\)`
+Confidence Intervals express our .nicegreen[**confidence**] or .nicegreen[**uncertainty**] in a .dcoral[sample statistic's] ability to estimate the .dcoral[population parameter] based on the .nicegreen[*width*], which depends on both the sample's spread `\((SEM)\)` and critical balue `\((z_{CV} \text{ or } t_{cv})\)`
 
 - Both are function of `\(N\)` 
-  - Larger `\(N \rightarrow\)` Smaller CI 
+  - Larger `\(N \rightarrow\)` Narrower CI 
   &lt;br&gt;&lt;br&gt;
 - More confident that sample point estimate (statistic) approximates population parameter
   - .nicegreen[Narrow CI:] Less confidence, more precision *(less error)*
@@ -331,15 +575,119 @@ CI expresses our .nicegreen[**confidence**] in a statistic &amp; the .nicegreen[
 
 
 ---
-# Steps to Construct a Confidence interval
+
+&lt;!-- Joshua Emmanuel: Confidence Intervals - Introduction (3.5 min) --&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/MbXThbTSrVI?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+---
+
+&lt;!-- Dr. Nic: Calculating the Confidence interval for a mean using a formula - statistics help (5.5 min) --&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/tFWsuO9f74o?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+---
+
+&lt;!-- Crash Course Statistics #20: Confidence Intervals (13 min) --&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/yDEvXB6ApWc?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+
+
+---
+
+class: inverse
+
+## Interactive Shiny App
+
+
+.large[Confidence Intervals for a Sample Mean, A Simulation] [link](https://shiny.rit.albany.edu/stat/confidence/)
+
+&lt;img src="figures/app_ci_simulate.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+&gt; University at Albany Psychology Department, Psychology Department, by Bruce Dudek  
+
+
+---
+
+class: inverse
+
+## Interactive HTML App
+
+
+.large[Statistical Applet: Confidence Intervals] [link](http://digitalfirst.bfwpub.com/stats_applet/stats_applet_4_ci.html)
+
+&lt;img src="figures/app_ci_applet.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+&gt; BFW-Bedford, Freeman &amp; Worth Publishing, by Digital First 
+
+
+
+---
+# The Formula for all Confidence Intervals
+
+Every .nicegreen[Confidence Interval] has two parts:
+
+* Point Estimate Value = our best guess 
+* Margin of Error = plus-or-minus uncertainty
+
+--
+
+$$
+\text{Point Estimate Value} \quad \pm \quad \text{Margin of Error}
+$$
+
+--
+
+Every .nicegreen[Margin of Error] has two parts:
+
+* Critical Value = look up on a table for a certain % confidence
+* Standard Error for the Estimate = measure of spread
+
+
+$$
+\text{Point Estimate Value} \quad \pm \quad \text{Critical Value} \quad \times \quad \text{Standard Error for the Estimate}
+$$
+
+--
+
+.pull-left[
+
+.coral[Known population *SD* &amp;/or Large *N*]
+
+`$$\bar{x} \; \pm \; z_{CV} \times \frac{\sigma}{\sqrt{N}}$$`
+
+]
+
+--
+
+.pull-right[
+
+.coral[Unknown population *SD* &amp;/or Small *N*]
+
+`$$\bar{x} \; \pm \; t_{CV} \times \frac{s}{\sqrt{N}}$$`
+
+]
+
+
+
+---
+# Steps to Construct a Confidence Interval
 
 .pull-left[
 1. Select your random sample size &lt;br&gt;&lt;br&gt;
-2. Select the **Level of Confidence** &lt;br&gt;&lt;br&gt;
+2. Select the .coral[**Level of Confidence**] &lt;br&gt;&lt;br&gt;
     - Generally 95% *(can be 80, 90, or even 99%)* &lt;br&gt;&lt;br&gt;
 3. Select random sample and collect data &lt;br&gt;&lt;br&gt;
-4. Find the **Region of Rejection** &lt;br&gt;&lt;br&gt;
-    - Based on `\(\alpha = 1 - Conf\)` &amp; # of tails = `\(2\)` &lt;br&gt;&lt;br&gt;
+4. Find the .coral[**Critical Value**] &lt;br&gt;&lt;br&gt;
+    - Based on `\(\alpha = 1 - Conf\)` &amp; # of tails
+    - Default: 95% `\((\alpha = .05)\)` and 2 tails&lt;br&gt;&lt;br&gt;
 5. Calculate the Interval **End Points**
 
 `$$Est \pm CV_{Est} \times SE_{Est}$$`
@@ -373,10 +721,20 @@ Wider CI:
 ]
 
 
----
-## EX) Confidence Interval: for a Mean
 
-A physician states that, in the past, the average number of times he saw each of his patients during the year was `\(5\)`. However, he believes that his patients have visited him significantly **more frequently** during the past year. In order to validate this statement, he randomly selects `\(10\)` of his patients and determines the number of office visits during the past year. He obtains the values presented to the below.
+
+---
+
+## Formula Sheet
+
+.dcoral[**One-Sample Tests**]
+
+&lt;img src="figures/fig_formulas_1sample_mean.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+## Ex) Confidence Interval for a Mean
+
+A physician states that, .dcoral[in the past], the average number of times he saw each of his patients during the year .dcoral[**5**]. However, he believes that his patients have visited him significantly **more frequently** during the past year. In order to validate this statement, he .nicegreen[randomly selects **10** of his patients] and determines the number of office visits during the past year. He obtains the values presented to the below.
 
 .center[.nicegreen[**9, 10, 8, 4, 8, 3, 0, 10, 15, 9**]]
 
@@ -384,11 +742,16 @@ Construct a .dcoral[95% confidence interval] for the mean number of visits per p
 
 
 ---
-background-image: url(figures/tTable_2tail05_df_9.PNG)
+## Ex) Confidence Interval for a Mean
+
+**Find the Critical Value:** for 95%, use `\(\alpha\)` = .05, but ALWAYS use TWO_TAILED for confidence intervals!
+
+
+&lt;img src="figures/fig_t_table_top_df9_2tail_05_cv.jpg" width="62%" style="display: block; margin: auto;" /&gt;
 
 
 ---
-## EX) Confidence Interval: mean, *sample sample*
+## Ex) Confidence Interval for a Mean
 
 
 ```r
@@ -398,25 +761,30 @@ x &lt;- c(9, 10, 8, 4, 8, 3, 0, 10, 15, 9)
 
 
 .pull-left[
+.dcoral[**Sample Size (*N*)**]
 
 ```r
-length(x)                # N = sample size
+length(x)
 ```
 
 ```
 [1] 10
 ```
 
+.dcoral[**Sample Mean (*M*)**]
+
 ```r
-mean(x)                      # sample mean
+mean(x)
 ```
 
 ```
 [1] 7.6
 ```
 
+.dcoral[**Sample Standard Deviation (*SD*)**]
+
 ```r
-sd(x) # unbiased sample standard deviation
+sd(x) 
 ```
 
 ```
@@ -428,6 +796,7 @@ sd(x) # unbiased sample standard deviation
 
 .pull-right[
 Standard Error:
+.dcoral[**Standard Error (*SEM*)**]
 
 ```r
 SE &lt;-  sd(x) / sqrt(length(x))
@@ -438,15 +807,24 @@ SE
 [1] 1.343296
 ```
 
-Confidence Interval:
+.dcoral[**Confidence Interval (t_CV = 2.262)**]
 
 ```r
-c(mean(x) - 2.262 * SE,
-  mean(x) + 2.262 * SE)
+mean(x) - 2.262 * SE
 ```
 
 ```
-[1]  4.561464 10.638536
+[1] 4.561464
+```
+
+
+
+```r
+mean(x) + 2.262 * SE
+```
+
+```
+[1] 10.63854
 ```
 
 ]
@@ -456,7 +834,7 @@ c(mean(x) - 2.262 * SE,
 ---
 background-image: url(figures/fig_ex_t_ci.png)
 
-## EX) Confidence Interval: for a Mean
+## Ex) Confidence Interval for a Mean
 
 A physician states that, in the past, the average number of times he saw each of his patients during the year was `\(5\)`. However, he believes that his patients have visited him significantly **more frequently** during the past year. In order to validate this statement, he randomly selects `\(10\)` of his patients and determines the number of office visits during the past year. He obtains the values presented to the below.
 
@@ -518,7 +896,7 @@ Related to **Type I Error**
 .large[.nicegreen[**Z-test**]] &lt;br&gt;
 *(happens to be a statistically significant difference)* &lt;br&gt;
 
-The hourly fee (M = $72) for our sample of current psychotherapists is significantly greater, .dcoral[z = 4.0, p &lt; .001], than the 1960 hourly rate (M = $63, in current dollars).
+The hourly fee .coral[(M = $72)] for our sample of current psychotherapists is significantly greater.nicegreen[, z = 4.0, p &lt; .001,] than the 1960 hourly rate .coral[(M = $63, in current dollars)].
 
 &lt;br&gt;
 
@@ -527,7 +905,7 @@ The hourly fee (M = $72) for our sample of current psychotherapists is significa
 .large[.nicegreen[**T-test**]] &lt;br&gt;
 *(happens to not quite reach .05 significance level)* &lt;br&gt;
 
-Although the mean hourly fee for our sample of current psychotherapists was considerably higher (M = $72, SD = 22.5) than the 1960 population mean (M = $63, in current dollars), this difference only approached statistical significance, .dcoral[t(24) = 2.00, p = .06].
+Although the mean hourly fee for our sample of current psychotherapists was considerably higher .coral[(*M* =$72, *SD* = $22.5)] than the 1960 population mean .coral[(M = $63, in current dollars)], this difference only approached statistical significance.nicegreen[, *t*(24) = 2.00, *p* = .061].
 
 
 
@@ -538,15 +916,19 @@ class: inverse, center, middle
 # Let's Apply This to the Cancer Dataset 
 
 
+
 ---
 # Read in the Data
+
+
+
 
 
 ```r
 library(tidyverse)    # Loads several very helpful 'tidy' packages
 library(haven)        # Read in SPSS datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
 library(psych)        # Lots of nice tid-bits
-library(car)          # Companion to "Applied Regression"
 ```
 
 
@@ -556,6 +938,7 @@ cancer_raw &lt;- haven::read_spss("cancer.sav")
 
 
 
+--
 ### And Clean It
 
 
@@ -570,17 +953,24 @@ cancer_clean &lt;- cancer_raw %&gt;%
 ```
 
 
+---
+
+## The Cancer Dataset
+
+<div id="htmlwidget-74c9ad146acf61cd4d23" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-74c9ad146acf61cd4d23">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"],["1","5","6","9","11","15","21","26","31","35","39","41","45","2","12","14","16","22","24","34","37","42","44","50","58"],["Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice"],[52,77,60,61,59,69,67,56,61,51,46,65,67,46,56,42,44,27,68,77,86,73,67,60,54],[124,160,136.5,179.6,175.8,167.6,186,158,212.8,189,149,157,186,163.8,227.2,162.6,261.4,225.4,226,164,140,181.5,187,164,172.8],["2","1","4","1","2","1","1","3","1","1","4","1","1","2","4","1","2","1","4","2","1","0","1","2","4"],[6,9,7,6,6,6,6,6,6,6,7,6,8,7,6,4,6,6,12,5,6,8,5,6,7],[6,6,9,7,7,6,11,11,9,4,8,6,8,16,10,6,11,7,11,7,7,11,7,8,8],[6,10,17,9,16,6,11,15,6,8,11,9,9,9,11,8,11,6,12,13,7,16,7,16,10],[7,9,19,3,13,11,10,15,8,7,11,6,10,10,9,7,14,6,9,12,7,null,7,null,8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>trt<\/th>\n      <th>age<\/th>\n      <th>weighin<\/th>\n      <th>stage<\/th>\n      <th>totalcin<\/th>\n      <th>totalcw2<\/th>\n      <th>totalcw4<\/th>\n      <th>totalcw6<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[3,4,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
 
 
 ---
 # 1 sample t Test vs. Historic Control
 
-Do the patients weigh more than 165 pounds at intake, on average?
+&gt; Do the patients .dcoral[weigh] more than .dcoral[165] pounds at intake, on average?
 
 
 ```r
 cancer_clean %&gt;% 
-  dplyr::pull(weighin) %&gt;% 
+  dplyr::pull(`weighin`) %&gt;% 
   t.test(mu = 165)
 ```
 
@@ -603,20 +993,21 @@ mean of x
 
 --
 
-.nicegreen[
-The patients in this study (N = 25) weigh 178.28 pounds on average, which is significantly more that 165 pounds, t(24) = 2.08, p = .049, 95% CI [165.08, 191.48].
-]
+
+&gt; The patients in this study .coral[(*N* = 25)] weigh .bluer[**178.28**] pounds on average, which is significantly more that .bluer[**165**] pounds.nicegreen[, *t*(24) = 2.08, *p* = .049, 95% *CI* [165.08, 191.48]].
+
+
 ---
 ## ...Change the Confidence Level
 
-Find a .dcoral[99%] confience level for the population mean weight.
+&gt; Find a .dcoral[99%] confidence level for the population mean weight.
 
 
 ```r
 cancer_clean %&gt;% 
-  dplyr::pull(weighin) %&gt;% 
-  t.test(mu = 165,
-         conf.level = 0.99)
+  dplyr::pull(`weighin`) %&gt;% 
+  t.test(mu = `165`,
+         conf.level = `0.99`)
 ```
 
 --
@@ -638,23 +1029,21 @@ mean of x
 --
 
 
+&gt; The patients in this study .dcoral[(*N* = 25)] weigh .bluer[**178.28**] pounds on average, which is significantly more that .bluer[**165**] pounds.nicegreen[, *t*(24) = 2.08, *p* = .049, 99% *CI* [160.39, 196.17]].
 
-.nicegreen[
-The patients in this study (N = 25) weigh 178.28 pounds on average, which is significantly more that 165 pounds, t(24) = 2.08, p = .049, 99% CI [160.39, 196.17].
-]
 
 
 ---
 ## ...Restrict to a Subsample
 
-Do the patients with .dcoral[stage 3 &amp; 4] cancer weigh more than 165 pounds at intake, on average?
+&gt; Do the patients with .dcoral[stage 3 &amp; 4] cancer weigh more than .dcoral[165] pounds at intake, on average?
 
 
 ```r
 cancer_clean %&gt;% 
-  dplyr::filter(stage %in% c("3", "4")) %&gt;% 
-  dplyr::pull(weighin) %&gt;% 
-  t.test(mu = 165)
+  dplyr::filter(`stage %in% c("3", "4")`) %&gt;% 
+  dplyr::pull(`weighin`) %&gt;% 
+  t.test(mu = `165`)
 ```
 
 --
@@ -677,9 +1066,8 @@ mean of x
 --
 
 
-.nicegreen[
-The patients in this study with stage 3 or 4 cancer (n = 6) weigh 178.25 pounds on average, which is not significantly more that 165 pounds, t(5) = 0.83, p = .446.
-]
+&gt; The patients in this study with stage 3 or 4 cancer .dcoral[(*n* = 6)] weigh .bluer[**178.25**] pounds on average, which is not significantly more that .bluer[**165**] pounds.nicegreen[, *t*(5) = 0.83, *p* = .446, 95% *CI* [137.02, 219.47]].
+
 
 
 
@@ -701,6 +1089,7 @@ class: inverse, center, middle
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
+"highlightSpans": true,
 "countIncrementalSlides": false,
 "ratio": "16:9"
 });
