@@ -1,0 +1,4 @@
+"0","# Find the mean and n for: mathquiz, statquiz"
+"0","data_clean %>% "
+"0","  dplyr::select(mathquiz, statquiz) %>% "
+"0","  psych::describe()"

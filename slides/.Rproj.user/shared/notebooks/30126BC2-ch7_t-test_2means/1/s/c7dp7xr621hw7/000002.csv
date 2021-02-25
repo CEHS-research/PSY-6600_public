@@ -1,0 +1,6 @@
+"0","df1_long %>% "
+"0","  dplyr::group_by(pill) %>% "
+"0","  furniture::table1(depression,"
+"0","                    digits = 2,"
+"0","                    na.rm = FALSE,"
+"0","                    output = ""markdown"")"

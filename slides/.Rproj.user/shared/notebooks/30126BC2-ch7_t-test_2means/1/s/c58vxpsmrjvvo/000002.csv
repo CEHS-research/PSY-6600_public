@@ -1,0 +1,5 @@
+"0","df1_long <- df1_wide %>% "
+"0","  tidyr::pivot_longer(cols = c(drug, placebo),"
+"0","                      names_to = ""pill"","
+"0","                      names_ptypes = list(group = factor()),"
+"0","                      values_to = ""depression"")"
