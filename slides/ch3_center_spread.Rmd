@@ -397,6 +397,15 @@ So, don't put much emphasis on skewness and kurtosis values you may see. And rem
 .coral[ **Just look at the histogram.  It often gives you all the information you need.** ]
 
 
+---
+
+<!-- Simple Learning Pro: The Five Number Summary, Boxplot, and Outliners (5 min)-->
+
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/AGh66ZPpOSQ?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+
 
 ---
 background-image: url(figures/fig_5sum_2.png)

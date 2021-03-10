@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Power and Effect Size</title>
     <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="pres2.css" type="text/css" />
   </head>
   <body>
@@ -27,6 +28,8 @@ class: center, middle
 
 ### -- Cohen (1990) ["Things I Have Learned (So Far)"](https://tech.me.holycross.edu/files/2015/03/Cohen_1990.pdf) p. 1305
 
+
+
 ---
 
 ## “Next, I have learned and taught that the primary product of research inquiry is one or more measures of **effect size**, not p values.”
@@ -41,22 +44,273 @@ class: center, middle
 ### -- Abelson (1995) ["Statistics as Principled Argument"](https://www.taylorfrancis.com/books/9781410601155) p. 47
 
 
+
+---
+
+## P-values Only?
+
+&lt;img src="figures/meme_pval.jpg" width="449" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+&lt;!-- Data Demystified: Statistical versus Practical Significance (8 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/95MyDVxWrO8?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+---
+
+&lt;!-- University of Nottingham: What do my results mean Effect size is not the same as statistical significance. With Tom Reader. (6.5 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/PyNzbDbjs1Y?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+---
+
+## Categories of Effect Sizes
+
+--
+
+- Group Differences Indicies
+    - Magnitude of difference between 2 groups
+    - example: Cohen's *d* (SMD)
+    
+--
+    
+- Strength of Association    
+   - Magnitude of shard variance between variables
+   - example: Pearson's *r*
+   
+--
+
+- Risk Estimates
+    - Compare relative risk for an outcome between 2 groups
+    - example: Odds ratio (*OR*)
+    
+--
+
+- Corrected Estimat3es
+    - Correct for sampling error due to smapler sample sizes
+    - example: adjusted *R^2*
+
+---
+
+&lt;!-- Top Tip Bio: What Is And How To Calculate Cohen's d? (8 min)--&gt;
+
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/IetVSlrndpI?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+
+
 ---
 
 
 .pull-left[
+## Formula: Cohen's *d* 
 
-&lt;img src="figures/matrix_jury.png" width="740" style="display: block; margin: auto;" /&gt;
+`$$d = \frac{\mu_1 - \mu_2}{\sigma}$$`
+
+Original version: Cohen's `\(d\)` or `\(d_{pop}\)`
+- should know the population pooled SD, `\(\sigma\)`
+- if the groups are the SAMLE size, you can use the pooled standard deviation for the samples to use in place of `\(\sigma\)`
+   - `\(s_p = \sqrt{\frac{s_1^2 + s_2^2}{2}}\)`
+
+Sample version: Cohen's `\(d_s\)` 
+- uses the samples' pooled standard deviations
+- if the groups are **not** the same size, you must weight the samples standard deviations when pooling
+    - `\(s_p = \sqrt{\frac{(n_1-1)s_1^2 + (n_2-1)s_2^2}{n_1-n_2-2}}\)`
 
 ]
 
 --
 
 .pull-right[
-
-&lt;img src="figures/matrix_stats.png" width="792" style="display: block; margin: auto;" /&gt;
+&lt;img src="figures/tab_effsize_dtype.png" width="1080" style="display: block; margin: auto;" /&gt;
 
 ]
+
+---
+&lt;!-- How2stats: Cohen's d vs Hedges g? Explained (3 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/EaxBaVlftXE?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+---
+## Guidelines: Cohen's *d* 
+
+--
+
+- .dcoral["Small": *d* = 0.2 thru 0.5]
+    - considered too small to differenciate by the naked eye
+    - example: difference in heights for 15 and 16 year old girls
+    
+--
+    
+- .dcoral["Medium": *d* = 0.5 thru 0.8]
+    - just large enough to be seen by the naked eye
+    - example: difference in heights for 14 and 18 year old girls
+     
+--
+
+- .dcoral["Large": *d* &gt; 0.8]
+    - really obvious difference between groups
+    - example: difference in heights for 13 and 18 year old girls
+    
+--
+
+&gt; Note: Social sciences often yield small effect sizes, but small effect sizes can have large practical significance   
+
+
+---
+&lt;!-- John Boniello: Effect Size (3 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/6uYNVCy-8NA?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+
+
+---
+class: inverse
+
+## Interactive Visulatization
+
+[Interpreting Cohen's d Effect Size](https://rpsychologist.com/cohend/)
+
+&lt;img src="figures/app_cohen_d.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+&gt; Dr. Kristoffer Magnusson, aka "R Psychologist"
+
+&gt; Centre for Psychiatry Research, Karolinska Institutet, Stockholm, Sweden
+
+---
+
+### Example 1) Calculating Cohen's d by hand
+
+.dcoral[Background:] Randomly assigned anorexic young girls to two different treatments &amp; compared their weight
+
+.dcoral[Research Question:] **Are the treatments different?**
+ 
+--
+
+.center[
+.nicegreen[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Treatment &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Size (n) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Mean (M) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Std Dev (SD) &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Variance &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; A &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 29 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 85.7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 8.35 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 69.7225 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; B &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 26 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 81.1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4.74 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22.4676 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+]
+
+--
+.dcoral[Observed Difference in Means] 
+
+`\(\bar{D}=\bar{x_1}-\bar{x_2}=85.7-81.1\)` = **4.6 pounds** 
+
+--
+
+.dcoral[Pooled Standard Deviation] 
+
+`\(s_p=\sqrt{\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1-n_2-2}}=\sqrt{\frac{(28)69.7225+(25)22.4676}{53}}\)` = **6.8871 pounds**
+
+--
+
+.dcoral[Effect Size] 
+
+`\(d_s=\frac{\mu_1-\mu_2}{\sigma}=4.6/6.8871\)`  = **0.67** 
+
+--
+
+.dcoral[Reporting]
+
+
+
+
+---
+
+.pull-left[
+
+### Select/calculate **BEFORE** collecting any data 
+
+- **Test Statistic**  
+    - the critical value
+    - cut off point(s) for *z*, *t*, *F*, ect.
+    
+- **Statistical Significance** 
+    - the `\(\alpha\)` level you will use
+    - usually `\(.05\)`
+    
+- **Effect Size** 
+    - how big you expect the effect to be
+    - how big of an effect would be meaningful 
+    
+- **Power** 
+    - given expected effect size, alpha, &amp; n's
+    - 1 - `\(\beta\)`
+
+]
+
+--
+
+.pull-left[
+
+### Observe/calculate **AFTER** collecting and anlayzing data  
+
+- **Test Statistic**  
+    - the observed test statistic from the data 
+    - *z*, *t*, *F*, ect.
+    
+- **Statistical Significance** 
+    - the observed p-value from a test
+    - give 3 decimal places or *p* &lt; .001
+    
+- **Effect Size** 
+    - how big the effect was in your sample
+    - practical significant?
+    
+- **Power**  
+    - did you get statistical significance?
+    - avoid "retrospective" or "post hoc" power
+
+]
+
+
+---
+
+&lt;img src="figures/fig_inferene_grid_final.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
 
 ---
 
@@ -76,6 +330,7 @@ Our decision usually causes four outcomes:
 
 
 
+
 ---
 
 .pull-left[
@@ -86,7 +341,7 @@ Our decision usually causes four outcomes:
 * But the Truth is: Null Hypothesis is TRUE
 
 $$
-\alpha = P(\text{False Positive})
+\alpha = Prob(\text{False Positive}) = Prob(p-value&lt; \alpha \;|\; H_0 \text{ is NOT true} )
 $$
 ]
 
@@ -100,10 +355,40 @@ $$
 * But the Truth is: Null Hypothesis is FALSE
 
 $$
-\beta = P(\text{False Negative})
+\beta = P(\text{False Negative})= Prob(p-value&gt; \alpha \;|\; H_0 \text{ IS true} )
 $$
 
 ]
+
+
+
+---
+## POWER = `\(1 - \beta\)`
+
+* Reject the Null Hypothesis
+* Null Hypothesis is FALSE
+
+&gt; An estimate of power is only as good as the estimate of effect size upon which it is based
+
+…BUT determining the effect size is usually the purpose (or should be) of the experiment. 
+
+
+
+
+---
+
+&lt;!-- StatQuest: Statistical Power, Clearly Explained!!! (8 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/Rsc5znwR5FA?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+
+---
+
+&lt;!-- StatQuest: Power Analysis, Clearly Explained!!! (16.5 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/VX_M3tIyiYk?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
 
 
 ---
@@ -159,19 +444,28 @@ As before, if bungling police officers arrest an innocent suspect there's a **sm
 An increase of sample size **narrows** the distribution. Why? Because the distribution represents the **average** of the entire sample instead of just a single data point
 
 
----
-## POWER = `\(1 - \beta\)`
-
-* Reject the Null Hypothesis
-* Null Hypothesis is FALSE
-
-
 
 
 ---
+class: inverse
+
+## Interactive Visulatization
+
+[Understanding Statistical Power and Significance Testing](https://rpsychologist.com/cohend/)
+
+&lt;img src="figures/app_power.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 
-&lt;img src="figures/meme_pval.jpg" width="449" style="display: block; margin: auto;" /&gt;
+
+
+&gt; Dr. Kristoffer Magnusson, aka "R Psychologist"
+
+&gt; Centre for Psychiatry Research, Karolinska Institutet, Stockholm, Sweden
+
+
+
+---
+
 
 
 
@@ -234,9 +528,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -245,7 +555,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
   }
 })();
-</script>
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 slideshow._releaseMath = function(el) {

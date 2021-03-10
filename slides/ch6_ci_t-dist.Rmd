@@ -191,6 +191,25 @@ knitr::include_graphics("figures/fig_t_vs_z.png")
 - As $df \uparrow$, the critical value of $t \rightarrow z$
 ]
 
+---
+class: inverse
+
+## Interactive Visulatization
+
+[Understanding the t-distribution and its normal approximation](https://rpsychologist.com/d3/tdist/)
+
+```{r,echo=FALSE, out.width = "50%"}
+knitr::include_graphics("figures/app_t_viz.png")
+```
+
+
+
+
+> Dr. Kristoffer Magnusson, aka "R Psychologist"
+
+> Centre for Psychiatry Research, Karolinska Institutet, Stockholm, Sweden
+
+
 
 
 
@@ -624,6 +643,24 @@ knitr::include_graphics("figures/app_ci_applet.png")
 
 > BFW-Bedford, Freeman & Worth Publishing, by Digital First 
 
+
+
+---
+class: inverse
+
+## Interactive Visulatization
+
+[Interpreting Confidence Intervals](https://rpsychologist.com/d3/ci/)
+
+```{r,echo=FALSE, out.width = "60%"}
+knitr::include_graphics("figures/app_ci_viz.png")
+```
+
+
+
+> Dr. Kristoffer Magnusson, aka "R Psychologist"
+
+> Centre for Psychiatry Research, Karolinska Institutet, Stockholm, Sweden
 
 
 ---

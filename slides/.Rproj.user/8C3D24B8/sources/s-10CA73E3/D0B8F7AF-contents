@@ -1,0 +1,859 @@
+---
+title: "Center and Spread"
+subtitle: "Cohen Chapter 3 <br><br> .small[EDUC/PSY 6600]"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: pres2.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(comment     = NA,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center",   # center all figures
+                      fig.width   = 8,          # set default figure width to 4 inches
+                      fig.height  = 5)        # set default figure height to 3 inches
+```
+
+class: center, middle
+
+## "You can, for example, never foretell what any one man will do, but you can say with precision what an average number will be up to. *Individuals vary*, but percentages remain constant. So says the statistician." 
+### -- Sherlock Holmes, *The Sign of Four*
+
+
+---
+background-image: url(figures/fig_dist_examples.png)
+background-position: 50% 90%
+background-size: 750px
+
+# Distributions Examples
+
+
+
+---
+background-image: url(figures/fig_3centers.png)
+background-position: 50% 70%
+background-size: 1000px
+
+# Three Measures of Center
+
+
+
+
+---
+
+## Areas in Distribution Plot
+
+.pull-left[
+
+Frequency Histogram
+```{r,echo=FALSE}
+knitr::include_graphics("figures/textbook_fig_3.2.PNG")
+```
+
+]
+
+
+.pull-right[
+Frequency Polygon
+```{r,echo=FALSE}
+knitr::include_graphics("figures/textbook_fig_3.3.PNG")
+```
+]
+
+---
+background-image: url(figures/fulcrum.png)
+background-position: 50% 80%
+background-size: 850px
+
+# Mean vs. Median
+
+.large[.large[
+.nicegreen[Median]: the center point, half of values are on each side, not affected by the skew, the "typical value"
+
+.dcoral[Mean]: the "balance" point, pulled to the side of the skew, not typical
+
+<br><br><br>
+]]
+
+--
+
+.large[If distribution is symmetrical: mean = median]
+
+---
+background-image: url(figures/fig_dist_income_2010.png)
+background-position: 50% 70%
+background-size: 1000px
+
+
+
+---
+# Distributions and Numbers
+
+.pull-left[
+.large[
+- The MEDIAN is **resistant** & doesn't change much
+- The MEAN is **influenced** & changes more!
+- Average does NOT mean typical
+- Average moves when we remove the high point
+]]
+
+--
+
+.pull-right[
+```{r, echo=FALSE, fig.height=7}
+set.seed(1)
+library(tidyverse)
+x = data_frame(
+  x = append(rnorm(19), 6)) %>%
+  mutate(cols = factor(ifelse(x == 6, 1, 0)))
+p1 = ggplot(x, aes(x, fill = cols)) +
+  geom_histogram(binwidth = 1, alpha = .5) +
+  coord_cartesian(xlim = c(-3, 6)) +
+  scale_fill_manual(values = c("dodgerblue3", "coral2"),
+                     guide = FALSE) +
+    geom_vline(xintercept = mean(x$x), color = "black") +
+    annotate("text", x = mean(x$x) + .1, y = 4, label = "Mean",
+             hjust = 0, color = "black") +
+  theme_bw(base_size = 18)
+p2 = x %>%
+  filter(x != 6) %>%
+  ggplot(aes(x, fill = cols)) +
+    geom_histogram(binwidth = 1, alpha = .5) +
+    coord_cartesian(xlim = c(-3, 6)) +
+    scale_fill_manual(values = c("dodgerblue3", "coral2"),
+                       guide = FALSE) +
+    geom_vline(xintercept = mean(x %>%
+                                filter(x != 6) %>%
+                                pull(x)), color = "black") +
+    annotate("text", x = mean(x %>%
+                                filter(x != 6) %>%
+                                pull(x)) + .1, y = 3, label = "Mean",
+             hjust = 0, color = "black") +
+  theme_bw(base_size = 18)
+gridExtra::grid.arrange(p1, p2)
+```
+]
+
+
+
+
+---
+# Distributions and Numbers
+
+.pull-left[
+.large[
+- The MEDIAN is **resistant** & doesn't change much
+- The MEAN is **influenced** & changes more!
+- Average does NOT mean typical
+- Average moves when we remove the high point
+- Median doesn't move when we remove the high point
+]]
+
+--
+
+.pull-right[
+```{r, echo=FALSE, , fig.height=7}
+set.seed(1)
+library(tidyverse)
+x = data_frame(
+  x = append(rnorm(19), 6)) %>%
+  mutate(cols = factor(ifelse(x == 6, 1, 0)))
+p1 = ggplot(x, aes(x, fill = cols)) +
+  geom_histogram(binwidth = 1, alpha = .5) +
+  coord_cartesian(xlim = c(-3, 6)) +
+  scale_fill_manual(values = c("dodgerblue3", "coral2"),
+                     guide = FALSE) +
+    geom_vline(xintercept = median(x$x), color = "black") +
+    annotate("text", x = median(x$x) + .1, y = 4, label = "Median",
+             hjust = 0, color = "black") +
+  theme_bw(base_size = 18)
+p2 = x %>%
+  filter(x != 6) %>%
+  ggplot(aes(x, fill = cols)) +
+    geom_histogram(binwidth = 1, alpha = .5) +
+    coord_cartesian(xlim = c(-3, 6)) +
+    scale_fill_manual(values = c("dodgerblue3", "coral2"),
+                       guide = FALSE) +
+    geom_vline(xintercept = median(x %>%
+                                filter(x != 6) %>%
+                                pull(x)), color = "black") +
+    annotate("text", x = median(x %>%
+                                filter(x != 6) %>%
+                                pull(x)) + .1, y = 3, label = "Median",
+             hjust = 0, color = "black") +
+  theme_bw(base_size = 18)
+gridExtra::grid.arrange(p1, p2)
+```
+]
+
+
+
+
+
+---
+background-image: url(figures/fig_three_spreads.jpg)
+background-position: 50% 70%
+background-size: 1100px
+
+# Three Measures of Spread
+
+
+---
+# Best Summary of the Data?
+
+.huge[
+"... the perfect estimator does not exist." -- Rand Wilcox, 2001
+]
+
+--
+
+.pull-left[
+.large[
+## .bluer[Median and SIR]
+
+Skewed data or outliers
+]]
+
+.pull-right[
+.large[
+## .nicegreen[Mean and SD]
+
+Symmetrical and no outliers
+]]
+
+--
+
+<br>
+
+.large[.large[
+A .dcoral[graph gives the best overall picture of a distribution]
+]]
+
+---
+
+## Properties of the Mean and SD
+
+.pull-left[
+
+Add 10 to Every Value
+
+```{r,echo=FALSE}
+knitr::include_graphics("figures/textbook_fig_3.11.PNG")
+```
+
+]
+
+
+.pull-right[
+
+
+Multiply Every Value by 10
+
+```{r,echo=FALSE}
+knitr::include_graphics("figures/textbook_fig_3.12.PNG")
+```
+
+]
+
+
+```{r,echo=FALSE, out.width = "70%"}
+knitr::include_graphics("figures/fig_sd_properties-small.jpg")
+```
+
+
+
+
+
+---
+# Skewness
+
+$$
+Skewness = \frac{N}{N - 2}\frac{\sum_{i=1}^n (X_i - \bar{X})^3}{(N - 1)s^3}
+$$
+
+.pull-left[
+.large[
+- Degree of .dcoral[symmetry]
+- Can detect **visually**
+- Skewness statistic
+    - Based on cubed deviations from the mean
+    - Divided by SE of skewness
+    - $> \pm 2$ is a sign of skewed data
+
+]]
+
+--
+
+.pull-right[
+.large[
+
+
+- Interpreting skewness statistic
+    - Pos value = positive skew
+    - Neg value = negative skew
+    - Zero = no skew
+]]
+
+---
+# Skewness
+
+```{r, fig.height=7, fig.width=14, fig.align='center', echo=FALSE}
+set.seed(1)
+
+library(tidyverse)
+
+x <- data_frame(Zero = rnorm(50),
+                Positive = append(rnorm(44), 
+                                  rep(c(2.5,3,3.5,4,4.5,5), 
+                                      1)),
+                Negative = append(rnorm(44), 
+                                  rep(c(-2.5,-3,-3.5,-4,-4.5,-5), 
+                                      1))) %>%
+  tidyr::pivot_longer(cols = c(Zero, Positive, Negative),
+                      names_to = "Skew", 
+                      values_to = "value") %>% 
+  dplyr::mutate(Skew = Skew %>% 
+                  factor(levels = c("Negative",
+                                    "Zero",
+                                    "Positive")) )
+x %>% 
+  ggplot(aes(value, fill = Skew, color = Skew)) +
+  geom_histogram(binwidth = 1, alpha = .5) +
+  facet_grid(~Skew, labeller = label_both) +
+  scale_fill_manual(values = c("dodgerblue3", "chartreuse3", "coral2"),
+                    guide = FALSE) +
+  scale_color_manual(values = c("dodgerblue4", "chartreuse4", "coral3"),
+                     guide = FALSE) +
+  theme_minimal() +
+  theme(panel.spacing = unit(.2, "cm")) +
+  theme_bw(base_size = 18)
+
+```
+
+
+
+---
+# Kurtosis
+
+$$
+Kurtosis = \frac{N(N+1)}{(N - 2)(N - 3)}\frac{\sum_{i=1}^n (X_i - \bar{X})^4}{(N - 1)s^4} - 3 \frac{(N - 1)(N - 1)}{(N - 2)(N - 3)}
+$$
+
+.pull-left[
+.large[
+- Degree of .dcoral[flatness] in distribution
+- Harder to detect visually
+- Kurtosis statistic
+    - Based on deviations from the mean (raised to 4th power)
+    - Divided by SE of kurtosis
+    - $> \pm 2$ is a sign of problems with kurtosis
+]]
+
+--
+
+.pull-right[
+.large[
+- Interpreting kurtosis statistic
+    - Pos value = peaked (leptokurtic)
+    - Neg value = flat (platykurtic)
+    - Zero = normal (mesokurtic)
+]]
+
+---
+background-image: url(figures/fig_kurtosis.png)
+background-position: 50% 70%
+background-size: 1000px
+
+# Kurtosis
+
+
+---
+## [Are the Skewness and Kurtosis Useful Statistics?](https://www.spcforexcel.com/knowledge/basic-statistics/are-skewness-and-kurtosis-useful-statistics) 
+
+
+The .coral[skewness] and .coral[kurtosis] statistics appear to be very dependent on the sample size. In fact, even several hundred data points didn't give very good estimates of the true kurtosis and skewness. Smaller sample sizes can give results that are very misleading. 
+
+.large[
+.nicegreen[
+
+> "In short, skewness and kurtosis are practically **worthless**." 
+
+> "The statistics for skewness and kurtosis simply do not provide any useful information beyond that already given by the measures of location *(center)* and dispersion *(spread)*."
+
+]
+]
+
+So, don't put much emphasis on skewness and kurtosis values you may see. And remember, the more data you have, the better you can describe the shape of the distribution.  But, in general, it appears there is little reason to pay much attention to skewness and kurtosis statistics. 
+
+.coral[ **Just look at the histogram.  It often gives you all the information you need.** ]
+
+
+---
+
+<!-- Simple Learning Pro: The Five Number Summary, Boxplot, and Outliners (5 min)-->
+
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/AGh66ZPpOSQ?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+
+
+---
+background-image: url(figures/fig_5sum_2.png)
+background-position: 50% 50%
+
+# Five-Number Summary
+
+---
+background-image: url(figures/fig_5sum_3.png)
+background-position: 50% 50%
+
+# Five-Number Summary - Median
+
+---
+background-image: url(figures/fig_5sum_4.png)
+background-position: 50% 50%
+
+# Five-Number Summary - Quartiles
+
+
+---
+background-image: url(figures/fig_5sum_5.png)
+background-position: 50%50%
+
+# Boxplots (Modified) - Lines
+
+---
+background-image: url(figures/fig_5sum_6.png)
+background-position: 50% 50%
+
+# Boxplots (Modified) - IQR and SIQR
+
+
+
+---
+background-image: url(figures/fig_boxplot_hist.png)
+background-position: 50% 70%
+background-size: 1000px
+
+# Boxplot vs. Histogram
+
+
+
+---
+# Boxplots by Group
+
+```{r, echo=FALSE, fig.align='center', fig.height=6}
+set.seed(1)
+data_frame(
+  group = factor(rep(c(0,1), 25)),
+  treatment = ifelse(group == 0, rnorm(25, -1, 2), rnorm(25, 1, 1.5))
+) %>%
+  mutate(group = factor(group, labels = c("Placebo", "Treatment"))) %>%
+  ggplot(aes(x = group, y = treatment, group = group, fill = group)) +
+    geom_boxplot(alpha = .7) +
+    labs(x = "Group",
+         y = "Test Score") +
+    scale_color_manual(values = c("chartreuse3", "coral2"),
+                       guide = FALSE) +
+    theme_minimal(base_size = 18)
+```
+
+
+
+---
+# Density Plots
+
+```{r, echo=FALSE, fig.width=15, fig.align='center', fig.height=6}
+set.seed(1)
+y = data_frame(
+  group = factor(rep(c(0,1), 25)),
+  treatment = ifelse(group == 0, rnorm(25, -1, 2), rnorm(25, 1, 1.5))
+) %>%
+  mutate(group = factor(group, labels = c("Placebo", "Treatment")))
+p1 = ggplot(y,
+            aes(x = treatment)) +
+    geom_density(alpha = .5, fill = "dodgerblue4") +
+    labs(x = "Group",
+         y = "Test Score",
+         title = "Density") +
+    scale_color_manual(values = c("chartreuse3", "coral2"),
+                       guide = FALSE) +
+    theme_minimal(base_size = 18)
+p2 = ggplot(y, aes(x = treatment, group = group, fill = group)) +
+    geom_density(alpha = .5) +
+    labs(x = "Group",
+         y = "Test Score",
+         title = "Density by Group") +
+    scale_fill_manual(values = c("chartreuse3", "coral2"),
+                       guide = FALSE) +
+    theme_minimal(base_size = 18)
+gridExtra::grid.arrange(p1, p2, ncol = 2)
+```
+
+
+---
+# Quantile-Quantile (Q-Q) Plot
+
+```{r, echo=FALSE, fig.align='center', fig.height=6}
+data_frame(x = rnorm(50)) %>%
+  ggplot(aes(sample = x)) +
+    geom_qq() +
+    geom_abline(slope = 1, intercept = 0) +
+    theme_minimal(base_size = 18)
+```
+
+
+---
+class: inverse, center, middle
+
+# Interactive Apps
+
+[Describing and Exploring Quantitative Variables](https://istats.shinyapps.io/EDA_quantitative/ )
+
+
+[Mean versus Median](https://istats.shinyapps.io/MeanvsMedian/)
+
+
+---
+class: inverse, center, middle
+
+# Let's Apply This To the Cancer Dataset <br> (on Canvas)
+
+---
+# Read in the Data
+
+```{r}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(haven)        # Read in SPSS datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+library(psych)        # Lots of nice tid-bits
+```
+
+```{r, eval=FALSE}
+cancer_raw <- haven::read_sav("cancer.sav")
+```
+
+```{r, include=FALSE}
+cancer_raw <- haven::read_sav("data/cancer.sav")
+```
+
+--
+### And Clean It
+
+```{r, message=FALSE, warning=FALSE}
+cancer_clean <- cancer_raw %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(id = factor(id)) %>% 
+  dplyr::mutate(trt = factor(trt,
+                             levels = c(0, 1),
+                             labels = c("Placebo", 
+                                        "Aloe Juice"))) %>% 
+  dplyr::mutate(stage = factor(stage))
+```
+
+---
+## Frequency Tables with `furniture::tableF()`
+
+.pull-left[
+```{r, message=FALSE, warning=FALSE}
+cancer_clean %>%
+  furniture::tableF(age, n = 8)
+```
+]
+
+--
+
+.pull-right[
+```{r, message=FALSE, warning=FALSE}
+cancer_clean %>%
+  furniture::tableF(trt)
+```
+]
+
+---
+## Extensive Descriptive Stats: `psych:describe()`
+
+```{r}
+cancer_clean %>% 
+  dplyr::select(age, weighin, totalcin, totalcw2, totalcw4, totalcw6) %>%
+  psych::describe()
+```
+
+---
+## Brief Descriptive Stats: `furniture::table1()`
+
+.pull-left[
+Defaults
+```{r}
+cancer_clean %>%
+  furniture::table1(trt, age, weighin)
+```
+]
+
+--
+
+.pull-left[
+Add Text
+```{r}
+cancer_clean %>%
+  furniture::table1("Treatment" = trt, 
+                    "Age, years" = age, 
+                    "Weight, lbs" = weighin)
+```
+]
+
+
+---
+## Stratified Stats: `furniture::table1()`
+
+.pull-left[
+Defaults, but increase the number of digits
+```{r}
+cancer_clean %>%
+  dplyr::group_by(trt) %>%        
+  furniture::table1(age, weighin,
+                    digits = 2)
+```
+]
+
+--
+
+.pull-right[
+Add Text
+```{r}
+cancer_clean %>%
+  dplyr::group_by("Treatment" = trt) %>%        
+  furniture::table1("Age, years" = age, 
+                    "Weight, lbs" = weighin,
+                    total = TRUE)
+```
+]
+
+---
+## Boxplot, one one `geom_boxplot()`
+
+```{r}
+cancer_clean %>%
+  ggplot(aes(x = "Full Sample",   # x = "quoted text"
+             y = age)) +          # y = contin_var (no quotes)
+  geom_boxplot()
+```
+
+
+---
+## Boxplots, by groups - (1) fill color
+
+```{r}
+cancer_clean %>%
+  ggplot(aes(x = "Full Sample",           # x = "quoted text"
+             y = age,                     # y = contin_var (no quotes)
+             fill = trt)) +               # fill = group_var (no quotes) 
+  geom_boxplot()
+```
+
+
+
+
+---
+## Boxplots, by groups - (2) x-axis breaks
+
+```{r}
+cancer_clean %>%
+  ggplot(aes(x = trt,             # x = group_var (no quotes)  
+             y = age)) +          # y = contin_var (no quotes)
+  geom_boxplot()
+```
+
+---
+## Boxplots, by groups - (3) seperate panels
+
+```{r}
+cancer_clean %>%
+  ggplot(aes(x = "Full Sample",   # x = "quoted text"
+             y = age)) +          # y = contin_var (no quotes)
+  geom_boxplot() +
+  facet_grid(. ~ trt)             # . ~ group_var (no quotes)
+```
+
+
+---
+## Boxplot for a Subset - 1 requirement 
+
+```{r}
+cancer_clean %>%                # Less than 172 Pound at baseline
+  dplyr::filter(weighin < 172) %>%
+  ggplot(aes(x = "Weigh At Baseline < 172", 
+             y = age)) +
+  geom_boxplot()
+```
+
+
+---
+## Boxplot for a Subset - 2 requirements
+
+```{r}
+cancer_clean %>%           # At least 150 pounds AND not in Aloe group
+  dplyr::filter(weighin >= 150 & trt == "Placebo") %>%
+  ggplot(aes(x = "Placebo and at least 150 Pounds", 
+             y = age)) +
+  geom_boxplot()
+```
+
+
+---
+## Boxplot for a Subset - 2 requirements (`%in%`)
+
+```{r}
+cancer_clean %>%          # In Aloe group, but only stages 2-4
+  dplyr::filter(trt == "Aloe Juice" & stage %in% c(2, 3, 4)) %>%
+  ggplot(aes(x = "On Aloe Juice and Stage 2-4", 
+             y = weighin)) +
+  geom_boxplot()
+```
+
+
+
+---
+## Boxplot for Repeated Measures
+
+.pull-left[
+```{r, eval=FALSE}
+cancer_clean %>%
+  tidyr::pivot_longer(cols = c(totalcw2, 
+                               totalcw4, 
+                               totalcw6),
+                      names_to = "week",
+                      names_pattern = "totalcw(.)",
+                      values_to = "condition") %>%
+  ggplot(aes(x = week, 
+             y = condition)) +
+  geom_boxplot()
+```
+]
+
+.pull-right[
+```{r, echo=FALSE}
+cancer_clean %>%
+  tidyr::pivot_longer(cols = c(totalcw2, 
+                               totalcw4, 
+                               totalcw6),
+                      names_to = "week",
+                      names_pattern = "totalcw(.)",
+                      values_to = "condition") %>%
+  ggplot(aes(x = week, 
+             y = condition)) +
+  geom_boxplot()
+```
+]
+
+---
+## Boxplot: COMPLICATED!
+
+.pull-left[
+```{r, eval=FALSE}
+cancer_clean %>%
+  dplyr::filter(weighin > 130 & 
+                  stage %in% c(2, 4)) %>%
+  tidyr::pivot_longer(cols = c(totalcw2, 
+                               totalcw4, 
+                               totalcw6),
+                      names_to = "week",
+                      names_pattern = "totalcw(.)",
+                      values_to = "condition") %>%
+  ggplot(aes(x = week, 
+             y = condition, 
+             fill = stage)) +
+  geom_boxplot() +
+  facet_grid(. ~ trt)
+```
+]
+
+
+.pull-right[
+```{r, echo=FALSE}
+cancer_clean %>%
+  dplyr::filter(weighin > 130 & 
+                  stage %in% c(2, 4)) %>%
+  tidyr::pivot_longer(cols = c(totalcw2, 
+                               totalcw4, 
+                               totalcw6),
+                      names_to = "week",
+                      names_pattern = "totalcw(.)",
+                      values_to = "condition") %>%
+  ggplot(aes(x = week, 
+             y = condition, 
+             fill = stage)) +
+  geom_boxplot() +
+  facet_grid(. ~ trt)
+```
+]
+
+---
+
+## Alternative: Violin Plots
+
+
+.pull-left[
+```{r, eval=FALSE}
+cancer_clean %>%
+  ggplot(aes(x = trt,           
+             y = age)) +     
+  geom_violin(fill = "gray") +
+  geom_boxplot(fill = "white",
+               alpha = .75,
+               width = .25) +
+  stat_summary(fun = mean,
+               geom = "point",
+               size = 5) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Age in Years") +
+  theme(legend.position = "none") 
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, fig.width=4, fig.height=3, out.width = "100%"}
+cancer_clean %>%
+  ggplot(aes(x = trt,           
+             y = age)) +     
+  geom_violin(fill = "gray") +
+  geom_boxplot(fill = "white",
+               alpha = .75,
+               width = .25) +
+  stat_summary(fun = mean,
+               geom = "point",
+               size = 5) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Age in Years") +
+  theme(legend.position = "none") 
+```
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Questions?
+
+
+---
+class: inverse, center, middle
+
+# Next Topic
+
+### Standard and Normal
+
+
