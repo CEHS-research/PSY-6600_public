@@ -119,8 +119,11 @@ class: center, middle
 .pull-left[
 ## Experimental
 .large[
+
 - Matching groups on some variable(s) 
+
    +  E.g., sex, age, education
+   
 - Reduces potential confounds on IV-DV relationship or when cases cannot receive both conditions
 ]]
 
@@ -129,29 +132,42 @@ class: center, middle
 .pull-left[
 ## Observational
 .large[
+
 - Samples naturally related, correlated, or dependent based on the nature of the situation
+
 - repeated measures taken on the same person
+
 - Measures can be **successive** or **simultaneous**
+
 ]]
 
 
 ---
 # Repeated-Measures: successive designs
 
-.large[
-- 2 measurements, conditions, or sets of stimuli are applied to cases **sequentially**
-- Before-and-after (or longitudinal) designs
+
+- 2 measurements, conditions, or sets of stimuli are applied to cases .dcoral[**sequentially**]
+
+--
+
+- **Before-and-after** or .bluer[longitudinal] designs
     + Pre- / post-test
     + time 1 / time 2
-- Cross-over designs (each particiapnt gets both contintions)
+
+--
+
+- **Cross-over designs** each participant gets both conditions
     + Order effects? 
-    + Need to **counterbalance** order
-- Random subset of cases 
+    + Need to .bluer[counterbalance] order
+    
+--
+
+- .dcoral[**Counterbalancing**] random subset of cases 
     + Half get: A then B
     + Half get: B then A
-- Counterbalancing may not eliminate **carry-over effects**
-    + Wash-out period
-]
+    + May not eliminate .bluer[carry-over effects]
+    + May need a .bluer[Wash-out period]
+
 
 
 
@@ -220,6 +236,12 @@ class: center, middle
 
 ]
 
+---
+
+&lt;!-- Marin Stats Lectures: Paired t-Test (15 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/Q0V7WpzICI8?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
 
 
 ---
@@ -270,93 +292,141 @@ cancer_clean &lt;- cancer_raw %&gt;%
 
 ## The Cancer Dataset
 
-
+- `id` indicates the participant number
 - `totalcin` as the first measurement, a.k.a. the **pre-test**
 - `totalcw6` as the last measurement, a.k.a. the **post-test**
 
-<div id="htmlwidget-69c839532c6d3e61e87e" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-69c839532c6d3e61e87e">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"],["1","5","6","9","11","15","21","26","31","35","39","41","45","2","12","14","16","22","24","34","37","42","44","50","58"],["Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice"],[52,77,60,61,59,69,67,56,61,51,46,65,67,46,56,42,44,27,68,77,86,73,67,60,54],[124,160,136.5,179.6,175.8,167.6,186,158,212.8,189,149,157,186,163.8,227.2,162.6,261.4,225.4,226,164,140,181.5,187,164,172.8],["2","1","4","1","2","1","1","3","1","1","4","1","1","2","4","1","2","1","4","2","1","0","1","2","4"],[6,9,7,6,6,6,6,6,6,6,7,6,8,7,6,4,6,6,12,5,6,8,5,6,7],[6,6,9,7,7,6,11,11,9,4,8,6,8,16,10,6,11,7,11,7,7,11,7,8,8],[6,10,17,9,16,6,11,15,6,8,11,9,9,9,11,8,11,6,12,13,7,16,7,16,10],[7,9,19,3,13,11,10,15,8,7,11,6,10,10,9,7,14,6,9,12,7,null,7,null,8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>trt<\/th>\n      <th>age<\/th>\n      <th>weighin<\/th>\n      <th>stage<\/th>\n      <th>totalcin<\/th>\n      <th>totalcw2<\/th>\n      <th>totalcw4<\/th>\n      <th>totalcw6<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[3,4,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+&gt; IGNORE all other variables and other time points for now...
+
+<div id="htmlwidget-bf11ed8c55b00fa63222" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-bf11ed8c55b00fa63222">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"],["1","5","6","9","11","15","21","26","31","35","39","41","45","2","12","14","16","22","24","34","37","42","44","50","58"],["Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice"],[52,77,60,61,59,69,67,56,61,51,46,65,67,46,56,42,44,27,68,77,86,73,67,60,54],[124,160,136.5,179.6,175.8,167.6,186,158,212.8,189,149,157,186,163.8,227.2,162.6,261.4,225.4,226,164,140,181.5,187,164,172.8],["2","1","4","1","2","1","1","3","1","1","4","1","1","2","4","1","2","1","4","2","1","0","1","2","4"],[6,9,7,6,6,6,6,6,6,6,7,6,8,7,6,4,6,6,12,5,6,8,5,6,7],[6,6,9,7,7,6,11,11,9,4,8,6,8,16,10,6,11,7,11,7,7,11,7,8,8],[6,10,17,9,16,6,11,15,6,8,11,9,9,9,11,8,11,6,12,13,7,16,7,16,10],[7,9,19,3,13,11,10,15,8,7,11,6,10,10,9,7,14,6,9,12,7,null,7,null,8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>trt<\/th>\n      <th>age<\/th>\n      <th>weighin<\/th>\n      <th>stage<\/th>\n      <th>totalcin<\/th>\n      <th>totalcw2<\/th>\n      <th>totalcw4<\/th>\n      <th>totalcw6<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[3,4,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
 
-### Example) Data Wrangling
+### Example) Data Wrangling - Create a "DIFFERENCE" score
 
-**Create a "DIFFERENCE" score**
+- a.k.a. "CHANGE SCORE" (restrict to complete data)
 
-- a.k.a. "CHANGE SCORE"
+&gt; One line PER PERSON...time points side-by-side on the same line
 
 
 ```r
 cancer_new &lt;- cancer_clean %&gt;% 
-  dplyr::mutate(totalc_diff = totalcw6 - totalcin) 
+  dplyr::mutate(totalc_diff = totalcw6 - totalcin) %&gt;% 
+  dplyr::filter(complete.cases(totalcin, totalcw6)) %&gt;% 
+  dplyr::select(id, totalcin, totalcw6, totalc_diff)
 ```
 
+<div id="htmlwidget-e5b312bbfe3cb191fef1" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e5b312bbfe3cb191fef1">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"],["1","5","6","9","11","15","21","26","31","35","39","41","45","2","12","14","16","22","24","34","37","44","58"],[6,9,7,6,6,6,6,6,6,6,7,6,8,7,6,4,6,6,12,5,6,5,7],[7,9,19,3,13,11,10,15,8,7,11,6,10,10,9,7,14,6,9,12,7,7,8],[1,0,12,-3,7,5,4,9,2,1,4,0,2,3,3,3,8,0,-3,7,1,2,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>totalcin<\/th>\n      <th>totalcw6<\/th>\n      <th>totalc_diff<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
---
 
-**Restructure to "LONG" format**
+---
 
-- one line PER time point
+### Example) Data Wrangling - Restructure to "LONG" format
+
+&gt; One line PER TIME POINT per person...each person will have TWO lines
 
 
 ```r
 cancer_long &lt;- cancer_new %&gt;% 
   tidyr::pivot_longer(cols = c(totalcin, totalcw6),
-                      names_to = "time",
-                      names_pattern = "totalc(.*)",
-                      values_to = "totalc") %&gt;% 
-  dplyr::mutate(time = factor(time,
-                              levels = c("in", "w6"),
-                              labels = c("Intake", "Week 6")))
+                      names_to = c(".value", "time"),
+                      names_pattern = "(.*)(..)") %&gt;% 
+  dplyr::mutate(time = factor(time) %&gt;% 
+                  forcats::fct_recode("Intake" = "in",
+                                      "Week 6" = "w6"))
 ```
+
+
+
+<div id="htmlwidget-3601d0cec1342bd79164" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3601d0cec1342bd79164">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46"],["1","1","5","5","6","6","9","9","11","11","15","15","21","21","26","26","31","31","35","35","39","39","41","41","45","45","2","2","12","12","14","14","16","16","22","22","24","24","34","34","37","37","44","44","58","58"],[1,1,0,0,12,12,-3,-3,7,7,5,5,4,4,9,9,2,2,1,1,4,4,0,0,2,2,3,3,3,3,3,3,8,8,0,0,-3,-3,7,7,1,1,2,2,1,1],["Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6"],[6,7,9,9,7,19,6,3,6,13,6,11,6,10,6,15,6,8,6,7,7,11,6,6,8,10,7,10,6,9,4,7,6,14,6,6,12,9,5,12,6,7,5,7,7,8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>totalc_diff<\/th>\n      <th>time<\/th>\n      <th>totalc<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[2,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
 
-### Example) Histograms &amp; Boxplots
+### Example) Both Time points: Histograms &amp; Boxplots
 
-**Distribution at Each Time Point**
 
-.pull-right[
+.pull-left[
+
+**Separate Histograms**
+ 
+&gt; Ignores Pairing!
 
 &lt;img src="ch11_matched_files/figure-html/histoboth-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ]
 
+.pull-right[
 
-.pull-left[
+**Side-by-Side Boxplots**
 
-&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
-
-
-
-]
-
----
-
-### Example) Histograms &amp; Boxplots
-
-.pull-left[
-
-**Distribution of Change in Scores**
-
-&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
-
-
-]
-
-
-
-.pull-left[
-
-**Distribution at Each Time Point**
+&gt; Ignores pairing!
 
 &lt;img src="ch11_matched_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
 
 
+
 ]
+
+
+---
+
+
+### Example) Both Time points: Line Plot and Scatter Plot
+
+
+.pull-left[
+
+**Line Plot for Paired t-Test**
+ 
+&gt; Is there a Mean Difference?  Looks like yes
+
+&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+.pull-right[
+
+**Scatter Plot for Correlation/Regression**
+ 
+&gt; Is there a Correlation? Looks like no
+
+&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+
+---
+
+### Example) Change Scores: Histograms &amp; Boxplots
+
+.pull-left[
+
+**Histogram of Change in Scores**
+
+&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+
+.pull-left[
+
+**Boxplot of Change in Scores**
+
+&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
 
 
 
@@ -364,7 +434,7 @@ cancer_long &lt;- cancer_new %&gt;%
 ### Example) Summary Statistics
 
 
---
+
 .pull-left[
 **Means and Standard Deviations**
 
@@ -424,6 +494,254 @@ sample estimates:
 ]
 
 
+
+
+---
+
+### Example) Direct Difference Method (Ch 7. 1-sample test)
+
+
+
+```r
+cancer_new %&gt;% 
+  dplyr::pull(totalc_diff) %&gt;% 
+  t.test(mu = 0)
+```
+
+--
+
+
+```
+
+	One Sample t-test
+
+data:  .
+t = 3.9092, df = 22, p-value = 0.0007524
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 1.408469 4.591531
+sample estimates:
+mean of x 
+        3 
+```
+
+
+
+--
+
+**Interpretation**
+
+--
+
+&gt; The 23 participants' oral condition was measured as intake (*M* = 6.48, *SD* = 1.56) and re-evaluated six weeks later (*M* = 9.48, *SD* = 3.49).  A paired samples t-Test on the repeated measures (*r* = .908) found a this to be a statistically significantly deterioration, *t*(22) = 3.91, *p* &lt; .001, 95% *CI* [1.41, 4.59].
+
+
+---
+
+### Example) Paired t-Test Method (adjustment to the indept t-test)
+
+.pull-left[
+
+```r
+cancer_long %&gt;% 
+  t.test(totalc ~ time,  # DV_cont ~ IV_time
+         data = .,
+         paired = TRUE)
+```
+]
+
+--
+
+.pull-right[
+
+```
+
+	Paired t-test
+
+data:  totalc by time
+t = -3.9092, df = 22, p-value = 0.0007524
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -4.591531 -1.408469
+sample estimates:
+mean of the differences 
+                     -3 
+```
+]
+
+
+--
+
+**Interpretation**
+
+--
+
+&gt; The 23 participants' oral condition was measured as intake (*M* = 6.48, *SD* = 1.56) and re-evaluated six weeks later (*M* = 9.48, *SD* = 3.49).  A paired samples t-Test on the repeated measures (*r* = .908) found a this to be a statistically significantly deterioration, *t*(22) = 3.91, *p* &lt; .001, 95% *CI* [1.41, 4.59].
+
+
+.dcoral[**NOTE** *We usually report positive values for the test statistic (t), as well as the confidence interval values.*]
+
+
+
+
+---
+
+### Example) One-Sided Alternative Tests and Confidence Intervals
+
+.pull-leftsmall[
+
+```r
+cancer_long %&gt;% 
+  t.test(totalc ~ time, 
+         data = .,
+         alternative = "two.sided",
+         paired = TRUE)
+```
+
+
+&lt;br&gt;&lt;br&gt;
+
+
+```r
+cancer_long %&gt;% 
+  t.test(totalc ~ time,
+         data = .,
+         alternative = "less",
+         paired = TRUE)
+```
+
+.dcoral[**NOTE** You MUST use the 2-sided test to get a meaningful Confidence Interval!]
+
+]
+
+.pull-rightbig[
+
+
+```
+
+	Paired t-test
+
+data:  totalc by time
+t = -3.9092, df = 22, p-value = 0.0007524
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -4.591531 -1.408469
+sample estimates:
+mean of the differences 
+                     -3 
+```
+
+
+```
+
+	Paired t-test
+
+data:  totalc by time
+t = -3.9092, df = 22, p-value = 0.0003762
+alternative hypothesis: true difference in means is less than 0
+95 percent confidence interval:
+     -Inf -1.68223
+sample estimates:
+mean of the differences 
+                     -3 
+```
+
+]
+
+
+---
+
+### Example) Effect Size: Cohen's d for MATCHED samples
+
+&gt; This will be .dcoral[**bias**] for the populations effect size when based on sample data
+
+--
+
+.pull-left[
+Step 1) Compute Cohen's d as IF we had independent samples
+
+`$$d_{orig} = \frac{\overline{D}}{SD_{diff}}\tag{8.2}$$`
+
+
+```r
+d =3/(3.68)   
+d
+```
+
+```
+[1] 0.8152174
+```
+
+]
+
+--
+
+.pull-right[
+
+Step 2) Adjust for the correlation between measures (lack of independence)
+
+`$$d_{matched} = d_{orig} \sqrt{\frac{1}{2(1 - \rho)}}\tag{11.5}$$`
+
+
+```r
+d*sqrt(1/(2*(1 - .098)))
+```
+
+```
+[1] 0.6069531
+```
+
+]
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+**Interpretation**
+
+--
+
+&gt; After accounting for correlation between repeated-measures, the oral condition increased by 0.61 standard deviations. 
+
+
+---
+
+### Example) Effect Size: Hedge's g for MATCHED samples
+
+
+&gt; This will be LESS bias for the populations effect size when based on sample data
+
+
+--
+
+`$$g_{matched} = t \sqrt{\frac{1}{n}}\tag{11.6}$$`
+--
+
+
+```r
+3.9092*sqrt(1/23)
+```
+
+```
+[1] 0.8151245
+```
+
+
+--
+
+&lt;br&gt;&lt;br&gt;
+
+**Interpretation**
+
+--
+
+&gt; After accounting for correlation between repeated-measures, the oral condition increased by 0.82 standard deviations. 
+
+
+.dcoral[**Read the paragraph at the end of page 351!**]
+
+
+
 ---
 class: inverse, center, middle
 
@@ -435,7 +753,7 @@ class: inverse, center, middle
 
 # Next Topic
 
-### Matched T-Test
+### One-Way ANOVAs
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

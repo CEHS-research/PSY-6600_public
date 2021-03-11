@@ -116,8 +116,11 @@ class: center, middle
 .pull-left[
 ## Experimental
 .large[
+
 - Matching groups on some variable(s) 
+
    +  E.g., sex, age, education
+   
 - Reduces potential confounds on IV-DV relationship or when cases cannot receive both conditions
 ]]
 
@@ -126,29 +129,42 @@ class: center, middle
 .pull-left[
 ## Observational
 .large[
+
 - Samples naturally related, correlated, or dependent based on the nature of the situation
+
 - repeated measures taken on the same person
+
 - Measures can be **successive** or **simultaneous**
+
 ]]
 
 
 ---
 # Repeated-Measures: successive designs
 
-.large[
-- 2 measurements, conditions, or sets of stimuli are applied to cases **sequentially**
-- Before-and-after (or longitudinal) designs
+
+- 2 measurements, conditions, or sets of stimuli are applied to cases .dcoral[**sequentially**]
+
+--
+
+- **Before-and-after** or .bluer[longitudinal] designs
     + Pre- / post-test
     + time 1 / time 2
-- Cross-over designs (each particiapnt gets both contintions)
+
+--
+
+- **Cross-over designs** each participant gets both conditions
     + Order effects? 
-    + Need to **counterbalance** order
-- Random subset of cases 
+    + Need to .bluer[counterbalance] order
+    
+--
+
+- .dcoral[**Counterbalancing**] random subset of cases 
     + Half get: A then B
     + Half get: B then A
-- Counterbalancing may not eliminate **carry-over effects**
-    + Wash-out period
-]
+    + May not eliminate .bluer[carry-over effects]
+    + May need a .bluer[Wash-out period]
+
 
 
 
@@ -221,6 +237,12 @@ $$t=\frac{\overline{D}-\mu_0}{\sqrt{\frac{s_1^2 + s_2^2}{n}- \frac{2rs_1s_2}{n}}
 
 ]
 
+---
+
+<!-- Marin Stats Lectures: Paired t-Test (15 min)-->
+
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/Q0V7WpzICI8?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 
 ---
@@ -272,9 +294,11 @@ cancer_clean <- cancer_raw %>%
 
 ## The Cancer Dataset
 
-
+- `id` indicates the participant number
 - `totalcin` as the first measurement, a.k.a. the **pre-test**
 - `totalcw6` as the last measurement, a.k.a. the **post-test**
+
+> IGNORE all other variables and other time points for now...
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 cancer_clean %>% 
@@ -284,43 +308,59 @@ cancer_clean %>%
 
 ---
 
-### Example) Data Wrangling
+### Example) Data Wrangling - Create a "DIFFERENCE" score
 
-**Create a "DIFFERENCE" score**
+- a.k.a. "CHANGE SCORE" (restrict to complete data)
 
-- a.k.a. "CHANGE SCORE"
+> One line PER PERSON...time points side-by-side on the same line
 
 ```{r}
 cancer_new <- cancer_clean %>% 
-  dplyr::mutate(totalc_diff = totalcw6 - totalcin) 
+  dplyr::mutate(totalc_diff = totalcw6 - totalcin) %>% 
+  dplyr::filter(complete.cases(totalcin, totalcw6)) %>% 
+  dplyr::select(id, totalcin, totalcw6, totalc_diff)
 ```
 
-
---
-
-**Restructure to "LONG" format**
-
-- one line PER time point
-
-```{r}
-cancer_long <- cancer_new %>% 
-  tidyr::pivot_longer(cols = c(totalcin, totalcw6),
-                      names_to = "time",
-                      names_pattern = "totalc(.*)",
-                      values_to = "totalc") %>% 
-  dplyr::mutate(time = factor(time,
-                              levels = c("in", "w6"),
-                              labels = c("Intake", "Week 6")))
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cancer_new %>% 
+  DT::datatable(options = list(pageLength = 5))
 ```
 
 
 ---
 
-### Example) Histograms & Boxplots
+### Example) Data Wrangling - Restructure to "LONG" format
 
-**Distribution at Each Time Point**
+> One line PER TIME POINT per person...each person will have TWO lines
 
-.pull-right[
+```{r}
+cancer_long <- cancer_new %>% 
+  tidyr::pivot_longer(cols = c(totalcin, totalcw6),
+                      names_to = c(".value", "time"),
+                      names_pattern = "(.*)(..)") %>% 
+  dplyr::mutate(time = factor(time) %>% 
+                  forcats::fct_recode("Intake" = "in",
+                                      "Week 6" = "w6"))
+```
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+cancer_long %>% 
+  DT::datatable(options = list(pageLength = 5))
+```
+
+
+---
+
+### Example) Both Time points: Histograms & Boxplots
+
+
+.pull-left[
+
+**Separate Histograms**
+ 
+> Ignores Pairing!
 
 ```{r histoboth, echo=FALSE}
 cancer_long %>% 
@@ -349,8 +389,11 @@ cancer_long %>%
 
 ]
 
+.pull-right[
 
-.pull-left[
+**Side-by-Side Boxplots**
+
+> Ignores pairing!
 
 ```{r, echo=FALSE}
 cancer_long %>% 
@@ -371,13 +414,73 @@ cancer_long %>%
 
 ]
 
+
 ---
 
-### Example) Histograms & Boxplots
+
+### Example) Both Time points: Line Plot and Scatter Plot
+
 
 .pull-left[
 
-**Distribution of Change in Scores**
+**Line Plot for Paired t-Test**
+ 
+> Is there a Mean Difference?  Looks like yes
+
+```{r, echo=FALSE}
+cancer_long %>% 
+  ggplot(aes(x = time,
+             y = totalc)) +
+  geom_violin(fill = "gray") +
+  geom_point() +
+  geom_line(aes(group = id)) +
+  stat_summary(fun = mean,
+               geom = "point",
+               color = "red",
+               size = 5,
+               shape = 18) +
+  stat_summary(aes(group = 1),
+               fun = mean,
+               geom = "line",
+               color = "red",
+               size = 1,
+               shape = 18) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Total Oral Condition") 
+```
+
+]
+
+.pull-right[
+
+**Scatter Plot for Correlation/Regression**
+ 
+> Is there a Correlation? Looks like no
+
+```{r, echo=FALSE}
+cancer_new %>% 
+  ggplot(aes(x = totalcin,
+             y = totalcw6)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  theme_bw() +
+  labs(x = "Total Oral Condition at Intake",
+       y = "Total Oral Condition at Six Weeks")
+```
+
+
+]
+
+
+
+---
+
+### Example) Change Scores: Histograms & Boxplots
+
+.pull-left[
+
+**Histogram of Change in Scores**
 
 ```{r, echo=FALSE}
 cancer_new %>% 
@@ -410,7 +513,7 @@ cancer_new %>%
 
 .pull-left[
 
-**Distribution at Each Time Point**
+**Boxplot of Change in Scores**
 
 ```{r, echo=FALSE}
 cancer_new %>% 
@@ -434,11 +537,12 @@ cancer_new %>%
 
 
 
+
 ---
 ### Example) Summary Statistics
 
 
---
+
 .pull-left[
 **Means and Standard Deviations**
 
@@ -468,6 +572,191 @@ cancer_new %>%
 ]
 
 
+
+
+---
+
+### Example) Direct Difference Method (Ch 7. 1-sample test)
+
+
+```{r directdif, eval=FALSE}
+cancer_new %>% 
+  dplyr::pull(totalc_diff) %>% 
+  t.test(mu = 0)
+```
+
+--
+
+```{r, ref.label="directdif", echo=FALSE}
+
+```
+
+
+
+--
+
+**Interpretation**
+
+--
+
+> The 23 participants' oral condition was measured as intake (*M* = 6.48, *SD* = 1.56) and re-evaluated six weeks later (*M* = 9.48, *SD* = 3.49).  A paired samples t-Test on the repeated measures (*r* = .908) found a this to be a statistically significantly deterioration, *t*(22) = 3.91, *p* < .001, 95% *CI* [1.41, 4.59].
+
+
+---
+
+### Example) Paired t-Test Method (adjustment to the indept t-test)
+
+.pull-left[
+```{r pairt, eval=FALSE}
+cancer_long %>% 
+  t.test(totalc ~ time,  # DV_cont ~ IV_time
+         data = .,
+         paired = TRUE)
+```
+]
+
+--
+
+.pull-right[
+```{r, ref.label="pairt", echo=FALSE}
+
+```
+]
+
+
+--
+
+**Interpretation**
+
+--
+
+> The 23 participants' oral condition was measured as intake (*M* = 6.48, *SD* = 1.56) and re-evaluated six weeks later (*M* = 9.48, *SD* = 3.49).  A paired samples t-Test on the repeated measures (*r* = .908) found a this to be a statistically significantly deterioration, *t*(22) = 3.91, *p* < .001, 95% *CI* [1.41, 4.59].
+
+
+.dcoral[**NOTE** *We usually report positive values for the test statistic (t), as well as the confidence interval values.*]
+
+
+
+
+---
+
+### Example) One-Sided Alternative Tests and Confidence Intervals
+
+.pull-leftsmall[
+```{r twoside, eval=FALSE}
+cancer_long %>% 
+  t.test(totalc ~ time, 
+         data = .,
+         alternative = "two.sided",
+         paired = TRUE)
+```
+
+
+<br><br>
+
+```{r oneside, eval=FALSE }
+cancer_long %>% 
+  t.test(totalc ~ time,
+         data = .,
+         alternative = "less",
+         paired = TRUE)
+```
+
+.dcoral[**NOTE** You MUST use the 2-sided test to get a meaningful Confidence Interval!]
+
+]
+
+.pull-rightbig[
+
+```{r, ref.label="twoside", echo=FALSE}
+
+```
+
+```{r, ref.label="oneside", echo=FALSE}
+
+```
+
+]
+
+
+---
+
+### Example) Effect Size: Cohen's d for MATCHED samples
+
+> This will be .dcoral[**bias**] for the populations effect size when based on sample data
+
+--
+
+.pull-left[
+Step 1) Compute Cohen's d as IF we had independent samples
+
+$$d_{orig} = \frac{\overline{D}}{SD_{diff}}\tag{8.2}$$
+
+```{r}
+d =3/(3.68)   
+d
+```
+
+]
+
+--
+
+.pull-right[
+
+Step 2) Adjust for the correlation between measures (lack of independence)
+
+$$d_{matched} = d_{orig} \sqrt{\frac{1}{2(1 - \rho)}}\tag{11.5}$$
+
+```{r}
+d*sqrt(1/(2*(1 - .098)))
+```
+
+]
+
+--
+
+<br><br>
+
+**Interpretation**
+
+--
+
+> After accounting for correlation between repeated-measures, the oral condition increased by 0.61 standard deviations. 
+
+
+---
+
+### Example) Effect Size: Hedge's g for MATCHED samples
+
+
+> This will be LESS bias for the populations effect size when based on sample data
+
+
+--
+
+$$g_{matched} = t \sqrt{\frac{1}{n}}\tag{11.6}$$
+--
+
+```{r}
+3.9092*sqrt(1/23)
+```
+
+
+--
+
+<br><br>
+
+**Interpretation**
+
+--
+
+> After accounting for correlation between repeated-measures, the oral condition increased by 0.82 standard deviations. 
+
+
+.dcoral[**Read the paragraph at the end of page 351!**]
+
+
+
 ---
 class: inverse, center, middle
 
@@ -479,4 +768,4 @@ class: inverse, center, middle
 
 # Next Topic
 
-### Matched T-Test
+### One-Way ANOVAs

@@ -1,4 +1,5 @@
 base
+DT
 tidyverse
 ggplot2
 tibble
@@ -10,5 +11,4 @@ stringr
 forcats
 haven
 furniture
-DT
 psych

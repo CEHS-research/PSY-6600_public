@@ -220,6 +220,13 @@ knitr::include_graphics("figures/fig_t_table_top.png")
 ```
 
 
+---
+
+<!-- StatCast: What is a t-test? (10 min)-->
+
+<iframe width="1000" height="750" src="https://www.youtube.com/embed/0Pd3dc1GcHc?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
 
 ---
 # Calculating the t-Statistic

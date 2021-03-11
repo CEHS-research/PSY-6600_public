@@ -1,3 +1,0 @@
-"0","cancer_raw <- haven::read_spss(""cancer.sav"")"
-"2","Error: 'cancer.sav' does not exist in current working directory ('C:/Users/A00315273/Documents/GitHub/PSY-6600_public/slides').
-"
