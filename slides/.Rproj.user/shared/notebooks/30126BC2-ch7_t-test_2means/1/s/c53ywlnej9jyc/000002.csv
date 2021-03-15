@@ -1,4 +1,0 @@
-"0","df1_long %>% "
-"0","  ggplot(aes(x = pill,"
-"0","             y = depression)) +"
-"0","  geom_boxplot()"

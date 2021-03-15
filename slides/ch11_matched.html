@@ -150,23 +150,23 @@ class: center, middle
 
 --
 
-- **Before-and-after** or .bluer[longitudinal] designs
-    + Pre- / post-test
-    + time 1 / time 2
+- **Before-and-after** or .dcoral[longitudinal] designs
+   - Pre- / post-test
+   - time 1 / time 2
 
 --
 
 - **Cross-over designs** each participant gets both conditions
-    + Order effects? 
-    + Need to .bluer[counterbalance] order
+   - Order effects? 
+   -  Need to .dcoral[counterbalance] order
     
 --
 
 - .dcoral[**Counterbalancing**] random subset of cases 
-    + Half get: A then B
-    + Half get: B then A
-    + May not eliminate .bluer[carry-over effects]
-    + May need a .bluer[Wash-out period]
+    - Half get: A then B
+    - Half get: B then A
+    - May not eliminate **carry-over effects**
+    - May need a **Wash-out period**
 
 
 
@@ -199,6 +199,7 @@ class: center, middle
     + Person 3: `\(D_3 = x_2 - y_3\)`
     + `\(\dots\)`
     
+   
 - **Summary Stats**: for the .dcoral[DIFFERENCES]
     + M: `\(\overline{D}\)`
     + SD: `\(s_D\)`
@@ -304,7 +305,7 @@ cancer_clean &lt;- cancer_raw %&gt;%
 
 ---
 
-### Example) Data Wrangling - Create a "DIFFERENCE" score
+### Example 1) Data Wrangling - Create a "DIFFERENCE" score
 
 - a.k.a. "CHANGE SCORE" (restrict to complete data)
 
@@ -324,7 +325,7 @@ cancer_new &lt;- cancer_clean %&gt;%
 
 ---
 
-### Example) Data Wrangling - Restructure to "LONG" format
+### Example 1) Data Wrangling - Restructure to "LONG" format
 
 &gt; One line PER TIME POINT per person...each person will have TWO lines
 
@@ -347,7 +348,7 @@ cancer_long &lt;- cancer_new %&gt;%
 
 ---
 
-### Example) Both Time points: Histograms &amp; Boxplots
+### Example 1) Both Time points: Histograms &amp; Boxplots
 
 
 .pull-left[
@@ -377,7 +378,7 @@ cancer_long &lt;- cancer_new %&gt;%
 ---
 
 
-### Example) Both Time points: Line Plot and Scatter Plot
+### Example 1) Both Time points: Line Plot and Scatter Plot
 
 
 .pull-left[
@@ -405,7 +406,7 @@ cancer_long &lt;- cancer_new %&gt;%
 
 ---
 
-### Example) Change Scores: Histograms &amp; Boxplots
+### Example 1) Change Scores: Histograms &amp; Boxplots
 
 .pull-left[
 
@@ -418,7 +419,7 @@ cancer_long &lt;- cancer_new %&gt;%
 
 
 
-.pull-left[
+.pull-right[
 
 **Boxplot of Change in Scores**
 
@@ -431,7 +432,7 @@ cancer_long &lt;- cancer_new %&gt;%
 
 
 ---
-### Example) Summary Statistics
+### Example 1) Summary Statistics
 
 
 
@@ -498,7 +499,7 @@ sample estimates:
 
 ---
 
-### Example) Direct Difference Method (Ch 7. 1-sample test)
+### Example 1) Direct Difference Method (Ch 7. 1-sample test)
 
 
 
@@ -538,7 +539,7 @@ mean of x
 
 ---
 
-### Example) Paired t-Test Method (adjustment to the indept t-test)
+### Example 1) Paired t-Test Method (adjust indept t-test)
 
 .pull-left[
 
@@ -586,7 +587,7 @@ mean of the differences
 
 ---
 
-### Example) One-Sided Alternative Tests and Confidence Intervals
+### Example 1) One-Sided Alternative Tests and Confidence Intervals
 
 .pull-leftsmall[
 
@@ -651,7 +652,7 @@ mean of the differences
 
 ---
 
-### Example) Effect Size: Cohen's d for MATCHED samples
+### Example 1) Effect Size: Cohen's d for MATCHED samples
 
 &gt; This will be .dcoral[**bias**] for the populations effect size when based on sample data
 
@@ -706,7 +707,7 @@ d*sqrt(1/(2*(1 - .098)))
 
 ---
 
-### Example) Effect Size: Hedge's g for MATCHED samples
+### Example 1) Effect Size: Hedge's g for MATCHED samples
 
 
 &gt; This will be LESS bias for the populations effect size when based on sample data

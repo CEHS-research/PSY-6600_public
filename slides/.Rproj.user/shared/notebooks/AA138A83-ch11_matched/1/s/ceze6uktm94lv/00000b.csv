@@ -1,8 +1,0 @@
-"0","cancer_new %>% "
-"0","  ggplot(aes(x = totalcin,"
-"0","             y = totalcw6)) +"
-"0","  geom_point() +"
-"0","  geom_smooth(method = ""lm"") +"
-"0","  theme_bw() +"
-"0","  labs(x = ""Total Oral Condition at Intake"","
-"0","       y = ""Total Oral Condition at Six Weeks"")"

@@ -1,4 +1,0 @@
-"0","cancer_new <- cancer_clean %>% "
-"0","  dplyr::mutate(totalc_diff = totalcw6 - totalcin) %>% "
-"0","  dplyr::filter(complete.cases(totalcin, totalcw6)) %>% "
-"0","  dplyr::select(id, totalcin, totalcw6, totalc_diff)"

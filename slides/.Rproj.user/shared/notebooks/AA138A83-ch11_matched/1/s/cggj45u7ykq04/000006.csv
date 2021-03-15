@@ -1,2 +1,0 @@
-"0","cancer_clean %>% "
-"0","  DT::datatable(options = list(pageLength = 5))"

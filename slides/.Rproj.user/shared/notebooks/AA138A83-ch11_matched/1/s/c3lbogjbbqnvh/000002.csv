@@ -1,7 +1,0 @@
-"0","cancer_clean <- cancer_raw %>% "
-"0","  dplyr::rename_all(tolower) %>% "
-"0","  dplyr::mutate(id = factor(id)) %>% "
-"0","  dplyr::mutate(trt = factor(trt,"
-"0","                             labels = c(""Placebo"", "
-"0","                                        ""Aloe Juice""))) %>% "
-"0","  dplyr::mutate(stage = factor(stage))"

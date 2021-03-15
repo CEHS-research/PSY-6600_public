@@ -1,4 +1,0 @@
-"0","## This is a comment"
-"0","mean(df$age)"
-"2","Error in df$age : object of type 'closure' is not subsettable
-"
