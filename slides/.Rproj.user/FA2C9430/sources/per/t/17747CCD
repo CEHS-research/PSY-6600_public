@@ -3,7 +3,7 @@
     "path": "~/GitHub/PSY-6600_public/slides/ch11_matched.Rmd",
     "project_path": "ch11_matched.Rmd",
     "type": "r_markdown",
-    "hash": "252090594",
+    "hash": "4169886822",
     "contents": "",
     "dirty": false,
     "created": 1615845266400.0,
@@ -11,14 +11,19 @@
     "relative_order": 1,
     "properties": {
         "source_window_id": "",
-        "Source": "Source"
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "cursorPosition": "156,0",
+        "scrollLine": "136",
+        "rmdVisualModeLocation": "2:0",
+        "last_setup_crc32": "4B6C1F51ebade6cf"
     },
     "folds": "",
-    "lastKnownWriteTime": 1615613103,
+    "lastKnownWriteTime": 1616181163,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1615613103,
+    "last_content_update": 1616181163548,
     "read_only": false,
     "read_only_alternatives": []
 }

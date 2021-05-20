@@ -1,0 +1,6 @@
+"0","memory %>% "
+"0","  furniture::table1(""Sound Alike Word Errors"" = sound,"
+"0","                    ""Look Alike Word Errors""  = look,"
+"0","                    ""Difference in Number of Errors"" = sound - look,"
+"0","                    digits = 2,"
+"0","                    output = ""markdown"")"

@@ -1,0 +1,8 @@
+"0","memory_long <- memory %>% "
+"0","  tidyr::pivot_longer(cols         = c(sound, look),"
+"0","                      names_to     = ""type"","
+"0","                      names_ptypes = list(type = factor()),"
+"0","                      values_to    = ""errors"")"
+"0",""
+"0","memory_long %>% "
+"0","  psych::headTail(top = 6)"

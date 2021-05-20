@@ -1,0 +1,8 @@
+"0","GRE_long <- GRE %>% "
+"0","  tidyr::pivot_longer(cols         = c(verbalGRE_1, verbalGRE_2),"
+"0","                      names_to     = ""time"","
+"0","                      names_prefix = ""verbalGRE_"","
+"0","                      names_ptypes = list(time = factor()),"
+"0","                      values_to    = ""verbalGRE"")"
+"0",""
+"0","GRE_long"

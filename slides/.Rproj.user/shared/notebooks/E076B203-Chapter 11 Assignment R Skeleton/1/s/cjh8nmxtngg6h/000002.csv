@@ -1,0 +1,6 @@
+"0","GRE %>% "
+"0","  furniture::table1(""First Attempt""  = verbalGRE_1, "
+"0","                    ""Second Attempt"" = verbalGRE_2, "
+"0","                    ""Difference in Attempts"" = verbalGRE_1 - verbalGRE_2,"
+"0","                    digits = 2,"
+"0","                    output = ""markdown"")"

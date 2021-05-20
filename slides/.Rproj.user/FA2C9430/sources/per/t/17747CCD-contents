@@ -31,24 +31,87 @@ class: center, middle
 #### - Sherlock Holmes, *Silver Blaze*
 
 
+
 ---
-## Motivating Examples
+## Compare Two Means 
 
-.large[
-- Dr. Filburn wishes to assess the **effectiveness** of a leadership workshop for 60 middle managers. The 60 managers are rated by their immediate supervisors on the Leadership Rating Form (LRF), .coral[before] **and** .nicegreen[after] the workshop.
-]
+
+### Independent Groups *t*-Test
+
+- Assumes two .bluer["Simple Random Samples"] (SRS)
+
+- Each sample is at least **representive** of its corresponding population
+
+- All members of **EACH** the samples are .dcoral[**INDEPENDENT**] of all others
+
+- .nicegreen[**There is no connection between members of the two samples**]
 
 --
 
-.large[
-- Dr. Clarke is interested in determining if workers are more concerned with job security **or** pay. He gains the cooperation of 30 individuals who work in different settings and asks each employee to rate his or her concern about .coral[salary level] **and** .nicegreen[job security], on a scale from 1 to 10.
-]
+<br><br>
+
+### Dependent Groups *t*-Test
+
+- The assumption of .dcoral[**independence**] has been VIOLATED, resulting in a .nicegreen[**DEPENDENCY*]* across groups
+
+- Variance of DV smaller as groups consist of same or closely matched cases
+
+
+
+
+---
+
+## "All models are wrong, some models are useful."
+
+The first record of .nicegreen[George Box] saying **"all models are wrong"** is in a 1976 paper published in the *Journal of the American Statistical Association*. The 1976 paper contains the aphorism twice. The two sections of the paper that contain the aphorism are copied below.
+
+<br>
+
+--
+**Parsimony**
+
+Since all models are wrong the scientist cannot obtain a "correct" one by excessive elaboration. On the contrary following .nicegreen[William of Occam] he should seek an economical description of natural phenomena. Just as the ability to devise .dcoral[simple but evocative models] is the signature of the great scientist so .bluer[overelaboration] and .bluer[overparameterization] is often the mark of mediocrity.
+
 
 --
 
-.large[
-- Dr. Gale questions whether husbands **or** wives with infertility problems feel equally anxious. She recruits 24 infertile couples and then administers the Infertility Anxiety Measure (IAM) to both the .coral[husbands] **and** the .nicegreen[wives].
-]
+**Worrying Selectively**
+
+Since all models are wrong the scientist must be alert to .dcoral[what is importantly wrong]. It is inappropriate to be concerned about mice when there are tigers abroad.
+
+
+--
+.centered[.dcoral[.large[
+**IF** there is correlation, **THEN** your model should leverage it!
+]]]
+
+
+
+---
+
+**Observational - Longitudinal Repeated Measures: Collect Same Measure Before-and-After**
+
+Dr. Filburn wishes to assess the **effectiveness** of a leadership workshop for 60 middle managers. The 60 managers are rated by their immediate supervisors on the Leadership Rating Form (LRF), .coral[before] **and** .nicegreen[after] the workshop.
+
+
+--
+
+**Observational - Repeated Measures: Simultaneously Collected Different Measures**
+
+Dr. Clarke is interested in determining if workers are more concerned with job security **or** pay. He gains the cooperation of 30 individuals who work in different settings and asks each employee to rate his or her concern about .coral[salary level] **and** .nicegreen[job security], on a scale from 1 to 10.
+
+
+--
+
+**Observational - Pairs: Pre-existing**
+
+Dr. Gale questions whether husbands **or** wives with infertility problems feel equally anxious. She recruits 24 infertile couples and then administers the Infertility Anxiety Measure (IAM) to both the .coral[husbands] **and** the .nicegreen[wives].
+
+--
+
+**Experimental - Matched Pairs: Randomized within dyads**
+
+Dr. Smith has developed a new strategy for teaching fractions to second graders.  **Before** assigning the 30 students to receive group instruction either by the .coral[old way] **and** .nicegreen[new way], the researcher first matches the students into pairs with similar prior math achievement.  One randomly selected student in each pair is selected to receive the new method while the other is taught be the old method.
 
 
 
@@ -60,103 +123,125 @@ class: center, middle
 
 
 ---
-# Compare Two Means: *t*-Test
+## Comparing Means: Matched or Paired *t*-Test
+
+> What is the difference from an independent groups *t*-Test?
 
 .pull-left[
-## Independent Groups
-.large[
-- Assumes two "Simple Random Samples" (SRS)
-- Each sample is at least **representive** of its corresponding population
-- All members of **EACH** the samples are **INDEPENDENT** of all others
-- There is no connection between members of the two samples
-]]
+**Incorporation of Correlation**
+
+
+- eliminates variance from .dcoral[extraneous factors]
+
+- The stronger the correlation, the smaller the variability in the difference scores
+
+- The denominator of the *t*-statistic is smaller
+
+
+**observed *t* value =  MORE EXTREME**
+
+]
 
 --
 
 .pull-right[
-## Dependent Groups
-.large[
-- The assumption of independence has been violated,  resulting in a **DEPENDENCY** across groups
-- Variance of DV smaller as groups consist of same or closely matched cases
-]]
+**Reduction in Degrees of Freedom**
 
+Sample size is the number of .dcoral[PAIRS] not the number of observations.
 
+- The degrees of freedom are half
 
----
+**critical *t* = little more extreme**
 
-.pull-left[
-## Also known as...
-.large[
-- Matched samples t-test
-- Matched pairs t-test
-- Paired samples t-test
-- Related samples t-test 
-- Correlated samples t-test 
-- Dependent samples t-test 
-- Non-independent samples t-test 
-- Repeated-measures t-test
-]]
+]
 
 --
 
-.pull-right[
-## Applicable Situations
-.large[
-- Parent-child dyads
-- Litter mates
-- Twins
-- Pre and Post measures (same variable)
-- Two different measures per person
-]]
 
+.nicegreen[.large[
+> **IF** there is correlation...  
+>   
+> **THEN** a matched/paired *t*-Test is more **powerful** than ignoring the correlation and erroneously performing an independent-groups *t*-Test.
+
+]]
 
 ---
 
 
-.pull-left[
-## Experimental
-.large[
+## Observational Studies
 
-- Matching groups on some variable(s) 
+.dcoral[**Pre-existing Pairs**] - naturally *related*, *correlated*, or *dependent* based on the .nicegreen[**nature of the situation**]
 
-   +  E.g., sex, age, education
+- married couples madeup of husbands & wives
+- parent-child dyads
    
-- Reduces potential confounds on IV-DV relationship or when cases cannot receive both conditions
-]]
-
 --
 
+<br><br>
+
+.dcoral[**Repeated Measures**] - a single sample where each person has .nicegreen[**two measurements**]    
+
+
 .pull-left[
-## Observational
+- **Before-&-After** study of the same measure  
+   
+- Same measure under **different stimuli**
+   
+- Different measures administered **successively**  
+   
+- Different measures administered **simultaneously**  
+]
+
+.pull-right[
+- math achievement pre-test & post-test    
+
+- balance *'sway'* measured in the dark & light  
+
+- Depression inventory & Anxiety inventory  
+
+- Conner's ADHD Scale: sub-scores for inattention & hyperactivity
+
+]
+
+---
+### Observational Studies: Before-&-After Design
+
+```{r,echo=FALSE, out.width = "70%"}
+knitr::include_graphics("figures/pretest_posttest_boxes.png")
+```
+
 .large[
+> Because there is .nicegreen[**No control group**]and .nicegreen[**Only 2 time points**]
+]
 
-- Samples naturally related, correlated, or dependent based on the nature of the situation
+- .dcoral[History] – Experiences outside the study may affects the measurements before and after a treatment
 
-- repeated measures taken on the same person
+- .dcoral[Maturity] – Biological changes in participants affect the measurements before and after a treatment
 
-- Measures can be **successive** or **simultaneous**
+- .dcoral[Attrition] – Any individual that leaves the study before a post-measurement can be taken is excluded
 
-]]
+- .dcoral[Regression to the mean] – People who score extremely high or low on some measurement have a tendency to score closer to the average next time, despite the treatment they partake in.
+
+- .dcoral[All change is TRUE change] - measurements have random fluctuation/error 
+
+- .dcoral[Ceiling and Floor effects] - If before or after scores are skewed, then the change scores will not be normally distributed
 
 
 ---
-# Repeated-Measures: successive designs
+### Repeated-Measures: Successive designs non-longitudinal
 
 
-- 2 measurements, conditions, or sets of stimuli are applied to cases .dcoral[**sequentially**]
 
---
-
-- **Before-and-after** or .dcoral[longitudinal] designs
-   - Pre- / post-test
-   - time 1 / time 2
-
---
-
-- **Cross-over designs** each participant gets both conditions
-   - Order effects? 
-   -  Need to .dcoral[counterbalance] order
+- **Cross-over designs** each participant gets **BOTH** conditions
+   - Order effects? like fatigue or learning
+   - IF so, .dcoral[counterbalance] order
     
+--
+
+```{r,echo=FALSE, out.width = "80%"}
+knitr::include_graphics("figures/crossover_color.png")
+```
+
 --
 
 - .dcoral[**Counterbalancing**] random subset of cases 
@@ -166,13 +251,93 @@ class: center, middle
     - May need a **Wash-out period**
 
 
+---
+
+## Experimental Studies: Cross-over Design
 
 
+
+**Why Bother?**
+
+Both "groups" are made up of the same participants, so in a way .nicegreen[each subject acts as their own control].
+
+- minimizes the risk of confounding   
+
+- requires .dcoral[less study participants] than 2 independent groups
+
+--
+
+<br>
+
+**Potential Problems**
+
+Each study .dcoral[participant is required to do twice as much].  This can lead to .nicegreen[fatigue and attrition].
+
+- hard to know **how long** the .dcoral[wash-out period] should be   
+
+- risk of **lingering** .dcoral[carry-over effects], effects might not fully wash-out ever   
+
+- entire process takes .dcoral[more time!]
+
+---
+
+.pull-left[
+### Simple Randomization
+
+> Use an Indepdended groups *t*-Test
+
+```{r,echo=FALSE, out.width = "70%"}
+knitr::include_graphics("figures/Simple-randomization.png")
+```
+<br><br>
+
+For example, a lot of outcomes are gender and age specific. Therefore, matching individuals on these 2 variables will help .dcoral[improve the validity of the study by reducing bias].
+]
+
+--
+
+.pull-right[
+### Matching Pairs Design
+
+> Use a Matched-Pairs *t*-Test
+
+```{r,echo=FALSE, out.width = "70%"}
+knitr::include_graphics("figures/Matched-pairs.png")
+```
+
+]
+
+
+---
+
+
+## Experimental Studies: The Matched Pairs Design
+
+
+**Potential Problems**
+
+- What characteristics are .dcoral[relevant] to match on?  How .dcoral[many] variables should you match no? Can they be .dcoral[reliably measured]?
+
+- Does your sample contain participants that .dcoral[actually match well]?  The more variables you match on, the higher the risk some people will be poorly matched up or not even match anyone.  
+
+- You must exclude people who do not have a .nicegreen[*'good match'*], thus reducing your sample size used and statistical power.
+
+- You can not randomize subjects in rolling-enrollment.  You must .dcoraql[wait] till all subjects are enrolled and you have gathered the matching variables BEFORE you can randomize into groups.
+
+.large[
+> Picking the wrong matching variables is problematic as it is .dcoral[**irreversible**]. In other words, we CANNOT explore alternative causal hypotheses since the design is definitive and CANNOT be changed.
+]
 ---
 
 <!-- CrashCourse Stats: #27 t-Tests: A Matched Pair Made in Heaven (11 min)-->
 
 <iframe width="1000" height="750" src="https://www.youtube.com/embed/AGh66ZPpOSQ?controls=0&amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+
+
+
+
 
 
 ---
@@ -195,21 +360,21 @@ knitr::include_graphics("figures/formula_sheet_p1_matched.jpg")
 ### .dcoral[Direct Difference Approach]
 
 - **Variables**: subtract each pair of values
-    + Person 1: $D_1 = x_1 - y_1$
-    + Person 2: $D_2 = x_2 - y_2$
-    + Person 3: $D_3 = x_2 - y_3$
+    + Person 1: $D = x_1 - x_2$
+    + Person 2: $D = x_1 - x_2$
+    + Person 3: $D = x_1 - x_2$
     + $\dots$
     
    
 - **Summary Stats**: for the .dcoral[DIFFERENCES]
     + M: $\overline{D}$
     + SD: $s_D$
-    + *no correlation needed*
+    + *correlation is just descriptive*
     
 - **Test Statistic**:  .dcoral[*regular* One-Sample t-Test]    
     +  Degrees of Freedom: $df = n - 1$
     
-$$t=\frac{\overline{D}-\mu_0}{\frac{s_D}{n}}$$    
+$$t=\frac{\overline{D}-\mu_0}{\frac{s_D}{\sqrt{n}}}$$    
     
 
 ]
@@ -220,9 +385,9 @@ $$t=\frac{\overline{D}-\mu_0}{\frac{s_D}{n}}$$
 ### .nicegreen[Correlation Approach]
 
 - **Variables**: keep the values separate
-  + Person 1: $x_1$, $y_1$
-  + Person 2: $x_2$, $y_2$
-  + Person 3: $x_3$, $y_3$
+  + Person 1: $x_1$, $x_2$
+  + Person 2: $x_1$, $x_2$
+  + Person 3: $x_1$, $x_2$
   + $\dots$
     
 - **Summary Stats**: for .nicegreen[EACH VARIABLE]
@@ -600,7 +765,7 @@ cancer_new %>%
 
 --
 
-> The 23 participants' oral condition was measured as intake (*M* = 6.48, *SD* = 1.56) and re-evaluated six weeks later (*M* = 9.48, *SD* = 3.49).  A paired samples t-Test on the repeated measures (*r* = .908) found a this to be a statistically significantly deterioration, *t*(22) = 3.91, *p* < .001, 95% *CI* [1.41, 4.59].
+> The 23 participants' oral condition was measured as intake (*M* = 6.48, *SD* = 1.56) and re-evaluated six weeks later (*M* = 9.48, *SD* = 3.49).  A paired samples t-Test on the repeated measures (*r* = .098) found a this to be a statistically significantly deterioration, *t*(22) = 3.91, *p* < .001, 95% *CI* [1.41, 4.59].
 
 
 ---
@@ -631,7 +796,7 @@ cancer_long %>%
 
 --
 
-> The 23 participants' oral condition was measured as intake (*M* = 6.48, *SD* = 1.56) and re-evaluated six weeks later (*M* = 9.48, *SD* = 3.49).  A paired samples t-Test on the repeated measures (*r* = .908) found a this to be a statistically significantly deterioration, *t*(22) = 3.91, *p* < .001, 95% *CI* [1.41, 4.59].
+> The 23 participants' oral condition was measured as intake (*M* = 6.48, *SD* = 1.56) and re-evaluated six weeks later (*M* = 9.48, *SD* = 3.49).  A paired samples t-Test on the repeated measures (*r* = .098) found a this to be a statistically significantly deterioration, *t*(22) = 3.91, *p* < .001, 95% *CI* [1.41, 4.59].
 
 
 .dcoral[**NOTE** *We usually report positive values for the test statistic (t), as well as the confidence interval values.*]
@@ -641,7 +806,7 @@ cancer_long %>%
 
 ---
 
-### Example 1) One-Sided Alternative Tests and Confidence Intervals
+### Example 1) 1-Sided Alternative and CIs
 
 .pull-leftsmall[
 ```{r twoside, eval=FALSE}
@@ -754,7 +919,12 @@ $$g_{matched} = t \sqrt{\frac{1}{n}}\tag{11.6}$$
 > After accounting for correlation between repeated-measures, the oral condition increased by 0.82 standard deviations. 
 
 
-.dcoral[**Read the paragraph at the end of page 351!**]
+--
+
+.dcoral[**Read the paragraph at the end of page 351 (after formula 11.6)!**]
+
+Please correctly label your effect size!
+
 
 
 

@@ -45,6 +45,7 @@ knitr::opts_chunk$set(comment     = NA,
 Make sure the packages are **installed** *(Package tab)*
 
 ```{r libraries}
+library(readxl)
 library(magrittr)     # Forward pipes in R
 library(tidyverse)    # Loads several very helpful 'tidy' packages
 library(furniture)    # Nice tables (by our own Tyson Barrett)
