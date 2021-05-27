@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Correlation</title>
     <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="pres2.css" type="text/css" />
   </head>
   <body>
@@ -17,6 +18,10 @@ class: center, middle, inverse, title-slide
 
 
 
+
+
+
+
 class: center, middle
 
 ## "Statistics is not a discipline like physics, chemistry, or biology where we study a subject to solve problems in the same subject. &lt;br&gt; We study statistics with the main aim of solving problems in other disciplines."
@@ -24,47 +29,68 @@ class: center, middle
 ### -- C.R. Rao, Ph.D. 
 
 ---
+
 # Motivating Example
 
 .large[
-- Dr. Mortimer is interested in knowing whether people who have a positive view of themselves in one aspect of their lives also tend to have a positive view of themselves in other aspects of their lives. 
-- He has 80 men complete a self-concept inventory that contains 5 scales. Four scales involve questions about how competent respondents feel in the areas of intimate relationships, relationships with friends, common sense reasoning and everyday knowledge, and academic reasoning and scholarly knowledge. 
-- The 5th scale includes items about how competent a person feels in general. 
-- 10 correlations are computed between all possible pairs of variables.
+&gt; Dr. Mortimer is interested in knowing whether people who have a **positive view of themselves in one aspect** of their lives .dcoral[**also tend to**] have a **positive view of themselves in other aspects** of their lives.
+]
+
+--
+
+- He has .bluer[**80 men**] complete a **self-concept inventory** that contains .dcoral[**5 scales**]. 
+
+--
+
+- **Four** scales involve questions about how competent respondents feel in the areas of:
+
+   + .nicegreen[**intimate relationships**], 
+   + .nicegreen[**relationships with friends**], 
+   + .nicegreen[**common sense reasoning and everyday knowledge**], and 
+   + .nicegreen[**cademic reasoning and scholarly knowledge**].
+
+--
+
+- The **5th scale** includes items about how competent a person feels .nicegreen[**in general**].
+
+--
+
+.large[
+&gt; .dcoral[**10 pairwise correlations**] are computed between all possible pairs of variables.
 ]
 
 ---
 # Correlation
 
-.pull-left[
+
 .large[
-- .dcoral[Interested in **degree** of covariation or co-relation among &gt;1 variables measured on SAME objects/participants]
-    - Not interested in group differences, per se
-- Variable measurements have:
-    - Order: Correlation
-    - No order: Association or dependence
-]]
+&gt; Interested in .dcoral[**degree** of covariation] or .dcoral[**co-relation**] among .dcoral[**TWO** variables] measured on **SAME** objects/participants
+]
 
 --
 
-.pull-right[.large[
-- Level of measurement for each variable determines type of correlation coefficient
+- Not interested in group differences, per se
 - Data can be in raw or standardized format
 - Correlation coefficient is .nicegreen[scale-invariant]
-- .bluer[Statistical significance] of correlation
-    - `\(\Large H_0\)`: population correlation coefficient = 0
-]]
+
+--
+
+**Type** of variable makes a difference
+
+- Interval/Ratio Continuous: Correlation (Pearson's product-moment correlation)
+- Ordinal: Correlation (Spearman, Tetracloric/Polycloric, Cramer's V, Kendall's Tau, ...)
+- Nominal: Association or Dependence 
+
+--
+
+Can test for **significance** of the correlation
+
+- `\(\Large H_0\)`: population correlation coefficient = 0
+
 
 ---
-background-image: url(figures/fig_spurious.jpeg)
-background-position: 50% 50%
-background-size: 1200px
 
-
-.footnote[http://www.tylervigen.com/spurious-correlations]
-
----
-# Always **Visualize** Data First
+## Always **Visualize** Data First
 
 ### Scatterplots
 
@@ -72,110 +98,106 @@ background-size: 1200px
 
 .pull-left[
 
-*Aka: scatterdiagrams, scattergrams*
+*AKA: scatterdiagrams, scattergrams*
 
 Notes:
-1. Can stratify scatterplots by subgroups
-2. Each subject is represented by 1 dot (x and y coordinate)
-3. Fit line can indicate nature and degree of relationship (Regression or prediction lines)
+1. Each subject is represented by 1 dot (x and y coordinate)
+2. Fit line can indicate .dcoral[nature] and .dcoral[degree of relationship] (Regression or prediction lines)
+3. Can **stratify** scatterplots by .nicegreen[subgroups]
 
 
 
 ```r
-library(tidyverse)
 df %&gt;%
-  ggplot(aes(x, y)) +
+  ggplot(aes(`x`, `y`)) +
     geom_point() +
-    geom_smooth(se = FALSE,
-                method = "lm")
+    geom_smooth(method = "lm")
 ```
 ]
 
 .pull-right[
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-3-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 ---
-# Correlation: Direction
+## Correlation: Direction
 
 .pull-left[.center[
-#### .nicegreen[Positive Association]
-.large[
+### .nicegreen[Positive Association]
+
 **High values** of one variable tend to occur with **High values** of the other
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-4-1.png" style="display: block; margin: auto;" /&gt;
-]]]
-
-.pull-right[.center[
-#### .bluer[Negative Association]
-.large[
-**High values** of one variable tend to occur with **Low values** of the other
 &lt;img src="ch9_cor_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
-]]]
-
-
----
-# Correlation: Strength
-
-The strength of the relationship between the two variables can be seen by how much variation, or scatter, there is around the main form.
-
-- With a strong relationship, you can get a pretty good estimate of y if you know x.
-- With a weak relationship, for any x you might get a wide range of  y values.
+]]
 
 --
 
+.pull-right[.center[
+### .bluer[Negative Association]
+
+**High values** of one variable tend to occur with **Low values** of the other
+&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+]]
 
 
-.pull-left[
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
-]
+---
+## Correlation: Strength / Predictability
 
-.pull-right[
+How much **variation** or **scatter** there is around the main form?
+
+
+
+
+
+.pull-left[.center[
+### STRONG
+X provided a GOOD estimate of Y
 &lt;img src="ch9_cor_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
-]
+]]
+
+--
+
+.pull-right[.center[
+### weak
+X is associated with a wide range of Y
+&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+]]
 
 ---
-# Scatterplot Patterns
+
+## Scatterplot: Pattern/Form
 
 
 
 .pull-left[
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-10-1.png" style="display: block; margin: auto;" /&gt;
 &lt;img src="ch9_cor_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 ]
+
+--
 
 .pull-right[
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 &lt;img src="ch9_cor_files/figure-html/unnamed-chunk-13-1.png" style="display: block; margin: auto;" /&gt;
-]
-
-
----
-# Predictability
-
-The ability to predict `y` based on `x` is another indication of correlation strength:
-
-.pull-left[
 &lt;img src="ch9_cor_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
-.pull-right[
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
-]
 
 ---
-# Scatterplot: Scale
+## Scatterplot: Scale
 
 .pull-left[
+&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 &lt;img src="ch9_cor_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
 .pull-right[
+&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
 &lt;img src="ch9_cor_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
 ]
 
-Note: all have the same data! Also, `ggplot2`'s defaults are usually pretty good
+--
+
+&gt; Note: all have the same data! Also, `ggplot2`'s defaults are usually pretty good
 
 ???
 - Using an inappropriate scale for a scatterplot can give an incorrect impression. 
@@ -184,20 +206,24 @@ Note: all have the same data! Also, `ggplot2`'s defaults are usually pretty good
   - Points should occupy all the plot space (no blank space)
 
 ---
-# Outliers
+
+## Scatterplot: Bivariate Outliers/Leverage
 
 
-.pull-left[.large[
+.pull-left[
 - An .dcoral[outlier] is a data value that has a very low probability of occurrence (i.e., it is unusual or unexpected). 
 
-- In a scatterplot, BIVARIATE outliers are points that fall outside of the overall pattern of the relationship.
+- In a scatterplot, BIVARIATE outliers are points that fall outside of the **overall pattern** of the relationship.
 
-- *Not all extreme values are outliers.*
-]]
+- Not all extreme values are outliers
+
+- No data should be "thrown out" unless there is a good reason: error, ect.
+
+]
 
 .pull-right[
 
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -205,54 +231,49 @@ Note: all have the same data! Also, `ggplot2`'s defaults are usually pretty good
 
 
 ---
-## Pearson "Product Moment" Correlation Coefficient (r)
+## Pearson "Product Moment" Correlation Coefficient
 
-### 
-.large[
-- Used as a measure of: 
-    - Magnitude (strength) and direction of relationship between two continuous variables
-    - Degree to which coordinates cluster around STRAIGHT regression line
+&gt; Building block for many other statistical methods
 
-- Test-retest, alternative forms, and split half reliability
 
-- Building block for many other statistical methods
+.pull-left[
+Used as a measure of: 
+- **Magnitude** (strength)   
+- **Direction** of relationship  
+- Between **2 CONTINUOUS** variables   
+- Around **STRAIGHT** regression line   
+
+Applicaitons: Validity &amp; Reliability   
+- Test-retest   
+- alternative forms   
+- split half reliability   
 ]
 
-.pull-left[.huge[.center[
-Population: `\(\Huge \rho\)`
-]]]
+--
 
-.pull-right[.huge[.center[
-Sample: `r`
-]]]
+
+
+.pull-left[
+**Symbols:** 
+
+Population: `\(\large \rho\)`   
+Sample: `r` 
+
+**Properties:**
+
+- `x` &amp; `y` are indistinguishable
+- has no units
+- ranges from `-1` through `+1`
+- `r` = 0 is no correlation
+- Influenced by outliers
+]
+
+
 
 
 
 ---
-# Pearson "Product Moment" Correlation Coefficient (r)
-
-.large[
-- The correlation coefficient is a measure of the .dcoral[direction] and .nicegreen[strength] of a *linear* relationship. 
-- It is calculated using the mean and the standard deviation of both the x and y variables. 
-- Correlation can only be used to describe quantitative variables. Why?
-]
-
-.pull-left[.large[
-`r` does not distinguish between x and y
-
-`r` has no units of measurement
-]]
-
-.pull-right[.large[
-`r` ranges from -1 to +1
-
-Influential points…can change `r` a great deal!
-]]
-
-
-
----
-# Correlation: Calculating
+## Correlation: Calculating Formula
 
 $$ 
 \LARGE r = \frac{1}{n - 1} \sum^n_{i = 1} \LARGE(\normalsize\frac{x_i - \bar{x}}{s_x}\LARGE)(\normalsize \frac{y_i - \bar{y}}{s_y}\LARGE)
@@ -260,101 +281,96 @@ $$
 
 ### Anyone want to do this by hand??
 
-.large[
+.large[.dcoral[
 Let's use R to do this for us 
-]
+]]
 
 
 ---
-## Correlation: Calculating
+## Correlation: Let R do the work!
 
 
 
 
 .pull-left[
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
-
-]
-
-.pull-right[
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
-]
-
-### Same Plots -- Left is unstandardized, Right is standardized
-
-**Standardization** allows us to compare correlations between data sets where variables are measured in different units or when variables are different. For instance, we might want to compare the correlation between [swim time and pulse], with the correlation between [swim time and breathing rate].
-
-
----
-# Correlations in R Code
-
-
-
-.pull-left[
+.dcoral[Correlation Matrix]
 
 ```r
 df %&gt;%
-  cor.test(~x + y,
-           data = .,
-           method = "pearson")
+  furniture::tableC(`x_var`, `y_var`)
 ```
 &lt;br&gt;
 
-```r
-df %&gt;%
-  furniture::tableC(x, y)
 ```
+
+------------------------------
+          [1]           [2]  
+ [1]x_var 1.00               
+ [2]y_var 0.178 (0.077) 1.00 
+------------------------------
+```
+&lt;br&gt;
+.nicegreen[
+*r* = .178, *p* = .077
 ]
 
+]
+
+--
+
 .pull-right[
+.dcoral[Correlation, CI, and p-value]
+
+
+```r
+df %&gt;%
+  cor.test(~ `x_var` + `y_var`,
+           data = .)
+```
+&lt;br&gt;
 
 ```
 
 	Pearson's product-moment correlation
 
-data:  x and y
-t = 0.53442, df = 98, p-value = 0.5943
+data:  x_var and y_var
+t = 1.7859, df = 98, p-value = 0.07721
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- -0.1440376  0.2477011
+ -0.01956568  0.36135211
 sample estimates:
-       cor 
-0.05390564 
+      cor 
+0.1775347 
 ```
 ]
 
-
-```
-
---------------------------
-      [1]           [2]  
- [1]x 1.00               
- [2]y 0.054 (0.594) 1.00 
---------------------------
-```
 
 ---
-# Relationship Form
-
-.huge[Correlations only describe **linear** relationships]
+.huge[Correlations ONLY describe .dcoral[**LINEAR**] relationships]
 
 
 
 
-.pull-left[
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
-]
+.pull-left[.center[
+### Linear
 
-.pull-right[
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
-]
+
+
+
+&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-28-1.png" style="display: block; margin: auto;" /&gt;
+]]
+
+.pull-right[.center[
+### Non-linear
+&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+]]
 
 .large[
 Note: You can sometimes *transform* a non-linear association to a linear form, for instance by taking the logarithm.
 ]
 
 ---
-# Let's see it in action
+## Let's see it in action
 
 ## [Correlation App](http://digitalfirst.bfwpub.com/stats_applet/stats_applet_5_correg.html)
 
@@ -380,7 +396,7 @@ background-image: url(figures/fig_bivariate_normal.png)
 background-position: 80% 50%
 background-size: 400px
 
-# Assumptions
+## Assumptions of Pearson's Correaltion
 
 .pull-left[
 .large[
@@ -398,7 +414,7 @@ background-size: 400px
 
 
 ---
-# Sampling Distribution of `rho`
+## Sampling Distribution of `rho`
 
 
 .large[
@@ -421,57 +437,63 @@ background-position: 80% 50%
 background-size: 400px
 
 
-# Hypothesis testing for 1-sample `r`
+## Hypothesis testing for 1-sample `r`
 
-.pull-left[
+.pull-left[.dcoral[
 .large[
 $$ \LARGE H_0: \rho = 0$$
 `$$\LARGE H_A: \rho \neq 0$$`
+]]
 
 .center[`r` is converted to a t-statistic]
 
 $$ 
 \LARGE t = \frac{r\sqrt{N - 2}}{\sqrt{1 - r^2}}
 $$
-- Compare to t-distribution with `\(\Large df = N - 2\)`
+- Compare to t-distribution with .dcoral[$df = N - 2$]
   - Rejection = statistical evidence of relationship
   - Or look up critical values of `r`
 ]
 
-]
+
 
 
 
 
 ---
-# Example
+## Example: Mood &amp; Recall
 
-.large[
-Researcher wishes to correlate scores from 2 tests: current mood state and verbal recal memory
-]
+&gt;Researcher wishes to correlate scores from 2 tests: 
+&gt; .nicegreen[current mood state] and .nicegreen[verbal recall memory]
 
-.pull-left[
+
+.pull-leftsmall[
 
 ```
-              # A tibble: 7 x 2
-                 Mood Recall
-                &lt;dbl&gt;  &lt;dbl&gt;
-              1    45     48
-              2    34     39
-              3    41     48
-              4    25     27
-              5    38     42
-              6    20     29
-              7    45     30
+      # A tibble: 7 x 2
+         Mood Recall
+        &lt;dbl&gt;  &lt;dbl&gt;
+      1    45     48
+      2    34     39
+      3    41     48
+      4    25     27
+      5    38     42
+      6    20     29
+      7    45     30
 ```
+
+.dcoral[
+*r* = .644, *p* = .119   
+95% CI [-.212, .941]
+]
 
 ]
 
-.pull-right[
+.pull-rightbig[
 
 ```r
 df %&gt;%
-  cor.test(~Mood + Recall,
+  cor.test(~ `Mood` + `Recall`,
            data = .)
 ```
 
@@ -490,76 +512,86 @@ sample estimates:
 ```
 ]
 
-???
-Talk about each piece of the output
-
 ---
-# Power
-
-.pull-left[.large[
-Want to know N necessary to reject `\(\Large H_0\)` given an effect `\(\Large \rho\)` (we transform it into a `\(\Large d\)`)
-
-- Determine effect size needed to detect
-- Determine delta ( `\(\Large \delta\)` ; the value from appendix A.4 that would result in given level of power at `\(\Large \alpha = .05\)`)
-- Solve: 
-$$
-\Huge(\LARGE \frac{\delta}{d}\Huge)\LARGE^2 + 1 = N
-$$
-]]
-
-.pull-right[.large[
-
-### Example
-
-.nicegreen[Based on a pilot study, if we had a pearson correlation of .6, how many observations should I plan to study to ensure I have at least 80% power for an `\(\Large \alpha = .05\)`, two-tailed test?
-]]]
+## Factors Affecting Validity of `r`
 
 
----
-# Factors Affecting Validity of `r`
-
-.large[
-- Range restriction (variance of X and/or Y)
+- .dcoral[Range restriction] (variance of X and/or Y)
   - r can be inflated or deflated
   - May be related to small N
 
-- Outliers
+- .dcoral[Bivariate Outliers]
   - `r` can be heavily influenced
 
-- Use of heterogeneous subsamples
-  - Combining data from heterogeneous groups can inflate correlation coefficient or yield spurious results by stretching out data
-]
+- Use of .dcoral[heterogeneous sub-samples]
+  - Combining data from heterogeneous groups can **inflate** correlation coefficient or yield **spurious results** by stretching out data
 
 
 ---
-# Interpretation and Communcation
+background-image: url(figures/fig_spurious.jpeg)
+background-position: 50% 50%
+background-size: 1200px
 
-.huge[
-Correlation `\(\Large \neq\)` Causation
 
-But, correlation can be causation
-]
+.footnote[http://www.tylervigen.com/spurious-correlations]
 
-.large[
-- Can infer strength and direction; not form or prediction from r
-- Can say that prediction will be better with large r, but cannot predict actual values
+
+---
+
+&lt;!-- DecisionSkills: How Ice Cream Kills! Correlation vs. Causation (11-1) (5 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/VMUQSMFGBDo?controls=0&amp;amp;start=2" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+
+---
+## Interpretation and Communcation
+
+.large[.dcoral[
+**Correlation `\(\Large \neq\)` Causation**, *in an observational study*
+]]
+
+But, correlation can be causation...
+
+--
+
+- Can infer **strength** and **direction**; not form or prediction from `r`
+- Can say that prediction will be **better** with **large `r`**, but cannot predict actual values
 
 - Statistical significance
-  - p-value heavily influenced by N
-  - Need to interpret size of r-statistic, more than p-value
+  - p-value heavily influenced by **Sample Size**
+  - Need to .dcoral[interpret size of r-statistic, more than p-value]
 
-- APA format: r(df) = -.74, p = .006
-]
+
 
 
 ---
-background-image: url(figures/fig_APA_correlations.png)
-background-position: 50% 98%
-background-size: 1050px
+## APA: Reporting in Text
 
-# APA Style of Reporting
+.large[
+&gt; Example 1.
 
 
+
+For .bluer[nine] students, the scores on the first quiz .nicegreen[(*M* = 7.00, *SD* = 1.23)] and the first exam .nicegreen[(*M* = 80.89, *SD* = 6.90)] were strongly and significantly correlated, .dcoral[*r* = .701, *p* = .038].
+]
+
+--
+&lt;br&gt;&lt;br&gt;
+
+.large[
+&gt; Example 2.
+
+A Pearson product-moment correlation coefficient was computer to assess the relationship between the amount of water consumption and skin elasticity.  A scatterplot summarizes the results .nicegreen[(see Figure 1)].  Overall, there was a strong, positive correlation between the amount of ware consumed and skin elasticity, .dcoral[*r* = .985, *p* = .002].
+
+]
+
+---
+
+## APA: Correlation Table
+
+&lt;img src="figures/fig_corr_table.jpg" width="85%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -599,69 +631,34 @@ cancer_clean &lt;- cancer_raw %&gt;%
 ```
 
 ---
-# R Code: Basic Correlations
+## R Code: Defaults
 
 .pull-left[
 
+.dcoral[**DEFAULT**: Pearson's 2-sided, 95% CI]
+
+
 ```r
 cancer_clean %&gt;%
-  cor.test(~ totalcin + totalcw2,
+  cor.test(~ `totalcin` + `totalcw2`,
+           data = .)
+```
+
+&gt; The code ABOVE and BELOW give the same results
+
+
+```r
+cancer_clean %&gt;%
+  cor.test(~ `totalcin` + `totalcw2`,
            data = .,
            alternative = "two.sided",
-           method = "pearson")
+           method = "pearson",
+           conf.level = .95)
 ```
 
 ]
 
-.pull-right[
-
-```
-
-	Pearson's product-moment correlation
-
-data:  totalcin and totalcw2
-t = 1.5885, df = 23, p-value = 0.1258
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.09215959  0.63114058
-sample estimates:
-     cor 
-0.314421 
-```
-]
----
-count: false
-
-# R Code: Basic Correlations
-
-.pull-left[
-
-```r
-cancer_clean %&gt;%
-  cor.test(~ totalcin + totalcw2,
-           data = .,
-           alternative = "two.sided",
-           method = "pearson")
-```
-
-
-```r
-cancer_clean %&gt;%
-  cor.test(~ totalcin + totalcw2,
-           data = .,
-           alternative = "less",
-           method = "pearson")
-```
-
-
-```r
-cancer_clean %&gt;%
-  cor.test(~ totalcin + totalcw2,
-           data = .,
-           alternative = "greater",
-           method = "pearson")
-```
-]
+--
 
 .pull-right[
 
@@ -680,27 +677,84 @@ sample estimates:
 ```
 ]
 
+--
+
+.dcoral[**Interpretation**]: Oral condition two weeks into the study was not significantly correlated with condition at intake, .nicegreen[*r* = .314, *p* = .126, 95% *CI* [-.092, .631]].
+
+
 ---
-## R Code: Correlation Matrix
+
+## R Code: Directional alternative
+
+.pull-left[
+
+.nicegreen[**NEGATIVE correaltion**]
+
+```r
+cancer_clean %&gt;%
+  cor.test(~ totalcin + totalcw2,
+           data = .,
+           `alternative = "less"`)
+```
+
+
+.nicegreen[**POSITIVE correlation**]
+
+```r
+cancer_clean %&gt;%
+  cor.test(~ totalcin + totalcw2,
+           data = .,
+           `alternative = "greater"`)
+```
+
+&gt; .dcoral[NOTE]: **NEVER** use the confidence intervals from a 1-tailed test!  You MUST run a 2-tailed test to get a real confidence interval.
+
+]
+
+.pull-right[
+
+```
+
+	Pearson's product-moment correlation
+
+data:  totalcin and totalcw2
+t = 1.5885, df = 23, p-value = 0.9371
+alternative hypothesis: true correlation is less than 0
+95 percent confidence interval:
+ -1.0000000  0.5889963
+sample estimates:
+     cor 
+0.314421 
+```
+
+
+```
+
+	Pearson's product-moment correlation
+
+data:  totalcin and totalcw2
+t = 1.5885, df = 23, p-value = 0.06292
+alternative hypothesis: true correlation is greater than 0
+95 percent confidence interval:
+ -0.02523473  1.00000000
+sample estimates:
+     cor 
+0.314421 
+```
+]
+
+---
+
+## R Code: Correlation Tables, with missing values
 
 .pull-left[
 
 ```r
 cancer_clean %&gt;%
-  furniture::tableC(totalcin, totalcw2, 
+  `furniture::tableC`(totalcin, totalcw2, 
                     totalcw4, totalcw6)
 ```
-]
 
-.pull-right[
-
-```r
-cancer_clean %&gt;%
-  furniture::tableC(totalcin, totalcw2, 
-                    totalcw4, totalcw6,
-                    na.rm=TRUE)
-```
-]
 
 ```
 
@@ -712,6 +766,23 @@ cancer_clean %&gt;%
  [4]totalcw6 NA NA         NA NA         NA NA 1.00 
 -----------------------------------------------------
 ```
+]
+
+--
+
+.pull-right[
+.dcoral[*List-wise Deletion*]: only complete cases
+
+```r
+cancer_clean %&gt;%
+  `furniture::tableC`(totalcin, totalcw2, 
+                    totalcw4, totalcw6,
+                    `na.rm = TRUE`)
+```
+]
+
+
+
 
 ```
 
@@ -726,33 +797,36 @@ cancer_clean %&gt;%
 
 
 ---
-# R Code: Scatterplot with Regression Line
+## R Code: Scatterplot with Regression Line
 
+.pull-left[
 
 ```r
 cancer_clean %&gt;%
-  ggplot(aes(totalcin, totalcw2)) +
-    geom_point() +
-    geom_smooth(method = "lm")
+  ggplot(aes(x = totalcin, 
+             y = totalcw2)) +
+  `geom_point()` +
+  geom_smooth(method = "lm")
 ```
 
 &lt;img src="ch9_cor_files/figure-html/unnamed-chunk-49-1.png" style="display: block; margin: auto;" /&gt;
+]
 
 
+--
 
----
-# R Code: Scatterplot with Count
-
+.pull-right[
 
 ```r
 cancer_clean %&gt;%
-  ggplot(aes(totalcin, totalcw2)) +
-    geom_count() +
-    geom_smooth(method = "lm")
+  ggplot(aes(x = totalcin, 
+             y = totalcw2)) +
+  `geom_count()` +
+  geom_smooth(method = "lm")
 ```
 
-&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-50-1.png" style="display: block; margin: auto;" /&gt;
-
+&lt;img src="ch9_cor_files/figure-html/unnamed-chunk-51-1.png" style="display: block; margin: auto;" /&gt;
+]
 
 
 ---
@@ -773,6 +847,7 @@ class: inverse, center, middle
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
+"highlightSpans": true,
 "countIncrementalSlides": false,
 "ratio": "16:9"
 });
@@ -815,6 +890,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -832,17 +933,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {

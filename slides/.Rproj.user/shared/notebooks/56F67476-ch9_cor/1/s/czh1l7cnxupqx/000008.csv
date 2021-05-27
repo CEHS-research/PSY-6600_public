@@ -1,0 +1,7 @@
+"0","p1 = ggplot(df, aes(x, y)) +"
+"0","  geom_point(size = 2) +"
+"0","  labs(title = ""Extreme Value\n(Possibly not an Outlier)"")"
+"0","p2 = ggplot(df2, aes(x, y)) +"
+"0","  geom_point(size = 2) +"
+"0","  labs(title = ""Extreme Value\n(Likely an Outlier)"")"
+"0","gridExtra::grid.arrange(p1, p2, ncol = 2)"

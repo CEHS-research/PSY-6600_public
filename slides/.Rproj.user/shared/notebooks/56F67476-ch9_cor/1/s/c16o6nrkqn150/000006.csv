@@ -1,0 +1,5 @@
+"0","set.seed(345)"
+"0","df <- tibble::data_frame("
+"0","  x_var = rnorm(100),"
+"0","  y_var = x_var + rnorm(100, 10, 10)"
+"0",")"

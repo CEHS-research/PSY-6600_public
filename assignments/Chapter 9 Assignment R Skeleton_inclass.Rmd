@@ -1,0 +1,303 @@
+---
+title: "Psy/Educ 6600: Chapter 9"
+subtitle: "Linear Correlation"
+author: "Your Name"
+date: "Spring 2019"
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    toc: true
+    toc_depth: 3
+    number_sections: false
+---
+
+\clearpage
+
+# PREPARATION
+
+```{r oppts, include=FALSE}
+# set global chunk options...  
+#  this changes the defaults so you don't have to repeat yourself
+knitr::opts_chunk$set(comment     = NA,
+                      cache       = TRUE,
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.align   = "center", # center all figures
+                      fig.width   = 6,        # set default figure width to 4 inches
+                      fig.height  = 4)        # set default figure height to 3 inches
+
+```
+
+## Packages
+
+* Make sure the packages are **installed** *(Package tab)*
+
+```{r libraries}
+library(tidyverse)    # Loads several very helpful 'tidy' packages
+library(readxl)       # Read in Excel datasets
+library(furniture)    # Nice tables (by our own Tyson Barrett)
+```
+
+\clearpage
+
+
+
+# SECTION B
+
+## Datasets
+
+```{r data}
+schizo <- data.frame(id       = c(1:10),
+                     yr_hos   = c( 5,  7, 12,  5, 11,  3,  7,  2,  9,  6),
+                     ori_test = c(22, 26, 16, 20, 18, 30, 14, 24, 15, 19))
+
+GRE <- data.frame(id          = c(1:5),
+                  verbalGRE_1 = c(540, 510, 580, 550, 520),
+                  verbalGRE_2 = c(570, 520, 600, 530, 520))
+
+test_scores <-  data.frame(id      = c(1:12),
+                           spatial = c(13, 32, 41, 26, 28, 12, 19, 33, 24, 46, 22, 17),
+                           math    = c(19, 25, 31, 18, 37, 16, 14, 28, 20, 39, 21, 15))
+
+child_vars  <-  data.frame(child = c(1:8),
+                           shoe  = c(5.2, 4.7, 7.0, 5.8, 7.2, 6.9, 7.7, 8.0),
+                           read  = c(1.7, 1.5, 2.7, 3.1, 3.9, 4.5, 5.1, 7.4),
+                           age   = c(  5,   6,   7,   8,   9,  10,  11,  12))
+
+memory <- data.frame(id    = c(1:9),
+                     sound = c(8, 5, 6, 10, 3, 4, 7, 11, 9),
+                     look  = c(4, 5, 3, 11, 2, 6, 4,  6, 7))
+```
+
+\clearpage
+
+
+
+## Question B-5 Calculating Pearson's $r$
+
+**TEXTBOOK QUESTION:** *A psychiatrist has noticed that the schizophrenics who have been in the hospital the longest score the lowest on a mental orientation test. The data for 10 schizophrenics are listed in the following table.  (a) Calculate Pearson’s $r$ for the data. (b) Test for statistical significance at the .05 level (two-tailed).*
+
+```{r Q9b5}
+schizo
+```
+
+-------------------------------
+
+**DIRECTIONS:** Calculate Pearson's $r$ between `yr_hos` and `ori_test` in the `schizo` dataset.  Also, test against the two-sided alternative.
+
+The `cor.test()` function needs at least two arguments:
+
+1. the formula:  `~ continuous_var1 + continuous_var2`
+2. the dataset: `data = .` *we use the period to signify that the datset is being piped from above*
+
+> **NOTE:** The `cor.test()` function computes the Pearson correlation coefficient by default (`method = "pearson"`), but you may also specify the Kendall (`method = "kendall"`)or Spearman (`method = "spearman"`)methods.  It also defauls to testing for the two-sided alternative and computing a 95\% confidence interval (`conf.level = 0.95`).  You will not need to change these options in this assignment.
+
+```{r Q9b5a}
+# Pearson's r: yr_hos & ori_test
+
+```
+
+\clearpage
+
+
+
+## Question B-6 One vs. Two Sided Alternative
+
+**TEXTBOOK QUESTION:** *If a test is reliable, each participant will tend to get the same score each time he or she takes the test. Therefore, the correlation between two administrations of the test (test-retest reliability) should be high. The reliability of the verbal GRE score was tested using five participants, as shown below. (a) Calculate Pearson’s r for the test-retest reliability of the verbal GRE score. (b) Test the significance of this correlation with $\alpha = .05$ (one-tailed). Would this correlation be significant with a twotailed test?*
+
+```{r Q9b6}
+GRE
+```
+
+-------------------------------
+
+**DIRECTIONS:** Calculate Pearson's $r$ between `verbalGRE_1`and `verbalGRE_2` in the `GRE` dataset TWICE.  The first time test for the **one-sided** alternative and the second time for the **two-sided** alternative.
+
+The `cor.test()` function defaults to the `alternative = "two.sided"`.  If you would like a one-sided alternative, you must choose which side you would like to test:  `alternative = "greater"` or `alternative = "less"`
+
+```{r Q9b6a}
+# Pearson's r: verbalGRE_1 & verbalGRE_2 --> ONE tail
+
+```
+
+\clearpage
+
+
+
+```{r Q9b6b}
+# Pearson's r: verbalGRE_1 & verbalGRE_2 --> TWO tails
+
+```
+
+\clearpage
+
+
+
+# SECTION C
+
+## Import Data, Define Factors, and Compute New Variables
+
+* Make sure the **dataset** is saved in the same *folder* as this file
+* Make sure the that *folder* is the **working directory**
+
+> NOTE: I added the second line to convert all the variables names to lower case.  I still kept the `F` as a capital letter at the end of the five factor variables.
+
+```{r ihno}
+data_clean <- read_excel("Ihno_dataset.xls") %>% 
+  dplyr::rename_all(tolower) %>% 
+  dplyr::mutate(genderF = factor(gender, 
+                                 levels = c(1, 2),
+                                 labels = c("Female", 
+                                            "Male"))) %>% 
+  dplyr::mutate(majorF = factor(major, 
+                                levels = c(1, 2, 3, 4,5),
+                                labels = c("Psychology",
+                                           "Premed",
+                                           "Biology",
+                                           "Sociology",
+                                           "Economics"))) %>% 
+  dplyr::mutate(reasonF = factor(reason,
+                                 levels = c(1, 2, 3),
+                                 labels = c("Program requirement",
+                                            "Personal interest",
+                                            "Advisor recommendation"))) %>% 
+  dplyr::mutate(exp_condF = factor(exp_cond,
+                                   levels = c(1, 2, 3, 4),
+                                   labels = c("Easy",
+                                              "Moderate",
+                                              "Difficult",
+                                              "Impossible"))) %>% 
+  dplyr::mutate(coffeeF = factor(coffee,
+                                 levels = c(0, 1),
+                                 labels = c("Not a regular coffee drinker",
+                                            "Regularly drinks coffee")))  %>% 
+  dplyr::mutate(hr_base_bps = hr_base / 60) %>% 
+  dplyr::mutate(anx_plus = rowsums(anx_base, anx_pre, anx_post)) %>% 
+  dplyr::mutate(hr_avg = rowmeans(hr_base, hr_pre, hr_post)) %>% 
+  dplyr::mutate(statDiff = statquiz - exp_sqz)
+```
+
+\clearpage
+
+
+
+## Question C-1. Scatterplots - Eyeball method for estimating correlation
+
+**TEXTBOOK QUESTION:** *(A) Create a scatter plot of phobia versus statquiz. From looking at the plot, do you think the Pearson’s r will be positive or negative? Large, medium, or small? (B) Create a scatter plot of baseline anxiety versus postquiz anxiety. From looking at the plot, do you think the Pearson’s r will be positive or negative? Large, medium, or small?*
+
+-------------------------------
+
+**DIRECTIONS:** Create two scatter plots: the first with `phobia` on the horizontal axis (`x`) and `statquiz` on the vertical axis (`y`) and the second with `anx_base` on the x-axis and `anx_post` on the y-axis.  Then answer the rest of the question in the printed homework packet.  
+
+> **NOTE:** You may use the `geom_count()` funciton instead of the `geom_point()` function due to the high number of points that are 'over plotted' or on top of each other, since the two measures are quite coursely captured.
+
+```{r Q9c1a}
+# Scatterplot: phobia vs. statquiz
+
+```
+
+\clearpage
+
+
+
+```{r Q9c1b}
+# Scatterplot: anx_base vs. anx_post
+
+```
+
+\clearpage
+
+
+
+## Question C-2a. Calculating Pearson's $r$
+
+**TEXTBOOK QUESTION:** *Compute the Pearson’s $r$ between `phobia` and `statquiz` for all students; also, find the Pearson’s $r$ between baseline and postquiz anxiety.*
+
+-------------------------------
+
+**DIRECTIONS:** Compute Pearson's $r$: first for `phobia` and `statquiz`, followed by `anx_base` and `anx_post` using the `cor.test()` function.
+
+```{r Q9c2a1}
+# Pearson's r: phobia & statquiz
+
+```
+
+-------------------------------
+
+```{r Q9c2a2}
+# Pearson's r: anx_base & anx_post
+
+```
+
+\clearpage
+
+
+
+## Question C-2b. Effect of Excluding Extreme Values
+
+**TEXTBOOK QUESTION:** *Use Select Cases to delete any student whose baseline anxiety is over 29, and repeat part (B) of the first exercise. Also, rerun the correlation of baseline and postquiz anxiety. What happened to the Pearson’s r ? Use the change in the scatter plot to explain the change in the correlation coefficient.*
+
+-------------------------------
+
+**DIRECTIONS:** Create a scatterplot for `anx_base` and `anx_post`, AFTER first using a `dplyr::filter()` funtion in a prepatroy step to restrict to the subsample of students with baseline anxiety of 29 and below.
+
+```{r Q9c2b1}
+# Scatterplot: anx_base vs. anx_post <-- restricting to baseline anxiety of 29 and lower
+
+```
+
+\clearpage
+
+
+
+**DIRECTIONS:** Compute Pearson's $r$: for `anx_base` and `anx_post`, AFTER first using a `dplyr::filter()` funtion in a prepatroy step to restrict to the subsample of students with baseline anxiety of 29 and below.
+
+```{r Q9c2b2}
+# Pearson's r: anx_base & anx_post <-- restricting to baseline anxiety of 29 and lower
+
+```
+
+\clearpage
+
+
+
+## Question C-3. Reporting APA Style 
+
+**TEXTBOOK QUESTION:** *(a) Compute Pearson’s $r$'s among the three measures of anxiety. Write up the results in APA style. (b) Compute the average of the three measures of anxiety, and then compute the correlation between each measure of anxiety and the average, ~~so that the output contains a single column of correlations (do this by creating and appropriately modifying a syntax file~~).*
+
+-------------------------------
+
+**DIRECTIONS:** First, compute a new variable called `anx_mean` that is the average of all three of the anxiety measures using the `furniture::rowmeans()` function. Then use the `furniture::tableC()`function to create a correlation matrix for all FOUR anxiety meausres.
+
+```{r Q9c3}
+# Pearson's r: anx_mean, anx_base, anx_pre, & anx_post
+```
+
+\clearpage
+
+
+
+## Question C-4. Missing Values
+
+**TEXTBOOK QUESTION:** *(a) Compute Pearson’s $r$ for the following list of variables: mathquiz , statquiz , and phobia . (b) Repeat part a after selecting exclude cases listwise. Which correlation was changed? Explain why.*
+
+-------------------------------
+
+**Directions:** Compute the correlation matrix between `mathquiz`, `statquiz`, and `phobia` using the `furniture::tableC()` function two times; first with all defaults and again with listwise deletion.
+
+> **Note:** The `furniture::tableC()` funtion defaults to `na.rm = FALSE` which displays `NA` for any correlation between a pair of variables where even one subject is missing one value.  To use listwise deletion, specify the option `na.rm = TRUE`.
+
+```{r Q9c4a}
+# Pearson's r: (default: na.rm = FALSE)
+
+```
+
+-------------------------------
+
+```{r Q9c4b}
+# Pearson's r: "complete.obs" (list-wise deletion)
+
+```
+
+

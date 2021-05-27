@@ -1,0 +1,7 @@
+"0","df %>%"
+"0","  ggplot(aes(x, y)) +"
+"0","    geom_point() +"
+"0","    geom_smooth(se = FALSE,"
+"0","                method = ""lm"","
+"0","                color = ""chartreuse3"") +"
+"0","    labs(subtitle = ""Positive"")"
