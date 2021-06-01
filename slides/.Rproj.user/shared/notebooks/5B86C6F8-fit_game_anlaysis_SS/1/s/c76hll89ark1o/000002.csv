@@ -1,0 +1,7 @@
+"0","df_longer %>% "
+"0","  dplyr::filter(measure %in% c(""veg"")) %>% "
+"0","  dplyr::filter(value > 0) %>% "
+"0","  ggplot(aes(value)) + "
+"0","  geom_histogram(binwidth = 5) +"
+"0","  theme_bw() +"
+"0","  labs(x = ""Veg Intake"")"

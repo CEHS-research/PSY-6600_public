@@ -1,0 +1,9 @@
+"0","fit_fruit_0 <- lme4::glmer(I(value > 0) ~ group*time_lab + grade + school +
+                               (1|id)  ,
+                             data = df_longer %>% 
+                               dplyr::filter(measure %in% c(""fruit"")),
+                           family = binomial(link = ""logit""))
+"
+"2","fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+"
+"2","Model failed to converge with max|grad| = 0.0719166 (tol = 0.002, component 1)"

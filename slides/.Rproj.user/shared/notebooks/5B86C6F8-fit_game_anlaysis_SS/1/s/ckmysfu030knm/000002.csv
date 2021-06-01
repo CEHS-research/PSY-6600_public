@@ -1,0 +1,3 @@
+"0","df_raw <- haven::read_spss(""9 jan 2019 for ginger.sav"") %>% "
+"0","  haven::as_factor() %>% "
+"0","  dplyr::rename_all(tolower)"

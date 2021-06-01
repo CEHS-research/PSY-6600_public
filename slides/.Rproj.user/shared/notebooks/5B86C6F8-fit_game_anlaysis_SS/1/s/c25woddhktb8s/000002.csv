@@ -1,0 +1,8 @@
+"0","df_longer %>% "
+"0","  dplyr::filter(measure %in% c(""fruit"")) %>% "
+"0","  dplyr::filter(!is.na(value)) %>% "
+"0","  ggplot(aes(value)) + "
+"0","  geom_histogram(binwidth = 10) +"
+"0","  theme_bw() +"
+"0","  facet_grid(group ~ time_lab) +"
+"0","  labs(x = ""Fruit Intake"")"

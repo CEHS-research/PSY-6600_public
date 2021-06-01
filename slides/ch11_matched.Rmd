@@ -8,6 +8,7 @@ output:
     nature:
       highlightStyle: github
       highlightLines: true
+      highlightSpans: true
       countIncrementalSlides: false
       ratio: '16:9'
 ---
@@ -15,7 +16,7 @@ output:
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 knitr::opts_chunk$set(comment     = NA,
-                      cache       = TRUE,
+                      cache       = FALSE,
                       echo        = TRUE, 
                       warning     = FALSE, 
                       message     = FALSE,
@@ -36,7 +37,7 @@ class: center, middle
 ## Compare Two Means 
 
 
-### Independent Groups *t*-Test
+### Independent Groups *t*-Test (Chap. 7)
 
 - Assumes two .bluer["Simple Random Samples"] (SRS)
 
@@ -50,7 +51,7 @@ class: center, middle
 
 <br><br>
 
-### Dependent Groups *t*-Test
+### Dependent Groups *t*-Test (Chap. 11)
 
 - The assumption of .dcoral[**independence**] has been VIOLATED, resulting in a .nicegreen[**DEPENDENCY*]* across groups
 
@@ -63,21 +64,21 @@ class: center, middle
 
 ## "All models are wrong, some models are useful."
 
-The first record of .nicegreen[George Box] saying **"all models are wrong"** is in a 1976 paper published in the *Journal of the American Statistical Association*. The 1976 paper contains the aphorism twice. The two sections of the paper that contain the aphorism are copied below.
+The first record of .nicegreen[George Box] saying .dcoral[**"all models are wrong"**] is in a 1976 paper published in the *Journal of the American Statistical Association*. The 1976 paper contains the aphorism twice. The two sections of the paper that contain the aphorism are copied below.
 
 <br>
 
 --
 **Parsimony**
 
-Since all models are wrong the scientist cannot obtain a "correct" one by excessive elaboration. On the contrary following .nicegreen[William of Occam] he should seek an economical description of natural phenomena. Just as the ability to devise .dcoral[simple but evocative models] is the signature of the great scientist so .bluer[overelaboration] and .bluer[overparameterization] is often the mark of mediocrity.
+Since all models are wrong the scientist cannot obtain a "correct" one by excessive elaboration. On the contrary following .nicegreen[William of Occam] he should seek an economical description of natural phenomena. Just as the ability to devise .dcoral[**simple but evocative models**] is the signature of the great scientist so .bluer[overelaboration] and .bluer[overparameterization] is often the mark of mediocrity.
 
 
 --
 
 **Worrying Selectively**
 
-Since all models are wrong the scientist must be alert to .dcoral[what is importantly wrong]. It is inappropriate to be concerned about mice when there are tigers abroad.
+Since all models are wrong the scientist must be alert to .dcoral[**what is importantly wrong*]**. It is inappropriate to be concerned about mice when there are tigers abroad.
 
 
 --
@@ -89,29 +90,29 @@ Since all models are wrong the scientist must be alert to .dcoral[what is import
 
 ---
 
-**Observational - Longitudinal Repeated Measures: Collect Same Measure Before-and-After**
+.bluer[**Observational - Longitudinal Repeated Measures: Collect Same Measure Before-and-After**]
 
-Dr. Filburn wishes to assess the **effectiveness** of a leadership workshop for 60 middle managers. The 60 managers are rated by their immediate supervisors on the Leadership Rating Form (LRF), .coral[before] **and** .nicegreen[after] the workshop.
-
-
---
-
-**Observational - Repeated Measures: Simultaneously Collected Different Measures**
-
-Dr. Clarke is interested in determining if workers are more concerned with job security **or** pay. He gains the cooperation of 30 individuals who work in different settings and asks each employee to rate his or her concern about .coral[salary level] **and** .nicegreen[job security], on a scale from 1 to 10.
+Dr. Filburn wishes to assess the **effectiveness** of a leadership workshop for 60 middle managers. The 60 managers are rated by their immediate supervisors on the Leadership Rating Form, .coral[**BEFORE**] **and** .nicegreen[**AFTER**] the workshop.
 
 
 --
 
-**Observational - Pairs: Pre-existing**
+.bluer[**Observational - Repeated Measures: Simultaneously Collected Different Measures**]
 
-Dr. Gale questions whether husbands **or** wives with infertility problems feel equally anxious. She recruits 24 infertile couples and then administers the Infertility Anxiety Measure (IAM) to both the .coral[husbands] **and** the .nicegreen[wives].
+Dr. Clarke is interested in determining if workers are more concerned with job security **or** pay. He gains the cooperation of 30 individuals who work in different settings and asks each employee to rate his or her concern about **BOTH**.coral[**SALARY LEVEL**] **and** .nicegreen[**JOB SECURITY**], on a scale from 1 to 10.
+
 
 --
 
-**Experimental - Matched Pairs: Randomized within dyads**
+.bluer[**Observational - Pairs: Pre-existing**]
 
-Dr. Smith has developed a new strategy for teaching fractions to second graders.  **Before** assigning the 30 students to receive group instruction either by the .coral[old way] **and** .nicegreen[new way], the researcher first matches the students into pairs with similar prior math achievement.  One randomly selected student in each pair is selected to receive the new method while the other is taught be the old method.
+Dr. Gale questions whether husbands **or** wives with infertility problems feel equally anxious. She recruits 24 infertile couples and then administers the Infertility Anxiety Measure (IAM) to both the .coral[**HUSBANDS**] **and** the .nicegreen[**WIVES**].
+
+--
+
+.bluer[**Experimental - Matched Pairs: Randomized within dyads**]
+
+Dr. Smith has developed a new strategy for teaching fractions to second graders.  **Before** assigning the 30 students to receive group instruction either by **BOTH** the .coral[**OLD WAY**] **and** .nicegreen[**NEW WAY**], the researcher first **MATCHES** the students into pairs with similar prior math achievement.  One randomly selected student in each **PAIR** is selected to receive the new method while the other is taught be the old method.
 
 
 
@@ -127,8 +128,11 @@ Dr. Smith has developed a new strategy for teaching fractions to second graders.
 
 > What is the difference from an independent groups *t*-Test?
 
+
+--
+
 .pull-left[
-**Incorporation of Correlation**
+**1) Incorporation of Correlation**
 
 
 - eliminates variance from .dcoral[extraneous factors]
@@ -138,27 +142,27 @@ Dr. Smith has developed a new strategy for teaching fractions to second graders.
 - The denominator of the *t*-statistic is smaller
 
 
-**observed *t* value =  MORE EXTREME**
+.nicegreen[**observed *t* value =  MORE EXTREME**]
 
 ]
 
 --
 
 .pull-right[
-**Reduction in Degrees of Freedom**
+**2) Reduction in Degrees of Freedom**
 
 Sample size is the number of .dcoral[PAIRS] not the number of observations.
 
 - The degrees of freedom are half
 
-**critical *t* = little more extreme**
+.nicegreen[**critical *t* = little more extreme**]
 
 ]
 
 --
 
 
-.nicegreen[.large[
+dcoral[.large[
 > **IF** there is correlation...  
 >   
 > **THEN** a matched/paired *t*-Test is more **powerful** than ignoring the correlation and erroneously performing an independent-groups *t*-Test.
@@ -168,7 +172,7 @@ Sample size is the number of .dcoral[PAIRS] not the number of observations.
 ---
 
 
-## Observational Studies
+## Observational Studies: 
 
 .dcoral[**Pre-existing Pairs**] - naturally *related*, *correlated*, or *dependent* based on the .nicegreen[**nature of the situation**]
 
@@ -211,7 +215,7 @@ knitr::include_graphics("figures/pretest_posttest_boxes.png")
 ```
 
 .large[
-> Because there is .nicegreen[**No control group**]and .nicegreen[**Only 2 time points**]
+> There is .nicegreen[**No control group**] and .nicegreen[**Only 2 time points**]
 ]
 
 - .dcoral[History] – Experiences outside the study may affects the measurements before and after a treatment
@@ -257,7 +261,7 @@ knitr::include_graphics("figures/crossover_color.png")
 
 
 
-**Why Bother?**
+.nicegreen[**Why Bother?**]
 
 Both "groups" are made up of the same participants, so in a way .nicegreen[each subject acts as their own control].
 
@@ -269,7 +273,7 @@ Both "groups" are made up of the same participants, so in a way .nicegreen[each 
 
 <br>
 
-**Potential Problems**
+.nicegreen[**Potential Problems**]
 
 Each study .dcoral[participant is required to do twice as much].  This can lead to .nicegreen[fatigue and attrition].
 
@@ -325,7 +329,7 @@ knitr::include_graphics("figures/Matched-pairs.png")
 - You can not randomize subjects in rolling-enrollment.  You must .dcoraql[wait] till all subjects are enrolled and you have gathered the matching variables BEFORE you can randomize into groups.
 
 .large[
-> Picking the wrong matching variables is problematic as it is .dcoral[**irreversible**]. In other words, we CANNOT explore alternative causal hypotheses since the design is definitive and CANNOT be changed.
+> .dcoral[Picking the wrong matching variables is problematic as it is **IRREVERSIBLE**. In other words, we CANNOT explore alternative causal hypotheses since the design is definitive and CANNOT be changed.]
 ]
 ---
 
@@ -442,7 +446,7 @@ cancer_raw <- haven::read_spss("cancer.sav")
 cancer_raw <- haven::read_spss("data/cancer.sav")
 ```
 
---
+
 ### And Clean It
 
 ```{r, message=FALSE, warning=FALSE}
@@ -476,19 +480,24 @@ cancer_clean %>%
 
 ### Example 1) Data Wrangling - Create a "DIFFERENCE" score
 
-- a.k.a. "CHANGE SCORE" (restrict to complete data)
+> .bluer[One line PER PERSON...time points side-by-side on the same line]
 
-> One line PER PERSON...time points side-by-side on the same line
+```{r, eval=FALSE}
+cancer_new <- cancer_clean %>% 
+  dplyr::mutate(`totalc_diff = totalcw6 - totalcin`) %>%   # gain score = difference
+  dplyr::filter(complete.cases(totalcin, totalcw6)) %>%   # Requires complete data
+  dplyr::select(id, totalcin, totalcw6, `totalc_diff`)
+```
 
-```{r}
+```{r, echo=FALSE}
 cancer_new <- cancer_clean %>% 
   dplyr::mutate(totalc_diff = totalcw6 - totalcin) %>% 
-  dplyr::filter(complete.cases(totalcin, totalcw6)) %>% 
-  dplyr::select(id, totalcin, totalcw6, totalc_diff)
+  dplyr::filter(complete.cases(totalcin, totalcw6)) 
 ```
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 cancer_new %>% 
+  dplyr::select(id, age, weighin, totalcin, totalcw6, totalc_diff) %>% 
   DT::datatable(options = list(pageLength = 5))
 ```
 
@@ -497,22 +506,29 @@ cancer_new %>%
 
 ### Example 1) Data Wrangling - Restructure to "LONG" format
 
-> One line PER TIME POINT per person...each person will have TWO lines
+> .bluer[One line PER TIME POINT per person...each person will have TWO lines]
 
-```{r}
+```{r, eval=FALSE}
+cancer_long <- cancer_new %>% 
+  tidyr::pivot_longer(cols = c(`totalcin`, `totalcw6`),
+                      names_to = c(".value", `"time"`),
+                      names_pattern = "(.*)(..)") %>% 
+  dplyr::mutate(time = factor(time) %>% 
+                  forcats::fct_recode("Intake" = "in", "Week 6" = "w6"))
+```
+
+```{r, echo=FALSE}
 cancer_long <- cancer_new %>% 
   tidyr::pivot_longer(cols = c(totalcin, totalcw6),
                       names_to = c(".value", "time"),
                       names_pattern = "(.*)(..)") %>% 
   dplyr::mutate(time = factor(time) %>% 
-                  forcats::fct_recode("Intake" = "in",
-                                      "Week 6" = "w6"))
+                  forcats::fct_recode("Intake" = "in", "Week 6" = "w6"))
 ```
-
-
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 cancer_long %>% 
+  dplyr::select(id, age, weighin, time, totalc) %>% 
   DT::datatable(options = list(pageLength = 5))
 ```
 
@@ -591,7 +607,7 @@ cancer_long %>%
 
 **Line Plot for Paired t-Test**
  
-> Is there a Mean Difference?  Looks like yes
+> Is there a Mean Difference?  
 
 ```{r, echo=FALSE}
 cancer_long %>% 
@@ -622,13 +638,13 @@ cancer_long %>%
 
 **Scatter Plot for Correlation/Regression**
  
-> Is there a Correlation? Looks like no
+> Is there a Correlation? 
 
 ```{r, echo=FALSE}
 cancer_new %>% 
   ggplot(aes(x = totalcin,
              y = totalcw6)) +
-  geom_point() +
+  geom_count() +
   geom_smooth(method = "lm") +
   theme_bw() +
   labs(x = "Total Oral Condition at Intake",
@@ -712,15 +728,21 @@ cancer_new %>%
 .pull-left[
 **Means and Standard Deviations**
 
-```{r}
+```{r, eval=FALSE}
+cancer_new %>% 
+  `furniture::table1`("Pre"    = totalcin, 
+                    "Post"   = totalcw6,
+                    "Change" = totalc_diff,
+                    digits = 2)
+```
+
+```{r, echo=FALSE}
 cancer_new %>% 
   furniture::table1("Pre" = totalcin, 
                     "Post" = totalcw6,
                     "Change" = totalc_diff,
                     digits = 2)
 ```
-
-
 ]
 
 --
@@ -729,11 +751,18 @@ cancer_new %>%
 
 **Pearson's Product-Moment Correlation**
 
-```{r}
+```{r, eval=FALSE}
+cancer_new %>% 
+  `cor.test`(`~` totalcin `+` totalcw6,
+           data = .)
+```
+
+```{r, echo=FALSE}
 cancer_new %>% 
   cor.test(~ totalcin + totalcw6,
            data = .)
 ```
+
 
 ]
 
@@ -745,27 +774,28 @@ cancer_new %>%
 ### Example 1) Direct Difference Method (Ch 7. 1-sample test)
 
 
-```{r directdif, eval=FALSE}
+```{r, eval=FALSE}
+cancer_new %>% 
+  `dplyr::pull`(totalc_diff) %>% 
+  `t.test`(`mu = 0`)
+```
+
+--
+
+```{r, echo=FALSE}
 cancer_new %>% 
   dplyr::pull(totalc_diff) %>% 
   t.test(mu = 0)
 ```
 
---
-
-```{r, ref.label="directdif", echo=FALSE}
-
-```
 
 
+
+.dcoral[**Interpretation**]
 
 --
 
-**Interpretation**
-
---
-
-> The 23 participants' oral condition was measured as intake (*M* = 6.48, *SD* = 1.56) and re-evaluated six weeks later (*M* = 9.48, *SD* = 3.49).  A paired samples t-Test on the repeated measures (*r* = .098) found a this to be a statistically significantly deterioration, *t*(22) = 3.91, *p* < .001, 95% *CI* [1.41, 4.59].
+> The 23 participants' oral condition was measured as intake .nicegreen[(*M* = 6.48, *SD* = 1.56)] and re-evaluated six weeks later .nicegreen[(*M* = 9.48, *SD* = 3.49)].  A paired samples t-Test on the repeated measures .nicegreen[(*r* = .098, *p* = .657)] found a this to be a statistically significantly deterioration, .dcoral[*t*(22) = 3.91, *p* < .001, 95% *CI* [1.41, 4.59]].
 
 
 ---
@@ -773,7 +803,18 @@ cancer_new %>%
 ### Example 1) Paired t-Test Method (adjust indept t-test)
 
 .pull-left[
-```{r pairt, eval=FALSE}
+```{r eval=FALSE}
+cancer_long %>% 
+  `t.test`(totalc `~` time,  # DV_cont ~ IV_time
+         data = .,
+         `paired = TRUE`)
+```
+]
+
+--
+
+.pull-right[
+```{r echo=FALSE}
 cancer_long %>% 
   t.test(totalc ~ time,  # DV_cont ~ IV_time
          data = .,
@@ -781,22 +822,13 @@ cancer_long %>%
 ```
 ]
 
---
 
-.pull-right[
-```{r, ref.label="pairt", echo=FALSE}
 
-```
-]
-
+.dcoral[**Interpretation**]
 
 --
 
-**Interpretation**
-
---
-
-> The 23 participants' oral condition was measured as intake (*M* = 6.48, *SD* = 1.56) and re-evaluated six weeks later (*M* = 9.48, *SD* = 3.49).  A paired samples t-Test on the repeated measures (*r* = .098) found a this to be a statistically significantly deterioration, *t*(22) = 3.91, *p* < .001, 95% *CI* [1.41, 4.59].
+> The 23 participants' oral condition was measured as intake .nicegreen[(*M* = 6.48, *SD* = 1.56)] and re-evaluated six weeks later .nicegreen[(*M* = 9.48, *SD* = 3.49)].  A paired samples t-Test on the repeated measures .nicegreen[(*r* = .098, *p* = .657)] found a this to be a statistically significantly deterioration, .dcoral[*t*(22) = 3.91, *p* < .001, 95% *CI* [1.41, 4.59]].
 
 
 .dcoral[**NOTE** *We usually report positive values for the test statistic (t), as well as the confidence interval values.*]
@@ -808,23 +840,24 @@ cancer_long %>%
 
 ### Example 1) 1-Sided Alternative and CIs
 
-.pull-leftsmall[
-```{r twoside, eval=FALSE}
+.pull-left[
+.nicegreen[**Two-sided Alterative**]
+```{r, eval=FALSE}
 cancer_long %>% 
   t.test(totalc ~ time, 
          data = .,
-         alternative = "two.sided",
+         `alternative = "two.sided"`,
          paired = TRUE)
 ```
 
 
-<br><br>
+.nicegreen[**One-sided Alterative**]
 
-```{r oneside, eval=FALSE }
+```{re, eval=FALSE }
 cancer_long %>% 
   t.test(totalc ~ time,
          data = .,
-         alternative = "less",
+         `alternative = "less"`,
          paired = TRUE)
 ```
 
@@ -832,14 +865,22 @@ cancer_long %>%
 
 ]
 
-.pull-rightbig[
+.pull-right[
 
-```{r, ref.label="twoside", echo=FALSE}
-
+```{r, echo=FALSE}
+cancer_long %>% 
+  t.test(totalc ~ time, 
+         data = .,
+         alternative = "two.sided",
+         paired = TRUE)
 ```
 
-```{r, ref.label="oneside", echo=FALSE}
-
+```{r, echo=FALSE }
+cancer_long %>% 
+  t.test(totalc ~ time,
+         data = .,
+         alternative = "less",
+         paired = TRUE)
 ```
 
 ]
@@ -854,12 +895,12 @@ cancer_long %>%
 --
 
 .pull-left[
-Step 1) Compute Cohen's d as IF we had independent samples
+Step 1) Compute Cohen's d as **IF** we had .nicegreen[independent samples]
 
 $$d_{orig} = \frac{\overline{D}}{SD_{diff}}\tag{8.2}$$
 
 ```{r}
-d =3/(3.68)   
+d = 3/(3.68)   
 d
 ```
 
@@ -869,7 +910,7 @@ d
 
 .pull-right[
 
-Step 2) Adjust for the correlation between measures (lack of independence)
+Step 2) .nicegreen[Adjust] for the correlation between measures (lack of independence)
 
 $$d_{matched} = d_{orig} \sqrt{\frac{1}{2(1 - \rho)}}\tag{11.5}$$
 
@@ -879,11 +920,11 @@ d*sqrt(1/(2*(1 - .098)))
 
 ]
 
---
+
 
 <br><br>
 
-**Interpretation**
+.dcoral[**Interpretation**]
 
 --
 
@@ -908,22 +949,22 @@ $$g_{matched} = t \sqrt{\frac{1}{n}}\tag{11.6}$$
 ```
 
 
---
+
 
 <br><br>
 
-**Interpretation**
+.dcoral[**Interpretation**]
 
 --
 
-> After accounting for correlation between repeated-measures, the oral condition increased by 0.82 standard deviations. 
+After accounting for correlation between repeated-measures, the oral condition increased by 0.82 standard deviations. 
 
 
 --
 
-.dcoral[**Read the paragraph at the end of page 351 (after formula 11.6)!**]
+.nicegreen[**Read the paragraph at the end of page 351 (after formula 11.6)!**]
 
-Please correctly label your effect size!
+**.center[Please correctly label your effect size!]**
 
 
 

@@ -1,0 +1,30 @@
+"0","df_long %>% 
+  dplyr::filter(!is.na(veg)) %>%
+  dplyr::group_by(group, time_lab) %>% 
+  dplyr::summarise(N = n(),
+                   M = mean(veg),
+                   SD = sd(veg),
+                   n = sum(veg > 0),
+                   p = 100*n/N) %>% 
+  pander::pander()
+"
+"2","`summarise()` has grouped output by 'group'. You can override using the `.groups` argument.
+"
+"1","
+----------------------------------------------------------------------
+    group           time_lab         N      M      SD      n      p   
+-------------- ------------------- ----- ------- ------- ----- -------
+   Control          Baseline        799   18.11   26.93   332   41.55 
+
+   Control      Post-Intervention   770   19.49   31.83   353   45.84 
+
+   Control          Follow-up       789   16.02   25.76   338   42.84 
+
+ Intervention       Baseline        694   17.23   24.87   332   47.84 
+
+ Intervention   Post-Intervention   684   27.28   39.23   355   51.9  
+
+ Intervention       Follow-up       698   22.39   29.92   362   51.86 
+----------------------------------------------------------------------
+
+"

@@ -1,0 +1,23 @@
+"0","df_wide %>%"
+"0","  dplyr::group_by(group) %>% "
+"0","  furniture::table1(school,"
+"0","                    grade, sex, demographic,"
+"0","                    year, carotenoids_b_yn,"
+"0","                    total  = TRUE,"
+"0","                    test   = TRUE,"
+"0","                    na.rm  = FALSE,"
+"0","                    digits = 2,"
+"0","                    output = ""markdown"")"
+"2","Using dplyr::group_by() groups: group
+"
+"2","The test is for the stratified data relationships.
+"
+"2","Breusch-Pagan Test of Heteroskedasticity suggests `var.equal = FALSE` in t.test() for: grade
+"
+"2","Chi-squared approximation may be incorrect"
+"2","Registered S3 methods overwritten by 'htmltools':
+  method               from         
+  print.html           tools:rstudio
+  print.shiny.tag      tools:rstudio
+  print.shiny.tag.list tools:rstudio
+"

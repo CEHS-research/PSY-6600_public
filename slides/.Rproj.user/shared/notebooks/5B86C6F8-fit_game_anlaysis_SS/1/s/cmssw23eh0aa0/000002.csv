@@ -1,0 +1,28 @@
+"0","texreg::knitreg(list(fit_fruit_logit_1,
+                     texreghelpr::extract_glmer_exp(fit_fruit_logit_1)),
+                custom.model.names = c(""b (SE)"", ""OR [95%]""),
+                single.row = TRUE,
+                ci.test = 1,
+                caption = ""Logistic GLMM: Any Fruit Consumed?"")
+"
+"1","
+=====================================================================================
+                                             b (SE)               OR [95%]           
+-------------------------------------------------------------------------------------
+(Intercept)                                      1.65 (0.15) ***  5.21 [3.86; 7.03] *
+groupIntervention                               -0.91 (0.15) ***  0.40 [0.30; 0.55] *
+time_labPost-Intervention                       -1.49 (0.14) ***  0.23 [0.17; 0.30] *
+time_labFollow-up                               -1.05 (0.14) ***  0.35 [0.27; 0.46] *
+grade                                            0.08 (0.03) *    1.08 [1.01; 1.15] *
+groupIntervention:time_labPost-Intervention      1.84 (0.20) ***  6.31 [4.27; 9.33] *
+groupIntervention:time_labFollow-up              1.48 (0.20) ***  4.40 [2.98; 6.51] *
+-------------------------------------------------------------------------------------
+AIC                                           4659.48                                
+BIC                                           4709.99                                
+Log Likelihood                               -2321.74                                
+Num. obs.                                     4077                                   
+Num. groups: id                               1526                                   
+Var: id (Intercept)                              0.89                                
+=====================================================================================
+*** p < 0.001; ** p < 0.01; * p < 0.05 (or Null hypothesis value outside the confidence interval).
+"

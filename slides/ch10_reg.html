@@ -20,83 +20,182 @@ class: center, middle, inverse, title-slide
 
 class: center, middle
 
-## Fit the analysis to the data, *not* the data to the analysis.
+## Fit the analysis to the data, 
+## *not* the data to the analysis.
 
 #### - Statistical Maxim
 
 ---
 ## Motivating Example
 
+.large[
+&gt; Dr. Ramsey conducts a .bluer[**non-experimental (observational) study**] to evaluate what she refers to as the 'strength-injury hypothesis.'   
+]
 
-- Dr. Ramsey conducts a *non-experimental* study to evaluate what she refers to as the 'strength-injury hypothesis.' It states that overall body strength in elderly women determines the number and severity of accidents that cause bodily injury. If the results support her hypothesis, she plans to conduct an experimental study to assess whether weight training reduces injuries in elderly women. 
-
---
-
-- Data from 100 women who range in age from 60 to 70 years old are collected. The women initially undergo a series of measures that assess upper and lower body strength, and these measures are summarized into an overall index of body strength. 
-
---
-
-- Over the next 5 years, the women record each time they have an accident that results in a bodily injury and describe fully the extent of the injury. On the basis of these data, Dr. Ramsey calculates an overall injury index for each woman. 
+It states that overall body strength in elderly women determines the number and severity of accidents that cause bodily injury. If the results support her hypothesis, she plans to conduct an .bluer[**experimental (randomized) study**] to assess whether weight training reduces injuries in elderly women.   
 
 --
 
-- A simple regression analysis is conducted with the overall index of body strength as the predictor (independent) variable and the overall injury index as the outcome (dependent) variable. 
+- Data from .nicegreen[100 women] who range in age from 60 to 70 years old are collected.   
 
+- The women initially undergo a series of measures that assess upper and lower body strength.  These measures are summarized into an .nicegreen[**overall index of body strength**]. 
+
+- Over the next 5 years, the women record each time they have an accident that results in a bodily injury and describe fully the extent of the injury.  On the basis of these data, Dr. Ramsey calculates an .nicegreen[**overall injury index**] for each woman. 
+
+--
+
+.large[
+&gt; A .dcoral[**simple regression analysis**] is conducted with the .nicegreen[overall index of body strength] as the **predictor (independent) variable** and the .nicegreen[overall injury index] as the **outcome (dependent) variable**. 
+]
 
 
 ---
-# Linear Association: Strength &amp; Direction
 
 .pull-left[
-## Correlation
 
-Pairwise Relationship
+## .nicegreen[Correlation]
 
-- `\(X_1 \longleftrightarrow  X_2\)`
-- order doesn't matter (no DV or IV)
-- Parameter = `\(\rho\)`
-- Statistic = r
+&gt; Chapter 9
+
+**Pairwise Relationship**
+
+- Variable order doesn't matter   
+- No DV or IV, just a pair of variables
+
+**Symbols**
+- Population Parameter = `\(\rho\)`   
+- Sample Statistic = `\(r\)`
+
+**Language**
+- *Evidence the `\(X_1\)` and `\(X_2\)` are .nicegreen[associated]*
+- *There is a .nicegreen[correlation] between `\(X_1\)` and `\(X_2\)`*
 
 ]
 
 --
 
 .pull-right[
-## Regression
 
-Directional Predictive 
 
-- `\(Y \longleftarrow X\)`
-- Y = Outcome, Dependent Variable (DV)
-- X = Predictor, Independent Variable (IV)
-- Parameter = `\(\beta\)`
-- Statistic = b
+## .dcoral[Regression]
+
+&gt; Chapter 10
+
+**Directional Predictive**
+
+- Y = Outcome, Dependent Variable (DV)    
+- X = Predictor, Independent Variable (IV)   
+
+**Symbols**
+- Population Parameter = `\(\beta_1\)`   
+- Sample Statistic = `\(b_1\)`
+
+**Language**
+- *.dcoral[Predicting] Y from X*
+- *.dcoral[Regressing] Y on X*
+
+]
+
+
+
+
+
+---
+
+&lt;!-- 365 Data Science: The Differences Between Correlation and Regression (5 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/qA-x72ju2kM?controls=0&amp;amp;start=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+
+---
+## The Line of Best Fit
+
+- The simple, linear relationship is usually not perfect *(points off the line)*
+- Regression coefficients .nicegreen[( `\(b_0\)` , `\(b_1\)` )] computed to **minimize error** as much as possible
+
+
+
+--
+
+.pull-left[
+
+**Residuals = Error**
+- The difference between observed `\(\large Y\)` and `\(\large \hat{Y}\)` 
+- Residuals: `\(\large e_i = Y_i - \hat{Y}_i\)`
+
+
+**Technique**
+
+- Ordinary Least Squares (OLS) regression
+
+**Goal**
+
+- Minimize `\(\large SS_{error}\)` ( `\(\large SS_{residuals}\)` )
+
+`$$\large SS_{residuals} = \sum_{i=1}^n (Y_i - \hat{Y}_i)^2$$`
+
+]
+
+
+--
+
+.pull-right[
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-1-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
 ]
 
 ---
-# Regression Basics
+count: false
+
+## The Line of Best Fit
+
+- The simple, linear relationship is usually not perfect *(points off the line)*
+- Regression coefficients .nicegreen[( `\(b_0\)` , `\(b_1\)` )] computed to **minimize error** as much as possible
 
 
-- Y usually predicted variable
-  - A.k.a: Dependent, criterion, outcome, response variable
-  - Predicting Y from X = 'Regressing Y on X'
-  
---
+.pull-left[
 
-- X usually variable used to predict Y
-  - A.k.a: Independent, predictor, explanatory variable
+**Residuals = Error**
+- The difference between observed `\(\large Y\)` and `\(\large \hat{Y}\)` 
+- Residuals: `\(\large e_i = Y_i - \hat{Y}_i\)`
 
---
 
-- Different results when X &amp; Y switched
+**Technique**
 
---
+- Ordinary Least Squares (OLS) regression
 
-- Procedure for obtaining *the* line that best fits data (Assuming relationship is best described as linear)
+**Goal**
+
+- Minimize `\(\large SS_{error}\)` ( `\(\large SS_{residuals}\)` )
+
+`$$\large SS_{residuals} = \sum_{i=1}^n (Y_i - \hat{Y}_i)^2$$`
+
+]
+
+
+
+.pull-right[
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
 
 
 ---
-# Regression Basics
+
+&lt;!-- Sketchy EBM: Simple Regression (8 min)--&gt;
+
+&lt;iframe width="1000" height="750" src="https://www.youtube.com/embed/SYY_BPciXPw?controls=0&amp;amp;start=12" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+
+
+
+
+---
+## The Regression Equation
 
 .coral[
 
@@ -118,151 +217,63 @@ $$ \LARGE \hat{Y_i} = b_0 + b_1 X_i $$
 --
 
 .pull-left[
-.large[
 .bluer[
-`\(\Large b_0\)` = y-intercept:
+.large[Y-Intercept]
 
-Constant, `\(\Large \hat{Y}\)` when X = 0, only interpreted if X = 0 is meaningful
+- Predicted `\(\hat{Y}\)`, when X = 0   
 
-Alternative notation: `\(\Large a\)` or `\(\Large a_{XY}\)` 
+- Interpreted only if `\(X = 0\)` is meaningful
 
-]]]
+
+`$$\LARGE
+b_0 = \bar{Y} - b_1 \times \bar{X}
+$$
+
+]]
 
 
 --
 
 .pull-right[
-.large[
 .nicegreen[
-`\(\Large b_1\)` = slope of regression line for 1st IV
+.large[Slope of Regression Line]
 
-Constant, Rate of change in Y for every 1-unit change in X
+- Rate of change, "rise over run"   
 
-Alternative notation: `\(\Large b_{XY}\)`
-]]]
-
-
-
----
-# Accuracy of Prediction
-.huge[
-.dcoral[Correlation] `\(\Large \neq\)` .dcoral[Causation]
-]
-
---
+- Predicted change in Y, for every 1-unit change in X
 
 
 
-- All points do not fall on regression line
-  - Prediction works for most, but not all in sample
-  
---
+`$$\LARGE
+b_1 = r \times \frac{s_Y}{s_X}
+$$
 
-- W/out knowledge of X, best prediction of Y is mean `\(\Large \bar{Y}\)`
-  - `\(\Large s_y\)` : best measure of prediction error
-
---
-
-- With knowledge of X, best prediction of Y is from the equation `\(\Large \hat{Y}\)`
-  - Standard error of estimate (SEE or `\(s_{Y \cdot X}\)` ): best measure of prediction error
-  - Estimated SD of residuals in population
+]]
 
 
 
 ---
-# Accuracy of Prediction
 
-.pull-left[
-### .nicegreen[Standard Error of Estimate]
-&lt;br&gt;
+.pull-leftsmall[
+### Example 1)
 
-`$$\large s_{Y \cdot X} = \sqrt{\frac{\sum (Y_i - \hat{Y})^2}{N - 2}} = \sqrt{\frac{SS_{residual}}{df}}$$`
+**Predictor (IV)**  
+*M* =  4.093   
+*SD* = 1.31   
 
-]
+**Outcome (DV)**   
+*M* = 12.290   
+*SD* = 1.66   
 
-
---
-
-.pull-right[
-### .dcoral[Residual or Error Variance &lt;br&gt; or Mean Square Error]
-
-`$$\large s_{Y \cdot X}^2 = \frac{\sum (Y_i - \hat{Y})^2}{N - 2} = \frac{SS_{residual}}{df}$$`
-
-]
-
---
-
-&lt;br&gt;
-.large[
-`\(df = N - 2\)` (2 df lost in estimating regression coefficients)
-
-Seeking smallest `\(\LARGE s_{Y \cdot X}\)` as it is a measure of variation of observations around regression line
+**Correlation**   
+*r* = .764   
 
 ]
 
 
----
-# .bluer[Line of Best Fit]
-
-.large[
-The relationship (prediction) is usually not perfect so regression coefficients ( `\(b_0\)` , `\(b_1\)` ) computed to minimize error as much as possible
+.pull-rightbig[
+&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 ]
-
---
-
-.pull-left[.large[
-**Error of Residuals**: difference between observed `\(\large Y\)` and `\(\large \hat{Y}\)` --&gt; `\(\large e_i = Y_i - \hat{Y}_i\)`
-
-
-
-**Technique**: Ordinary Least Squares (OLS) regression
-
-Goal: minimize `\(\large SS_{error}\)` ( `\(\large SS_{residuals}\)` )
-
-`\(\large SS_{residuals} = \sum_{i=1}^n (Y_i - \hat{Y}_i)\)`
-
-]
-]
-
---
-
-.pull-right[
-&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-1-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-
-]
-
----
-count: false
-
-# .bluer[Line of Best Fit]
-
-.large[
-The relationship (prediction) is usually not perfect so regression coefficients ( `\(b_0\)` , `\(b_1\)` ) computed to minimize error as much as possible
-]
-
-
-.pull-left[.large[
-**Error of Residuals**: difference between observed `\(\large Y\)` and `\(\large \hat{Y}\)` --&gt; `\(\large e_i = Y_i - \hat{Y}_i\)`
-
-**Technique**: Ordinary Least Squares (OLS) regression
-
-Goal: minimize `\(\large SS_{error}\)` ( `\(\large SS_{residuals}\)` )
-
-`\(\large SS_{residuals} = \sum_{i=1}^n (Y_i - \hat{Y}_i)\)`
-
-]
-]
-
-
-.pull-right[
-&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-
-]
-
-
----
-
-&lt;img src="ch10_reg_files/figure-html/unnamed-chunk-3-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 .pull-left[
 Scatterplot:
@@ -389,26 +400,6 @@ Coefficient of Determination: `\(\LARGE r^2 = \frac{\text{Explained Variation}}{
 --
 
 - .nicegreen[The proportion of variance in the outcome "accounted for" or "attributable to" or "predictable from" or "explained by" the predictor]
-
-
----
-# Standardized Coefficients (Beta weights)
-
-
-- 1 SD-unit change in X represents a `\(\beta\)` SD change in `Y`
-
---
-
-- Intercept = 0 and is not reported when using `\(\beta\)`
-
---
-
-- For simple regression only --&gt; `\(r = \beta\)` and `\(r^2 = \beta^2\)`
-  - When raw scores transformed into z-scores: `\(r = b = \beta\)`
-
---
-  
-- Useful for variables with abstract unit of measure
 
 
 
@@ -833,12 +824,95 @@ class: inverse, center, middle
 # Next Topic
 
 ### Matched T-Test
+
+
+
+
+---
+class: inverse, center, middle
+
+# Supplemental Slides
+
+
+---
+## Accuracy of Prediction
+
+- All points do not fall on regression line
+  - Prediction works for most, but not all in sample
+  
+--
+
+- W/out knowledge of X, best prediction of Y is mean `\(\Large \bar{Y}\)`
+  - `\(\Large s_y\)` : best measure of prediction error
+
+--
+
+- With knowledge of X, best prediction of Y is from the equation `\(\Large \hat{Y}\)`
+  - Standard error of estimate (SEE or `\(s_{Y \cdot X}\)` ): best measure of prediction error
+  - Estimated SD of residuals in population
+
+
+
+---
+# Accuracy of Prediction
+
+.pull-left[
+### .nicegreen[Standard Error of Estimate]
+&lt;br&gt;
+
+`$$\large s_{Y \cdot X} = \sqrt{\frac{\sum (Y_i - \hat{Y})^2}{N - 2}} = \sqrt{\frac{SS_{residual}}{df}}$$`
+
+]
+
+
+--
+
+.pull-right[
+### .dcoral[Residual or Error Variance &lt;br&gt; or Mean Square Error]
+
+`$$\large s_{Y \cdot X}^2 = \frac{\sum (Y_i - \hat{Y})^2}{N - 2} = \frac{SS_{residual}}{df}$$`
+
+]
+
+--
+
+&lt;br&gt;
+.large[
+`\(df = N - 2\)` (2 df lost in estimating regression coefficients)
+
+Seeking smallest `\(\LARGE s_{Y \cdot X}\)` as it is a measure of variation of observations around regression line
+
+]
+
+
+
+---
+# Standardized Coefficients (Beta weights)
+
+
+- 1 SD-unit change in X represents a `\(\beta\)` SD change in `Y`
+
+--
+
+- Intercept = 0 and is not reported when using `\(\beta\)`
+
+--
+
+- For simple regression only --&gt; `\(r = \beta\)` and `\(r^2 = \beta^2\)`
+  - When raw scores transformed into z-scores: `\(r = b = \beta\)`
+
+--
+  
+- Useful for variables with abstract unit of measure
+
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
+"highlightSpans": true,
 "countIncrementalSlides": false,
 "ratio": "16:9"
 });

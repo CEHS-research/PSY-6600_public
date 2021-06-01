@@ -1,0 +1,7 @@
+"0","df_longer %>% "
+"0","  dplyr::filter(measure %in% c(""carotenoid"")) %>% "
+"0","  dplyr::filter(!is.na(value)) %>% "
+"0","  ggplot(aes(value)) + "
+"0","  geom_histogram(bins = 25) +"
+"0","  theme_bw() +"
+"0","  labs(x = ""Carotenoid"")"

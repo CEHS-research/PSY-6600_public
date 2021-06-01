@@ -1,0 +1,7 @@
+"0","cancer_new <- cancer_clean %>% "
+"0","  dplyr::mutate(`totalc_diff = totalcw6 - totalcin`) %>%   # gain sore = difference"
+"0","  dplyr::filter(complete.cases(totalcin, totalcw6)) %>%   # Requires complete data"
+"0","  dplyr::select(id, totalcin, totalcw6, `totalc_diff`)"
+"2","Error in cancer_clean %>% dplyr::mutate(`totalc_diff = totalcw6 - totalcin`) %>%  : 
+  could not find function ""%>%""
+"

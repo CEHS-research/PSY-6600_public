@@ -1,4 +1,0 @@
-"0","library(tidyverse)"
-"0","df %>%"
-"0","  ggplot(aes(x, y)) +"
-"0","    geom_point()"

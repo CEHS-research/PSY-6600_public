@@ -1,0 +1,3 @@
+"0","cancer_long %>% "
+"0","  dplyr::select(id, age, weighin, time, totalc) %>% "
+"0","  DT::datatable(options = list(pageLength = 5))"

@@ -1,0 +1,6 @@
+"0","cancer_long <- cancer_new %>% "
+"0","  tidyr::pivot_longer(cols = c(totalcin, totalcw6),"
+"0","                      names_to = c("".value"", ""time""),"
+"0","                      names_pattern = ""(.*)(..)"") %>% "
+"0","  dplyr::mutate(time = factor(time) %>% "
+"0","                  forcats::fct_recode(""Intake"" = ""in"", ""Week 6"" = ""w6""))"

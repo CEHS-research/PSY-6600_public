@@ -1,0 +1,8 @@
+"0","df_wide <- df_long %>% "
+"0","  dplyr::select(-time_lab) %>% "
+"0","  tidyr::pivot_wider(names_from = time,"
+"0","                     values_from = c(bmi,"
+"0","                                     fvself, multivit, smoke, carotenoid,"
+"0","                                     fruit, takefruit,"
+"0","                                     veg, takeveg,"
+"0","                                     eff, like, know))"

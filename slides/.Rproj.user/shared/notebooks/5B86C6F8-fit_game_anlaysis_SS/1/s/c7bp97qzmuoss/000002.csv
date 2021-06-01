@@ -1,0 +1,27 @@
+"0","texreg::knitreg(list(fit_veg_logit_1,
+                     texreghelpr::extract_glmer_exp(fit_veg_logit_1)),
+                custom.model.names = c(""b (SE)"", ""OR [95%]""),
+                single.row = TRUE,
+                ci.test = 1,
+                caption = ""Logistic GLMM: Any Veg Consumed?"")
+"
+"1","
+=====================================================================================
+                                             b (SE)               OR [95%]           
+-------------------------------------------------------------------------------------
+(Intercept)                                     -0.57 (0.10) ***  0.57 [0.46; 0.70] *
+groupIntervention                                0.37 (0.15) *    1.45 [1.08; 1.96] *
+time_labPost-Intervention                        0.30 (0.12) *    1.35 [1.05; 1.72] *
+time_labFollow-up                                0.06 (0.12)      1.06 [0.83; 1.35]  
+groupIntervention:time_labPost-Intervention     -0.03 (0.18)      0.97 [0.68; 1.39]  
+groupIntervention:time_labFollow-up              0.23 (0.18)      1.25 [0.88; 1.79]  
+-------------------------------------------------------------------------------------
+AIC                                           5727.35                                
+BIC                                           5772.13                                
+Log Likelihood                               -2856.67                                
+Num. obs.                                     4434                                   
+Num. groups: id                               1698                                   
+Var: id (Intercept)                              2.64                                
+=====================================================================================
+*** p < 0.001; ** p < 0.01; * p < 0.05 (or Null hypothesis value outside the confidence interval).
+"

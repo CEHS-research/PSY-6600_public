@@ -1,0 +1,32 @@
+"0","df_long %>% 
+  dplyr::filter(!is.na(fruit)) %>%
+  dplyr::group_by(group, time_lab) %>% 
+  dplyr::summarise(N = n(),
+                   M = mean(fruit),
+                   SD = sd(fruit),
+                   n = sum(fruit > 0),
+                   p = 100*n/N) %>% 
+  pander::pander(caption = ""Summary Statistics for Fruit Consumption"")
+"
+"2","`summarise()` has grouped output by 'group'. You can override using the `.groups` argument.
+"
+"1","
+----------------------------------------------------------------------
+    group           time_lab         N      M      SD      n      p   
+-------------- ------------------- ----- ------- ------- ----- -------
+   Control          Baseline        805   50.16   39.12   650   80.75 
+
+   Control      Post-Intervention   770   45.91   50.16   453   58.83 
+
+   Control          Follow-up       786   34.88   35.48   518   65.9  
+
+ Intervention       Baseline        692   45.18   42.17   487   70.38 
+
+ Intervention   Post-Intervention   690   59.71   48.57   517   74.93 
+
+ Intervention       Follow-up       681   47.79   41.23   526   77.24 
+----------------------------------------------------------------------
+
+Table: Summary Statistics for Fruit Consumption
+
+"

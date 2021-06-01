@@ -1,0 +1,1079 @@
+---
+title: "Fit Game Analysis"
+subtitle: "Supplemental Materials"
+author: "Dr. Sarah Schwartz"
+date: "Summer 2021"
+output:
+  pdf_document:
+    toc: yes
+    toc_depth: 3
+    keep_tex: yes
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment     = "",
+                      echo        = TRUE, 
+                      warning     = FALSE, 
+                      message     = FALSE,
+                      fig.pos     = "hb",   
+                      fig.align   = "center",
+                      fig.width   = 6,        
+                      fig.height  = 4)        
+```
+
+
+\listoftables
+\listoffigures
+
+\clearpage
+
+# Preparation
+
+## Load Packages
+
+
+### General
+```{r, message=FALSE, comment=FALSE, warning=FALSE, error=FALSE, results="hide"}
+library(tidyverse)
+```
+
+### Dealing with Data
+```{r, message=FALSE, comment=FALSE, warning=FALSE, error=FALSE, results="hide"}
+library(haven)
+library(forcats)
+```
+
+### Creating Tables
+```{r, message=FALSE, comment=FALSE, warning=FALSE, error=FALSE, results="hide"}
+library(furniture)
+library(pander)
+library(texreg)
+```
+
+### Multilevel Modeling
+```{r, message=FALSE, comment=FALSE, warning=FALSE, error=FALSE, results="hide"}
+library(lme4)
+library(lmerTest)
+library(performance)
+library(GLMMadaptive)
+```
+
+
+\clearpage
+
+## Data Wrangling
+
+### Read in Raw 
+
+```{r}
+df_raw <- haven::read_spss("9 jan 2019 for ginger.sav") %>% 
+  haven::as_factor() %>% 
+  dplyr::rename_all(tolower)
+```
+
+
+```{r}
+summary(df_raw)
+```
+
+
+
+\clearpage
+
+
+### Long Format
+
+One line per observation (3 per participant)
+
+
+```{r}
+df_long <- df_raw %>% 
+  tibble::rownames_to_column(var = "id") %>% 
+  dplyr::mutate(group = interv_ctrl %>% 
+                  factor(levels = 0:1,
+                         labels = c("Control",
+                                    "Intervention"))) %>% 
+  dplyr::mutate(carotenoids_b_yn = carotenoids_b_yn %>% 
+                  factor(levels = 0:1,
+                         labels = c("No", "Yes"))) %>% 
+  dplyr::mutate(bl_bmi = bmi_b,
+                bl_smoke = smoke_b,
+                bl_carotenoid = carotenoid_b,
+                bl_fruit = fruit_b,
+                bl_veg = veg_b) %>% 
+  dplyr::mutate(fruit_all0 = case_when(furniture::rowmeans.n(fruit_b, fruit_i, fruit_f, 
+                                           n = 1) == 0 ~ 1,
+                                       furniture::rowmeans.n(fruit_b, fruit_i, fruit_f,
+                                           n = 1)  > 0 ~ 0)) %>% 
+  dplyr::mutate(veg_all0 = case_when(furniture::rowmeans.n(veg_b, veg_i, veg_f,
+                                                           n = 1) == 0 ~ 1,
+                                     furniture::rowmeans.n(veg_b, veg_i, veg_f,
+                                                           n = 1)  > 0 ~ 0)) %>% 
+  dplyr::mutate_at(vars(fruit_all0, veg_all0),
+                   factor,
+                   levels = 0:1,
+                   labels = c("no", "yes")) %>% 
+  dplyr::select(id, school, 
+                interv_ctrl, group,
+                grade, sex, demographic,
+                year, carotenoids_b_yn,
+                starts_with("bl_"),
+                fruit_all0, veg_all0,
+                ends_with("_b"),
+                ends_with("_i"),
+                ends_with("_f")) %>% 
+  tidyr::pivot_longer(cols = c(ends_with("_b"),
+                               ends_with("_i"),
+                               ends_with("_f")),
+                      names_to = c(".value", "time"),
+                      names_pattern = "(.*)_(.*)",
+                      values_drop_na = TRUE) %>% 
+  dplyr::mutate(time_lab = time %>% 
+                  factor(levels = c("b", "i", "f"),
+                         labels = c("Baseline",
+                                    "Post-Intervention",
+                                    "Follow-up"))) %>% 
+  dplyr::select(id, school, 
+                interv_ctrl, group,
+                grade, sex, demographic,
+                year, carotenoids_b_yn,
+                starts_with("bl_"),
+                fruit_all0, veg_all0,
+                time, time_lab,
+                everything())
+```
+
+
+```{r}
+df_long %>% 
+  dplyr::select(fruit_all0, veg_all0) %>% 
+  summary()
+```
+
+
+```{r}
+df_long %>% 
+  dplyr::select(id, fruit_all0, veg_all0, time, fruit, veg)
+```
+
+
+
+```{r}
+df_long
+```
+
+
+
+\clearpage
+
+### Longer Format
+
+One line per measure, per participant
+
+```{r}
+df_longer <- df_long %>% 
+  dplyr::mutate(multivit = case_when(multivit == "Yes" ~ 1,
+                                     multivit == "No"  ~ 0)) %>% 
+  dplyr::mutate(smoke    = case_when(smoke == "Yes" ~ 1,
+                                     smoke == "No"  ~ 0)) %>% 
+  dplyr::mutate(takefruit = case_when(takefruit == "Took"       ~ 1,
+                                      takefruit == "Didn't Take" ~ 0)) %>% 
+  dplyr::mutate(takeveg   = case_when(takeveg == "Took"       ~ 1,
+                                      takeveg == "Didn't Take" ~ 0)) %>% 
+  tidyr::pivot_longer(cols = c(bmi,
+                               fvself, multivit, smoke, carotenoid,
+                               fruit, takefruit,
+                               veg, takeveg,
+                               eff, like, know),
+                      names_to = "measure",
+                      names_ptypes = list(measure = factor()))
+```
+
+```{r}
+df_longer
+```
+
+
+\clearpage
+
+### Wide Format
+
+```{r}
+df_wide <- df_long %>% 
+  dplyr::select(-time_lab) %>% 
+  tidyr::pivot_wider(names_from = time,
+                     values_from = c(bmi,
+                                     fvself, multivit, smoke, carotenoid,
+                                     fruit, takefruit,
+                                     veg, takeveg,
+                                     eff, like, know))
+```
+
+
+```{r}
+df_wide
+```
+
+
+\clearpage
+
+# Exploratory Data Analysis
+
+## Demographic Summary
+
+```{r}
+df_wide %>%
+  dplyr::group_by(group) %>% 
+  furniture::table1(school,
+                    grade, sex, demographic,
+                    year, carotenoids_b_yn,
+                    total  = TRUE,
+                    test   = TRUE,
+                    na.rm  = FALSE,
+                    digits = 2,
+                    output = "markdown")
+```
+
+
+\clearpage
+
+### Baseline BMI
+
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("bmi")) %>% 
+  dplyr::filter(time_lab == "Baseline") %>%
+  dplyr::filter(!is.na(value)) %>% 
+  ggplot(aes(value)) +
+  geom_histogram() +
+  facet_grid(group ~.) +
+  theme_bw() +
+  labs(x = "Baseline BMI")
+```
+
+\clearpage
+
+## Measures Across Study
+
+
+```{r}
+df_wide %>% 
+  dplyr::select(starts_with("veg"),
+                starts_with("fruit"),
+                starts_with("car")) %>% 
+  dplyr::select(ends_with("_b"),
+                ends_with("_i"),
+                ends_with("_f")) %>%
+  dplyr::select_if(is.numeric) %>% 
+  psych::describe()
+  
+```
+
+
+
+
+\clearpage
+
+
+## Intake: Veg
+
+```{r}
+df_long %>%
+  dplyr::mutate()
+  dplyr::group_by(id, group) %>% 
+  
+```
+
+
+
+### Histogram: All Measurements
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("veg")) %>% 
+  ggplot(aes(value)) + 
+  geom_histogram(binwidth = 5) +
+  theme_bw() +
+  labs(x = "Veg Intake")
+```
+
+
+### Barplot: Consumed Any
+
+```{r}
+df_long %>% 
+  dplyr::filter(!is.na(veg)) %>% 
+  dplyr::mutate(any = (veg > 0)) %>% 
+  ggplot(aes(x = time_lab, 
+             fill = any)) + 
+  geom_bar(position = "fill") +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Consumed Any Veg") +
+  facet_wrap(. ~ group) +
+  scale_y_continuous(labels = scales::percent) +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c(NA, "gray25"))
+```
+
+### Histogram: All Non-Zero Measurements
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("veg")) %>% 
+  dplyr::filter(value > 0) %>% 
+  ggplot(aes(value)) + 
+  geom_histogram(binwidth = 5) +
+  theme_bw() +
+  labs(x = "Veg Intake")
+```
+
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("veg")) %>% 
+  dplyr::filter(value > 0) %>% 
+  ggplot(aes(value)) + 
+  geom_histogram(bins = 25) +
+  theme_bw() +
+  labs(x = "Veg Intake") +
+  scale_x_continuous(trans = "sqrt")
+```
+
+\clearpage
+
+
+### Histogram: By Intervention and Time
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("veg")) %>% 
+  ggplot(aes(value)) + 
+  geom_histogram(binwidth = 10) +
+  theme_bw() +
+  facet_grid(group ~ time_lab) +
+  labs(x = "Veg Intake")
+```
+
+\clearpage
+
+### Person Profile Plot: Across Time, By Intervention 
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("veg")) %>% 
+  dplyr::filter(!is.na(value)) %>% 
+  ggplot(aes(x = time_lab,
+             y = value,
+             group = id)) +
+  geom_line(alpha = .2) +
+  stat_summary(aes(group = 1),
+               fun = mean,
+               geom = "line",
+               color = "red") +
+  stat_summary(aes(group = 1),
+               color = "red") +
+  facet_grid(. ~ group) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Veg Intake")
+```
+
+\clearpage
+
+### Observed Means: Across Time, By Intervention
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("veg")) %>% 
+  dplyr::filter(!is.na(value)) %>% 
+  ggplot(aes(x = time_lab,
+             y = value,
+             color = group,
+             group = group)) +
+  stat_summary(aes(shape  = group)) +
+  stat_summary(fun = mean,
+               geom = "line") +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Veg Intake")
+```
+
+\clearpage
+
+## Intake: Fruit
+
+### Histogram: All Measurements
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("fruit")) %>% 
+  dplyr::filter(!is.na(value)) %>% 
+  ggplot(aes(value)) + 
+  geom_histogram(binwidth = 5) +
+  theme_bw() +
+  labs(x = "Fruit Intake")
+```
+
+### Barplot: Consumed Any
+
+```{r}
+df_long %>% 
+  dplyr::filter(!is.na(fruit)) %>% 
+  dplyr::mutate(any = (fruit > 0)) %>% 
+  ggplot(aes(x = time_lab, 
+             fill = any)) + 
+  geom_bar(position = "fill") +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Consumed Any Fruit") +
+  facet_wrap(. ~ group) +
+  scale_y_continuous(labels = scales::percent) +
+  theme(legend.position = "none") +
+  scale_fill_manual(values = c(NA, "gray25"))
+```
+
+
+### Histogram: All Non-Zero Measurements
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("fruit")) %>% 
+  dplyr::filter(value > 0) %>% 
+  ggplot(aes(value)) + 
+  geom_histogram(binwidth = 10) +
+  theme_bw() +
+  labs(x = "Fruit Intake")
+```
+
+
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("fruit")) %>% 
+  dplyr::filter(value > 0) %>% 
+  ggplot(aes(value)) + 
+  geom_histogram(bins = 25) +
+  theme_bw() +
+  labs(x = "Fruit Intake") +
+  scale_x_continuous(trans = "sqrt")
+```
+
+\clearpage
+
+### Histogram: By Intervention and Time
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("fruit")) %>% 
+  dplyr::filter(!is.na(value)) %>% 
+  ggplot(aes(value)) + 
+  geom_histogram(binwidth = 10) +
+  theme_bw() +
+  facet_grid(group ~ time_lab) +
+  labs(x = "Fruit Intake")
+```
+
+
+\clearpage
+
+### Person Profile Plot: Across Time, By Intervention 
+
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("fruit")) %>% 
+  dplyr::filter(!is.na(value)) %>% 
+  ggplot(aes(x = time_lab,
+             y = value,
+             group = id)) +
+  geom_line(alpha = .2) +
+  stat_summary(aes(group = 1),
+               fun = mean,
+               geom = "line",
+               color = "red") +
+  stat_summary(aes(group = 1),
+               color = "red") +
+  facet_grid(. ~ group) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Fruit Intake")
+```
+
+
+
+\clearpage
+
+### Observed Means: Across Time, By Intervention
+
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("fruit")) %>% 
+  dplyr::filter(!is.na(value)) %>% 
+  ggplot(aes(x = time_lab,
+             y = value,
+             color = group,
+             group = group)) +
+  stat_summary(aes(shape  = group)) +
+  stat_summary(fun = mean,
+               geom = "line") +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Fruit Intake")
+```
+
+\clerapage
+
+## Carotenoid
+
+### Histogram: All Measurements
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("carotenoid")) %>% 
+  dplyr::filter(!is.na(value)) %>% 
+  ggplot(aes(value)) + 
+  geom_histogram(bins = 25) +
+  theme_bw() +
+  labs(x = "Carotenoid")
+```
+
+
+\clerapage
+
+### Histogram: By Intervention and Time
+
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("carotenoid")) %>% 
+  ggplot(aes(value)) + 
+  geom_histogram(bins = 25) +
+  theme_bw() +
+  facet_grid(group ~ time_lab) +
+  labs(x = "Carotenoid")
+```
+
+
+\clearpage
+
+### Person Profile Plot: Across Time, By Intervention 
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("carotenoid")) %>% 
+  dplyr::filter(!is.na(value)) %>% 
+  ggplot(aes(x = time_lab,
+             y = value,
+             group = id)) +
+  geom_line(alpha = .3) +
+  stat_summary(aes(group = 1),
+               fun = mean,
+               geom = "line",
+               color = "red") +
+  stat_summary(aes(group = 1),
+               color = "red") +
+  facet_grid(. ~ group) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Carotenoid")
+```
+
+
+
+\clearpage
+
+### Observed Means: Across Time, By Intervention
+
+
+```{r}
+df_longer %>% 
+  dplyr::filter(measure %in% c("carotenoid")) %>% 
+  dplyr::filter(!is.na(value)) %>% 
+  ggplot(aes(x = time_lab,
+             y = value,
+             color = group,
+             group = group)) +
+  stat_summary(aes(shape  = group)) +
+  stat_summary(fun = mean,
+               geom = "line") +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Carotenoid")
+```
+
+
+
+\clearpage
+
+# Model: Veg 
+
+```{r}
+df_long %>% 
+  dplyr::filter(!is.na(veg)) %>%
+  dplyr::group_by(group, time_lab, veg_all0) %>%
+  dplyr::tally()
+  
+```
+
+
+
+```{r}
+df_long %>% 
+  dplyr::filter(!is.na(veg)) %>%
+  dplyr::group_by(group, time_lab) %>% 
+  dplyr::summarise(N = n(),
+                   M = mean(veg),
+                   SD = sd(veg),
+                   n = sum(veg > 0),
+                   p = 100*n/N) %>% 
+  pander::pander()
+```
+
+
+
+
+\clearpage
+
+## Logistic GLMM
+
+
+### Fit the Model
+
+- Can not nest students within schools
+- Failed to converge with `grade`
+
+```{r}
+fit_veg_logit_1 <- lme4::glmer(I(veg > 0) ~ group*time_lab +
+                                 (1|id)  ,
+                               data = df_long %>% 
+                                 dplyr::filter(!is.na(veg)),
+                               family = binomial(link = "logit"))
+```
+
+### Parameter Estimates
+
+```{r}
+texreg::knitreg(list(fit_veg_logit_1,
+                     texreghelpr::extract_glmer_exp(fit_veg_logit_1)),
+                custom.model.names = c("b (SE)", "OR [95%]"),
+                single.row = TRUE,
+                ci.test = 1,
+                caption = "Logistic GLMM: Any Veg Consumed?")
+```
+
+### Post Hoc Tests
+
+```{r}
+effects::Effect(focal.predictors = c("group",
+                                     "time_lab"),
+                mod = fit_veg_logit_1) %>% 
+  data.frame() %>% 
+  dplyr::arrange(group, time_lab)
+```
+
+
+```{r}
+fit_veg_logit_1 %>% 
+  emmeans::emmeans(~ group | time_lab ) %>% 
+  pairs()
+```
+
+
+### Plot the Marginal Model
+
+```{r}
+effects::Effect(focal.predictors = c("time_lab",
+                                     "group"),
+                mod = fit_veg_logit_1) %>% 
+  data.frame() %>% 
+  dplyr::mutate(group = forcats::fct_rev(group)) %>% 
+  dplyr::mutate(time_lab = time_lab %>% 
+                  factor(levels = c("Baseline",
+                                    "Post-Intervention",
+                                    "Follow-up"))) %>% 
+  ggplot(aes(x = time_lab,
+             y = fit,
+             group = group)) +
+  geom_errorbar(aes(ymin = fit - se,
+                    ymax = fit + se),
+                width = .25,
+                position = position_dodge(width = .2)) +
+  geom_point(aes(shape = group),
+             size = 3,
+                position = position_dodge(width = .2)) +
+  geom_line(aes(linetype = group),
+                position = position_dodge(width = .2)) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Predicted Proportion Consuming Veg",
+       shape = NULL,
+       linetype = NULL) +
+  theme(legend.background = element_rect(color = "black"),
+        legend.position = c(0, 1),
+        legend.justification = c(-0.1, 1.1),
+        legend.key.width = unit(2, "cm")) +
+  scale_y_continuous(labels = scales::percent)
+```
+
+
+
+
+
+\clearpage
+
+## Hurdle: Log Normal
+
+
+```{r, eval=FALSE}
+fit_veg_1 <- GLMMadaptive::mixed_model(fixed = veg ~ group*time_lab + grade,
+                                       random = ~ 1 | school/id,
+                                       data = df_long,
+                                       family = hurdle.lognormal(),
+                                       n_phis = 1,
+                                       zi_fixed = ~ 1)
+```
+
+
+
+
+\clearpage
+
+
+# Model Fruit
+
+```{r}
+df_long %>% 
+  dplyr::filter(!is.na(fruit)) %>%
+  dplyr::group_by(group, time_lab) %>% 
+  dplyr::summarise(N = n(),
+                   M = mean(fruit),
+                   SD = sd(fruit),
+                   n = sum(fruit > 0),
+                   p = 100*n/N) %>% 
+  pander::pander(caption = "Summary Statistics for Fruit Consumption")
+```
+
+
+\clearpage
+
+## Logistic GLMM
+
+
+### Fit the Model
+
+```{r}
+fit_fruit_logit_1 <- lme4::glmer(I(value > 0) ~ group*time_lab + grade +
+                               (1|id)  ,
+                             data = df_longer %>% 
+                               dplyr::filter(measure %in% c("fruit")),
+                           family = binomial(link = "logit"))
+```
+
+### Parameter Estimates
+
+```{r}
+texreg::knitreg(list(fit_fruit_logit_1,
+                     texreghelpr::extract_glmer_exp(fit_fruit_logit_1)),
+                custom.model.names = c("b (SE)", "OR [95%]"),
+                single.row = TRUE,
+                ci.test = 1,
+                caption = "Logistic GLMM: Any Fruit Consumed?")
+```
+
+### Post Hoc Tests
+
+```{r}
+effects::Effect(focal.predictors = c("group",
+                                     "time_lab"),
+                mod = fit_fruit_logit_1) %>% 
+  data.frame() %>% 
+  dplyr::arrange(group, time_lab)
+```
+
+
+```{r}
+fit_fruit_logit_1 %>% 
+  emmeans::emmeans(~ group | time_lab ) %>% 
+  pairs()
+```
+
+
+### Plot the Marginal Model
+
+```{r}
+effects::Effect(focal.predictors = c("time_lab",
+                                     "group"),
+                mod = fit_fruit_logit_1) %>% 
+  data.frame() %>% 
+  dplyr::mutate(group = forcats::fct_rev(group)) %>% 
+  dplyr::mutate(time_lab = time_lab %>% 
+                  factor(levels = c("Baseline",
+                                    "Post-Intervention",
+                                    "Follow-up"))) %>% 
+  ggplot(aes(x = time_lab,
+             y = fit,
+             group = group)) +
+  geom_errorbar(aes(ymin = lower,
+                    ymax = upper),
+                width = .25,
+                position = position_dodge(width = .2)) +
+  geom_point(aes(shape = group),
+             size = 3,
+                position = position_dodge(width = .2)) +
+  geom_line(aes(linetype = group),
+                position = position_dodge(width = .2)) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Predicted Proportion Consuming Fruit",
+       shape = NULL,
+       linetype = NULL) +
+  theme(legend.background = element_rect(color = "black"),
+        legend.position = c(0, 0),
+        legend.justification = c(-0.1, -0.1),
+        legend.key.width = unit(2, "cm")) +
+  scale_y_continuous(labels = scales::percent)
+```
+
+
+
+
+
+
+\clearpage
+
+## Intake: Fruit
+
+### Fit Model
+
+* 2-way interaction
+* control for the main effect of grade
+
+
+
+```{r}
+fit_fruit_1 <- lmerTest::lmer(value ~ group*time_lab + grade + 
+                               (1|school/id)  ,
+                             data = df_longer %>% 
+                               dplyr::filter(measure %in% c("fruit")),
+                           REML = FALSE)
+```
+
+
+
+
+
+### Residual diagnostics
+
+
+
+```{r}
+sjPlot::plot_model(fit_fruit_1, 
+                   type = "diag")
+```
+
+
+
+
+### Signifiance of Terms
+
+```{r}
+anova(fit_fruit_1)
+```
+
+
+```{r}
+ranova(fit_fruit_1)
+```
+
+### Parameter Estimates
+
+```{r}
+summary(fit_fruit_1)
+```
+
+
+
+
+
+\clearpage
+
+## Fruit & Veg
+
+### Fit Model
+
+* 3-way interaction
+* control for the main effect of grade
+
+```{r}
+fit_m1_1ml <- lmerTest::lmer(value ~ group*time_lab*measure + grade + 
+                               (1|school/id)  ,
+                             data = df_longer %>% 
+                               dplyr::filter(measure %in% c("fruit", "veg")),
+                           REML = FALSE)
+```
+
+
+### Signifiance of Terms
+
+```{r}
+anova(fit_m1_1ml)
+```
+
+
+```{r}
+ranova(fit_m1_1ml)
+```
+
+### Parameter Estimates
+
+```{r}
+texreg::knitreg(fit_m1_1ml,
+                single.row = TRUE)
+```
+
+### Plot Marginal Model
+
+```{r}
+effects::Effect(focal.predictors = c("group", "time_lab", "measure"),
+                mod = fit_m1_1ml) %>% 
+  data.frame() %>% 
+  dplyr::mutate(time_lab = time_lab %>% 
+                  factor(levels = c("Baseline",
+                                    "Post-Intervention",
+                                    "Follow-up"))) %>% 
+  ggplot(aes(x = time_lab,
+             y = fit,
+             group = group,
+             color = group)) +
+  geom_point(position = position_dodge(width = .2)) +
+  geom_line(aes(linetype = group),
+            position = position_dodge(width = .2)) +
+  geom_errorbar(aes(ymin = fit - se,
+                    ymax = fit + se),
+                width = .3,
+                position = position_dodge(width = .2)) +
+  theme_bw() +
+  facet_wrap(. ~ measure, scale = "free_y") +
+  labs(x = NULL,
+       y = "Comsumption") +
+  theme(legend.position = "bottom")
+```
+
+### Post Hoc Pairwise Tests: Intervention vs. Control### Post Hoc Pairwise Tests
+```{r}
+fit_m1_1ml %>% 
+  emmeans::emmeans(~ group | time_lab + measure) %>% 
+  pairs()
+```
+
+texreg::knitreg(fit_m1_Fml,
+                single.row = TRUE)
+```
+
+
+### Plot Marginal Model
+
+```{r}
+effects::Effect(focal.predictors = c("group", "time_lab"),
+                mod = fit_m1_Fml) %>% 
+  data.frame() %>% 
+  dplyr::mutate(time_lab = time_lab %>% 
+                  factor(levels = c("Baseline",
+                                    "Post-Intervention",
+                                    "Follow-up"))) %>% 
+  ggplot(aes(x = time_lab,
+             y = fit,
+             group = group,
+             color = group)) +
+  geom_point(position = position_dodge(width = .2)) +
+  geom_line(aes(linetype = group),
+            position = position_dodge(width = .2)) +
+  geom_errorbar(aes(ymin = fit - se,
+                    ymax = fit + se),
+                width = .3,
+                position = position_dodge(width = .2)) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Comsumption") +
+  theme(legend.position = "bottom")
+```
+
+\clearpage
+
+## Veg Only
+
+### Fit Model
+
+* 2-way interaction
+* control for the main effect of grade
+
+```{r}
+fit_m1_Vml <- lmerTest::lmer(value ~ group*time_lab + grade + 
+                               (1|school/id)  ,
+                             data = df_longer %>% 
+                               dplyr::filter(measure %in% c("veg")),
+                           REML = FALSE)
+```
+
+
+### Signifiance of Terms
+
+```{r}
+anova(fit_m1_Vml)
+```
+
+
+```{r}
+ranova(fit_m1_Vml)
+```
+
+### Parameter Estimates
+
+```{r}
+texreg::knitreg(fit_m1_Vml,
+                single.row = TRUE)
+```
+
+
+
+### Plot Marginal Model
+
+
+
+```{r}
+effects::Effect(focal.predictors = c("group", "time_lab"),
+                mod = fit_m1_Fml) %>% 
+  data.frame() %>% 
+  dplyr::mutate(time_lab = time_lab %>% 
+                  factor(levels = c("Baseline",
+                                    "Post-Intervention",
+                                    "Follow-up"))) %>% 
+  ggplot(aes(x = time_lab,
+             y = fit,
+             group = group,
+             color = group)) +
+  geom_point(position = position_dodge(width = .2)) +
+  geom_line(aes(linetype = group),
+            position = position_dodge(width = .2)) +
+  geom_errorbar(aes(ymin = fit - se,
+                    ymax = fit + se),
+                width = .3,
+                position = position_dodge(width = .2)) +
+  theme_bw() +
+  labs(x = NULL,
+       y = "Comsumption") +
+  theme(legend.position = "bottom")
+```
+
+
+### Post Hoc Pairwise Tests
+
+```{r}
+fit_m1_Vml %>% 
+  emmeans::emmeans(~ group | time_lab) %>% 
+  pairs()
+```
+

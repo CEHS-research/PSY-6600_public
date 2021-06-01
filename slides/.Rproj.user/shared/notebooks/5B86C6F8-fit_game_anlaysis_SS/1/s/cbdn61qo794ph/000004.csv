@@ -1,0 +1,9 @@
+"0","fit_veg_logit_1 <- lme4::glmer(I(veg > 0) ~ group*time_lab  + grade + school +
+                               (1|id)  ,
+                             data = df_long %>% 
+                               dplyr::filter(!is.na(veg)),
+                           family = binomial(link = ""logit""))
+"
+"2","fixed-effect model matrix is rank deficient so dropping 1 column / coefficient
+"
+"2","Model failed to converge with max|grad| = 0.959799 (tol = 0.002, component 1)"

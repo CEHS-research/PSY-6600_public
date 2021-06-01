@@ -39,7 +39,7 @@ class: center, middle
 ## Compare Two Means 
 
 
-### Independent Groups *t*-Test
+### Independent Groups *t*-Test (Chap. 7)
 
 - Assumes two .bluer["Simple Random Samples"] (SRS)
 
@@ -53,7 +53,7 @@ class: center, middle
 
 &lt;br&gt;&lt;br&gt;
 
-### Dependent Groups *t*-Test
+### Dependent Groups *t*-Test (Chap. 11)
 
 - The assumption of .dcoral[**independence**] has been VIOLATED, resulting in a .nicegreen[**DEPENDENCY*]* across groups
 
@@ -66,21 +66,21 @@ class: center, middle
 
 ## "All models are wrong, some models are useful."
 
-The first record of .nicegreen[George Box] saying **"all models are wrong"** is in a 1976 paper published in the *Journal of the American Statistical Association*. The 1976 paper contains the aphorism twice. The two sections of the paper that contain the aphorism are copied below.
+The first record of .nicegreen[George Box] saying .dcoral[**"all models are wrong"**] is in a 1976 paper published in the *Journal of the American Statistical Association*. The 1976 paper contains the aphorism twice. The two sections of the paper that contain the aphorism are copied below.
 
 &lt;br&gt;
 
 --
 **Parsimony**
 
-Since all models are wrong the scientist cannot obtain a "correct" one by excessive elaboration. On the contrary following .nicegreen[William of Occam] he should seek an economical description of natural phenomena. Just as the ability to devise .dcoral[simple but evocative models] is the signature of the great scientist so .bluer[overelaboration] and .bluer[overparameterization] is often the mark of mediocrity.
+Since all models are wrong the scientist cannot obtain a "correct" one by excessive elaboration. On the contrary following .nicegreen[William of Occam] he should seek an economical description of natural phenomena. Just as the ability to devise .dcoral[**simple but evocative models**] is the signature of the great scientist so .bluer[overelaboration] and .bluer[overparameterization] is often the mark of mediocrity.
 
 
 --
 
 **Worrying Selectively**
 
-Since all models are wrong the scientist must be alert to .dcoral[what is importantly wrong]. It is inappropriate to be concerned about mice when there are tigers abroad.
+Since all models are wrong the scientist must be alert to .dcoral[**what is importantly wrong*]**. It is inappropriate to be concerned about mice when there are tigers abroad.
 
 
 --
@@ -92,29 +92,29 @@ Since all models are wrong the scientist must be alert to .dcoral[what is import
 
 ---
 
-**Observational - Longitudinal Repeated Measures: Collect Same Measure Before-and-After**
+.bluer[**Observational - Longitudinal Repeated Measures: Collect Same Measure Before-and-After**]
 
-Dr. Filburn wishes to assess the **effectiveness** of a leadership workshop for 60 middle managers. The 60 managers are rated by their immediate supervisors on the Leadership Rating Form (LRF), .coral[before] **and** .nicegreen[after] the workshop.
-
-
---
-
-**Observational - Repeated Measures: Simultaneously Collected Different Measures**
-
-Dr. Clarke is interested in determining if workers are more concerned with job security **or** pay. He gains the cooperation of 30 individuals who work in different settings and asks each employee to rate his or her concern about .coral[salary level] **and** .nicegreen[job security], on a scale from 1 to 10.
+Dr. Filburn wishes to assess the **effectiveness** of a leadership workshop for 60 middle managers. The 60 managers are rated by their immediate supervisors on the Leadership Rating Form, .coral[**BEFORE**] **and** .nicegreen[**AFTER**] the workshop.
 
 
 --
 
-**Observational - Pairs: Pre-existing**
+.bluer[**Observational - Repeated Measures: Simultaneously Collected Different Measures**]
 
-Dr. Gale questions whether husbands **or** wives with infertility problems feel equally anxious. She recruits 24 infertile couples and then administers the Infertility Anxiety Measure (IAM) to both the .coral[husbands] **and** the .nicegreen[wives].
+Dr. Clarke is interested in determining if workers are more concerned with job security **or** pay. He gains the cooperation of 30 individuals who work in different settings and asks each employee to rate his or her concern about **BOTH**.coral[**SALARY LEVEL**] **and** .nicegreen[**JOB SECURITY**], on a scale from 1 to 10.
+
 
 --
 
-**Experimental - Matched Pairs: Randomized within dyads**
+.bluer[**Observational - Pairs: Pre-existing**]
 
-Dr. Smith has developed a new strategy for teaching fractions to second graders.  **Before** assigning the 30 students to receive group instruction either by the .coral[old way] **and** .nicegreen[new way], the researcher first matches the students into pairs with similar prior math achievement.  One randomly selected student in each pair is selected to receive the new method while the other is taught be the old method.
+Dr. Gale questions whether husbands **or** wives with infertility problems feel equally anxious. She recruits 24 infertile couples and then administers the Infertility Anxiety Measure (IAM) to both the .coral[**HUSBANDS**] **and** the .nicegreen[**WIVES**].
+
+--
+
+.bluer[**Experimental - Matched Pairs: Randomized within dyads**]
+
+Dr. Smith has developed a new strategy for teaching fractions to second graders.  **Before** assigning the 30 students to receive group instruction either by **BOTH** the .coral[**OLD WAY**] **and** .nicegreen[**NEW WAY**], the researcher first **MATCHES** the students into pairs with similar prior math achievement.  One randomly selected student in each **PAIR** is selected to receive the new method while the other is taught be the old method.
 
 
 
@@ -130,8 +130,11 @@ Dr. Smith has developed a new strategy for teaching fractions to second graders.
 
 &gt; What is the difference from an independent groups *t*-Test?
 
+
+--
+
 .pull-left[
-**Incorporation of Correlation**
+**1) Incorporation of Correlation**
 
 
 - eliminates variance from .dcoral[extraneous factors]
@@ -141,27 +144,27 @@ Dr. Smith has developed a new strategy for teaching fractions to second graders.
 - The denominator of the *t*-statistic is smaller
 
 
-**observed *t* value =  MORE EXTREME**
+.nicegreen[**observed *t* value =  MORE EXTREME**]
 
 ]
 
 --
 
 .pull-right[
-**Reduction in Degrees of Freedom**
+**2) Reduction in Degrees of Freedom**
 
 Sample size is the number of .dcoral[PAIRS] not the number of observations.
 
 - The degrees of freedom are half
 
-**critical *t* = little more extreme**
+.nicegreen[**critical *t* = little more extreme**]
 
 ]
 
 --
 
 
-.nicegreen[.large[
+dcoral[.large[
 &gt; **IF** there is correlation...  
 &gt;   
 &gt; **THEN** a matched/paired *t*-Test is more **powerful** than ignoring the correlation and erroneously performing an independent-groups *t*-Test.
@@ -171,7 +174,7 @@ Sample size is the number of .dcoral[PAIRS] not the number of observations.
 ---
 
 
-## Observational Studies
+## Observational Studies: 
 
 .dcoral[**Pre-existing Pairs**] - naturally *related*, *correlated*, or *dependent* based on the .nicegreen[**nature of the situation**]
 
@@ -212,7 +215,7 @@ Sample size is the number of .dcoral[PAIRS] not the number of observations.
 &lt;img src="figures/pretest_posttest_boxes.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 .large[
-&gt; Because there is .nicegreen[**No control group**]and .nicegreen[**Only 2 time points**]
+&gt; There is .nicegreen[**No control group**] and .nicegreen[**Only 2 time points**]
 ]
 
 - .dcoral[History] – Experiences outside the study may affects the measurements before and after a treatment
@@ -256,7 +259,7 @@ Sample size is the number of .dcoral[PAIRS] not the number of observations.
 
 
 
-**Why Bother?**
+.nicegreen[**Why Bother?**]
 
 Both "groups" are made up of the same participants, so in a way .nicegreen[each subject acts as their own control].
 
@@ -268,7 +271,7 @@ Both "groups" are made up of the same participants, so in a way .nicegreen[each 
 
 &lt;br&gt;
 
-**Potential Problems**
+.nicegreen[**Potential Problems**]
 
 Each study .dcoral[participant is required to do twice as much].  This can lead to .nicegreen[fatigue and attrition].
 
@@ -320,7 +323,7 @@ For example, a lot of outcomes are gender and age specific. Therefore, matching 
 - You can not randomize subjects in rolling-enrollment.  You must .dcoraql[wait] till all subjects are enrolled and you have gathered the matching variables BEFORE you can randomize into groups.
 
 .large[
-&gt; Picking the wrong matching variables is problematic as it is .dcoral[**irreversible**]. In other words, we CANNOT explore alternative causal hypotheses since the design is definitive and CANNOT be changed.
+&gt; .dcoral[Picking the wrong matching variables is problematic as it is **IRREVERSIBLE**. In other words, we CANNOT explore alternative causal hypotheses since the design is definitive and CANNOT be changed.]
 ]
 ---
 
@@ -431,7 +434,7 @@ cancer_raw &lt;- haven::read_spss("cancer.sav")
 
 
 
---
+
 ### And Clean It
 
 
@@ -456,51 +459,50 @@ cancer_clean &lt;- cancer_raw %&gt;%
 
 &gt; IGNORE all other variables and other time points for now...
 
-<div id="htmlwidget-c876ed22b9d11e522578" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-c876ed22b9d11e522578">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"],["1","5","6","9","11","15","21","26","31","35","39","41","45","2","12","14","16","22","24","34","37","42","44","50","58"],["Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice"],[52,77,60,61,59,69,67,56,61,51,46,65,67,46,56,42,44,27,68,77,86,73,67,60,54],[124,160,136.5,179.6,175.8,167.6,186,158,212.8,189,149,157,186,163.8,227.2,162.6,261.4,225.4,226,164,140,181.5,187,164,172.8],["2","1","4","1","2","1","1","3","1","1","4","1","1","2","4","1","2","1","4","2","1","0","1","2","4"],[6,9,7,6,6,6,6,6,6,6,7,6,8,7,6,4,6,6,12,5,6,8,5,6,7],[6,6,9,7,7,6,11,11,9,4,8,6,8,16,10,6,11,7,11,7,7,11,7,8,8],[6,10,17,9,16,6,11,15,6,8,11,9,9,9,11,8,11,6,12,13,7,16,7,16,10],[7,9,19,3,13,11,10,15,8,7,11,6,10,10,9,7,14,6,9,12,7,null,7,null,8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>trt<\/th>\n      <th>age<\/th>\n      <th>weighin<\/th>\n      <th>stage<\/th>\n      <th>totalcin<\/th>\n      <th>totalcw2<\/th>\n      <th>totalcw4<\/th>\n      <th>totalcw6<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[3,4,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3c64e401ba194037e973" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3c64e401ba194037e973">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"],["1","5","6","9","11","15","21","26","31","35","39","41","45","2","12","14","16","22","24","34","37","42","44","50","58"],["Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Placebo","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice","Aloe Juice"],[52,77,60,61,59,69,67,56,61,51,46,65,67,46,56,42,44,27,68,77,86,73,67,60,54],[124,160,136.5,179.6,175.8,167.6,186,158,212.8,189,149,157,186,163.8,227.2,162.6,261.4,225.4,226,164,140,181.5,187,164,172.8],["2","1","4","1","2","1","1","3","1","1","4","1","1","2","4","1","2","1","4","2","1","0","1","2","4"],[6,9,7,6,6,6,6,6,6,6,7,6,8,7,6,4,6,6,12,5,6,8,5,6,7],[6,6,9,7,7,6,11,11,9,4,8,6,8,16,10,6,11,7,11,7,7,11,7,8,8],[6,10,17,9,16,6,11,15,6,8,11,9,9,9,11,8,11,6,12,13,7,16,7,16,10],[7,9,19,3,13,11,10,15,8,7,11,6,10,10,9,7,14,6,9,12,7,null,7,null,8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>trt<\/th>\n      <th>age<\/th>\n      <th>weighin<\/th>\n      <th>stage<\/th>\n      <th>totalcin<\/th>\n      <th>totalcw2<\/th>\n      <th>totalcw4<\/th>\n      <th>totalcw6<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[3,4,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
 
 ### Example 1) Data Wrangling - Create a "DIFFERENCE" score
 
-- a.k.a. "CHANGE SCORE" (restrict to complete data)
-
-&gt; One line PER PERSON...time points side-by-side on the same line
+&gt; .bluer[One line PER PERSON...time points side-by-side on the same line]
 
 
 ```r
 cancer_new &lt;- cancer_clean %&gt;% 
-  dplyr::mutate(totalc_diff = totalcw6 - totalcin) %&gt;% 
-  dplyr::filter(complete.cases(totalcin, totalcw6)) %&gt;% 
-  dplyr::select(id, totalcin, totalcw6, totalc_diff)
+  dplyr::mutate(`totalc_diff = totalcw6 - totalcin`) %&gt;%   # gain score = difference
+  dplyr::filter(complete.cases(totalcin, totalcw6)) %&gt;%   # Requires complete data
+  dplyr::select(id, totalcin, totalcw6, `totalc_diff`)
 ```
 
-<div id="htmlwidget-99a9ef2717845c7be3f5" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-99a9ef2717845c7be3f5">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"],["1","5","6","9","11","15","21","26","31","35","39","41","45","2","12","14","16","22","24","34","37","44","58"],[6,9,7,6,6,6,6,6,6,6,7,6,8,7,6,4,6,6,12,5,6,5,7],[7,9,19,3,13,11,10,15,8,7,11,6,10,10,9,7,14,6,9,12,7,7,8],[1,0,12,-3,7,5,4,9,2,1,4,0,2,3,3,3,8,0,-3,7,1,2,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>totalcin<\/th>\n      <th>totalcw6<\/th>\n      <th>totalc_diff<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+
+
+<div id="htmlwidget-98b7d7aacc7f5ff6cfeb" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-98b7d7aacc7f5ff6cfeb">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23"],["1","5","6","9","11","15","21","26","31","35","39","41","45","2","12","14","16","22","24","34","37","44","58"],[52,77,60,61,59,69,67,56,61,51,46,65,67,46,56,42,44,27,68,77,86,67,54],[124,160,136.5,179.6,175.8,167.6,186,158,212.8,189,149,157,186,163.8,227.2,162.6,261.4,225.4,226,164,140,187,172.8],[6,9,7,6,6,6,6,6,6,6,7,6,8,7,6,4,6,6,12,5,6,5,7],[7,9,19,3,13,11,10,15,8,7,11,6,10,10,9,7,14,6,9,12,7,7,8],[1,0,12,-3,7,5,4,9,2,1,4,0,2,3,3,3,8,0,-3,7,1,2,1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>age<\/th>\n      <th>weighin<\/th>\n      <th>totalcin<\/th>\n      <th>totalcw6<\/th>\n      <th>totalc_diff<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
 
 ### Example 1) Data Wrangling - Restructure to "LONG" format
 
-&gt; One line PER TIME POINT per person...each person will have TWO lines
+&gt; .bluer[One line PER TIME POINT per person...each person will have TWO lines]
 
 
 ```r
 cancer_long &lt;- cancer_new %&gt;% 
-  tidyr::pivot_longer(cols = c(totalcin, totalcw6),
-                      names_to = c(".value", "time"),
+  tidyr::pivot_longer(cols = c(`totalcin`, `totalcw6`),
+                      names_to = c(".value", `"time"`),
                       names_pattern = "(.*)(..)") %&gt;% 
   dplyr::mutate(time = factor(time) %&gt;% 
-                  forcats::fct_recode("Intake" = "in",
-                                      "Week 6" = "w6"))
+                  forcats::fct_recode("Intake" = "in", "Week 6" = "w6"))
 ```
 
 
 
-<div id="htmlwidget-0c04616ff578f1eaa923" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-0c04616ff578f1eaa923">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46"],["1","1","5","5","6","6","9","9","11","11","15","15","21","21","26","26","31","31","35","35","39","39","41","41","45","45","2","2","12","12","14","14","16","16","22","22","24","24","34","34","37","37","44","44","58","58"],[1,1,0,0,12,12,-3,-3,7,7,5,5,4,4,9,9,2,2,1,1,4,4,0,0,2,2,3,3,3,3,3,3,8,8,0,0,-3,-3,7,7,1,1,2,2,1,1],["Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6"],[6,7,9,9,7,19,6,3,6,13,6,11,6,10,6,15,6,8,6,7,7,11,6,6,8,10,7,10,6,9,4,7,6,14,6,6,12,9,5,12,6,7,5,7,7,8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>totalc_diff<\/th>\n      <th>time<\/th>\n      <th>totalc<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[2,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-580de2740804d887e377" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-580de2740804d887e377">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46"],["1","1","5","5","6","6","9","9","11","11","15","15","21","21","26","26","31","31","35","35","39","39","41","41","45","45","2","2","12","12","14","14","16","16","22","22","24","24","34","34","37","37","44","44","58","58"],[52,52,77,77,60,60,61,61,59,59,69,69,67,67,56,56,61,61,51,51,46,46,65,65,67,67,46,46,56,56,42,42,44,44,27,27,68,68,77,77,86,86,67,67,54,54],[124,124,160,160,136.5,136.5,179.6,179.6,175.8,175.8,167.6,167.6,186,186,158,158,212.8,212.8,189,189,149,149,157,157,186,186,163.8,163.8,227.2,227.2,162.6,162.6,261.4,261.4,225.4,225.4,226,226,164,164,140,140,187,187,172.8,172.8],["Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6","Intake","Week 6"],[6,7,9,9,7,19,6,3,6,13,6,11,6,10,6,15,6,8,6,7,7,11,6,6,8,10,7,10,6,9,4,7,6,14,6,6,12,9,5,12,6,7,5,7,7,8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>id<\/th>\n      <th>age<\/th>\n      <th>weighin<\/th>\n      <th>time<\/th>\n      <th>totalc<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":5,"columnDefs":[{"className":"dt-right","targets":[2,3,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[5,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 
 ---
@@ -525,7 +527,7 @@ cancer_long &lt;- cancer_new %&gt;%
 
 &gt; Ignores pairing!
 
-&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-17-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -542,9 +544,9 @@ cancer_long &lt;- cancer_new %&gt;%
 
 **Line Plot for Paired t-Test**
  
-&gt; Is there a Mean Difference?  Looks like yes
+&gt; Is there a Mean Difference?  
 
-&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-18-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -552,9 +554,9 @@ cancer_long &lt;- cancer_new %&gt;%
 
 **Scatter Plot for Correlation/Regression**
  
-&gt; Is there a Correlation? Looks like no
+&gt; Is there a Correlation? 
 
-&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -569,7 +571,7 @@ cancer_long &lt;- cancer_new %&gt;%
 
 **Histogram of Change in Scores**
 
-&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-22-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -580,7 +582,7 @@ cancer_long &lt;- cancer_new %&gt;%
 
 **Boxplot of Change in Scores**
 
-&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-21-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="ch11_matched_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -599,11 +601,12 @@ cancer_long &lt;- cancer_new %&gt;%
 
 ```r
 cancer_new %&gt;% 
-  furniture::table1("Pre" = totalcin, 
-                    "Post" = totalcw6,
+  `furniture::table1`("Pre"    = totalcin, 
+                    "Post"   = totalcw6,
                     "Change" = totalc_diff,
                     digits = 2)
 ```
+
 
 ```
 
@@ -618,8 +621,6 @@ cancer_new %&gt;%
         3.00 (3.68)      
 --------------------------
 ```
-
-
 ]
 
 --
@@ -631,9 +632,10 @@ cancer_new %&gt;%
 
 ```r
 cancer_new %&gt;% 
-  cor.test(~ totalcin + totalcw6,
+  `cor.test`(`~` totalcin `+` totalcw6,
            data = .)
 ```
+
 
 ```
 
@@ -649,6 +651,7 @@ sample estimates:
 0.09786664 
 ```
 
+
 ]
 
 
@@ -662,8 +665,8 @@ sample estimates:
 
 ```r
 cancer_new %&gt;% 
-  dplyr::pull(totalc_diff) %&gt;% 
-  t.test(mu = 0)
+  `dplyr::pull`(totalc_diff) %&gt;% 
+  `t.test`(`mu = 0`)
 ```
 
 --
@@ -685,13 +688,12 @@ mean of x
 
 
 
+
+.dcoral[**Interpretation**]
+
 --
 
-**Interpretation**
-
---
-
-&gt; The 23 participants' oral condition was measured as intake (*M* = 6.48, *SD* = 1.56) and re-evaluated six weeks later (*M* = 9.48, *SD* = 3.49).  A paired samples t-Test on the repeated measures (*r* = .098) found a this to be a statistically significantly deterioration, *t*(22) = 3.91, *p* &lt; .001, 95% *CI* [1.41, 4.59].
+&gt; The 23 participants' oral condition was measured as intake .nicegreen[(*M* = 6.48, *SD* = 1.56)] and re-evaluated six weeks later .nicegreen[(*M* = 9.48, *SD* = 3.49)].  A paired samples t-Test on the repeated measures .nicegreen[(*r* = .098, *p* = .657)] found a this to be a statistically significantly deterioration, .dcoral[*t*(22) = 3.91, *p* &lt; .001, 95% *CI* [1.41, 4.59]].
 
 
 ---
@@ -702,9 +704,9 @@ mean of x
 
 ```r
 cancer_long %&gt;% 
-  t.test(totalc ~ time,  # DV_cont ~ IV_time
+  `t.test`(totalc `~` time,  # DV_cont ~ IV_time
          data = .,
-         paired = TRUE)
+         `paired = TRUE`)
 ```
 ]
 
@@ -728,13 +730,12 @@ mean of the differences
 ]
 
 
+
+.dcoral[**Interpretation**]
+
 --
 
-**Interpretation**
-
---
-
-&gt; The 23 participants' oral condition was measured as intake (*M* = 6.48, *SD* = 1.56) and re-evaluated six weeks later (*M* = 9.48, *SD* = 3.49).  A paired samples t-Test on the repeated measures (*r* = .098) found a this to be a statistically significantly deterioration, *t*(22) = 3.91, *p* &lt; .001, 95% *CI* [1.41, 4.59].
+&gt; The 23 participants' oral condition was measured as intake .nicegreen[(*M* = 6.48, *SD* = 1.56)] and re-evaluated six weeks later .nicegreen[(*M* = 9.48, *SD* = 3.49)].  A paired samples t-Test on the repeated measures .nicegreen[(*r* = .098, *p* = .657)] found a this to be a statistically significantly deterioration, .dcoral[*t*(22) = 3.91, *p* &lt; .001, 95% *CI* [1.41, 4.59]].
 
 
 .dcoral[**NOTE** *We usually report positive values for the test statistic (t), as well as the confidence interval values.*]
@@ -746,25 +747,26 @@ mean of the differences
 
 ### Example 1) 1-Sided Alternative and CIs
 
-.pull-leftsmall[
+.pull-left[
+.nicegreen[**Two-sided Alterative**]
 
 ```r
 cancer_long %&gt;% 
   t.test(totalc ~ time, 
          data = .,
-         alternative = "two.sided",
+         `alternative = "two.sided"`,
          paired = TRUE)
 ```
 
 
-&lt;br&gt;&lt;br&gt;
+.nicegreen[**One-sided Alterative**]
 
 
-```r
+```re
 cancer_long %&gt;% 
   t.test(totalc ~ time,
          data = .,
-         alternative = "less",
+         `alternative = "less"`,
          paired = TRUE)
 ```
 
@@ -772,7 +774,7 @@ cancer_long %&gt;%
 
 ]
 
-.pull-rightbig[
+.pull-right[
 
 
 ```
@@ -816,13 +818,13 @@ mean of the differences
 --
 
 .pull-left[
-Step 1) Compute Cohen's d as IF we had independent samples
+Step 1) Compute Cohen's d as **IF** we had .nicegreen[independent samples]
 
 `$$d_{orig} = \frac{\overline{D}}{SD_{diff}}\tag{8.2}$$`
 
 
 ```r
-d =3/(3.68)   
+d = 3/(3.68)   
 d
 ```
 
@@ -836,7 +838,7 @@ d
 
 .pull-right[
 
-Step 2) Adjust for the correlation between measures (lack of independence)
+Step 2) .nicegreen[Adjust] for the correlation between measures (lack of independence)
 
 `$$d_{matched} = d_{orig} \sqrt{\frac{1}{2(1 - \rho)}}\tag{11.5}$$`
 
@@ -851,11 +853,11 @@ d*sqrt(1/(2*(1 - .098)))
 
 ]
 
---
+
 
 &lt;br&gt;&lt;br&gt;
 
-**Interpretation**
+.dcoral[**Interpretation**]
 
 --
 
@@ -885,22 +887,22 @@ d*sqrt(1/(2*(1 - .098)))
 ```
 
 
---
+
 
 &lt;br&gt;&lt;br&gt;
 
-**Interpretation**
+.dcoral[**Interpretation**]
 
 --
 
-&gt; After accounting for correlation between repeated-measures, the oral condition increased by 0.82 standard deviations. 
+After accounting for correlation between repeated-measures, the oral condition increased by 0.82 standard deviations. 
 
 
 --
 
-.dcoral[**Read the paragraph at the end of page 351 (after formula 11.6)!**]
+.nicegreen[**Read the paragraph at the end of page 351 (after formula 11.6)!**]
 
-Please correctly label your effect size!
+**.center[Please correctly label your effect size!]**
 
 
 
@@ -923,6 +925,7 @@ class: inverse, center, middle
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
 "highlightLines": true,
+"highlightSpans": true,
 "countIncrementalSlides": false,
 "ratio": "16:9"
 });

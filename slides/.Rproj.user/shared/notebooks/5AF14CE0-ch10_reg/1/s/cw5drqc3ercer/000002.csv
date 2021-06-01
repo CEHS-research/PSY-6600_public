@@ -1,7 +1,0 @@
-"0","p_2 +"
-"0","    geom_segment(aes(xend = x, yend = mean(y)),"
-"0","                 color = ""chartreuse3"") +"
-"0","  geom_text(label = ""Deviations of\nobserved Y's\nfrom the mean of Y"","
-"0","            color = ""chartreuse3"","
-"0","            x = 6.5,"
-"0","            y = 15.5)"
