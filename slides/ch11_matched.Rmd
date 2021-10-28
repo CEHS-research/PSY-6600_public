@@ -112,7 +112,7 @@ Dr. Gale questions whether husbands **or** wives with infertility problems feel 
 
 .bluer[**Experimental - Matched Pairs: Randomized within dyads**]
 
-Dr. Smith has developed a new strategy for teaching fractions to second graders.  **Before** assigning the 30 students to receive group instruction either by **BOTH** the .coral[**OLD WAY**] **and** .nicegreen[**NEW WAY**], the researcher first **MATCHES** the students into pairs with similar prior math achievement.  One randomly selected student in each **PAIR** is selected to receive the new method while the other is taught be the old method.
+Dr. Smith has developed a new strategy for teaching fractions to second graders.  **Before** assigning the 30 students to receive group instruction **EITHER** by the .coral[**OLD WAY**] **OR** .nicegreen[**NEW WAY**], the researcher **first MATCHES** the students into pairs with **similar prior math achievement**.  One randomly selected student in **each PAIR** is selected to receive the new method while the other is taught be the old method.
 
 
 
@@ -420,7 +420,7 @@ class: inverse, center, middle
 
 # Let's Apply This to the Cancer Dataset 
 
-### Testing normality in the population, based on a sample
+### Matched *t* Tests
 
 
 ---
